@@ -1,4 +1,15 @@
-import { collection, addDoc, serverTimestamp, doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  doc,
+  updateDoc,
+  where,
+  query,
+  orderBy,
+  limit,
+  getDocs,
+} from "firebase/firestore";
 import { db } from "../firebase";
 
 export type AttemptPayload = {

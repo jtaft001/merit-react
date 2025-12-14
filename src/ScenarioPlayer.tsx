@@ -9,6 +9,7 @@ import {
   updateAttempt,
   saveAttempt,
   fetchLatestAttemptForScenario,
+  fetchLatestInProgressForStudent,
   type AttemptRecord,
 } from "./services/attemptsService";
 import { getStudentForUser } from "./services/studentService";
