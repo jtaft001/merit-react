@@ -15,7 +15,7 @@ type EventRecord = {
   source?: string;
 };
 
-function formatTs(d?: Date) {
+function formatTs(d?: Date | null) {
   if (!d) return "";
   return d.toLocaleString();
 }

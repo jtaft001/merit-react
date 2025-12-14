@@ -10,6 +10,7 @@ import {
   saveAttempt,
   fetchLatestAttemptForScenario,
   fetchLatestInProgressForStudent,
+  type AttemptPayload,
   type AttemptRecord,
 } from "./services/attemptsService";
 import { getStudentForUser } from "./services/studentService";
@@ -166,6 +167,8 @@ const ScenarioPlayer: React.FC = () => {
     status?: string;
     score?: number;
     passed?: boolean;
+    currentSceneKey?: string;
+    decisions?: AttemptPayload["decisions"];
   }) => {
     if (!studentContext) return;
     try {
@@ -177,6 +180,8 @@ const ScenarioPlayer: React.FC = () => {
           status: data.status ?? "In Progress",
           score: data.score,
           passed: data.passed,
+          currentSceneKey: data.currentSceneKey,
+          decisions: data.decisions,
         });
         setSaveMessage(
           data.status === "Complete" ? "Attempt submitted." : "Progress saved."
@@ -196,6 +201,8 @@ const ScenarioPlayer: React.FC = () => {
           score: data.score,
           passed: data.passed,
           status: data.status ?? "In Progress",
+          currentSceneKey: data.currentSceneKey,
+          decisions: data.decisions,
         });
         setSaveMessage(
           data.status === "Complete" ? "Attempt submitted." : "Progress saved."
