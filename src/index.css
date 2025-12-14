@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Global select styling for better contrast */
+select {
+  color: #0f2a1b;
+  background-color: #ffffff;
+}
+select option {
+  color: #0f2a1b;
+  background-color: #ffffff;
+}
+select option:checked,
+select option:hover {
+  color: #ffffff;
+  background-color: #143821;
+}

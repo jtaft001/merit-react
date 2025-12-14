@@ -33,8 +33,14 @@ export default function LoginPage() {
         onSubmit={handleSubmit}
         style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}
       >
-        <input name="email" type="email" placeholder="Email" required />
-        <input name="password" type="password" placeholder="Password" required />
+        <input name="email" type="email" placeholder="Email" required autoComplete="email" />
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          required
+          autoComplete="current-password"
+        />
         <button type="submit">Log In</button>
       </form>
 

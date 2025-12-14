@@ -7,6 +7,11 @@ import { auth } from "./firebase";
 import LoginPage from "./LoginPage";
 import StudentTrackingPage from "./pages/StudentTrackingPage";
 import DashboardPage from "./pages/DashboardPage";
+import TimeclockPage from "./pages/TimeclockPage";
+import TimeclockDashboardPage from "./pages/TimeclockDashboardPage";
+import TimeAttendancePage from "./pages/TimeAttendancePage";
+import PayrollPage from "./pages/PayrollPage";
+import PaystubPage from "./pages/PaystubPage";
 import ScenarioPlayer from "./ScenarioPlayer";
 import ScenarioResultPage from "./pages/ScenarioResultPage";
 
@@ -60,6 +65,16 @@ function App() {
             </NavLink>
 
             <NavLink
+              to="/time-attendance"
+              className={({ isActive }) =>
+                "block px-3 py-2 rounded-xl text-sm " +
+                (isActive ? "bg-sky-500 text-white" : "text-slate-200 hover:bg-slate-800")
+              }
+            >
+              Time &amp; Attendance
+            </NavLink>
+
+            <NavLink
               to="/scenario-result"
               className={({ isActive }) =>
                 "block px-3 py-2 rounded-xl text-sm " +
@@ -76,6 +91,11 @@ function App() {
           <Routes>
             <Route path="/" element={<DashboardPage user={user} />} />
             <Route path="/students" element={<StudentTrackingPage />} />
+            <Route path="/time-attendance" element={<TimeAttendancePage />} />
+            <Route path="/timeclock" element={<TimeclockPage />} />
+            <Route path="/timeclock-live" element={<TimeclockDashboardPage />} />
+            <Route path="/payroll" element={<PayrollPage />} />
+            <Route path="/payroll/:id" element={<PaystubPage />} />
             <Route path="/scenario" element={<ScenarioPlayer />} />
             <Route path="/scenario/:id" element={<ScenarioPlayer />} />
             <Route

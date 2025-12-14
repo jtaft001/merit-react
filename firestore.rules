@@ -1,0 +1,95 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: is authenticated
+    function isAuthed() {
+      return request.auth != null;
+    }
+
+    // Helper: staff role via custom claim `staff: true`
+    function isStaff() {
+      return isAuthed() && request.auth.token.staff == true;
+    }
+
+    // timeclock (raw events) - staff only
+    match /timeclock/{docId} {
+      allow read, write: if isStaff();
+    }
+
+    // sessions & warnings - readable by authed, writable by staff
+    match /sessions/{docId} {
+      allow read: if isAuthed();
+      allow write: if isStaff();
+    }
+
+    match /warnings/{docId} {
+      allow read: if isAuthed();
+      allow write: if isStaff();
+    }
+
+    // Rewards and purchases (future)
+    match /rewards/{docId} {
+      allow read: if isAuthed();
+      allow write: if isStaff();
+    }
+
+    match /purchases/{docId} {
+      allow read: if isAuthed();
+      // Allow students to create their own purchases if needed; currently staff only.
+      allow create, update, delete: if isStaff();
+    }
+
+    // Pay periods, payroll, bank (future)
+    match /pay_periods/{docId} {
+      allow read: if isAuthed();
+      allow write: if isStaff();
+    }
+
+    match /payroll/{docId} {
+      allow read: if isAuthed();
+      allow write: if isStaff();
+    }
+
+    match /bank/{docId} {
+      allow read: if isAuthed();
+      allow write: if isStaff();
+    }
+
+    // Students
+    match /students/{docId} {
+      allow read: if isAuthed();
+      allow write: if isStaff();
+    }
+
+    // Scenario app collections (existing app behavior): allow authenticated read/write
+    match /attempts/{docId} {
+      allow read, write: if isAuthed();
+    }
+
+    match /scenarios/{docId} {
+      allow read, write: if isAuthed();
+    }
+
+    match /progress/{docId} {
+      allow read, write: if isAuthed();
+    }
+
+    match /schools/{docId} {
+      allow read, write: if isAuthed();
+    }
+
+    match /license/{docId} {
+      allow read, write: if isAuthed();
+    }
+
+    match /users/{docId} {
+      allow read, write: if isAuthed();
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
