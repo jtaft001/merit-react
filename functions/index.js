@@ -19,6 +19,7 @@ const db = admin.firestore();
 const DEFAULT_HOURLY_RATE = 15;
 const PAYROLL_LOOKBACK_DAYS = 3; // how far back to search for ended pay periods in the scheduled job
 const DEDUCTION_PER_WARNING = 5;
+const REWARD_COLLECTION = "reward_purchases";
 
 /**
  * Ingest a Google Form submission into the events collection.
@@ -284,6 +285,13 @@ async function generatePayrollForPeriod(periodId, periodData) {
     .where("dateStr", "<=", endStr)
     .get();
 
+  const rewardsSnap = await db
+    .collection(REWARD_COLLECTION)
+    .where("status", "==", "approved")
+    .where("createdAt", ">=", startDate)
+    .where("createdAt", "<=", endDate)
+    .get();
+
   const totals = new Map();
   sessionsSnap.forEach((doc) => {
     const s = doc.data();
@@ -301,6 +309,22 @@ async function generatePayrollForPeriod(periodId, periodData) {
     warningCounts.set(sid, (warningCounts.get(sid) || 0) + 1);
   });
 
+  const rewardTotals = new Map();
+  const rewardItems = new Map();
+  rewardsSnap.forEach((doc) => {
+    const r = doc.data();
+    const sid = r.studentId || "";
+    if (!sid) return;
+    const cost = typeof r.cost === "number" ? r.cost : 0;
+    rewardTotals.set(sid, (rewardTotals.get(sid) || 0) + cost);
+    const arr = rewardItems.get(sid) || [];
+    arr.push({
+      name: r.rewardName || r.rewardId || "Reward",
+      cost,
+    });
+    rewardItems.set(sid, arr);
+  });
+
   if (!totals.size) {
     console.log(`No sessions found for pay period ${periodId}`);
     return;
@@ -313,7 +337,9 @@ async function generatePayrollForPeriod(periodId, periodData) {
     const paidHours = netHours;
     const totalPay = Math.round(netHours * hourlyRate * 100) / 100;
     const warningCount = warningCounts.get(sid) || 0;
-    const deductions = warningCount * DEDUCTION_PER_WARNING;
+    const warningDeduction = warningCount * DEDUCTION_PER_WARNING;
+    const rewardDeduction = rewardTotals.get(sid) || 0;
+    const deductions = warningDeduction + rewardDeduction;
     const netPay = Math.round((totalPay - deductions) * 100) / 100;
     const docId = `${safeId}_${periodId}`;
     const ref = db.collection("payroll").doc(docId);
@@ -328,6 +354,9 @@ async function generatePayrollForPeriod(periodId, periodData) {
       netPay,
       deductions,
       warningCount,
+      warningDeduction,
+      rewardDeduction,
+      rewardItems: rewardItems.get(sid) || [],
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
   });

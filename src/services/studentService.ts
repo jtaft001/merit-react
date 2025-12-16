@@ -1,13 +1,14 @@
 import {
-	collection,
-	getDocs,
-	query,
-	where,
-	orderBy,
-	limit,
+  collection,
+  getDocs,
+  query,
+  where,
+  orderBy,
+  limit,
 } from "firebase/firestore";
 import type { User } from "firebase/auth";
 import { db } from "../firebase";
+import type { StudentDoc } from "../types/firestore";
 
 export type StudentRecord = {
 	id: string;
@@ -29,7 +30,7 @@ export async function fetchStudents(): Promise<StudentRecord[]> {
 
 	return snapshot.docs.map((doc) => ({
 		id: doc.id,
-		...doc.data(),
+		...(doc.data() as StudentDoc),
 	})) as StudentRecord[];
 }
 
@@ -69,6 +70,6 @@ export async function getStudentForUser(user: User | null): Promise<StudentRecor
 	const doc = snapshot.docs[0];
 	return {
 		id: doc.id,
-		...doc.data(),
+		...(doc.data() as StudentDoc),
 	} as StudentRecord;
 }

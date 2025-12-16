@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchPayrollReports, fetchPayrollForPeriod, type PayrollRecord } from "../services/payrollService";
 import { fetchPayPeriods, type PayPeriod } from "../services/payPeriodService";
@@ -25,17 +25,7 @@ export default function PayrollPage() {
   const [periods, setPeriods] = useState<PayPeriod[]>([]);
   const [selectedPeriod, setSelectedPeriod] = useState<string>("");
 
-  useEffect(() => {
-    void loadPeriods();
-  }, []);
-
-  useEffect(() => {
-    if (selectedPeriod) {
-      void load(selectedPeriod);
-    }
-  }, [selectedPeriod]);
-
-  async function loadPeriods() {
+  const loadPeriods = useCallback(async () => {
     try {
       const data = await fetchPayPeriods();
       setPeriods(data);
@@ -46,9 +36,9 @@ export default function PayrollPage() {
       console.error(err);
       setError("Could not load pay periods.");
     }
-  }
+  }, [selectedPeriod]);
 
-  async function load(periodId?: string) {
+  const load = useCallback(async (periodId?: string) => {
     try {
       setLoading(true);
       setError("");
@@ -60,7 +50,17 @@ export default function PayrollPage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    void loadPeriods();
+  }, [loadPeriods]);
+
+  useEffect(() => {
+    if (selectedPeriod) {
+      void load(selectedPeriod);
+    }
+  }, [selectedPeriod, load]);
 
   const periodLabel = useMemo(() => {
     const found = periods.find((p) => p.id === selectedPeriod);

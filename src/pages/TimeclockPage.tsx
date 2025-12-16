@@ -66,7 +66,18 @@ export default function TimeclockPage() {
           fetchSessionsForStudent(selectedStudent, 30, 200),
           fetchWarningsForStudent(selectedStudent, 30, 200),
         ]);
-        setSessions(sess);
+        const derived = deriveSessionsFromEvents(events, selectedStudent, 30);
+        const existingDates = new Set(sess.map((s) => s.dateStr));
+        const merged = [...sess];
+        derived.forEach((d) => {
+          if (!existingDates.has(d.dateStr)) merged.push(d);
+        });
+        merged.sort((a, b) => {
+          const ta = a.clockIn ? a.clockIn.getTime() : new Date(a.dateStr || "").getTime();
+          const tb = b.clockIn ? b.clockIn.getTime() : new Date(b.dateStr || "").getTime();
+          return tb - ta;
+        });
+        setSessions(merged);
         setWarnings(warns);
       } catch (err) {
         console.error(err);
@@ -76,7 +87,7 @@ export default function TimeclockPage() {
       }
     }
     void loadDetail();
-  }, [selectedStudent]);
+  }, [selectedStudent, events]);
 
   const students = useMemo(() => {
     const ids = new Set<string>();
@@ -262,4 +273,98 @@ export default function TimeclockPage() {
       </div>
     </div>
   );
+}
+
+function deriveSessionsFromEvents(
+  events: EventRecord[],
+  studentId: string,
+  daysBack: number
+): SessionRecord[] {
+  const since = new Date();
+  since.setDate(since.getDate() - daysBack);
+  const grouped = new Map<string, EventRecord[]>();
+  events.forEach((ev) => {
+    if (ev.studentId !== studentId) return;
+    if (ev.timestamp < since) return;
+    const ds = ev.timestamp.toISOString().slice(0, 10);
+    if (!grouped.has(ds)) grouped.set(ds, []);
+    grouped.get(ds)!.push(ev);
+  });
+
+  const results: SessionRecord[] = [];
+
+  grouped.forEach((list, dateStr) => {
+    list.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
+    let inSession = false;
+    let sessionStart: Date | null = null;
+    let inBreak = false;
+    let breakStart: Date | null = null;
+    let totalBreakMs = 0;
+    let breakCount = 0;
+
+    list.forEach((ev) => {
+      const action = (ev.action || "").toUpperCase();
+      if (action.includes("CLOCK IN")) {
+        inSession = true;
+        sessionStart = ev.timestamp;
+        inBreak = false;
+        breakStart = null;
+        totalBreakMs = 0;
+        breakCount = 0;
+      } else if (action.includes("BREAK START")) {
+        breakCount += 1;
+        if (inSession && !inBreak) {
+          inBreak = true;
+          breakStart = ev.timestamp;
+        }
+      } else if (action.includes("BREAK END")) {
+        if (inSession && inBreak && breakStart) {
+          totalBreakMs += Math.max(0, ev.timestamp.getTime() - breakStart.getTime());
+          inBreak = false;
+          breakStart = null;
+        }
+      } else if (action.includes("CLOCK OUT")) {
+        if (inSession && sessionStart) {
+          if (inBreak && breakStart) {
+            totalBreakMs += Math.max(0, ev.timestamp.getTime() - breakStart.getTime());
+          }
+          const grossMs = Math.max(0, ev.timestamp.getTime() - sessionStart.getTime());
+          const netMs = Math.max(0, grossMs - totalBreakMs);
+          results.push({
+            id: `derived-${studentId}-${dateStr}`,
+            studentId,
+            dateStr,
+            clockIn: sessionStart,
+            clockOut: ev.timestamp,
+            grossMs,
+            breakMs: totalBreakMs,
+            netMs,
+            breakCount,
+          });
+        }
+        inSession = false;
+        sessionStart = null;
+        inBreak = false;
+        breakStart = null;
+        totalBreakMs = 0;
+        breakCount = 0;
+      }
+    });
+
+    if (inSession && sessionStart) {
+      results.push({
+        id: `derived-open-${studentId}-${dateStr}`,
+        studentId,
+        dateStr,
+        clockIn: sessionStart,
+        clockOut: null,
+        grossMs: undefined,
+        breakMs: undefined,
+        netMs: undefined,
+        breakCount,
+      });
+    }
+  });
+
+  return results;
 }

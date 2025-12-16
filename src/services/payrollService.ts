@@ -42,6 +42,9 @@ export type PayrollRecord = {
   totalPay?: number;
   netPay?: number;
   deductions?: number;
+  rewardDeduction?: number;
+  warningDeduction?: number;
+  rewardItems?: { name?: string; cost?: number }[];
   createdAt?: Date | null;
 };
 

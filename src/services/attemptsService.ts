@@ -11,21 +11,10 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import type { AttemptDoc } from "../types/firestore";
 
-export type AttemptPayload = {
+export type AttemptPayload = AttemptDoc & {
   studentId: string;
-  studentName?: string;
-  scenarioId?: string;
-  scenarioTitle?: string;
-  score?: number;
-  passed?: boolean;
-  status?: string;
-  currentSceneKey?: string;
-  decisions?: Array<{
-    sceneKey: string;
-    choiceText: string;
-    points: number;
-  }>;
 };
 
 export async function saveAttempt({

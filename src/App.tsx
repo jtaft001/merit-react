@@ -12,8 +12,11 @@ import TimeclockDashboardPage from "./pages/TimeclockDashboardPage";
 import TimeAttendancePage from "./pages/TimeAttendancePage";
 import PayrollPage from "./pages/PayrollPage";
 import PaystubPage from "./pages/PaystubPage";
+import RewardsPage from "./pages/RewardsPage";
 import ScenarioPlayer from "./ScenarioPlayer";
 import ScenarioResultPage from "./pages/ScenarioResultPage";
+import ContactSalesPage from "./pages/ContactSalesPage";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -32,7 +35,15 @@ function App() {
   }
 
   if (!user) {
-    return <LoginPage />;
+    return (
+      <Router>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/contact" element={<ContactSalesPage />} />
+          <Route path="*" element={<LandingPage />} />
+        </Routes>
+      </Router>
+    );
   }
 
   return (
@@ -75,6 +86,16 @@ function App() {
             </NavLink>
 
             <NavLink
+              to="/rewards"
+              className={({ isActive }) =>
+                "block px-3 py-2 rounded-xl text-sm " +
+                (isActive ? "bg-sky-500 text-white" : "text-slate-200 hover:bg-slate-800")
+              }
+            >
+              Rewards
+            </NavLink>
+
+            <NavLink
               to="/scenario-result"
               className={({ isActive }) =>
                 "block px-3 py-2 rounded-xl text-sm " +
@@ -82,6 +103,16 @@ function App() {
               }
             >
               Scenario Result (test)
+            </NavLink>
+
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                "block px-3 py-2 rounded-xl text-sm " +
+                (isActive ? "bg-amber-500 text-white" : "text-slate-200 hover:bg-slate-800")
+              }
+            >
+              Contact Sales
             </NavLink>
           </nav>
         </aside>
@@ -96,8 +127,10 @@ function App() {
             <Route path="/timeclock-live" element={<TimeclockDashboardPage />} />
             <Route path="/payroll" element={<PayrollPage />} />
             <Route path="/payroll/:id" element={<PaystubPage />} />
+            <Route path="/rewards" element={<RewardsPage />} />
             <Route path="/scenario" element={<ScenarioPlayer />} />
             <Route path="/scenario/:id" element={<ScenarioPlayer />} />
+            <Route path="/contact" element={<ContactSalesPage />} />
             <Route
               path="/scenario-result"
               element={

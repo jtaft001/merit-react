@@ -69,17 +69,24 @@ async function main() {
     const endStr = endDate.toISOString().slice(0, 10);
     console.log(`Processing period ${periodId}: ${startStr} to ${endStr} @ $${hourlyRate}/hr`);
 
-    const sessionsSnap = await db
-      .collection("sessions")
-      .where("dateStr", ">=", startStr)
-      .where("dateStr", "<=", endStr)
-      .get();
+  const sessionsSnap = await db
+    .collection("sessions")
+    .where("dateStr", ">=", startStr)
+    .where("dateStr", "<=", endStr)
+    .get();
 
-    const warningsSnap = await db
-      .collection("warnings")
-      .where("dateStr", ">=", startStr)
-      .where("dateStr", "<=", endStr)
-      .get();
+  const warningsSnap = await db
+    .collection("warnings")
+    .where("dateStr", ">=", startStr)
+    .where("dateStr", "<=", endStr)
+    .get();
+
+  const rewardsSnap = await db
+    .collection(REWARD_COLLECTION)
+    .where("status", "==", "approved")
+    .where("createdAt", ">=", startDate)
+    .where("createdAt", "<=", endDate)
+    .get();
 
     const totals = new Map();
     sessionsSnap.forEach((doc) => {
@@ -91,38 +98,59 @@ async function main() {
     });
 
     const warningCounts = new Map();
-    warningsSnap.forEach((doc) => {
-      const w = doc.data();
-      const sid = w.studentId || "";
-      if (!sid) return;
-      warningCounts.set(sid, (warningCounts.get(sid) || 0) + 1);
+  warningsSnap.forEach((doc) => {
+    const w = doc.data();
+    const sid = w.studentId || "";
+    if (!sid) return;
+    warningCounts.set(sid, (warningCounts.get(sid) || 0) + 1);
+  });
+
+  const rewardTotals = new Map();
+  const rewardItems = new Map();
+  rewardsSnap.forEach((doc) => {
+    const r = doc.data();
+    const sid = r.studentId || "";
+    if (!sid) return;
+    const cost = typeof r.cost === "number" ? r.cost : 0;
+    rewardTotals.set(sid, (rewardTotals.get(sid) || 0) + cost);
+    const arr = rewardItems.get(sid) || [];
+    arr.push({
+      name: r.rewardName || r.rewardId || "Reward",
+      cost,
     });
+    rewardItems.set(sid, arr);
+  });
 
     const batch = db.batch();
     totals.forEach((netMs, sid) => {
       const safeId = sid.replace(/\//g, "_");
-      const netHours = netMs / 1000 / 60 / 60;
-      const paidHours = netHours;
-      const totalPay = Math.round(netHours * hourlyRate * 100) / 100;
-      const warningCount = warningCounts.get(sid) || 0;
-      const deductions = warningCount * DEDUCTION_PER_WARNING;
-      const netPay = Math.round((totalPay - deductions) * 100) / 100;
-      const docId = `${safeId}_${periodId}`;
-      const ref = db.collection("payroll").doc(docId);
-      batch.set(ref, {
-        studentId: sid,
-        studentName: sid,
-        periodId,
-        periodEnd: endDate,
-        netHours,
-        paidHours,
-        totalPay,
-        netPay,
-        deductions,
-        warningCount,
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
-      });
+    const netHours = netMs / 1000 / 60 / 60;
+    const paidHours = netHours;
+    const totalPay = Math.round(netHours * hourlyRate * 100) / 100;
+    const warningCount = warningCounts.get(sid) || 0;
+    const warningDeduction = warningCount * DEDUCTION_PER_WARNING;
+    const rewardDeduction = rewardTotals.get(sid) || 0;
+    const deductions = warningDeduction + rewardDeduction;
+    const netPay = Math.round((totalPay - deductions) * 100) / 100;
+    const docId = `${safeId}_${periodId}`;
+    const ref = db.collection("payroll").doc(docId);
+    batch.set(ref, {
+      studentId: sid,
+      studentName: sid,
+      periodId,
+      periodEnd: endDate,
+      netHours,
+      paidHours,
+      totalPay,
+      netPay,
+      deductions,
+      warningCount,
+      warningDeduction,
+      rewardDeduction,
+      rewardItems: rewardItems.get(sid) || [],
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
+  });
     await batch.commit();
     console.log(`Wrote ${totals.size} payroll docs for period ${periodId}`);
   }

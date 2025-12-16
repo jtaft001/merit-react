@@ -40,6 +40,12 @@ service cloud.firestore {
       allow create, update, delete: if isStaff();
     }
 
+    // Reward purchases (for payroll deductions and balances)
+    match /reward_purchases/{docId} {
+      allow read: if isAuthed();
+      allow write: if isStaff();
+    }
+
     // Pay periods, payroll, bank (future)
     match /pay_periods/{docId} {
       allow read: if isAuthed();

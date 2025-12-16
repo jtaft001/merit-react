@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import {
   scenarioTypes as SCENARIO_TYPES,
   scenarios as SCENARIOS,
@@ -16,43 +16,7 @@ import {
 import { getStudentForUser } from "./services/studentService";
 import { auth } from "./firebase";
 import { useNavigate } from "react-router-dom";
-
-// Tailwind-safe color map
-const COLOR_MAP: Record<
-  string,
-  { bg: string; border: string; accent: string }
-> = {
-  hypovolemic: {
-    bg: "bg-red-600",
-    border: "border-red-600",
-    accent: "text-red-400",
-  },
-  cardiogenic: {
-    bg: "bg-rose-600",
-    border: "border-rose-600",
-    accent: "text-rose-400",
-  },
-  septic: {
-    bg: "bg-amber-600",
-    border: "border-amber-600",
-    accent: "text-amber-400",
-  },
-  anaphylactic: {
-    bg: "bg-fuchsia-600",
-    border: "border-fuchsia-600",
-    accent: "text-fuchsia-400",
-  },
-  neurogenic: {
-    bg: "bg-blue-600",
-    border: "border-blue-600",
-    accent: "text-blue-400",
-  },
-  obstructive: {
-    bg: "bg-indigo-600",
-    border: "border-indigo-600",
-    accent: "text-indigo-400",
-  },
-};
+import { CATEGORY_LABELS, COLOR_MAP, PASS_THRESHOLD } from "./config/scenarioConfig";
 
 type ScenarioId = keyof typeof SCENARIOS;
 
@@ -78,8 +42,19 @@ type StudentContext = {
   studentName: string;
 };
 
+type ScenarioCategory = "shock" | "trauma";
+
+type Option = {
+  text: string;
+  next: string;
+  points: number;
+  isWrong?: boolean;
+  feedback?: string;
+};
+
 const ScenarioPlayer: React.FC = () => {
   const { id: routeScenarioId } = useParams<{ id?: string }>();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const [selectedScenario, setSelectedScenario] =
     useState<ScenarioId | null>(null);
@@ -95,6 +70,40 @@ const ScenarioPlayer: React.FC = () => {
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const [resumeMessage, setResumeMessage] = useState<string | null>(null);
   const [isResuming, setIsResuming] = useState(false);
+  const [pendingNextScene, setPendingNextScene] = useState<string | null>(null);
+  const [pendingPenalty, setPendingPenalty] = useState<number>(0);
+  const [pendingChoiceText, setPendingChoiceText] = useState<string | null>(null);
+  const initialCategory = ((): ScenarioCategory => {
+    const param = searchParams.get("category");
+    return param === "trauma" ? "trauma" : "shock";
+  })();
+  const [selectedCategory, setSelectedCategory] =
+    useState<ScenarioCategory>(initialCategory);
+  const [shuffledOptions, setShuffledOptions] = useState<Record<string, Option[]>>({});
+  const [unknownScenarioNotice, setUnknownScenarioNotice] = useState<string | null>(null);
+
+  const shuffleOptions = (options: Option[]): Option[] => {
+    const arr = [...options];
+    for (let i = arr.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  const prepareShuffledOptions = (id: ScenarioId) => {
+    const scenario = SCENARIOS[id];
+    const map: Record<string, Option[]> = {};
+    Object.entries(scenario).forEach(([sceneKey, scene]) => {
+      map[sceneKey] = shuffleOptions(scene.options as Option[]);
+    });
+    setShuffledOptions(map);
+  };
+
+  const setCategoryForScenario = (id: ScenarioId) => {
+    const meta = SCENARIO_TYPES.find((s) => s.id === id);
+    if (meta?.category) setSelectedCategory(meta.category);
+  };
 
   const resolveStudentContext = async (): Promise<StudentContext | null> => {
     try {
@@ -146,6 +155,9 @@ const ScenarioPlayer: React.FC = () => {
   const beginAttempt = async (scenarioId: ScenarioId, ctx: StudentContext) => {
     const scenarioMeta =
       SCENARIO_TYPES.find((s) => s.id === scenarioId) || null;
+    if (scenarioMeta?.category) {
+      setSelectedCategory(scenarioMeta.category);
+    }
     try {
       const id = await createAttempt({
         studentId: ctx.studentId,
@@ -169,6 +181,7 @@ const ScenarioPlayer: React.FC = () => {
     passed?: boolean;
     currentSceneKey?: string;
     decisions?: AttemptPayload["decisions"];
+    attemptedAt?: "serverTimestamp";
   }) => {
     if (!studentContext) return;
     try {
@@ -182,6 +195,7 @@ const ScenarioPlayer: React.FC = () => {
           passed: data.passed,
           currentSceneKey: data.currentSceneKey,
           decisions: data.decisions,
+          attemptedAt: data.attemptedAt,
         });
         setSaveMessage(
           data.status === "Complete" ? "Attempt submitted." : "Progress saved."
@@ -215,11 +229,12 @@ const ScenarioPlayer: React.FC = () => {
   };
 
   const resetToMenu = async () => {
-    const passed = typeof score === "number" ? score >= 80 : false;
+    const passed = typeof score === "number" ? score >= PASS_THRESHOLD : false;
     await persistProgress({
       status: currentSceneKey === "success" ? "Complete" : "In Progress",
       score,
       passed,
+      attemptedAt: "serverTimestamp",
     });
     setSelectedScenario(null);
     setCurrentSceneKey("initial");
@@ -228,9 +243,15 @@ const ScenarioPlayer: React.FC = () => {
     setShowingFeedback(false);
     setFeedbackData(null);
     setAttemptId(null);
+    setPendingNextScene(null);
+    setPendingPenalty(0);
+    setPendingChoiceText(null);
+    setShuffledOptions({});
   };
 
   const hydrateFromAttempt = (attempt: AttemptRecord, id: ScenarioId) => {
+    setCategoryForScenario(id);
+    prepareShuffledOptions(id);
     setSelectedScenario(id);
     setCurrentSceneKey(
       typeof attempt.currentSceneKey === "string" ? attempt.currentSceneKey : "initial"
@@ -244,9 +265,14 @@ const ScenarioPlayer: React.FC = () => {
     setShowingFeedback(false);
     setFeedbackData(null);
     setAttemptId(attempt.id);
+    setPendingNextScene(null);
+    setPendingPenalty(0);
+    setPendingChoiceText(null);
   };
 
   const handleScenarioSelect = async (id: ScenarioId) => {
+    setCategoryForScenario(id);
+    prepareShuffledOptions(id);
     const ctx = await resolveStudentContext();
     if (!ctx) {
       setSelectedScenario(null);
@@ -277,6 +303,9 @@ const ScenarioPlayer: React.FC = () => {
     setShowingFeedback(false);
     setFeedbackData(null);
     setAttemptId(null);
+    setPendingNextScene(null);
+    setPendingPenalty(0);
+    setPendingChoiceText(null);
     // Only create attempt if we have a real studentId
     if (ctx.studentId !== "anonymous") {
       await beginAttempt(id, ctx);
@@ -295,7 +324,9 @@ const ScenarioPlayer: React.FC = () => {
         hydrateFromAttempt(latest, sid);
         setRouteNotice(null);
         setResumeMessage(`Resumed your last in-progress attempt for '${sid}'.`);
-        navigate(`/scenario/${sid}`, { replace: true });
+        const meta = SCENARIO_TYPES.find((s) => s.id === sid);
+        const categoryParam = meta?.category || selectedCategory;
+        navigate(`/scenario/${sid}?category=${categoryParam}`, { replace: true });
         return;
       }
       setResumeMessage("No in-progress attempt found to resume.");
@@ -316,6 +347,7 @@ const ScenarioPlayer: React.FC = () => {
       const key = routeScenarioId as ScenarioId;
       if (SCENARIOS[key]) {
         setRouteNotice(`Loaded scenario '${key}' from URL`);
+        setUnknownScenarioNotice(null);
         await handleScenarioSelect(key);
         return;
       }
@@ -343,9 +375,43 @@ const ScenarioPlayer: React.FC = () => {
         `Scenario '${routeScenarioId}' not found. Choose one below to begin.`
       );
       setSelectedScenario(null);
+      setUnknownScenarioNotice(
+        `Scenario '${routeScenarioId}' not found. Select a valid shock or trauma scenario to continue.`
+      );
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [routeScenarioId]);
+
+  useEffect(() => {
+    const param = searchParams.get("category");
+    if (param === "trauma" || param === "shock") {
+      setSelectedCategory(param);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const current = searchParams.get("category");
+    if (current !== selectedCategory) {
+      const next = new URLSearchParams(searchParams);
+      next.set("category", selectedCategory);
+      setSearchParams(next, { replace: true });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    if (!selectedScenario) return;
+    const scenario = SCENARIOS[selectedScenario];
+    const scene = scenario?.[currentSceneKey as keyof typeof scenario];
+    if (!scene) return;
+    if (!shuffledOptions[currentSceneKey]) {
+      setShuffledOptions((prev) => ({
+        ...prev,
+        [currentSceneKey]: shuffleOptions(scene.options as Option[]),
+      }));
+    }
+  }, [selectedScenario, currentSceneKey, shuffledOptions]);
 
   // MAIN MENU
   if (!selectedScenario) {
@@ -354,10 +420,10 @@ const ScenarioPlayer: React.FC = () => {
         <div className="max-w-6xl mx-auto">
           <div className="bg-red-600 px-6 py-6 rounded-t-lg shadow-lg">
             <h1 className="text-3xl font-bold tracking-tight">
-              EMR Shock Scenarios
+              EMR Scenarios: Shock & Bleeding Control
             </h1>
             <p className="text-sm mt-2">
-              Choose a shock type to practice assessment and decision-making.
+              Choose a scenario to practice assessment, bleeding control, and safe decision-making.
             </p>
           </div>
 
@@ -382,6 +448,11 @@ const ScenarioPlayer: React.FC = () => {
                 {resumeMessage}
               </div>
             )}
+            {unknownScenarioNotice && (
+              <div className="mb-4 rounded-md border border-amber-400 bg-amber-500/10 px-3 py-2 text-sm text-amber-100">
+                {unknownScenarioNotice}
+              </div>
+            )}
             <div className="mb-4">
               <button
                 onClick={resumeLatestAnyScenario}
@@ -392,7 +463,32 @@ const ScenarioPlayer: React.FC = () => {
               </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {SCENARIO_TYPES.map((type) => {
+              <div className="flex flex-wrap gap-3 mb-4">
+                <button
+                  onClick={() => setSelectedCategory("shock")}
+                  className={`px-4 py-2 rounded-lg text-sm font-semibold border ${
+                    selectedCategory === "shock"
+                      ? "bg-red-600 border-red-500"
+                      : "bg-gray-700 border-gray-600 hover:bg-gray-600"
+                  }`}
+                >
+                  {CATEGORY_LABELS["shock"]}
+                </button>
+                <button
+                  onClick={() => setSelectedCategory("trauma")}
+                  className={`px-4 py-2 rounded-lg text-sm font-semibold border ${
+                    selectedCategory === "trauma"
+                      ? "bg-emerald-700 border-emerald-500"
+                      : "bg-gray-700 border-gray-600 hover:bg-gray-600"
+                  }`}
+                >
+                  {CATEGORY_LABELS["trauma"]}
+                </button>
+              </div>
+
+              {SCENARIO_TYPES.filter(
+                (type) => type.category === selectedCategory
+              ).map((type) => {
                 const colors = COLOR_MAP[type.id] ?? {
                   bg: "bg-gray-700",
                   border: "border-gray-700",
@@ -419,26 +515,39 @@ const ScenarioPlayer: React.FC = () => {
                 <ul className="space-y-1">
                   <li>• Scene size-up and safety</li>
                   <li>• Shock recognition by vital signs</li>
-                  <li>• Oxygen administration choices</li>
-                  <li>• Bleeding control priorities</li>
+                  <li>• Bleeding control escalation</li>
                   <li>• When to call ALS early</li>
-                  <li>• Patient positioning for breathing</li>
-                  <li>• Safe EMR-level decisions</li>
+                  <li>• Patient positioning and splinting basics</li>
+                  <li>• Distal circulation checks after bandaging</li>
                 </ul>
               </div>
 
               <div className="bg-gray-700 p-5 rounded-lg">
                 <h3 className="text-lg font-bold mb-3">
-                  Shock types included
+                  Available scenarios
                 </h3>
-                <ul className="space-y-1">
-                  <li>• Hypovolemic (blood loss)</li>
-                  <li>• Cardiogenic (heart pump failure)</li>
-                  <li>• Septic (severe infection)</li>
-                  <li>• Anaphylactic (severe allergy)</li>
-                  <li>• Neurogenic (spinal cord injury)</li>
-                  <li>• Obstructive (blocked heart/lung function)</li>
-                </ul>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                  <div>
+                    <p className="font-semibold text-gray-200 mb-1">Shock</p>
+                    <ul className="space-y-1">
+                      {SCENARIO_TYPES.filter((t) => t.category === "shock").map(
+                        (type) => (
+                          <li key={type.id}>• {type.name}</li>
+                        )
+                      )}
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-200 mb-1">Trauma</p>
+                    <ul className="space-y-1">
+                      {SCENARIO_TYPES.filter(
+                        (t) => t.category === "trauma"
+                      ).map((type) => (
+                        <li key={type.id}>• {type.name}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -482,8 +591,6 @@ const ScenarioPlayer: React.FC = () => {
     );
   }
 
-  type Option = (typeof scene.options)[number];
-
   const handleChoice = (option: Option) => {
     if (option.points < 0 || option.isWrong) {
       const nextScene = scenario[option.next as keyof typeof scenario];
@@ -497,6 +604,9 @@ const ScenarioPlayer: React.FC = () => {
       });
 
       setShowingFeedback(true);
+      setPendingNextScene(option.next);
+      setPendingPenalty(option.points);
+      setPendingChoiceText(option.text);
       // Persist current state as in-progress; score doesn't change here.
       void persistProgress({ status: "In Progress", score });
       return;
@@ -517,19 +627,54 @@ const ScenarioPlayer: React.FC = () => {
     setCurrentSceneKey(option.next);
 
     const isCompletion = option.next === "success";
-    const passed = newScore >= 80;
+    const passed = newScore >= PASS_THRESHOLD;
     void persistProgress({
       status: isCompletion ? "Complete" : "In Progress",
       score: newScore,
       passed: isCompletion ? passed : undefined,
       currentSceneKey: option.next,
       decisions: newDecisions,
+      attemptedAt: "serverTimestamp",
     });
   };
 
-  const handleTryAgain = () => {
+  const handleContinueAfterFeedback = () => {
+    const nextKey = pendingNextScene || currentSceneKey;
+    const penalty = pendingPenalty || 0;
+    const choiceText = pendingChoiceText;
+
+    const newScore = score + penalty;
+    const newDecisions =
+      choiceText != null
+        ? [
+            ...decisions,
+            {
+              sceneKey: currentSceneKey,
+              choiceText,
+              points: penalty,
+            },
+          ]
+        : decisions;
+
+    setScore(newScore);
+    setDecisions(newDecisions);
+    setCurrentSceneKey(nextKey);
+    setPendingNextScene(null);
+    setPendingPenalty(0);
+    setPendingChoiceText(null);
     setShowingFeedback(false);
     setFeedbackData(null);
+
+    const isCompletion = nextKey === "success";
+    const passed = newScore >= PASS_THRESHOLD;
+    void persistProgress({
+      status: isCompletion ? "Complete" : "In Progress",
+      score: newScore,
+      passed: isCompletion ? passed : undefined,
+      currentSceneKey: nextKey,
+      decisions: newDecisions,
+      attemptedAt: "serverTimestamp",
+    });
   };
 
   const handleSaveProgress = () => {
@@ -538,17 +683,19 @@ const ScenarioPlayer: React.FC = () => {
       score,
       currentSceneKey,
       decisions,
+      attemptedAt: "serverTimestamp",
     });
   };
 
   const handleSubmitAttempt = () => {
-    const passed = score >= 80;
+    const passed = score >= PASS_THRESHOLD;
     void persistProgress({
       status: "Complete",
       score,
       passed,
       currentSceneKey,
       decisions,
+      attemptedAt: "serverTimestamp",
     });
     setPlayerError(null);
   };
@@ -589,10 +736,10 @@ const ScenarioPlayer: React.FC = () => {
             </div>
 
             <button
-              onClick={handleTryAgain}
+              onClick={handleContinueAfterFeedback}
               className="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded font-semibold text-sm"
             >
-              Try again on this question
+              Continue
             </button>
 
             <button
@@ -817,10 +964,10 @@ const ScenarioPlayer: React.FC = () => {
 
           {/* Options */}
           <div className="space-y-3">
-            {scene.options.map((opt, i) => (
+            {(shuffledOptions[currentSceneKey] || scene.options).map((opt, i) => (
               <button
                 key={i}
-                onClick={() => handleChoice(opt)}
+                onClick={() => handleChoice(opt as Option)}
                 className="w-full bg-blue-600 hover:bg-blue-700 py-3 px-6 rounded text-left text-sm font-medium transition"
               >
                 {opt.text}

@@ -33,4 +33,10 @@ export type ScenarioKey =
   | "septic"
   | "anaphylactic"
   | "neurogenic"
-  | "obstructive";
+  | "obstructive"
+  | "power-tool-laceration"
+  | "arterial-thigh-bleed"
+  | "venous-leg-glass"
+  | "capillary-knee-abrasion"
+  | "bleeding-with-fracture"
+  | "tight-bandage-hand";

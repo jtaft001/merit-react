@@ -79,20 +79,11 @@ async function run() {
     for (const [scenarioKey, scenarioBody] of scenariosMap.entries()) {
       // parse scenes inside scenarioBody
       const scenes = collectTopLevelObjects(sceneBodyTrimmed(scenarioBody));
-      if (scenarioKey === 'septic') {
-        console.log('DEBUG: septic scene keys =', Array.from(scenes.keys()));
-        // print surrounding bytes for the movement key area to debug parsing
-        const s = sceneBodyTrimmed(scenarioBody);
-        const idx1 = s.indexOf("movement_error");
-        const idx2 = s.indexOf("'movement_error'");
-        const pos = idx2 !== -1 ? idx2 : idx1;
-        if (pos !== -1) {
-          const start = Math.max(0, pos - 20);
-          const snippet = s.slice(start, pos + 40);
-          console.log('DEBUG: snippet chars:', snippet.split('').map(c => `${c.charCodeAt(0)}(${c})`).join(' '));
-        }
-      }
       const sceneKeys = new Set(scenes.keys());
+      if (!sceneKeys.has("initial")) {
+        errors.push(`Scenario '${scenarioKey}' is missing an 'initial' scene.`);
+      }
+      const adjacency = new Map();
 
       for (const [sceneKey, sceneBody] of scenes.entries()) {
         // find options array inside sceneBody text
@@ -100,6 +91,7 @@ async function run() {
         if (!optMatch) continue;
         const optionsText = optMatch[1];
         const nexts = extractNextsFromOptions(optionsText);
+        adjacency.set(sceneKey, nexts.filter((n) => sceneKeys.has(n)));
         for (const nxt of nexts) {
           if (!sceneKeys.has(nxt)) {
             errors.push(`In scenario '${scenarioKey}': scene '${sceneKey}' has option.next='${nxt}' which does not match any scene key.`);
@@ -113,6 +105,29 @@ async function run() {
           if (/^["']\d+\/\d+["']$/.test(bpRaw)) {
             warnings.push(`In scenario '${scenarioKey}', scene '${sceneKey}': bp is a string (${bpRaw}). Consider using structured { systolic, diastolic }.`);
           }
+        }
+      }
+
+      // reachability from "initial"
+      if (sceneKeys.has("initial")) {
+        const visited = new Set();
+        const stack = ["initial"];
+        while (stack.length > 0) {
+          const key = stack.pop();
+          if (!key || visited.has(key)) continue;
+          visited.add(key);
+          const neighbors = adjacency.get(key) || [];
+          for (const n of neighbors) {
+            if (!visited.has(n)) stack.push(n);
+          }
+        }
+        const unreachable = Array.from(sceneKeys).filter((k) => !visited.has(k));
+        if (unreachable.length > 0) {
+          warnings.push(
+            `In scenario '${scenarioKey}': scenes unreachable from 'initial': ${unreachable.join(
+              ", "
+            )}.`
+          );
         }
       }
     }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   fetchPayrollById,
@@ -9,6 +9,11 @@ import {
   type Warning,
 } from "../services/payrollService";
 import { fetchPayPeriodById, type PayPeriod } from "../services/payPeriodService";
+import {
+  fetchRewardPurchasesForStudent,
+  type RewardPurchase,
+  fetchRewardSpendAndBalance,
+} from "../services/rewardService";
 
 function formatMoney(n?: number) {
   if (n == null || isNaN(n)) return "—";
@@ -45,6 +50,18 @@ export default function PaystubPage() {
   const [detailLoading, setDetailLoading] = useState(false);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [warnings, setWarnings] = useState<Warning[]>([]);
+  const [rewardPurchases, setRewardPurchases] = useState<RewardPurchase[]>([]);
+  const [semesterTotals, setSemesterTotals] = useState<{ gross: number; rewards: number; balance: number }>({
+    gross: 0,
+    rewards: 0,
+    balance: 0,
+  });
+
+  const semesterStart = useMemo(() => {
+    const now = new Date();
+    const year = now.getMonth() >= 7 ? now.getFullYear() : now.getFullYear() - 1; // Aug 1 start
+    return new Date(`${year}-08-01T00:00:00`);
+  }, []);
 
   useEffect(() => {
     if (!id) return;
@@ -71,40 +88,62 @@ export default function PaystubPage() {
     }
   }
 
-  useEffect(() => {
-    const startDate = period?.startDate;
-    const endDate = period?.endDate ?? record?.periodEnd ?? null;
-    if (!record?.studentId || !startDate || !endDate) {
-      setSessions([]);
-      setWarnings([]);
-      return;
-    }
-    const startStr = startDate.toISOString().slice(0, 10);
-    const endStr = endDate.toISOString().slice(0, 10);
-    void loadDetails(record.studentId, startStr, endStr);
-  }, [record?.studentId, period?.startDate, period?.endDate, record?.periodEnd]);
-
-  async function loadDetails(studentId: string, startStr: string, endStr: string) {
+  const loadDetails = useCallback(
+    async (
+    studentId: string,
+    startStr: string,
+    endStr: string,
+    startDate: Date,
+    endDate: Date
+    ) => {
     try {
       setDetailLoading(true);
-      const [sess, warns] = await Promise.all([
+      const [sess, warns, rewards, semester] = await Promise.all([
         fetchSessionsForStudentPeriod(studentId, startStr, endStr),
         fetchWarningsForStudentPeriod(studentId, startStr, endStr),
+        fetchRewardPurchasesForStudent(studentId, startDate, endDate),
+        fetchRewardSpendAndBalance(studentId, semesterStart),
       ]);
       setSessions(sess);
       setWarnings(warns);
+      setRewardPurchases(rewards);
+      setSemesterTotals({
+        gross: semester.totalGross,
+        rewards: semester.totalRewardSpend,
+        balance: semester.balance,
+      });
     } catch (err) {
       console.error(err);
       setError("Could not load session/warning details.");
     } finally {
       setDetailLoading(false);
     }
-  }
+  },
+    [semesterStart]
+  );
+
+  useEffect(() => {
+    const startDate = period?.startDate;
+    const endDate = period?.endDate ?? record?.periodEnd ?? null;
+    if (!record?.studentId || !startDate || !endDate) {
+      setSessions([]);
+      setWarnings([]);
+      setRewardPurchases([]);
+      setSemesterTotals({ gross: 0, rewards: 0, balance: 0 });
+      return;
+    }
+    const startStr = startDate.toISOString().slice(0, 10);
+    const endStr = endDate.toISOString().slice(0, 10);
+    void loadDetails(record.studentId, startStr, endStr, startDate, endDate);
+  }, [record?.studentId, period?.startDate, period?.endDate, record?.periodEnd, loadDetails]);
 
   const gross = record?.totalPay ?? record?.netPay ?? 0;
   const deductions = record?.deductions ?? 0;
+  const rewardDeduction = record?.rewardDeduction ?? 0;
+  const warningDeduction = record?.warningDeduction ?? 0;
   const net = record?.netPay ?? gross - deductions;
   const hasRange = Boolean(period?.startDate && (period?.endDate || record?.periodEnd));
+  const rewardTotal = rewardPurchases.reduce((sum, r) => sum + (r.cost || 0), 0);
 
   return (
     <div className="p-6 space-y-4">
@@ -171,6 +210,14 @@ export default function PaystubPage() {
               <div className="text-sm font-semibold text-slate-800 mb-2">Pay</div>
               <dl className="space-y-2 text-sm text-slate-700">
                 <div className="flex justify-between">
+                  <dt>Semester Gross</dt>
+                  <dd className="font-semibold text-slate-900">{formatMoney(semesterTotals.gross)}</dd>
+                </div>
+                <div className="flex justify-between text-xs text-slate-600">
+                  <dt>Semester Reward Spend</dt>
+                  <dd className="text-rose-700">{formatMoney(semesterTotals.rewards)}</dd>
+                </div>
+                <div className="flex justify-between">
                   <dt>Gross Pay</dt>
                   <dd className="font-semibold text-slate-900">{formatMoney(gross)}</dd>
                 </div>
@@ -178,11 +225,54 @@ export default function PaystubPage() {
                   <dt>Deductions</dt>
                   <dd className="text-rose-700">{formatMoney(deductions)}</dd>
                 </div>
+                {warningDeduction ? (
+                  <div className="flex justify-between text-slate-700">
+                    <dt className="text-xs">Warnings</dt>
+                    <dd className="text-xs text-rose-700">{formatMoney(warningDeduction)}</dd>
+                  </div>
+                ) : null}
+                {rewardDeduction ? (
+                  <div className="flex justify-between text-slate-700">
+                    <dt className="text-xs">Rewards</dt>
+                    <dd className="text-xs text-rose-700">{formatMoney(rewardDeduction)}</dd>
+                  </div>
+                ) : null}
                 <div className="flex justify-between border-t border-slate-200 pt-2">
                   <dt>Net Pay</dt>
                   <dd className="font-semibold text-emerald-700">{formatMoney(net)}</dd>
                 </div>
               </dl>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200">
+            <div className="flex items-center justify-between border-b border-slate-200 px-4 py-2">
+              <div>
+                <div className="text-sm font-semibold text-slate-800">Reward Purchases</div>
+                <div className="text-xs text-slate-500">Approved rewards within this pay period</div>
+              </div>
+              <span className="text-xs text-slate-500">
+                {detailLoading ? "Loading..." : formatMoney(rewardTotal)}
+              </span>
+            </div>
+            <div className="max-h-60 overflow-auto text-sm">
+              {rewardPurchases.length === 0 && !detailLoading && (
+                <div className="px-4 py-3 text-slate-500">No approved reward purchases in this period.</div>
+              )}
+              {rewardPurchases.map((r) => (
+                <div
+                  key={r.id}
+                  className="flex items-center justify-between border-b border-slate-100 px-4 py-2 last:border-b-0"
+                >
+                  <div>
+                    <div className="font-medium text-slate-800">
+                      {r.rewardName || r.rewardId || "Reward"}
+                    </div>
+                    <div className="text-xs text-slate-500">{formatDate(r.createdAt)}</div>
+                  </div>
+                  <div className="text-sm text-rose-700 font-semibold">{formatMoney(r.cost)}</div>
+                </div>
+              ))}
             </div>
           </div>
 

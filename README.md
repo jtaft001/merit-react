@@ -1,6 +1,6 @@
 # MERIT EMS Training (React + Firebase + Tailwind)
 
-Interactive shock scenarios for EMS students, with login, progress tracking, and Firestore storage.
+MERIT — Medical Education Resource and Instruction Toolkit. Interactive shock and trauma scenarios for EMS students, with login, progress tracking, and Firestore storage.
 
 ## Quick start
 - `npm install`
@@ -13,6 +13,15 @@ Interactive shock scenarios for EMS students, with login, progress tracking, and
 - `npm run preview` — preview production build
 - `npm run lint` — run eslint on the codebase
 - `npm run validate:scenarios` — sanity-check scenario graph links
+
+## Project structure (key parts)
+- `src/ScenarioPlayer.tsx`: interactive scenario runner (shock + trauma/bleeding), auto-saves attempts.
+- `src/scenarios/`: scenario content (`shock/*` plus trauma scenarios in `externalBleeding.ts`), registry in `shockScenarios.ts`.
+- `src/config/scenarioConfig.ts`: shared scenario settings (pass threshold, color map, category labels).
+- `src/services/`: Firestore access (students, attempts, etc.).
+- `src/types/`: shared types (`firestore.ts`).
+- `scripts/`: utilities (scenario validator, seeding scripts).
+- `src/pages/ContactSalesPage.tsx`: in-app “Contact Sales” form writing to `sales_leads` collection.
 
 ## Data model (Firestore)
 - `students` docs: `name`, `email`, `status` ("Active"/"Inactive"), `className`, `lastActivity` (Timestamp). Extra fields are tolerated; missing ones fall back to defaults in the UI.

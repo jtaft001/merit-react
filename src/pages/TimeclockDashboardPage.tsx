@@ -104,14 +104,24 @@ const colors = {
   gold: "#d2a52f",
   lightGold: "#e6c565",
   red: "#b3131b",
+  teal: "#0ea5e9",
   greenText: "#0f2a1b",
 };
+
+function classifyLatest(action: string) {
+  const a = (action || "").toUpperCase();
+  if (a.includes("BREAK START")) return "break";
+  if (a.includes("CLOCK OUT")) return "left";
+  if (a.includes("CLOCK IN") || a.includes("BREAK END")) return "present";
+  return "other";
+}
 
 export default function TimeclockDashboardPage() {
   const [events, setEvents] = useState<LiveEvent[]>([]);
   const [status, setStatus] = useState("loading");
   const [error, setError] = useState<string>("");
   const [students, setStudents] = useState<StudentRecord[]>([]);
+  const [now, setNow] = useState(() => Date.now());
 
   const roster = useMemo(() => {
     if (EXPECTED_STUDENT_IDS.length > 0) {
@@ -146,9 +156,6 @@ export default function TimeclockDashboardPage() {
       limitClause(1000)
     );
 
-    setStatus("loading");
-    setError("");
-
     const unsub = onSnapshot(
       q,
       (snap) => {
@@ -177,11 +184,23 @@ export default function TimeclockDashboardPage() {
     return () => unsub();
   }, []);
 
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 30000);
+    return () => clearInterval(id);
+  }, []);
+
   const todayStatus = useMemo(() => {
     const base = startOfDay(new Date());
     const windowInfo = getWindowForDate(base);
     if (!windowInfo) {
-      return { present: 0, onBreak: 0, missing: roster.length, total: roster.length, windowLabel: "No class window (weekend)" };
+      return {
+        present: 0,
+        onBreak: 0,
+        left: 0,
+        missing: roster.length,
+        total: roster.length,
+        windowLabel: "No class window (weekend)",
+      };
     }
     const todayStr = base.toISOString().slice(0, 10);
     const byStudent = new Map<string, LiveEvent>();
@@ -197,16 +216,18 @@ export default function TimeclockDashboardPage() {
 
     let present = 0;
     let onBreak = 0;
+    let left = 0;
     const total = roster.length;
 
     byStudent.forEach((ev) => {
-      const a = (ev.action || "").toUpperCase();
-      if (a.includes("BREAK START")) onBreak += 1;
-      else if (a.includes("CLOCK IN") || a.includes("BREAK END") || a.includes("CLOCK OUT")) present += 1;
+      const status = classifyLatest(ev.action || "");
+      if (status === "break") onBreak += 1;
+      else if (status === "left") left += 1;
+      else if (status === "present") present += 1;
     });
-    const missing = Math.max(0, total - (present + onBreak));
+    const missing = Math.max(0, total - (present + onBreak + left));
 
-    return { present, onBreak, missing, total, windowLabel: windowInfo.label };
+    return { present, onBreak, left, missing, total, windowLabel: windowInfo.label };
   }, [events, roster]);
 
   const weekBars = useMemo(() => {
@@ -223,7 +244,18 @@ export default function TimeclockDashboardPage() {
     });
     events.forEach((ev) => {
       const key = ev.timestamp.toISOString().slice(0, 10);
-      if (presentPerDay[key]) {
+      const dayInfo = days.find((d) => d.key === key);
+      if (!dayInfo) return;
+      const windowInfo = getWindowForDate(dayInfo.date);
+      if (windowInfo && (ev.timestamp < windowInfo.start || ev.timestamp > windowInfo.end)) return;
+      const action = (ev.action || "").toUpperCase();
+      // Count as present if they clocked in, ended a break, started a break, or clocked out within window.
+      if (
+        action.includes("CLOCK IN") ||
+        action.includes("BREAK END") ||
+        action.includes("BREAK START") ||
+        action.includes("CLOCK OUT")
+      ) {
         presentPerDay[key].add(ev.studentId || "");
       }
     });
@@ -241,6 +273,7 @@ export default function TimeclockDashboardPage() {
     const todayStr = base.toISOString().slice(0, 10);
     const present: { name: string; time: Date }[] = [];
     const onBreak: { name: string; time: Date }[] = [];
+    const left: { name: string; time: Date }[] = [];
     const missing: string[] = [];
 
     const latestToday = new Map<string, LiveEvent>();
@@ -260,45 +293,44 @@ export default function TimeclockDashboardPage() {
         missing.push(s.name || s.email || s.id);
         return;
       }
-      const a = (ev.action || "").toUpperCase();
       const displayName = s.name || s.email || s.id;
-      if (a.includes("BREAK START")) {
-        onBreak.push({ name: displayName, time: ev.timestamp });
-      } else if (a.includes("CLOCK IN") || a.includes("BREAK END") || a.includes("CLOCK OUT")) {
-        present.push({ name: displayName, time: ev.timestamp });
-      } else {
-        missing.push(displayName);
-      }
+      const status = classifyLatest(ev.action || "");
+      if (status === "break") onBreak.push({ name: displayName, time: ev.timestamp });
+      else if (status === "left") left.push({ name: displayName, time: ev.timestamp });
+      else if (status === "present") present.push({ name: displayName, time: ev.timestamp });
+      else missing.push(displayName);
     });
 
     onBreak.sort((a, b) => b.time.getTime() - a.time.getTime());
+    left.sort((a, b) => b.time.getTime() - a.time.getTime());
     present.sort((a, b) => b.time.getTime() - a.time.getTime());
     missing.sort((a, b) => a.localeCompare(b));
 
-    return { present, onBreak, missing };
+    return { present, onBreak, left, missing };
   }, [events, roster]);
 
   const breakDuration = (since?: Date) => {
     if (!since) return "";
-    const mins = Math.floor((Date.now() - since.getTime()) / 60000);
+    const mins = Math.floor((now - since.getTime()) / 60000);
     if (mins < 1) return "<1 min";
     if (mins === 1) return "1 min";
     return `${mins} mins`;
   };
 
   const pieData = useMemo(() => {
-    const { present, onBreak, missing, total } = todayStatus;
+    const { present, onBreak, left = 0, missing, total } = todayStatus;
     const segments = [
       { label: "Present", value: present, color: "#22c55e" },
       { label: "On Break", value: onBreak, color: "#f59e0b" },
+      { label: "Left", value: left, color: colors.teal },
       { label: "Absent", value: missing, color: "#94a3b8" },
     ].filter((s) => s.value > 0);
     const totalVal = segments.reduce((acc, s) => acc + s.value, 0);
     let cumulative = 0;
     const arcs = segments.map((s) => {
-      const start = (cumulative / totalVal) * 360;
+      const start = totalVal ? (cumulative / totalVal) * 360 : 0;
       cumulative += s.value;
-      const end = (cumulative / totalVal) * 360;
+      const end = totalVal ? (cumulative / totalVal) * 360 : 0;
       return { ...s, start, end };
     });
     return { segments: arcs, total };
@@ -339,7 +371,7 @@ export default function TimeclockDashboardPage() {
           <h3 className="text-sm font-semibold mb-2" style={{ color: colors.forest }}>
             Today
           </h3>
-          <div className="grid grid-cols-3 gap-2 text-center text-xs font-medium">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-center text-xs font-medium">
             <div className="rounded-lg p-3" style={{ background: "#d6f3df", color: colors.forest }}>
               Present
               <div className="text-lg font-bold">{todayStatus.present}</div>
@@ -347,6 +379,10 @@ export default function TimeclockDashboardPage() {
             <div className="rounded-lg p-3" style={{ background: "#fdecc8", color: "#b45309" }}>
               On Break
               <div className="text-lg font-bold">{todayStatus.onBreak}</div>
+            </div>
+            <div className="rounded-lg p-3" style={{ background: "#dbeafe", color: colors.teal }}>
+              Left
+              <div className="text-lg font-bold">{todayStatus.left ?? 0}</div>
             </div>
             <div className="rounded-lg p-3" style={{ background: "#e2e8f0", color: colors.greenText }}>
               Absent
@@ -443,7 +479,7 @@ export default function TimeclockDashboardPage() {
             {todayStatus.windowLabel || "Today"}
           </span>
         </div>
-        <div className="grid gap-4 p-4 md:grid-cols-3">
+        <div className="grid gap-4 p-4 md:grid-cols-4">
           <div>
             <div
               className="rounded-lg p-2 text-sm font-semibold"
@@ -483,6 +519,28 @@ export default function TimeclockDashboardPage() {
                 >
                   <span>{b.name}</span>
                   <span className="text-xs text-amber-700">on break {breakDuration(b.time)}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div
+              className="rounded-lg p-2 text-sm font-semibold"
+              style={{ background: "#dbeafe", color: colors.teal }}
+            >
+              Left ({todayGroups.left.length})
+            </div>
+            <div className="mt-2 space-y-1 text-sm text-slate-800">
+              {todayGroups.left.length === 0 && <div className="text-slate-500">—</div>}
+              {todayGroups.left.map((l) => (
+                <div
+                  key={l.name}
+                  className="flex items-center justify-between rounded-md border bg-white px-2 py-1"
+                  style={{ borderColor: colors.gold }}
+                >
+                  <span>{l.name}</span>
+                  <span className="text-xs text-slate-500">out @ {formatTs(l.time)}</span>
                 </div>
               ))}
             </div>
