@@ -17,6 +17,9 @@ import ScenarioPlayer from "./ScenarioPlayer";
 import ScenarioResultPage from "./pages/ScenarioResultPage";
 import ContactSalesPage from "./pages/ContactSalesPage";
 import LandingPage from "./pages/LandingPage";
+import ScenarioPage from "./pages/ScenarioPage";
+import SettingsPage from "./pages/SettingsPage";
+import AddUserPage from "./pages/AddUserPage";
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -63,6 +66,16 @@ function App() {
               }
             >
               Dashboard
+            </NavLink>
+
+            <NavLink
+              to="/scenarios"
+              className={({ isActive }) =>
+                "block px-3 py-2 rounded-xl text-sm " +
+                (isActive ? "bg-sky-500 text-white" : "text-slate-200 hover:bg-slate-800")
+              }
+            >
+              Scenarios
             </NavLink>
 
             <NavLink
@@ -114,6 +127,16 @@ function App() {
             >
               Contact Sales
             </NavLink>
+
+            <NavLink
+              to="/settings"
+              className={({ isActive }) =>
+                "block px-3 py-2 rounded-xl text-sm " +
+                (isActive ? "bg-sky-500 text-white" : "text-slate-200 hover:bg-slate-800")
+              }
+            >
+              Settings
+            </NavLink>
           </nav>
         </aside>
 
@@ -121,6 +144,7 @@ function App() {
         <main className="flex-1 overflow-y-auto">
           <Routes>
             <Route path="/" element={<DashboardPage user={user} />} />
+            <Route path="/scenarios" element={<ScenarioPage />} />
             <Route path="/students" element={<StudentTrackingPage />} />
             <Route path="/time-attendance" element={<TimeAttendancePage />} />
             <Route path="/timeclock" element={<TimeclockPage />} />
@@ -131,6 +155,8 @@ function App() {
             <Route path="/scenario" element={<ScenarioPlayer />} />
             <Route path="/scenario/:id" element={<ScenarioPlayer />} />
             <Route path="/contact" element={<ContactSalesPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/settings/add-user" element={<AddUserPage />} />
             <Route
               path="/scenario-result"
               element={
