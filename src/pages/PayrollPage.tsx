@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "../firebase";
 import { fetchPayrollReports, fetchPayrollForPeriod, type PayrollRecord } from "../services/payrollService";
 import { fetchPayPeriods, type PayPeriod } from "../services/payPeriodService";
 
@@ -24,6 +26,36 @@ export default function PayrollPage() {
   const [error, setError] = useState("");
   const [periods, setPeriods] = useState<PayPeriod[]>([]);
   const [selectedPeriod, setSelectedPeriod] = useState<string>("");
+  const [showGenerateModal, setShowGenerateModal] = useState(false);
+  const [generating, setGenerating] = useState(false);
+
+  const load = useCallback(async (periodId?: string, allPeriods?: PayPeriod[]) => {
+    try {
+      setLoading(true);
+      setError("");
+      const data = periodId ? await fetchPayrollForPeriod(periodId, 200) : await fetchPayrollReports(100);
+      setReports(data);
+
+      if (periodId && data.length === 0) {
+        const periodList = allPeriods ?? periods;
+        const period = periodList.find((p) => p.id === periodId);
+        if (period?.endDate) {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          const endDay = new Date(period.endDate);
+          endDay.setHours(0, 0, 0, 0);
+          if (endDay < today) {
+            setShowGenerateModal(true);
+          }
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Could not load payroll reports.");
+    } finally {
+      setLoading(false);
+    }
+  }, [periods]);
 
   const loadPeriods = useCallback(async () => {
     try {
@@ -38,19 +70,23 @@ export default function PayrollPage() {
     }
   }, [selectedPeriod]);
 
-  const load = useCallback(async (periodId?: string) => {
+  const handleGenerate = useCallback(async () => {
+    if (!selectedPeriod) return;
     try {
-      setLoading(true);
+      setGenerating(true);
       setError("");
-      const data = periodId ? await fetchPayrollForPeriod(periodId, 200) : await fetchPayrollReports(100);
-      setReports(data);
-    } catch (err) {
-      console.error(err);
-      setError("Could not load payroll reports.");
+      const fn = httpsCallable(functions, "generatePayroll");
+      await fn({ periodId: selectedPeriod });
+      setShowGenerateModal(false);
+      await load(selectedPeriod);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to generate payroll.";
+      setError(msg);
+      setShowGenerateModal(false);
     } finally {
-      setLoading(false);
+      setGenerating(false);
     }
-  }, []);
+  }, [selectedPeriod, load]);
 
   useEffect(() => {
     void loadPeriods();
@@ -58,6 +94,7 @@ export default function PayrollPage() {
 
   useEffect(() => {
     if (selectedPeriod) {
+      setShowGenerateModal(false);
       void load(selectedPeriod);
     }
   }, [selectedPeriod, load]);
@@ -165,6 +202,33 @@ export default function PayrollPage() {
           </table>
         </div>
       </div>
+      {showGenerateModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl">
+            <h2 className="text-base font-semibold text-slate-900">Generate Payroll?</h2>
+            <p className="mt-2 text-sm text-slate-600">
+              No payroll records found for <span className="font-medium">{periodLabel}</span>.
+              This period has ended — would you like to generate payroll now?
+            </p>
+            <div className="mt-5 flex justify-end gap-2">
+              <button
+                onClick={() => setShowGenerateModal(false)}
+                className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
+                disabled={generating}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleGenerate}
+                className="rounded-md bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-60"
+                disabled={generating}
+              >
+                {generating ? "Generating..." : "Generate Payroll"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

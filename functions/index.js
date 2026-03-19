@@ -5,6 +5,8 @@ admin.initializeApp();
 
 // Import the new createUser function
 const { createUser } = require("./createUser");
+const { generatePayroll } = require("./generatePayroll");
 
 // Export the new createUser function as a callable function
 exports.createUser = functions.https.onCall(createUser);
+exports.generatePayroll = functions.https.onCall(generatePayroll);
