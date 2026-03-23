@@ -62,7 +62,7 @@ export default function AddUserPage() {
                 type="text"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                className="mt-1 block w-full rounded-md border-slate-700 bg-slate-800 px-3 py-2 text-white shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border border-slate-700 bg-slate-800 px-3 py-2 text-white shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
               />
             </div>
              <div>
@@ -73,7 +73,7 @@ export default function AddUserPage() {
                 type="text"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                className="mt-1 block w-full rounded-md border-slate-700 bg-slate-800 px-3 py-2 text-white shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border border-slate-700 bg-slate-800 px-3 py-2 text-white shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
               />
             </div>
             <div>
@@ -84,7 +84,7 @@ export default function AddUserPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full rounded-md border-slate-700 bg-slate-800 px-3 py-2 text-white shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border border-slate-700 bg-slate-800 px-3 py-2 text-white shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
               />
             </div>
             <div>
@@ -95,7 +95,7 @@ export default function AddUserPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full rounded-md border-slate-700 bg-slate-800 px-3 py-2 text-white shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border border-slate-700 bg-slate-800 px-3 py-2 text-white shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm"
               />
             </div>
             <button

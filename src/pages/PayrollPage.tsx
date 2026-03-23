@@ -193,7 +193,7 @@ export default function PayrollPage() {
               ))}
               {reports.length === 0 && !loading && (
                 <tr>
-                  <td className="px-3 py-4 text-sm text-slate-500" colSpan={7}>
+                  <td className="px-3 py-4 text-sm text-slate-500" colSpan={8}>
                     No payroll reports found.
                   </td>
                 </tr>

@@ -20,7 +20,7 @@ type User = {
 
 type Attempt = {
   id: string;
-  userId: string;
+  studentId: string;
   userName: string;
   scenarioId: string;
   scenarioTitle: string;
@@ -46,7 +46,7 @@ function normalizeAttempt(doc: { id: string; data: () => Record<string, unknown>
   const data = doc.data() || {};
   return {
     id: doc.id,
-    userId: typeof data.userId === "string" ? data.userId : "",
+    studentId: typeof data.studentId === "string" ? data.studentId : "",
     userName: typeof data.userName === "string" ? data.userName : "",
     scenarioId: typeof data.scenarioId === "string" ? data.scenarioId : "",
     scenarioTitle: typeof data.scenarioTitle === "string" ? data.scenarioTitle : "",
@@ -69,7 +69,7 @@ async function fetchUserAttempts(userId: string): Promise<Attempt[]> {
   const colRef = collection(db, "attempts");
   const q = query(
     colRef,
-    where("userId", "==", userId),
+    where("studentId", "==", userId),
     orderBy("attemptedAt", "desc"),
     limit(50)
   );

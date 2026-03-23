@@ -79,6 +79,8 @@ export async function fetchPayrollReports(max = 50): Promise<PayrollRecord[]> {
       totalPay: data.totalPay ?? data.netPay,
       netPay: data.netPay,
       deductions: data.deductions,
+      rewardDeduction: data.rewardDeduction,
+      warningDeduction: data.warningDeduction,
       createdAt,
     };
   });
@@ -116,6 +118,8 @@ export async function fetchPayrollForPeriod(periodId: string, max = 200): Promis
       totalPay: data.totalPay ?? data.netPay,
       netPay: data.netPay,
       deductions: data.deductions,
+      rewardDeduction: data.rewardDeduction,
+      warningDeduction: data.warningDeduction,
       createdAt,
     };
   });
@@ -148,6 +152,8 @@ export async function fetchPayrollById(id: string): Promise<PayrollRecord | null
     totalPay: data.totalPay ?? data.netPay,
     netPay: data.netPay,
     deductions: data.deductions,
+    rewardDeduction: data.rewardDeduction,
+    warningDeduction: data.warningDeduction,
     createdAt,
   };
 }
