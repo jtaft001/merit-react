@@ -98,7 +98,7 @@ const onTimeclockEvent = async (snap, _context) => {
   const dayStart = new Date(dateStr + "T00:00:00.000Z");
   const dayEnd = new Date(dateStr + "T23:59:59.999Z");
 
-  const snap = await db
+  const daySnap = await db
     .collection("timeclock")
     .where("timestamp", ">=", dayStart)
     .where("timestamp", "<=", dayEnd)
@@ -106,7 +106,7 @@ const onTimeclockEvent = async (snap, _context) => {
     .get();
 
   // Filter to this student in memory
-  const events = snap.docs
+  const events = daySnap.docs
     .map((doc) => {
       const d = doc.data();
       const ts = d.timestamp?.toDate?.() ?? new Date(d.timestamp);
