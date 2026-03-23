@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 import type { User } from "firebase/auth";
 import { db } from "../firebase";
-import type { UserDoc } from "../types/firestore";
+import type { StudentDoc as UserDoc } from "../types/firestore";
 
 export type UserRecord = {
   id: string;
@@ -41,7 +41,7 @@ export async function fetchUserAttempts(userId: string) {
   const colRef = collection(db, "attempts");
   const q = query(
     colRef,
-    where("userId", "==", userId),
+    where("studentId", "==", userId),
     orderBy("attemptedAt", "desc"),
     limit(50)
   );

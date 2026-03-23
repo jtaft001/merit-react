@@ -61,14 +61,12 @@ export default function PayrollPage() {
     try {
       const data = await fetchPayPeriods();
       setPeriods(data);
-      if (!selectedPeriod && data.length > 0) {
-        setSelectedPeriod(data[0].id);
-      }
+      setSelectedPeriod((prev) => prev || (data.length > 0 ? data[0].id : ""));
     } catch (err) {
       console.error(err);
       setError("Could not load pay periods.");
     }
-  }, [selectedPeriod]);
+  }, []);
 
   const handleGenerate = useCallback(async () => {
     if (!selectedPeriod) return;
@@ -193,8 +191,19 @@ export default function PayrollPage() {
               ))}
               {reports.length === 0 && !loading && (
                 <tr>
-                  <td className="px-3 py-4 text-sm text-slate-500" colSpan={8}>
-                    No payroll reports found.
+                  <td className="px-3 py-6 text-sm text-slate-500" colSpan={8}>
+                    <div className="flex flex-col items-center gap-3">
+                      <span>No payroll reports found for this period.</span>
+                      {selectedPeriod && (
+                        <button
+                          onClick={handleGenerate}
+                          disabled={generating}
+                          className="rounded-md bg-emerald-700 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-60"
+                        >
+                          {generating ? "Generating..." : "Generate Payroll"}
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               )}

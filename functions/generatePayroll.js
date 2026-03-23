@@ -26,7 +26,7 @@ const generatePayroll = async (request) => {
   // Fetch the pay period
   const periodDoc = await db.collection("pay_periods").doc(periodId).get();
   if (!periodDoc.exists) {
-    throw new functions.https.HttpsError("not-found", `Pay period ${periodId} not found.`);
+    throw new HttpsError("not-found", `Pay period ${periodId} not found.`);
   }
 
   const period = periodDoc.data();
