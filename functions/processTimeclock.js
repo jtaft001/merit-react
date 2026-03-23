@@ -144,6 +144,13 @@ const backfillSessions = async (request) => {
     );
   }
 
+  if (!request.auth.token.staff) {
+    throw new HttpsError(
+      "permission-denied",
+      "Only admins can backfill sessions."
+    );
+  }
+
   const db = admin.firestore();
 
   // Fetch all timeclock events (up to 10,000)

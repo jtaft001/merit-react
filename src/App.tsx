@@ -23,11 +23,18 @@ import AddUserPage from "./pages/AddUserPage";
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
+    const unsub = onAuthStateChanged(auth, async (u) => {
       setUser(u);
+      if (u) {
+        const tokenResult = await u.getIdTokenResult();
+        setIsAdmin(tokenResult.claims.staff === true);
+      } else {
+        setIsAdmin(false);
+      }
       setLoading(false);
     });
     return () => unsub();
@@ -78,15 +85,17 @@ function App() {
               Scenarios
             </NavLink>
 
-            <NavLink
-              to="/students"
-              className={({ isActive }) =>
-                "block px-3 py-2 rounded-xl text-sm " +
-                (isActive ? "bg-sky-500 text-white" : "text-slate-200 hover:bg-slate-800")
-              }
-            >
-              Students
-            </NavLink>
+            {isAdmin && (
+              <NavLink
+                to="/students"
+                className={({ isActive }) =>
+                  "block px-3 py-2 rounded-xl text-sm " +
+                  (isActive ? "bg-sky-500 text-white" : "text-slate-200 hover:bg-slate-800")
+                }
+              >
+                Students
+              </NavLink>
+            )}
 
             <NavLink
               to="/time-attendance"
@@ -99,6 +108,16 @@ function App() {
             </NavLink>
 
             <NavLink
+              to="/payroll"
+              className={({ isActive }) =>
+                "block px-3 py-2 rounded-xl text-sm " +
+                (isActive ? "bg-sky-500 text-white" : "text-slate-200 hover:bg-slate-800")
+              }
+            >
+              {isAdmin ? "Payroll" : "My Paystubs"}
+            </NavLink>
+
+            <NavLink
               to="/rewards"
               className={({ isActive }) =>
                 "block px-3 py-2 rounded-xl text-sm " +
@@ -108,15 +127,17 @@ function App() {
               Rewards
             </NavLink>
 
-            <NavLink
-              to="/scenario-result"
-              className={({ isActive }) =>
-                "block px-3 py-2 rounded-xl text-sm " +
-                (isActive ? "bg-emerald-500 text-white" : "text-slate-200 hover:bg-slate-800")
-              }
-            >
-              Scenario Result (test)
-            </NavLink>
+            {isAdmin && (
+              <NavLink
+                to="/scenario-result"
+                className={({ isActive }) =>
+                  "block px-3 py-2 rounded-xl text-sm " +
+                  (isActive ? "bg-emerald-500 text-white" : "text-slate-200 hover:bg-slate-800")
+                }
+              >
+                Scenario Result (test)
+              </NavLink>
+            )}
 
             <NavLink
               to="/contact"
@@ -128,15 +149,17 @@ function App() {
               Contact Sales
             </NavLink>
 
-            <NavLink
-              to="/settings"
-              className={({ isActive }) =>
-                "block px-3 py-2 rounded-xl text-sm " +
-                (isActive ? "bg-sky-500 text-white" : "text-slate-200 hover:bg-slate-800")
-              }
-            >
-              Settings
-            </NavLink>
+            {isAdmin && (
+              <NavLink
+                to="/settings"
+                className={({ isActive }) =>
+                  "block px-3 py-2 rounded-xl text-sm " +
+                  (isActive ? "bg-sky-500 text-white" : "text-slate-200 hover:bg-slate-800")
+                }
+              >
+                Settings
+              </NavLink>
+            )}
           </nav>
         </aside>
 
@@ -145,18 +168,18 @@ function App() {
           <Routes>
             <Route path="/" element={<DashboardPage user={user} />} />
             <Route path="/scenarios" element={<ScenarioPage />} />
-            <Route path="/students" element={<StudentTrackingPage />} />
+            <Route path="/students" element={isAdmin ? <StudentTrackingPage isAdmin={true} /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/time-attendance" element={<TimeAttendancePage />} />
             <Route path="/timeclock" element={<TimeclockPage />} />
             <Route path="/timeclock-live" element={<TimeclockDashboardPage />} />
-            <Route path="/payroll" element={<PayrollPage />} />
+            <Route path="/payroll" element={<PayrollPage isAdmin={isAdmin} userId={user.uid} />} />
             <Route path="/payroll/:id" element={<PaystubPage />} />
             <Route path="/rewards" element={<RewardsPage />} />
             <Route path="/scenario" element={<ScenarioPlayer />} />
             <Route path="/scenario/:id" element={<ScenarioPlayer />} />
             <Route path="/contact" element={<ContactSalesPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/settings/add-user" element={<AddUserPage />} />
+            <Route path="/settings" element={isAdmin ? <SettingsPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
+            <Route path="/settings/add-user" element={isAdmin ? <AddUserPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route
               path="/scenario-result"
               element={

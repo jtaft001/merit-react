@@ -125,6 +125,45 @@ export async function fetchPayrollForPeriod(periodId: string, max = 200): Promis
   });
 }
 
+export async function fetchPayrollForStudent(studentId: string, max = 50): Promise<PayrollRecord[]> {
+  const q = query(
+    collection(db, "payroll"),
+    where("studentId", "==", studentId),
+    orderBy("periodEnd", "desc"),
+    limitClause(max)
+  );
+  const snap = await getDocs(q);
+  return snap.docs.map((doc) => {
+    const data = doc.data();
+    const periodEnd =
+      data.periodEnd instanceof Timestamp
+        ? data.periodEnd.toDate()
+        : data.periodEnd
+        ? new Date(data.periodEnd)
+        : null;
+    const createdAt =
+      data.createdAt instanceof Timestamp
+        ? data.createdAt.toDate()
+        : data.createdAt
+        ? new Date(data.createdAt)
+        : null;
+    return {
+      id: doc.id,
+      studentId: data.studentId,
+      periodId: data.periodId,
+      periodEnd,
+      netHours: data.netHours,
+      paidHours: data.paidHours,
+      totalPay: data.totalPay ?? data.netPay,
+      netPay: data.netPay,
+      deductions: data.deductions,
+      rewardDeduction: data.rewardDeduction,
+      warningDeduction: data.warningDeduction,
+      createdAt,
+    };
+  });
+}
+
 export async function fetchPayrollById(id: string): Promise<PayrollRecord | null> {
   const ref = doc(db, "payroll", id);
   const snap = await getDoc(ref);

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { httpsCallable } from "firebase/functions";
 import { functions } from "../firebase";
-import { fetchPayrollReports, fetchPayrollForPeriod, type PayrollRecord } from "../services/payrollService";
+import { fetchPayrollReports, fetchPayrollForPeriod, fetchPayrollForStudent, type PayrollRecord } from "../services/payrollService";
 import { fetchPayPeriods, type PayPeriod } from "../services/payPeriodService";
 
 function formatMoney(n?: number) {
@@ -20,7 +20,7 @@ function formatDate(d?: Date | null) {
   return d.toLocaleDateString();
 }
 
-export default function PayrollPage() {
+export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?: boolean; userId?: string }) {
   const [reports, setReports] = useState<PayrollRecord[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -33,10 +33,15 @@ export default function PayrollPage() {
     try {
       setLoading(true);
       setError("");
-      const data = periodId ? await fetchPayrollForPeriod(periodId, 200) : await fetchPayrollReports(100);
+      let data: PayrollRecord[];
+      if (!isAdmin) {
+        data = await fetchPayrollForStudent(userId, 50);
+      } else {
+        data = periodId ? await fetchPayrollForPeriod(periodId, 200) : await fetchPayrollReports(100);
+      }
       setReports(data);
 
-      if (periodId && data.length === 0) {
+      if (isAdmin && periodId && data.length === 0) {
         const periodList = allPeriods ?? periods;
         const period = periodList.find((p) => p.id === periodId);
         if (period?.endDate) {
@@ -55,7 +60,7 @@ export default function PayrollPage() {
     } finally {
       setLoading(false);
     }
-  }, [periods]);
+  }, [isAdmin, userId, periods]);
 
   const loadPeriods = useCallback(async () => {
     try {
@@ -87,15 +92,16 @@ export default function PayrollPage() {
   }, [selectedPeriod, load]);
 
   useEffect(() => {
-    void loadPeriods();
-  }, [loadPeriods]);
+    if (isAdmin) void loadPeriods();
+    else void load();
+  }, [isAdmin, loadPeriods, load]);
 
   useEffect(() => {
-    if (selectedPeriod) {
+    if (isAdmin && selectedPeriod) {
       setShowGenerateModal(false);
       void load(selectedPeriod);
     }
-  }, [selectedPeriod, load]);
+  }, [isAdmin, selectedPeriod, load]);
 
   const periodLabel = useMemo(() => {
     const found = periods.find((p) => p.id === selectedPeriod);
@@ -108,33 +114,35 @@ export default function PayrollPage() {
       <div className="rounded-2xl border border-slate-200 bg-white shadow-sm p-5">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-lg font-semibold text-slate-900">Payroll</h1>
-            <p className="text-sm text-slate-600">View payroll by pay period.</p>
+            <h1 className="text-lg font-semibold text-slate-900">{isAdmin ? "Payroll" : "My Paystubs"}</h1>
+            <p className="text-sm text-slate-600">{isAdmin ? "View payroll by pay period." : "View your payroll history."}</p>
           </div>
           <button
-            onClick={() => load(selectedPeriod)}
+            onClick={() => isAdmin ? load(selectedPeriod) : load()}
             className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm hover:bg-slate-50"
             disabled={loading}
           >
             {loading ? "Refreshing..." : "Refresh"}
           </button>
         </div>
-        <div className="mt-3">
-          <label className="text-xs font-medium text-slate-600">Pay period</label>
-          <select
-            value={selectedPeriod}
-            onChange={(e) => setSelectedPeriod(e.target.value)}
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
-          >
-            {!periods.length && <option value="">Loading periods...</option>}
-            {periods.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.display ||
-                  `${formatDate(p.startDate || undefined)} – ${formatDate(p.endDate || undefined)}`}
-              </option>
-            ))}
-          </select>
-        </div>
+        {isAdmin && (
+          <div className="mt-3">
+            <label className="text-xs font-medium text-slate-600">Pay period</label>
+            <select
+              value={selectedPeriod}
+              onChange={(e) => setSelectedPeriod(e.target.value)}
+              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+            >
+              {!periods.length && <option value="">Loading periods...</option>}
+              {periods.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.display ||
+                    `${formatDate(p.startDate || undefined)} – ${formatDate(p.endDate || undefined)}`}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
         {error && <div className="mt-2 text-sm text-rose-600">{error}</div>}
       </div>
 
@@ -193,8 +201,8 @@ export default function PayrollPage() {
                 <tr>
                   <td className="px-3 py-6 text-sm text-slate-500" colSpan={8}>
                     <div className="flex flex-col items-center gap-3">
-                      <span>No payroll reports found for this period.</span>
-                      {selectedPeriod && (
+                      <span>{isAdmin ? "No payroll reports found for this period." : "No paystubs found."}</span>
+                      {isAdmin && selectedPeriod && (
                         <button
                           onClick={handleGenerate}
                           disabled={generating}
@@ -211,7 +219,7 @@ export default function PayrollPage() {
           </table>
         </div>
       </div>
-      {showGenerateModal && (
+      {isAdmin && showGenerateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl">
             <h2 className="text-base font-semibold text-slate-900">Generate Payroll?</h2>

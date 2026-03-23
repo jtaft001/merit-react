@@ -13,6 +13,13 @@ const generatePayroll = async (request) => {
     );
   }
 
+  if (!request.auth.token.staff) {
+    throw new HttpsError(
+      "permission-denied",
+      "Only admins can generate payroll."
+    );
+  }
+
   const { periodId } = request.data;
   if (!periodId) {
     throw new HttpsError(

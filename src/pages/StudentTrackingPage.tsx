@@ -79,7 +79,7 @@ async function fetchStudentAttempts(studentId: string): Promise<Attempt[]> {
   return snapshot.docs.map(normalizeAttempt);
 }
 
-function StudentTrackingPage() {
+function StudentTrackingPage({ isAdmin: _isAdmin = false }: { isAdmin?: boolean }) {
   const [students, setStudents] = useState<Student[]>([]);
   const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
   const [search, setSearch] = useState<string>("");
