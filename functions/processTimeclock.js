@@ -77,12 +77,13 @@ function deriveSession(events, studentId, dateStr) {
 }
 
 /**
- * Firestore trigger: whenever a new timeclock document is created,
+ * Firestore trigger (Gen 1): whenever a new timeclock document is created,
  * re-derive and upsert the session for that student+day.
+ * Signature: (snap, context) for Gen 1 triggers.
  */
-const onTimeclockEvent = async (event) => {
+const onTimeclockEvent = async (snap, _context) => {
   const db = admin.firestore();
-  const data = event.data?.data();
+  const data = snap.data();
   if (!data) return;
 
   const studentId = data.studentId;
