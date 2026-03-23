@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { httpsCallable } from "firebase/functions";
+import { functions } from "../firebase";
 import { fetchRecentEvents } from "../services/timeclockService";
 import {
   fetchSessionsForStudent,
@@ -30,6 +32,8 @@ export default function TimeclockPage() {
   const [warnings, setWarnings] = useState<WarningRecord[]>([]);
   const [loadingDetail, setLoadingDetail] = useState(false);
   const [detailError, setDetailError] = useState("");
+  const [backfilling, setBackfilling] = useState(false);
+  const [backfillResult, setBackfillResult] = useState<string>("");
 
   useEffect(() => {
     async function load() {
@@ -97,6 +101,22 @@ export default function TimeclockPage() {
     return Array.from(ids).sort();
   }, [events]);
 
+  const handleBackfill = useCallback(async () => {
+    try {
+      setBackfilling(true);
+      setBackfillResult("");
+      const fn = httpsCallable(functions, "backfillSessions");
+      const result = await fn({});
+      const data = result.data as { count: number };
+      setBackfillResult(`✓ Backfill complete — ${data.count} sessions written.`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Backfill failed.";
+      setBackfillResult(`Error: ${msg}`);
+    } finally {
+      setBackfilling(false);
+    }
+  }, []);
+
   const handleRefresh = async () => {
     try {
       setLoadingEvents(true);
@@ -123,13 +143,27 @@ export default function TimeclockPage() {
             Recent raw events and derived sessions/warnings.
           </p>
         </div>
-        <button
-          onClick={handleRefresh}
-          className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm hover:bg-slate-50"
-          disabled={loadingEvents}
-        >
-          {loadingEvents ? "Refreshing..." : "Refresh"}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleBackfill}
+            disabled={backfilling}
+            className="rounded-md border border-amber-400 bg-amber-50 px-3 py-1.5 text-sm text-amber-800 shadow-sm hover:bg-amber-100 disabled:opacity-50"
+          >
+            {backfilling ? "Backfilling..." : "Backfill Sessions"}
+          </button>
+          <button
+            onClick={handleRefresh}
+            className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm hover:bg-slate-50"
+            disabled={loadingEvents}
+          >
+            {loadingEvents ? "Refreshing..." : "Refresh"}
+          </button>
+        </div>
+        {backfillResult && (
+          <p className={`mt-1 text-sm ${backfillResult.startsWith("Error") ? "text-rose-600" : "text-emerald-700"}`}>
+            {backfillResult}
+          </p>
+        )}
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
