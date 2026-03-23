@@ -1,12 +1,10 @@
-const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const { onCall } = require("firebase-functions/v2/https");
 
 admin.initializeApp();
 
-// Import the new createUser function
 const { createUser } = require("./createUser");
 const { generatePayroll } = require("./generatePayroll");
 
-// Export the new createUser function as a callable function
-exports.createUser = functions.https.onCall(createUser);
-exports.generatePayroll = functions.https.onCall(generatePayroll);
+exports.createUser = onCall(createUser);
+exports.generatePayroll = onCall(generatePayroll);

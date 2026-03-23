@@ -33,6 +33,7 @@ admin.initializeApp({
 const db = admin.firestore();
 const DEFAULT_HOURLY_RATE = 15;
 const DEDUCTION_PER_WARNING = 5;
+const REWARD_COLLECTION = "reward_purchases";
 
 async function main() {
   const argPeriod = process.argv[2];
