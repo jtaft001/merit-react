@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+
 export default function SettingsPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
@@ -25,6 +26,13 @@ export default function SettingsPage() {
             className="block rounded-md border border-slate-700 bg-slate-800 px-4 py-3 text-white hover:bg-slate-700"
           >
             Add New User
+          </Link>
+          <Link
+            to="/settings/nfc-import"
+            className="block rounded-md border border-slate-700 bg-slate-800 px-4 py-3 text-white hover:bg-slate-700"
+          >
+            NFC Card Import
+            <span className="ml-2 text-xs text-slate-400">Assign NFC sticker IDs to students via CSV</span>
           </Link>
         </div>
       </main>

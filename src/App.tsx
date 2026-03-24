@@ -20,6 +20,8 @@ import LandingPage from "./pages/LandingPage";
 import ScenarioPage from "./pages/ScenarioPage";
 import SettingsPage from "./pages/SettingsPage";
 import AddUserPage from "./pages/AddUserPage";
+import NfcClockPage from "./pages/NfcClockPage";
+import NfcImportPage from "./pages/NfcImportPage";
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -48,6 +50,8 @@ function App() {
     return (
       <Router>
         <Routes>
+          <Route path="/nfc-login" element={<NfcClockPage />} />
+          <Route path="/nfc-clock" element={<NfcClockPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/contact" element={<ContactSalesPage />} />
           <Route path="*" element={<LandingPage />} />
@@ -166,6 +170,8 @@ function App() {
         {/* Main content */}
         <main className="flex-1 overflow-y-auto">
           <Routes>
+            <Route path="/nfc-login" element={<NfcClockPage />} />
+            <Route path="/nfc-clock" element={<NfcClockPage />} />
             <Route path="/" element={<DashboardPage user={user} />} />
             <Route path="/scenarios" element={<ScenarioPage />} />
             <Route path="/students" element={isAdmin ? <StudentTrackingPage isAdmin={true} /> : <div className="p-6 text-slate-400">Access denied.</div>} />
@@ -180,6 +186,7 @@ function App() {
             <Route path="/contact" element={<ContactSalesPage />} />
             <Route path="/settings" element={isAdmin ? <SettingsPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/settings/add-user" element={isAdmin ? <AddUserPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
+            <Route path="/settings/nfc-import" element={isAdmin ? <NfcImportPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route
               path="/scenario-result"
               element={

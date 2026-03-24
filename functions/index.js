@@ -7,6 +7,8 @@ admin.initializeApp();
 const { createUser } = require("./createUser");
 const { generatePayroll } = require("./generatePayroll");
 const { onTimeclockEvent, backfillSessions } = require("./processTimeclock");
+const { nfcClock } = require("./nfcClock");
+const { nfcLookup } = require("./nfcLookup");
 
 exports.createUser = onCall(createUser);
 exports.generatePayroll = onCall(generatePayroll);
@@ -14,3 +16,7 @@ exports.backfillSessions = onCall(backfillSessions);
 exports.onTimeclockEvent = firestore
   .document("timeclock/{docId}")
   .onCreate(onTimeclockEvent);
+
+// NFC kiosk — no auth required (public kiosk tablet)
+exports.nfcLookup = onCall({ invoker: "public" }, nfcLookup);
+exports.nfcClock  = onCall({ invoker: "public" }, nfcClock);
