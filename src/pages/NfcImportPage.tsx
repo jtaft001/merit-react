@@ -131,6 +131,8 @@ export default function NfcImportPage() {
   const [importing, setImporting] = useState(false);
   const [done, setDone] = useState(false);
   const [showStickerList, setShowStickerList] = useState(false);
+  const [normalizing, setNormalizing] = useState(false);
+  const [normalizeResult, setNormalizeResult] = useState("");
 
   // ── File pick ────────────────────────────────────────────────────────────────
 
@@ -225,6 +227,40 @@ export default function NfcImportPage() {
     setDone(true);
   };
 
+  // ── Re-normalize existing records ────────────────────────────────────────────
+  const handleNormalize = async () => {
+    setNormalizing(true);
+    setNormalizeResult("");
+    try {
+      const snap = await getDocs(collection(db, "students"));
+      const toFix = snap.docs.filter((d) => {
+        const raw = d.data().nfcId;
+        return typeof raw === "string" && raw.includes(":");
+      });
+
+      if (toFix.length === 0) {
+        setNormalizeResult("All NFC IDs already normalized — nothing to do.");
+        setNormalizing(false);
+        return;
+      }
+
+      let batch = writeBatch(db);
+      let count = 0;
+      for (const d of toFix) {
+        batch.update(doc(db, "students", d.id), {
+          nfcId: normalizeNfcId(d.data().nfcId),
+        });
+        count++;
+        if (count % 400 === 0) { await batch.commit(); batch = writeBatch(db); }
+      }
+      await batch.commit();
+      setNormalizeResult(`✓ Fixed ${count} record${count !== 1 ? "s" : ""} — colons removed.`);
+    } catch (err: unknown) {
+      setNormalizeResult(`✗ ${err instanceof Error ? err.message : "Failed"}`);
+    }
+    setNormalizing(false);
+  };
+
   const successCount = results.filter((r) => r.status === "ok").length;
   const failCount    = results.filter((r) => r.status !== "ok").length;
 
@@ -252,6 +288,30 @@ export default function NfcImportPage() {
       </header>
 
       <main className="mx-auto max-w-4xl px-4 pb-12 pt-6 space-y-8">
+
+        {/* One-time fix: strip colons from existing records */}
+        <section className="rounded-lg border border-amber-700 bg-amber-950/40 p-4 flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="flex-1">
+            <p className="text-sm font-semibold text-amber-300">Existing Records Have Colons?</p>
+            <p className="text-xs text-amber-500 mt-0.5">
+              If NFC IDs were saved as <span className="font-mono">04:87:8B:AC</span> they need to be
+              normalized to <span className="font-mono">04878BAC</span> so card scans match.
+            </p>
+            {normalizeResult && (
+              <p className={`text-xs mt-1 font-semibold ${normalizeResult.startsWith("✓") ? "text-emerald-400" : "text-rose-400"}`}>
+                {normalizeResult}
+              </p>
+            )}
+          </div>
+          <button
+            onClick={handleNormalize}
+            disabled={normalizing}
+            className="shrink-0 px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-500
+              disabled:opacity-50 text-sm font-semibold text-white transition-colors"
+          >
+            {normalizing ? "Fixing…" : "Re-normalize All Cards"}
+          </button>
+        </section>
 
         {/* Sticker reference list */}
         <section className="rounded-lg border border-slate-700 bg-slate-900 p-5 space-y-3">
