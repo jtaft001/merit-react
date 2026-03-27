@@ -109,7 +109,7 @@ function parseCSV(text: string): { mode: MatchMode | null; rows: ParsedRow[]; er
 
 function downloadTemplate() {
   const header = "email,nfcId";
-  const rows = STICKERS.map((uid, i) => `,${normalizeNfcId(uid)}`).join("\n");
+  const rows = STICKERS.map((uid) => `,${normalizeNfcId(uid)}`).join("\n");
   const csv = `${header}\n${rows}`;
   const blob = new Blob([csv], { type: "text/csv" });
   const url = URL.createObjectURL(blob);
