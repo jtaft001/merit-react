@@ -1,5 +1,10 @@
 const admin = require("firebase-admin");
 
+/** Strip colons/spaces and uppercase — matches both "04:E7:49:AC" and "04E749AC" */
+function normalizeNfcId(id) {
+  return id.replace(/[:\s]/g, "").toUpperCase();
+}
+
 /**
  * Callable (unauthenticated): look up a student by their NFC sticker UID.
  * Returns the student's name without writing anything to the database.
@@ -14,11 +19,12 @@ const nfcLookup = async (request) => {
     throw new HttpsError("invalid-argument", "nfcId is required.");
   }
 
+  const normalized = normalizeNfcId(nfcId);
   const db = admin.firestore();
 
   const snap = await db
     .collection("students")
-    .where("nfcId", "==", nfcId.trim())
+    .where("nfcId", "==", normalized)
     .limit(1)
     .get();
 

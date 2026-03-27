@@ -2,6 +2,11 @@ const admin = require("firebase-admin");
 
 const VALID_ACTIONS = ["CLOCK IN", "CLOCK OUT", "BREAK START", "BREAK END"];
 
+/** Strip colons/spaces and uppercase — matches both "04:E7:49:AC" and "04E749AC" */
+function normalizeNfcId(id) {
+  return id.replace(/[:\s]/g, "").toUpperCase();
+}
+
 /**
  * Callable (unauthenticated): record a timeclock event from an NFC card tap.
  *
@@ -28,10 +33,11 @@ const nfcClock = async (request) => {
 
   const db = admin.firestore();
 
-  // Look up student by their assigned NFC sticker ID
+  // Look up student by their assigned NFC sticker ID (normalized — no colons, uppercase)
+  const normalizedNfcId = normalizeNfcId(nfcId);
   const snap = await db
     .collection("students")
-    .where("nfcId", "==", nfcId.trim())
+    .where("nfcId", "==", normalizedNfcId)
     .limit(1)
     .get();
 
