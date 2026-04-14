@@ -9,6 +9,7 @@ const { generatePayroll } = require("./generatePayroll");
 const { onTimeclockEvent, backfillSessions } = require("./processTimeclock");
 const { nfcClock } = require("./nfcClock");
 const { nfcLookup } = require("./nfcLookup");
+const { getMyClockStatus, getMyAttendance } = require("./studentFunctions");
 
 exports.createUser = onCall(createUser);
 exports.generatePayroll = onCall(generatePayroll);
@@ -20,3 +21,7 @@ exports.onTimeclockEvent = firestore
 // NFC kiosk — no auth required (public kiosk tablet)
 exports.nfcLookup = onCall({ invoker: "public" }, nfcLookup);
 exports.nfcClock  = onCall({ invoker: "public" }, nfcClock);
+
+// Mobile student app — auth required
+exports.getMyClockStatus = onCall(getMyClockStatus);
+exports.getMyAttendance  = onCall(getMyAttendance);
