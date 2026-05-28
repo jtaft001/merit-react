@@ -67,29 +67,42 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
-    // Scenario app collections: allow authenticated read/write
+    // Scenario attempts: admin sees all; users see/manage only their own (studentId == uid)
     match /attempts/{docId} {
-      allow read, write: if isAuthed();
+      allow read: if isAdmin() || (isAuthed() && resource.data.studentId == request.auth.uid);
+      allow create: if isAdmin() || (isAuthed() && request.resource.data.studentId == request.auth.uid);
+      allow update, delete: if isAdmin() || (isAuthed() && resource.data.studentId == request.auth.uid);
     }
 
+    // Scenario catalog: readable by all authenticated users; admin-managed
     match /scenarios/{docId} {
-      allow read, write: if isAuthed();
+      allow read: if isAuthed();
+      allow write: if isAdmin();
     }
 
+    // Per-student progress: admin sees all; users see/manage only their own (studentId == uid)
     match /progress/{docId} {
-      allow read, write: if isAuthed();
+      allow read: if isAdmin() || (isAuthed() && resource.data.studentId == request.auth.uid);
+      allow create: if isAdmin() || (isAuthed() && request.resource.data.studentId == request.auth.uid);
+      allow update, delete: if isAdmin() || (isAuthed() && resource.data.studentId == request.auth.uid);
     }
 
+    // School/org config: readable by all authenticated users; admin-managed
     match /schools/{docId} {
-      allow read, write: if isAuthed();
+      allow read: if isAuthed();
+      allow write: if isAdmin();
     }
 
+    // Licensing / feature flags: readable by all authenticated users; admin-managed
     match /license/{docId} {
-      allow read, write: if isAuthed();
+      allow read: if isAuthed();
+      allow write: if isAdmin();
     }
 
+    // User records: admin sees all; users see only their own (authUID == uid); admin-managed writes
     match /users/{docId} {
-      allow read, write: if isAuthed();
+      allow read: if isAdmin() || (isAuthed() && resource.data.authUID == request.auth.uid);
+      allow write: if isAdmin();
     }
 
     // Default deny

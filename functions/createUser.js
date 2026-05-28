@@ -9,6 +9,13 @@ const createUser = async (request) => {
     );
   }
 
+  if (!request.auth.token.staff) {
+    throw new HttpsError(
+      "permission-denied",
+      "Only admins can create users."
+    );
+  }
+
   const { email, password, firstName, lastName } = request.data;
 
   if (!email || !password || !firstName || !lastName) {
@@ -36,7 +43,12 @@ const createUser = async (request) => {
 
     return { uid: userRecord.uid };
   } catch (error) {
-    throw new HttpsError("internal", error.message);
+    console.error("createUser failed:", error);
+    // Surface only safe, expected client errors; hide internal details otherwise.
+    if (error && typeof error.code === "string" && error.code.startsWith("auth/")) {
+      throw new HttpsError("invalid-argument", error.message);
+    }
+    throw new HttpsError("internal", "Could not create user.");
   }
 };
 
