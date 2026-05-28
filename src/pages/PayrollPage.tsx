@@ -160,7 +160,6 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
                 <th className="px-3 py-2 text-left text-white">Student</th>
                 <th className="px-3 py-2 text-left text-white">Period</th>
                 <th className="px-3 py-2 text-right text-white">Net Hours</th>
-                <th className="px-3 py-2 text-right text-white">Paid Hours</th>
                 <th className="px-3 py-2 text-right text-white">Gross Pay</th>
                 <th className="px-3 py-2 text-right text-white">Deductions</th>
                 <th className="px-3 py-2 text-right text-white">Net Pay</th>
@@ -176,7 +175,7 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
                         to={`/payroll/${r.id}`}
                         className="text-emerald-700 hover:text-emerald-900 hover:underline"
                       >
-                        {r.studentId}
+                        {r.studentName || r.studentId}
                       </Link>
                     ) : (
                       "—"
@@ -186,7 +185,6 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
                     {r.periodId || formatDate(r.periodEnd)}
                   </td>
                   <td className="px-3 py-2 text-right text-slate-600">{formatHours(r.netHours)}</td>
-                  <td className="px-3 py-2 text-right text-slate-600">{formatHours(r.paidHours)}</td>
                   <td className="px-3 py-2 text-right font-semibold text-slate-800">
                     {formatMoney(r.totalPay ?? r.netPay)}
                   </td>
@@ -199,7 +197,7 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
               ))}
               {reports.length === 0 && !loading && (
                 <tr>
-                  <td className="px-3 py-6 text-sm text-slate-500" colSpan={8}>
+                  <td className="px-3 py-6 text-sm text-slate-500" colSpan={7}>
                     <div className="flex flex-col items-center gap-3">
                       <span>{isAdmin ? "No payroll reports found for this period." : "No paystubs found."}</span>
                       {isAdmin && selectedPeriod && (

@@ -1,4 +1,5 @@
 const admin = require("firebase-admin");
+const { toDateStr, startOfDayUtc, endOfDayUtc } = require("./dateUtils");
 
 /**
  * Derives a session from an ordered list of timeclock events.
@@ -92,16 +93,18 @@ const onTimeclockEvent = async (snap, _context) => {
   const rawTs = data.timestamp;
   const timestamp =
     rawTs?.toDate?.() ?? (rawTs ? new Date(rawTs) : new Date());
-  const dateStr = timestamp.toISOString().slice(0, 10);
+  const dateStr = toDateStr(timestamp);
 
-  // Query all timeclock events for this day (small result set)
-  const dayStart = new Date(dateStr + "T00:00:00.000Z");
-  const dayEnd = new Date(dateStr + "T23:59:59.999Z");
+  // Query all timeclock events for this *local* day (small result set).
+  // The window is the UTC span of the local calendar day, so an evening
+  // Pacific tap is grouped with the rest of that day rather than the next.
+  const dayStart = startOfDayUtc(dateStr);
+  const dayEnd = endOfDayUtc(dateStr);
 
   const daySnap = await db
     .collection("timeclock")
     .where("timestamp", ">=", dayStart)
-    .where("timestamp", "<=", dayEnd)
+    .where("timestamp", "<", dayEnd)
     .orderBy("timestamp", "asc")
     .get();
 
@@ -170,7 +173,7 @@ const backfillSessions = async (request) => {
     const timestamp =
       rawTs?.toDate?.() ?? (rawTs ? new Date(rawTs) : null);
     if (!timestamp) return;
-    const dateStr = timestamp.toISOString().slice(0, 10);
+    const dateStr = toDateStr(timestamp);
     const key = `${studentId}__${dateStr}`;
     if (!grouped.has(key)) grouped.set(key, { studentId, dateStr, events: [] });
     grouped.get(key).events.push({ action: d.action || "", timestamp });

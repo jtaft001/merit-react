@@ -1,4 +1,5 @@
 const admin = require("firebase-admin");
+const { toDateStr, startOfDayUtc, endOfDayUtc } = require("./dateUtils");
 
 /**
  * Resolve the student Firestore doc for the authenticated caller.
@@ -52,17 +53,17 @@ const getMyClockStatus = async (request) => {
     HttpsError
   );
 
-  // Today's window in UTC
+  // Today's window, anchored to the local calendar day (not UTC)
   const now = new Date();
-  const todayStr = now.toISOString().slice(0, 10);
-  const dayStart = new Date(todayStr + "T00:00:00.000Z");
-  const dayEnd   = new Date(todayStr + "T23:59:59.999Z");
+  const todayStr = toDateStr(now);
+  const dayStart = startOfDayUtc(todayStr);
+  const dayEnd   = endOfDayUtc(todayStr);
 
   const evSnap = await db
     .collection("timeclock")
     .where("studentId", "==", docId)
     .where("timestamp", ">=", admin.firestore.Timestamp.fromDate(dayStart))
-    .where("timestamp", "<=", admin.firestore.Timestamp.fromDate(dayEnd))
+    .where("timestamp", "<", admin.firestore.Timestamp.fromDate(dayEnd))
     .orderBy("timestamp", "asc")
     .get();
 
@@ -127,7 +128,7 @@ const getMyAttendance = async (request) => {
 
   const since = new Date();
   since.setDate(since.getDate() - days);
-  const sinceStr = since.toISOString().slice(0, 10);
+  const sinceStr = toDateStr(since);
 
   const sessSnap = await db
     .collection("sessions")

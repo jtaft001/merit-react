@@ -1,5 +1,6 @@
 const admin = require("firebase-admin");
 const { HttpsError } = require("firebase-functions/v2/https");
+const { toDateStr, startOfDayUtc, endOfDayUtc } = require("./dateUtils");
 
 const DEFAULT_HOURLY_RATE = 15;
 const DEDUCTION_PER_WARNING = 5;
@@ -51,11 +52,17 @@ const generatePayroll = async (request) => {
     );
   }
 
-  const startStr = startDate.toISOString().slice(0, 10);
-  const endStr = endDate.toISOString().slice(0, 10);
+  const startStr = toDateStr(startDate);
+  const endStr = toDateStr(endDate);
 
-  // Fetch sessions, warnings, and reward purchases for the period
-  const [sessionsSnap, warningsSnap, rewardsSnap] = await Promise.all([
+  // Reward purchases are filtered by their createdAt instant; align the window
+  // to the local calendar days [startStr 00:00, endStr 24:00) so a late-day
+  // purchase on the last day of the period is still counted.
+  const rewardStart = startOfDayUtc(startStr);
+  const rewardEnd = endOfDayUtc(endStr);
+
+  // Fetch sessions, warnings, reward purchases, and students for the period
+  const [sessionsSnap, warningsSnap, rewardsSnap, studentsSnap] = await Promise.all([
     db.collection("sessions")
       .where("dateStr", ">=", startStr)
       .where("dateStr", "<=", endStr)
@@ -66,10 +73,22 @@ const generatePayroll = async (request) => {
       .get(),
     db.collection(REWARD_COLLECTION)
       .where("status", "==", "approved")
-      .where("createdAt", ">=", startDate)
-      .where("createdAt", "<=", endDate)
+      .where("createdAt", ">=", rewardStart)
+      .where("createdAt", "<", rewardEnd)
       .get(),
+    db.collection("students").get(),
   ]);
+
+  // Resolve display names so payroll/paystubs show a name, not the raw uid.
+  const nameById = new Map();
+  studentsSnap.forEach((doc) => {
+    const sd = doc.data();
+    const name =
+      sd.name ||
+      `${sd.firstName || ""} ${sd.lastName || ""}`.trim() ||
+      doc.id;
+    nameById.set(doc.id, name);
+  });
 
   // Aggregate session hours per student
   const totals = new Map();
@@ -104,12 +123,21 @@ const generatePayroll = async (request) => {
     rewardItems.set(sid, arr);
   });
 
+  // Every student touched by the period: worked sessions OR warnings OR rewards.
+  // Iterating the union (not just students with sessions) ensures a student who
+  // only has deductions still gets a payroll record instead of being dropped.
+  const allStudentIds = new Set([
+    ...totals.keys(),
+    ...warningCounts.keys(),
+    ...rewardTotals.keys(),
+  ]);
+
   // Write payroll documents
   const batch = db.batch();
-  totals.forEach((netMs, sid) => {
+  allStudentIds.forEach((sid) => {
+    const netMs = totals.get(sid) || 0;
     const safeId = sid.replace(/\//g, "_");
     const netHours = netMs / 1000 / 60 / 60;
-    const paidHours = netHours;
     const totalPay = Math.round(netHours * hourlyRate * 100) / 100;
     const warningCount = warningCounts.get(sid) || 0;
     const warningDeduction = warningCount * DEDUCTION_PER_WARNING;
@@ -120,11 +148,10 @@ const generatePayroll = async (request) => {
     const ref = db.collection("payroll").doc(docId);
     batch.set(ref, {
       studentId: sid,
-      studentName: sid,
+      studentName: nameById.get(sid) || sid,
       periodId,
       periodEnd: endDate,
       netHours,
-      paidHours,
       totalPay,
       netPay,
       deductions,
@@ -137,7 +164,7 @@ const generatePayroll = async (request) => {
   });
 
   await batch.commit();
-  return { count: totals.size, periodId };
+  return { count: allStudentIds.size, periodId };
 };
 
 module.exports = { generatePayroll };

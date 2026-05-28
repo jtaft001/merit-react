@@ -35,10 +35,10 @@ export type Warning = {
 export type PayrollRecord = {
   id: string;
   studentId?: string;
+  studentName?: string;
   periodId?: string;
   periodEnd?: Date | null;
   netHours?: number;
-  paidHours?: number;
   totalPay?: number;
   netPay?: number;
   deductions?: number;
@@ -72,10 +72,10 @@ export async function fetchPayrollReports(max = 50): Promise<PayrollRecord[]> {
     return {
       id: doc.id,
       studentId: data.studentId,
+      studentName: data.studentName,
       periodId: data.periodId,
       periodEnd,
       netHours: data.netHours,
-      paidHours: data.paidHours,
       totalPay: data.totalPay ?? data.netPay,
       netPay: data.netPay,
       deductions: data.deductions,
@@ -111,10 +111,10 @@ export async function fetchPayrollForPeriod(periodId: string, max = 200): Promis
     return {
       id: doc.id,
       studentId: data.studentId,
+      studentName: data.studentName,
       periodId: data.periodId,
       periodEnd,
       netHours: data.netHours,
-      paidHours: data.paidHours,
       totalPay: data.totalPay ?? data.netPay,
       netPay: data.netPay,
       deductions: data.deductions,
@@ -150,10 +150,10 @@ export async function fetchPayrollForStudent(studentId: string, max = 50): Promi
     return {
       id: doc.id,
       studentId: data.studentId,
+      studentName: data.studentName,
       periodId: data.periodId,
       periodEnd,
       netHours: data.netHours,
-      paidHours: data.paidHours,
       totalPay: data.totalPay ?? data.netPay,
       netPay: data.netPay,
       deductions: data.deductions,
@@ -184,10 +184,10 @@ export async function fetchPayrollById(id: string): Promise<PayrollRecord | null
   return {
     id: snap.id,
     studentId: data.studentId,
+    studentName: data.studentName,
     periodId: data.periodId,
     periodEnd,
     netHours: data.netHours,
-    paidHours: data.paidHours,
     totalPay: data.totalPay ?? data.netPay,
     netPay: data.netPay,
     deductions: data.deductions,

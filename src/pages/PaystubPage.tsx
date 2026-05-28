@@ -14,6 +14,19 @@ import {
   type RewardPurchase,
   fetchRewardSpendAndBalance,
 } from "../services/rewardService";
+import { createWarning, deleteWarning } from "../services/warningsService";
+import { auth } from "../firebase";
+
+// YYYY-MM-DD in the org timezone — must match the dateStr keys written by the
+// timeclock pipeline (functions/dateUtils.js) so the session/warning queries line up.
+function toDateStr(d: Date) {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Los_Angeles",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(d);
+}
 
 function formatMoney(n?: number) {
   if (n == null || isNaN(n)) return "—";
@@ -56,6 +69,73 @@ export default function PaystubPage() {
     rewards: 0,
     balance: 0,
   });
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [warningDate, setWarningDate] = useState("");
+  const [warningIssue, setWarningIssue] = useState("");
+  const [savingWarning, setSavingWarning] = useState(false);
+  const [warningError, setWarningError] = useState("");
+
+  useEffect(() => {
+    let active = true;
+    void (async () => {
+      const claims = await auth.currentUser?.getIdTokenResult();
+      if (active) setIsAdmin(claims?.claims.staff === true);
+    })();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    const endDate = period?.endDate ?? record?.periodEnd ?? null;
+    if (endDate) setWarningDate((prev) => prev || toDateStr(endDate));
+  }, [period?.endDate, record?.periodEnd]);
+
+  async function refreshWarnings() {
+    const startDate = period?.startDate;
+    const endDate = period?.endDate ?? record?.periodEnd ?? null;
+    if (!record?.studentId || !startDate || !endDate) return;
+    const w = await fetchWarningsForStudentPeriod(
+      record.studentId,
+      toDateStr(startDate),
+      toDateStr(endDate)
+    );
+    setWarnings(w);
+  }
+
+  async function handleAddWarning() {
+    if (!record?.studentId) return;
+    if (!warningDate || !warningIssue.trim()) {
+      setWarningError("Date and issue are required.");
+      return;
+    }
+    try {
+      setSavingWarning(true);
+      setWarningError("");
+      await createWarning({
+        studentId: record.studentId,
+        dateStr: warningDate,
+        issue: warningIssue,
+      });
+      setWarningIssue("");
+      await refreshWarnings();
+    } catch (err) {
+      console.error(err);
+      setWarningError("Could not add warning.");
+    } finally {
+      setSavingWarning(false);
+    }
+  }
+
+  async function handleDeleteWarning(warningId: string) {
+    try {
+      await deleteWarning(warningId);
+      await refreshWarnings();
+    } catch (err) {
+      console.error(err);
+      setWarningError("Could not delete warning.");
+    }
+  }
 
   const semesterStart = useMemo(() => {
     const now = new Date();
@@ -132,8 +212,8 @@ export default function PaystubPage() {
       setSemesterTotals({ gross: 0, rewards: 0, balance: 0 });
       return;
     }
-    const startStr = startDate.toISOString().slice(0, 10);
-    const endStr = endDate.toISOString().slice(0, 10);
+    const startStr = toDateStr(startDate);
+    const endStr = toDateStr(endDate);
     void loadDetails(record.studentId, startStr, endStr, startDate, endDate);
   }, [record?.studentId, period?.startDate, period?.endDate, record?.periodEnd, loadDetails]);
 
@@ -171,7 +251,7 @@ export default function PaystubPage() {
           <div className="flex flex-wrap gap-6">
             <div>
               <div className="text-xs uppercase tracking-wide text-slate-500">Student</div>
-              <div className="text-base font-semibold text-slate-900">{record.studentId || "—"}</div>
+              <div className="text-base font-semibold text-slate-900">{record.studentName || record.studentId || "—"}</div>
             </div>
             <div>
               <div className="text-xs uppercase tracking-wide text-slate-500">Pay Period</div>
@@ -198,10 +278,6 @@ export default function PaystubPage() {
                 <div className="flex justify-between">
                   <dt>Net Hours</dt>
                   <dd>{formatHours(record.netHours)}</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt>Paid Hours</dt>
-                  <dd>{formatHours(record.paidHours)}</dd>
                 </div>
               </dl>
             </div>
@@ -341,6 +417,43 @@ export default function PaystubPage() {
                 {detailLoading ? "Loading..." : `${warnings.length} items`}
               </span>
             </div>
+            {isAdmin && hasRange && (
+              <div className="border-b border-slate-200 px-4 py-3 bg-slate-50">
+                <div className="text-xs font-semibold text-slate-600 mb-2">Add warning</div>
+                <div className="flex flex-wrap items-end gap-2">
+                  <div>
+                    <label className="block text-[11px] text-slate-500">Date</label>
+                    <input
+                      type="date"
+                      value={warningDate}
+                      onChange={(e) => setWarningDate(e.target.value)}
+                      className="mt-1 rounded-md border border-slate-300 px-2 py-1 text-sm"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-[12rem]">
+                    <label className="block text-[11px] text-slate-500">Issue</label>
+                    <input
+                      type="text"
+                      value={warningIssue}
+                      onChange={(e) => setWarningIssue(e.target.value)}
+                      placeholder="e.g. Late / dress code"
+                      className="mt-1 w-full rounded-md border border-slate-300 px-2 py-1 text-sm"
+                    />
+                  </div>
+                  <button
+                    onClick={() => void handleAddWarning()}
+                    disabled={savingWarning}
+                    className="rounded-md bg-emerald-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-800 disabled:opacity-60"
+                  >
+                    {savingWarning ? "Adding..." : "Add"}
+                  </button>
+                </div>
+                <p className="mt-1 text-[11px] text-slate-500">
+                  Deduction applies the next time payroll is generated for this period.
+                </p>
+                {warningError && <div className="mt-1 text-xs text-rose-600">{warningError}</div>}
+              </div>
+            )}
             {hasRange ? (
               <div className="max-h-60 overflow-auto">
                 <table className="min-w-full text-sm">
@@ -350,6 +463,7 @@ export default function PaystubPage() {
                       <th className="px-3 py-2 text-left text-slate-600">Issue</th>
                       <th className="px-3 py-2 text-left text-slate-600">Start</th>
                       <th className="px-3 py-2 text-left text-slate-600">End</th>
+                      {isAdmin && <th className="px-3 py-2 text-right text-slate-600">Actions</th>}
                     </tr>
                   </thead>
                   <tbody>
@@ -359,11 +473,21 @@ export default function PaystubPage() {
                         <td className="px-3 py-2 text-slate-700">{w.issue || "—"}</td>
                         <td className="px-3 py-2 text-slate-700">{formatTime(w.startTs)}</td>
                         <td className="px-3 py-2 text-slate-700">{formatTime(w.endTs)}</td>
+                        {isAdmin && (
+                          <td className="px-3 py-2 text-right">
+                            <button
+                              onClick={() => void handleDeleteWarning(w.id)}
+                              className="text-xs text-rose-600 hover:text-rose-800 hover:underline"
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        )}
                       </tr>
                     ))}
                     {!detailLoading && warnings.length === 0 && (
                       <tr>
-                        <td className="px-3 py-3 text-slate-500 text-sm" colSpan={4}>
+                        <td className="px-3 py-3 text-slate-500 text-sm" colSpan={isAdmin ? 5 : 4}>
                           No warnings in this period.
                         </td>
                       </tr>

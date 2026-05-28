@@ -34,6 +34,35 @@ const db = admin.firestore();
 const DEFAULT_HOURLY_RATE = 15;
 const DEDUCTION_PER_WARNING = 5;
 const REWARD_COLLECTION = "reward_purchases";
+const TIMEZONE = "America/Los_Angeles";
+
+// Local-date helpers — keep in sync with functions/dateUtils.js. All dateStr
+// keys are YYYY-MM-DD in TIMEZONE, not UTC.
+function toDateStr(date, tz = TIMEZONE) {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit",
+  }).format(date);
+}
+function tzOffsetMs(date, tz = TIMEZONE) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: tz, hour12: false,
+    year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit",
+  }).formatToParts(date);
+  const map = {};
+  for (const p of parts) map[p.type] = p.value;
+  const hour = map.hour === "24" ? 0 : Number(map.hour);
+  const asUtc = Date.UTC(Number(map.year), Number(map.month) - 1, Number(map.day), hour, Number(map.minute), Number(map.second));
+  return asUtc - date.getTime();
+}
+function startOfDayUtc(dateStr, tz = TIMEZONE) {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  const guess = Date.UTC(y, m - 1, d, 0, 0, 0);
+  return new Date(guess - tzOffsetMs(new Date(guess), tz));
+}
+function endOfDayUtc(dateStr, tz = TIMEZONE) {
+  return new Date(startOfDayUtc(dateStr, tz).getTime() + 24 * 60 * 60 * 1000);
+}
 
 async function main() {
   const argPeriod = process.argv[2];
@@ -66,8 +95,8 @@ async function main() {
       console.warn(`Skipping ${periodId}: missing start/end`);
       continue;
     }
-    const startStr = startDate.toISOString().slice(0, 10);
-    const endStr = endDate.toISOString().slice(0, 10);
+    const startStr = toDateStr(startDate);
+    const endStr = toDateStr(endDate);
     console.log(`Processing period ${periodId}: ${startStr} to ${endStr} @ $${hourlyRate}/hr`);
 
   const sessionsSnap = await db
@@ -85,9 +114,16 @@ async function main() {
   const rewardsSnap = await db
     .collection(REWARD_COLLECTION)
     .where("status", "==", "approved")
-    .where("createdAt", ">=", startDate)
-    .where("createdAt", "<=", endDate)
+    .where("createdAt", ">=", startOfDayUtc(startStr))
+    .where("createdAt", "<", endOfDayUtc(endStr))
     .get();
+
+  const studentsSnap = await db.collection("students").get();
+  const nameById = new Map();
+  studentsSnap.forEach((doc) => {
+    const sd = doc.data();
+    nameById.set(doc.id, sd.name || `${sd.firstName || ""} ${sd.lastName || ""}`.trim() || doc.id);
+  });
 
     const totals = new Map();
     sessionsSnap.forEach((doc) => {
@@ -122,11 +158,17 @@ async function main() {
     rewardItems.set(sid, arr);
   });
 
+    const allStudentIds = new Set([
+      ...totals.keys(),
+      ...warningCounts.keys(),
+      ...rewardTotals.keys(),
+    ]);
+
     const batch = db.batch();
-    totals.forEach((netMs, sid) => {
+    allStudentIds.forEach((sid) => {
+      const netMs = totals.get(sid) || 0;
       const safeId = sid.replace(/\//g, "_");
     const netHours = netMs / 1000 / 60 / 60;
-    const paidHours = netHours;
     const totalPay = Math.round(netHours * hourlyRate * 100) / 100;
     const warningCount = warningCounts.get(sid) || 0;
     const warningDeduction = warningCount * DEDUCTION_PER_WARNING;
@@ -137,11 +179,10 @@ async function main() {
     const ref = db.collection("payroll").doc(docId);
     batch.set(ref, {
       studentId: sid,
-      studentName: sid,
+      studentName: nameById.get(sid) || sid,
       periodId,
       periodEnd: endDate,
       netHours,
-      paidHours,
       totalPay,
       netPay,
       deductions,
@@ -153,7 +194,7 @@ async function main() {
     });
   });
     await batch.commit();
-    console.log(`Wrote ${totals.size} payroll docs for period ${periodId}`);
+    console.log(`Wrote ${allStudentIds.size} payroll docs for period ${periodId}`);
   }
 }
 

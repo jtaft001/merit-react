@@ -116,17 +116,23 @@ export async function fetchRewardSpendAndBalance(studentId: string, startDate?: 
   balance: number;
 }> {
   if (!studentId) return { totalRewardSpend: 0, totalGross: 0, balance: 0 };
-  // Sum reward spend
+  // Sum reward spend over the SAME window as gross (semester) so the balance
+  // reconciles. Status is filtered in memory to reuse the existing
+  // (studentId, createdAt) index rather than requiring a 3-field composite.
+  const spendConstraints = [where("studentId", "==", studentId)];
+  if (startDate) {
+    // Range + matching orderBy reuses the existing (studentId, createdAt DESC) index.
+    spendConstraints.push(where("createdAt", ">=", startDate));
+    spendConstraints.push(orderBy("createdAt", "desc"));
+  }
   const spendSnap = await getDocs(
-    query(
-      collection(db, "reward_purchases"),
-      where("studentId", "==", studentId),
-      where("status", "==", "approved")
-    )
+    query(collection(db, "reward_purchases"), ...spendConstraints)
   );
   let totalRewardSpend = 0;
   spendSnap.forEach((d) => {
-    const cost = d.data().cost;
+    const data = d.data();
+    if (data.status !== "approved") return;
+    const cost = data.cost;
     if (typeof cost === "number") totalRewardSpend += cost;
   });
 
