@@ -1,33 +1,66 @@
 const admin = require("firebase-admin");
 const { toDateStr, startOfDayUtc, endOfDayUtc } = require("./dateUtils");
+const { buildResolver } = require("./studentIdentity");
 
 /**
- * Derives a session from an ordered list of timeclock events.
+ * Derives a session from an ordered list of timeclock events for one day.
  * Returns null if there is no clock-in event.
+ *
+ * Supports MULTIPLE clock-in/out stints in a single day: each completed
+ * (in -> out) stint's worked time is accumulated, so a student who clocks
+ * fully out and back in is paid for both stints rather than only the last.
+ *
+ * Fields:
+ *   clockIn  = first clock-in of the day
+ *   clockOut = last clock-out of the day (null if currently still clocked in)
+ *   grossMs  = summed worked time across COMPLETED stints (null if none closed)
+ *   breakMs  = summed break time across completed stints
+ *   netMs    = grossMs - breakMs (null if no completed stint)
+ *   breakCount = number of breaks taken
+ *   open     = true if the student is still clocked in (no closing clock-out)
  */
 function deriveSession(events, studentId, dateStr) {
-  let inSession = false;
-  let sessionStart = null;
-  let clockInTs = null;
-  let clockOutTs = null;
-  let inBreak = false;
-  let breakStart = null;
+  let firstClockIn = null;
+  let lastClockOut = null;
+  let totalGrossMs = 0;
   let totalBreakMs = 0;
   let breakCount = 0;
-  let grossMs = 0;
-  let netMs = 0;
+
+  // per-stint state
+  let inSession = false;
+  let stintStart = null;
+  let inBreak = false;
+  let breakStart = null;
+  let stintBreakMs = 0;
+
+  const closeStint = (endTs) => {
+    if (!inSession || !stintStart) return;
+    if (inBreak && breakStart) {
+      stintBreakMs += Math.max(0, endTs.getTime() - breakStart.getTime());
+      inBreak = false;
+      breakStart = null;
+    }
+    totalGrossMs += Math.max(0, endTs.getTime() - stintStart.getTime());
+    totalBreakMs += stintBreakMs;
+    lastClockOut = endTs;
+    inSession = false;
+    stintStart = null;
+    stintBreakMs = 0;
+  };
 
   events.forEach((ev) => {
     const action = (ev.action || "").toUpperCase();
     if (action.includes("CLOCK IN")) {
-      inSession = true;
-      sessionStart = ev.timestamp;
-      clockInTs = ev.timestamp;
-      clockOutTs = null;
-      inBreak = false;
-      breakStart = null;
-      totalBreakMs = 0;
-      breakCount = 0;
+      // Ignore a duplicate clock-in while already in a stint (keeps the
+      // earliest start); a real second stint only begins after a clock-out.
+      if (!inSession) {
+        inSession = true;
+        stintStart = ev.timestamp;
+        inBreak = false;
+        breakStart = null;
+        stintBreakMs = 0;
+        if (!firstClockIn) firstClockIn = ev.timestamp;
+      }
     } else if (action.includes("BREAK START")) {
       if (inSession && !inBreak) {
         inBreak = true;
@@ -36,44 +69,31 @@ function deriveSession(events, studentId, dateStr) {
       }
     } else if (action.includes("BREAK END")) {
       if (inSession && inBreak && breakStart) {
-        totalBreakMs += Math.max(
-          0,
-          ev.timestamp.getTime() - breakStart.getTime()
-        );
+        stintBreakMs += Math.max(0, ev.timestamp.getTime() - breakStart.getTime());
         inBreak = false;
         breakStart = null;
       }
     } else if (action.includes("CLOCK OUT")) {
-      if (inSession && sessionStart) {
-        if (inBreak && breakStart) {
-          totalBreakMs += Math.max(
-            0,
-            ev.timestamp.getTime() - breakStart.getTime()
-          );
-          inBreak = false;
-          breakStart = null;
-        }
-        grossMs = Math.max(0, ev.timestamp.getTime() - sessionStart.getTime());
-        netMs = Math.max(0, grossMs - totalBreakMs);
-        clockOutTs = ev.timestamp;
-      }
-      inSession = false;
+      closeStint(ev.timestamp);
     }
   });
 
-  if (!clockInTs) return null;
+  if (!firstClockIn) return null;
+
+  const hasCompleted = lastClockOut !== null;
 
   return {
     studentId,
     dateStr,
-    clockIn: admin.firestore.Timestamp.fromDate(clockInTs),
-    clockOut: clockOutTs
-      ? admin.firestore.Timestamp.fromDate(clockOutTs)
+    clockIn: admin.firestore.Timestamp.fromDate(firstClockIn),
+    clockOut: lastClockOut
+      ? admin.firestore.Timestamp.fromDate(lastClockOut)
       : null,
-    grossMs: clockOutTs ? grossMs : null,
+    grossMs: hasCompleted ? totalGrossMs : null,
     breakMs: totalBreakMs,
-    netMs: clockOutTs ? netMs : null,
+    netMs: hasCompleted ? Math.max(0, totalGrossMs - totalBreakMs) : null,
     breakCount,
+    open: inSession,
   };
 }
 
@@ -87,8 +107,14 @@ const onTimeclockEvent = async (snap, _context) => {
   const data = snap.data();
   if (!data) return;
 
-  const studentId = data.studentId;
-  if (!studentId) return;
+  const rawStudentId = data.studentId;
+  if (!rawStudentId) return;
+
+  // Resolve to the canonical students doc ID so Form (name) and NFC (doc id)
+  // events for the same person land in the same session. Falls back to the
+  // raw value for clock-in users who have no student account.
+  const resolve = await buildResolver(db);
+  const studentId = resolve(rawStudentId);
 
   const rawTs = data.timestamp;
   const timestamp =
@@ -108,12 +134,16 @@ const onTimeclockEvent = async (snap, _context) => {
     .orderBy("timestamp", "asc")
     .get();
 
-  // Filter to this student in memory
+  // Resolve every event's studentId to canonical, then keep this student's.
   const events = daySnap.docs
     .map((doc) => {
       const d = doc.data();
       const ts = d.timestamp?.toDate?.() ?? new Date(d.timestamp);
-      return { action: d.action || "", timestamp: ts, studentId: d.studentId };
+      return {
+        action: d.action || "",
+        timestamp: ts,
+        studentId: resolve(d.studentId),
+      };
     })
     .filter((ev) => ev.studentId === studentId);
 
@@ -156,6 +186,31 @@ const backfillSessions = async (request) => {
 
   const db = admin.firestore();
 
+  // Optionally wipe existing (derived) sessions first so re-keying a student
+  // from name -> canonical doc ID doesn't leave a stale duplicate session.
+  // Sessions are fully derived from timeclock, so this is safe to rebuild.
+  const wipe = request.data?.wipe === true;
+  let deleted = 0;
+  if (wipe) {
+    const existing = await db.collection("sessions").get();
+    let delBatch = db.batch();
+    let delCount = 0;
+    for (const doc of existing.docs) {
+      delBatch.delete(doc.ref);
+      delCount += 1;
+      deleted += 1;
+      if (delCount >= 400) {
+        await delBatch.commit();
+        delBatch = db.batch();
+        delCount = 0;
+      }
+    }
+    if (delCount > 0) await delBatch.commit();
+  }
+
+  // Resolve any raw studentId (Form name / NFC doc id) to canonical doc ID.
+  const resolve = await buildResolver(db);
+
   // Fetch all timeclock events (up to 10,000)
   const snap = await db
     .collection("timeclock")
@@ -163,11 +218,11 @@ const backfillSessions = async (request) => {
     .limit(10000)
     .get();
 
-  // Group events by studentId + dateStr
+  // Group events by canonical studentId + dateStr
   const grouped = new Map();
   snap.docs.forEach((doc) => {
     const d = doc.data();
-    const studentId = d.studentId;
+    const studentId = resolve(d.studentId);
     if (!studentId) return;
     const rawTs = d.timestamp;
     const timestamp =
@@ -217,8 +272,8 @@ const backfillSessions = async (request) => {
 
   if (batchCount > 0) await batch.commit();
 
-  console.log(`Backfill complete: ${count} sessions written.`);
-  return { count };
+  console.log(`Backfill complete: ${count} sessions written${wipe ? `, ${deleted} deleted first` : ""}.`);
+  return { count, deleted, wiped: wipe };
 };
 
-module.exports = { onTimeclockEvent, backfillSessions };
+module.exports = { onTimeclockEvent, backfillSessions, deriveSession };

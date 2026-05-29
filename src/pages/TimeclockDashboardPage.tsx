@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   collection,
+  getDocs,
   limit as limitClause,
   orderBy,
   query,
@@ -55,6 +56,15 @@ type LiveEvent = {
   timestamp: Date;
   source?: string;
 };
+
+type OpenSession = {
+  id: string;
+  studentId: string;
+  dateStr: string;
+  clockIn: Date | null;
+};
+
+const OPEN_SESSION_DAYS = 21;
 
 function formatTs(d?: Date) {
   if (!d) return "";
@@ -121,6 +131,7 @@ export default function TimeclockDashboardPage() {
   const [status, setStatus] = useState("loading");
   const [error, setError] = useState<string>("");
   const [students, setStudents] = useState<StudentRecord[]>([]);
+  const [openSessions, setOpenSessions] = useState<OpenSession[]>([]);
   const [now, setNow] = useState(() => Date.now());
 
   const roster = useMemo(() => {
@@ -141,6 +152,52 @@ export default function TimeclockDashboardPage() {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    // Load recent sessions that never got a clock-out (forgotten clock-outs).
+    // Query by dateStr range and filter clockOut==null in memory so no extra
+    // composite index is required.
+    void (async () => {
+      try {
+        const since = new Date();
+        since.setDate(since.getDate() - OPEN_SESSION_DAYS);
+        const sinceStr = since.toISOString().slice(0, 10);
+        const snap = await getDocs(
+          query(
+            collection(db, "sessions"),
+            where("dateStr", ">=", sinceStr),
+            orderBy("dateStr", "desc"),
+            limitClause(500)
+          )
+        );
+        const open: OpenSession[] = [];
+        snap.forEach((doc) => {
+          const data = doc.data();
+          if (data.clockOut) return; // only sessions with no clock-out
+          open.push({
+            id: doc.id,
+            studentId: data.studentId ?? "",
+            dateStr: data.dateStr ?? "",
+            clockIn:
+              data.clockIn instanceof Timestamp ? data.clockIn.toDate() : null,
+          });
+        });
+        setOpenSessions(open);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
+
+  // Map a session's studentId (canonical doc id, or a name for account-less
+  // students) to a display name.
+  const nameById = useMemo(() => {
+    const m = new Map<string, string>();
+    students.forEach((s) => {
+      if (s.name) m.set(s.id, s.name);
+    });
+    return m;
+  }, [students]);
 
   useEffect(() => {
     const base = new Date();
@@ -360,6 +417,38 @@ export default function TimeclockDashboardPage() {
       {error && (
         <div className="rounded-md border border-rose-300 bg-rose-50 px-3 py-2 text-sm text-rose-700">
           {error}
+        </div>
+      )}
+
+      {openSessions.length > 0 && (
+        <div className="rounded-2xl border border-amber-300 bg-amber-50 p-4">
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-semibold text-amber-800">
+              ⚠ Open sessions — no clock-out ({openSessions.length})
+            </h3>
+            <span className="text-xs text-amber-600">last {OPEN_SESSION_DAYS} days</span>
+          </div>
+          <p className="mt-1 text-xs text-amber-700">
+            These students clocked in but never clocked out, so the day counts as
+            $0 in payroll. Correct the timeclock entry before running payroll.
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {openSessions.map((s) => (
+              <span
+                key={s.id}
+                className="inline-flex items-center gap-2 rounded-full border border-amber-300 bg-white px-3 py-1 text-xs text-amber-900"
+              >
+                <span className="font-medium">{nameById.get(s.studentId) || s.studentId}</span>
+                <span className="text-amber-500">·</span>
+                <span className="text-amber-700">{s.dateStr}</span>
+                {s.clockIn && (
+                  <span className="text-amber-500">
+                    in @ {s.clockIn.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                  </span>
+                )}
+              </span>
+            ))}
+          </div>
         </div>
       )}
 

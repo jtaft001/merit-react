@@ -25,7 +25,7 @@ export default function TimeAttendancePage() {
             to="/payroll"
             className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-800 shadow-sm hover:border-sky-500 hover:bg-sky-50"
           >
-            Payroll (coming soon)
+            Payroll
           </Link>
         </div>
       </div>

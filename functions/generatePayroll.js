@@ -1,6 +1,7 @@
 const admin = require("firebase-admin");
 const { HttpsError } = require("firebase-functions/v2/https");
 const { toDateStr, startOfDayUtc, endOfDayUtc } = require("./dateUtils");
+const { buildResolverFromDocs } = require("./studentIdentity");
 
 const DEFAULT_HOURLY_RATE = 15;
 const DEDUCTION_PER_WARNING = 5;
@@ -90,11 +91,16 @@ const generatePayroll = async (request) => {
     nameById.set(doc.id, name);
   });
 
+  // Resolve every source's studentId to the canonical doc ID so sessions,
+  // warnings and rewards for the same person aggregate together even if they
+  // were written under a name vs a doc ID.
+  const resolve = buildResolverFromDocs(studentsSnap.docs);
+
   // Aggregate session hours per student
   const totals = new Map();
   sessionsSnap.forEach((doc) => {
     const s = doc.data();
-    const sid = s.studentId || "";
+    const sid = resolve(s.studentId || "");
     if (!sid) return;
     const netMs = typeof s.netMs === "number" ? s.netMs : 0;
     totals.set(sid, (totals.get(sid) || 0) + netMs);
@@ -104,7 +110,7 @@ const generatePayroll = async (request) => {
   const warningCounts = new Map();
   warningsSnap.forEach((doc) => {
     const w = doc.data();
-    const sid = w.studentId || "";
+    const sid = resolve(w.studentId || "");
     if (!sid) return;
     warningCounts.set(sid, (warningCounts.get(sid) || 0) + 1);
   });
@@ -114,7 +120,7 @@ const generatePayroll = async (request) => {
   const rewardItems = new Map();
   rewardsSnap.forEach((doc) => {
     const r = doc.data();
-    const sid = r.studentId || "";
+    const sid = resolve(r.studentId || "");
     if (!sid) return;
     const cost = typeof r.cost === "number" ? r.cost : 0;
     rewardTotals.set(sid, (rewardTotals.get(sid) || 0) + cost);

@@ -1,4 +1,4 @@
-import { collection, getDocs, orderBy, query, Timestamp, where } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, Timestamp, where, type QueryConstraint } from "firebase/firestore";
 import { db } from "../firebase";
 import { addDoc, serverTimestamp, limit as limitClause } from "firebase/firestore";
 
@@ -119,7 +119,7 @@ export async function fetchRewardSpendAndBalance(studentId: string, startDate?: 
   // Sum reward spend over the SAME window as gross (semester) so the balance
   // reconciles. Status is filtered in memory to reuse the existing
   // (studentId, createdAt) index rather than requiring a 3-field composite.
-  const spendConstraints = [where("studentId", "==", studentId)];
+  const spendConstraints: QueryConstraint[] = [where("studentId", "==", studentId)];
   if (startDate) {
     // Range + matching orderBy reuses the existing (studentId, createdAt DESC) index.
     spendConstraints.push(where("createdAt", ">=", startDate));
