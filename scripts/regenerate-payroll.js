@@ -20,6 +20,7 @@ admin.initializeApp({ credential: admin.credential.cert(JSON.parse(fs.readFileSy
 const db = admin.firestore();
 
 const { generatePayroll } = require(path.join(root, "functions", "generatePayroll.js"));
+const { toDateStr } = require(path.join(root, "functions", "dateUtils.js"));
 
 const APPLY = process.argv.includes("--apply");
 const fakeRequest = (periodId) => ({ auth: { uid: "migration-script", token: { staff: true } }, data: { periodId } });
@@ -37,11 +38,26 @@ async function deletePayrollForPeriod(periodId) {
 }
 
 async function main() {
-  // periods that currently have payroll docs
   const pay = await db.collection("payroll").get();
-  const periodIds = [...new Set(pay.docs.map((d) => d.data().periodId).filter(Boolean))].sort();
 
-  console.log(`${APPLY ? "REGENERATING" : "DRY RUN —"} payroll for ${periodIds.length} period(s):\n`);
+  // Select ENDED pay periods that have at least one session in range.
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const periodsSnap = await db.collection("pay_periods").get();
+  const periodIds = [];
+  for (const p of periodsSnap.docs) {
+    const v = p.data();
+    const endDate = v.endDate?.toDate?.() ?? (v.endDate ? new Date(v.endDate) : null);
+    if (!endDate) continue;
+    if (endDate >= today) continue; // skip in-progress periods
+    const startStr = toDateStr(v.startDate.toDate?.() ?? new Date(v.startDate));
+    const endStr = toDateStr(endDate);
+    const sess = await db.collection("sessions")
+      .where("dateStr", ">=", startStr).where("dateStr", "<=", endStr).limit(1).get();
+    if (!sess.empty) periodIds.push(p.id);
+  }
+  periodIds.sort();
+
+  console.log(`${APPLY ? "REGENERATING" : "DRY RUN —"} payroll for ${periodIds.length} ended period(s) with sessions:\n`);
   console.log("period           old docs   new docs");
   console.log("─".repeat(42));
 
