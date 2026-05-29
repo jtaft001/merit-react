@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { httpsCallable } from "firebase/functions";
 import { functions } from "../firebase";
@@ -29,6 +29,14 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
   const [showGenerateModal, setShowGenerateModal] = useState(false);
   const [generating, setGenerating] = useState(false);
 
+  // Keep the latest periods in a ref so `load` can read them WITHOUT depending
+  // on `periods` — otherwise setPeriods() recreates `load`, which re-runs the
+  // mount effect, which calls loadPeriods() again → infinite refetch loop.
+  const periodsRef = useRef<PayPeriod[]>([]);
+  useEffect(() => {
+    periodsRef.current = periods;
+  }, [periods]);
+
   const load = useCallback(async (periodId?: string, allPeriods?: PayPeriod[]) => {
     try {
       setLoading(true);
@@ -42,7 +50,7 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
       setReports(data);
 
       if (isAdmin && periodId && data.length === 0) {
-        const periodList = allPeriods ?? periods;
+        const periodList = allPeriods ?? periodsRef.current;
         const period = periodList.find((p) => p.id === periodId);
         if (period?.endDate) {
           const today = new Date();
@@ -60,7 +68,7 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
     } finally {
       setLoading(false);
     }
-  }, [isAdmin, userId, periods]);
+  }, [isAdmin, userId]);
 
   const loadPeriods = useCallback(async () => {
     try {
