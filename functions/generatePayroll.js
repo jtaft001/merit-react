@@ -149,7 +149,7 @@ const generatePayroll = async (request) => {
     const warningDeduction = warningCount * DEDUCTION_PER_WARNING;
     const rewardDeduction = rewardTotals.get(sid) || 0;
     const deductions = warningDeduction + rewardDeduction;
-    const netPay = Math.round((totalPay - deductions) * 100) / 100;
+    const netPay = Math.max(0, Math.round((totalPay - deductions) * 100) / 100);
     const docId = `${safeId}_${periodId}`;
     const ref = db.collection("payroll").doc(docId);
     batch.set(ref, {

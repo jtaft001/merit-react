@@ -10,69 +10,34 @@ export type PayPeriod = {
   createdAt?: Date | null;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function toDate(val: any): Date | null {
+  if (val instanceof Timestamp) return val.toDate();
+  if (val) return new Date(val as string);
+  return null;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function toPeriod(id: string, data: Record<string, any>): PayPeriod {
+  return {
+    id,
+    startDate: toDate(data.startDate),
+    endDate: toDate(data.endDate),
+    display: data.display,
+    hourlyRate: data.hourlyRate,
+    createdAt: toDate(data.createdAt),
+  };
+}
+
 export async function fetchPayPeriods(): Promise<PayPeriod[]> {
   const q = query(collection(db, "pay_periods"), orderBy("endDate", "desc"));
   const snap = await getDocs(q);
-  return snap.docs.map((doc) => {
-    const data = doc.data();
-    const startDate =
-      data.startDate instanceof Timestamp
-        ? data.startDate.toDate()
-        : data.startDate
-        ? new Date(data.startDate)
-        : null;
-    const endDate =
-      data.endDate instanceof Timestamp
-        ? data.endDate.toDate()
-        : data.endDate
-        ? new Date(data.endDate)
-        : null;
-    const createdAt =
-      data.createdAt instanceof Timestamp
-        ? data.createdAt.toDate()
-        : data.createdAt
-        ? new Date(data.createdAt)
-        : null;
-    return {
-      id: doc.id,
-      startDate,
-      endDate,
-      display: data.display,
-      hourlyRate: data.hourlyRate,
-      createdAt,
-    };
-  });
+  return snap.docs.map((doc) => toPeriod(doc.id, doc.data()));
 }
 
 export async function fetchPayPeriodById(id: string): Promise<PayPeriod | null> {
   const ref = doc(db, "pay_periods", id);
   const snap = await getDoc(ref);
   if (!snap.exists()) return null;
-  const data = snap.data();
-  const startDate =
-    data.startDate instanceof Timestamp
-      ? data.startDate.toDate()
-      : data.startDate
-      ? new Date(data.startDate)
-      : null;
-  const endDate =
-    data.endDate instanceof Timestamp
-      ? data.endDate.toDate()
-      : data.endDate
-      ? new Date(data.endDate)
-      : null;
-  const createdAt =
-    data.createdAt instanceof Timestamp
-      ? data.createdAt.toDate()
-      : data.createdAt
-      ? new Date(data.createdAt)
-      : null;
-  return {
-    id: snap.id,
-    startDate,
-    endDate,
-    display: data.display,
-    hourlyRate: data.hourlyRate,
-    createdAt,
-  };
+  return toPeriod(snap.id, snap.data());
 }

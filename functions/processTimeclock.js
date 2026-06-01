@@ -151,11 +151,13 @@ const onTimeclockEvent = async (snap, _context) => {
   if (!session) return;
 
   const docId = `${studentId.replace(/[^a-zA-Z0-9_-]/g, "_")}_${dateStr}`;
-  await db.collection("sessions").doc(docId).set(
+  const sessionRef = db.collection("sessions").doc(docId);
+  const existing = await sessionRef.get();
+  await sessionRef.set(
     {
       ...session,
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      ...(existing.exists ? {} : { createdAt: admin.firestore.FieldValue.serverTimestamp() }),
     },
     { merge: true }
   );

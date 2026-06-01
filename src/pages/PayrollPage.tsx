@@ -111,6 +111,12 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
     }
   }, [isAdmin, selectedPeriod, load]);
 
+  const periodById = useMemo(() => {
+    const m = new Map<string, PayPeriod>();
+    periods.forEach((p) => m.set(p.id, p));
+    return m;
+  }, [periods]);
+
   const periodLabel = useMemo(() => {
     const found = periods.find((p) => p.id === selectedPeriod);
     if (!found) return "All periods";
@@ -190,7 +196,11 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
                     )}
                   </td>
                   <td className="px-3 py-2 text-slate-700">
-                    {r.periodId || formatDate(r.periodEnd)}
+                    {(() => {
+                      const p = r.periodId ? periodById.get(r.periodId) : null;
+                      if (p) return p.display || `${formatDate(p.startDate || undefined)} – ${formatDate(p.endDate || undefined)}`;
+                      return r.periodId || formatDate(r.periodEnd);
+                    })()}
                   </td>
                   <td className="px-3 py-2 text-right text-slate-600">{formatHours(r.netHours)}</td>
                   <td className="px-3 py-2 text-right font-semibold text-slate-800">

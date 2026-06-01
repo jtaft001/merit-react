@@ -48,6 +48,31 @@ export type PayrollRecord = {
   createdAt?: Date | null;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function toDate(val: any): Date | null {
+  if (val instanceof Timestamp) return val.toDate();
+  if (val) return new Date(val as string);
+  return null;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function toPayrollRecord(id: string, data: Record<string, any>): PayrollRecord {
+  return {
+    id,
+    studentId: data.studentId,
+    studentName: data.studentName,
+    periodId: data.periodId,
+    periodEnd: toDate(data.periodEnd),
+    netHours: data.netHours,
+    totalPay: data.totalPay ?? data.netPay,
+    netPay: data.netPay,
+    deductions: data.deductions,
+    rewardDeduction: data.rewardDeduction,
+    warningDeduction: data.warningDeduction,
+    createdAt: toDate(data.createdAt),
+  };
+}
+
 export async function fetchPayrollReports(max = 50): Promise<PayrollRecord[]> {
   const q = query(
     collection(db, "payroll"),
@@ -55,35 +80,7 @@ export async function fetchPayrollReports(max = 50): Promise<PayrollRecord[]> {
     limitClause(max)
   );
   const snap = await getDocs(q);
-  return snap.docs.map((doc) => {
-    const data = doc.data();
-    const periodEnd =
-      data.periodEnd instanceof Timestamp
-        ? data.periodEnd.toDate()
-        : data.periodEnd
-        ? new Date(data.periodEnd)
-        : null;
-    const createdAt =
-      data.createdAt instanceof Timestamp
-        ? data.createdAt.toDate()
-        : data.createdAt
-        ? new Date(data.createdAt)
-        : null;
-    return {
-      id: doc.id,
-      studentId: data.studentId,
-      studentName: data.studentName,
-      periodId: data.periodId,
-      periodEnd,
-      netHours: data.netHours,
-      totalPay: data.totalPay ?? data.netPay,
-      netPay: data.netPay,
-      deductions: data.deductions,
-      rewardDeduction: data.rewardDeduction,
-      warningDeduction: data.warningDeduction,
-      createdAt,
-    };
-  });
+  return snap.docs.map((doc) => toPayrollRecord(doc.id, doc.data()));
 }
 
 export async function fetchPayrollForPeriod(periodId: string, max = 200): Promise<PayrollRecord[]> {
@@ -94,35 +91,7 @@ export async function fetchPayrollForPeriod(periodId: string, max = 200): Promis
     limitClause(max)
   );
   const snap = await getDocs(q);
-  return snap.docs.map((doc) => {
-    const data = doc.data();
-    const periodEnd =
-      data.periodEnd instanceof Timestamp
-        ? data.periodEnd.toDate()
-        : data.periodEnd
-        ? new Date(data.periodEnd)
-        : null;
-    const createdAt =
-      data.createdAt instanceof Timestamp
-        ? data.createdAt.toDate()
-        : data.createdAt
-        ? new Date(data.createdAt)
-        : null;
-    return {
-      id: doc.id,
-      studentId: data.studentId,
-      studentName: data.studentName,
-      periodId: data.periodId,
-      periodEnd,
-      netHours: data.netHours,
-      totalPay: data.totalPay ?? data.netPay,
-      netPay: data.netPay,
-      deductions: data.deductions,
-      rewardDeduction: data.rewardDeduction,
-      warningDeduction: data.warningDeduction,
-      createdAt,
-    };
-  });
+  return snap.docs.map((doc) => toPayrollRecord(doc.id, doc.data()));
 }
 
 export async function fetchPayrollForStudent(studentId: string, max = 50): Promise<PayrollRecord[]> {
@@ -133,68 +102,14 @@ export async function fetchPayrollForStudent(studentId: string, max = 50): Promi
     limitClause(max)
   );
   const snap = await getDocs(q);
-  return snap.docs.map((doc) => {
-    const data = doc.data();
-    const periodEnd =
-      data.periodEnd instanceof Timestamp
-        ? data.periodEnd.toDate()
-        : data.periodEnd
-        ? new Date(data.periodEnd)
-        : null;
-    const createdAt =
-      data.createdAt instanceof Timestamp
-        ? data.createdAt.toDate()
-        : data.createdAt
-        ? new Date(data.createdAt)
-        : null;
-    return {
-      id: doc.id,
-      studentId: data.studentId,
-      studentName: data.studentName,
-      periodId: data.periodId,
-      periodEnd,
-      netHours: data.netHours,
-      totalPay: data.totalPay ?? data.netPay,
-      netPay: data.netPay,
-      deductions: data.deductions,
-      rewardDeduction: data.rewardDeduction,
-      warningDeduction: data.warningDeduction,
-      createdAt,
-    };
-  });
+  return snap.docs.map((doc) => toPayrollRecord(doc.id, doc.data()));
 }
 
 export async function fetchPayrollById(id: string): Promise<PayrollRecord | null> {
   const ref = doc(db, "payroll", id);
   const snap = await getDoc(ref);
   if (!snap.exists()) return null;
-  const data = snap.data();
-  const periodEnd =
-    data.periodEnd instanceof Timestamp
-      ? data.periodEnd.toDate()
-      : data.periodEnd
-      ? new Date(data.periodEnd)
-      : null;
-  const createdAt =
-    data.createdAt instanceof Timestamp
-      ? data.createdAt.toDate()
-      : data.createdAt
-      ? new Date(data.createdAt)
-      : null;
-  return {
-    id: snap.id,
-    studentId: data.studentId,
-    studentName: data.studentName,
-    periodId: data.periodId,
-    periodEnd,
-    netHours: data.netHours,
-    totalPay: data.totalPay ?? data.netPay,
-    netPay: data.netPay,
-    deductions: data.deductions,
-    rewardDeduction: data.rewardDeduction,
-    warningDeduction: data.warningDeduction,
-    createdAt,
-  };
+  return toPayrollRecord(snap.id, snap.data());
 }
 
 export async function fetchSessionsForStudentPeriod(
@@ -216,8 +131,8 @@ export async function fetchSessionsForStudentPeriod(
       id: doc.id,
       studentId: data.studentId,
       dateStr: data.dateStr,
-      clockIn: data.clockIn instanceof Timestamp ? data.clockIn.toDate() : data.clockIn ?? null,
-      clockOut: data.clockOut instanceof Timestamp ? data.clockOut.toDate() : data.clockOut ?? null,
+      clockIn: toDate(data.clockIn),
+      clockOut: toDate(data.clockOut),
       netMs: data.netMs,
       grossMs: data.grossMs,
       breakMs: data.breakMs,
@@ -246,8 +161,8 @@ export async function fetchWarningsForStudentPeriod(
       studentId: data.studentId,
       dateStr: data.dateStr,
       issue: data.issue,
-      startTs: data.startTs instanceof Timestamp ? data.startTs.toDate() : data.startTs ?? null,
-      endTs: data.endTs instanceof Timestamp ? data.endTs.toDate() : data.endTs ?? null,
+      startTs: toDate(data.startTs),
+      endTs: toDate(data.endTs),
     };
   });
 }

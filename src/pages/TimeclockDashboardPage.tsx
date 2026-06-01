@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   collection,
   getDocs,
@@ -12,42 +12,6 @@ import {
 import { db } from "../firebase";
 import { fetchStudents, type StudentRecord } from "../services/studentService";
 
-// Optional: static roster list (use student IDs/names from Firestore `students`).
-// If populated, this takes priority over the fetched list for presence/absence counts.
-const EXPECTED_STUDENT_IDS: string[] = [
-  "Molly Anaya",
-  "Elly Blair",
-  "Jaiden Burrows",
-  "Anakin Cook",
-  "Violet Corona Barriga",
-  "Bryce Davis",
-  "Jacob Dixon",
-  "Kimberly Eckman",
-  "Josh Einhaus",
-  "Olivia Frost",
-  "Kyler Fry",
-  "Kylie Gambill",
-  "Brooke Gordon",
-  "Elizabeth Hall",
-  "Tru Herr",
-  "Maia Herrera",
-  "Jack Kegg",
-  "Lily Kennefic",
-  "Eva Knee",
-  "Jayme Leeper",
-  "Adelynn Massey",
-  "Jasmine Mata",
-  "Alexa Miland",
-  "Des Miller",
-  "Rylie Nelson",
-  "Maya Ontiveros",
-  "Izabella Petersen",
-  "Alyssa Powell",
-  "Justice Powell",
-  "Bella Rice",
-  "Maisie Roberts",
-  "Tatiana Wilkes",
-];
 
 type LiveEvent = {
   id: string;
@@ -132,14 +96,10 @@ export default function TimeclockDashboardPage() {
   const [error, setError] = useState<string>("");
   const [students, setStudents] = useState<StudentRecord[]>([]);
   const [openSessions, setOpenSessions] = useState<OpenSession[]>([]);
+  const [loadingOpenSessions, setLoadingOpenSessions] = useState(false);
   const [now, setNow] = useState(() => Date.now());
 
-  const roster = useMemo(() => {
-    if (EXPECTED_STUDENT_IDS.length > 0) {
-      return EXPECTED_STUDENT_IDS.map((id) => ({ id, name: id })) as StudentRecord[];
-    }
-    return students;
-  }, [students]);
+  const roster = students;
 
   useEffect(() => {
     // Load students once
@@ -153,41 +113,45 @@ export default function TimeclockDashboardPage() {
     })();
   }, []);
 
-  useEffect(() => {
-    // Load recent sessions that never got a clock-out (forgotten clock-outs).
-    // Query by dateStr range and filter clockOut==null in memory so no extra
-    // composite index is required.
-    void (async () => {
-      try {
-        const since = new Date();
-        since.setDate(since.getDate() - OPEN_SESSION_DAYS);
-        const sinceStr = since.toISOString().slice(0, 10);
-        const snap = await getDocs(
-          query(
-            collection(db, "sessions"),
-            where("dateStr", ">=", sinceStr),
-            orderBy("dateStr", "desc"),
-            limitClause(500)
-          )
-        );
-        const open: OpenSession[] = [];
-        snap.forEach((doc) => {
-          const data = doc.data();
-          if (data.clockOut) return; // only sessions with no clock-out
-          open.push({
-            id: doc.id,
-            studentId: data.studentId ?? "",
-            dateStr: data.dateStr ?? "",
-            clockIn:
-              data.clockIn instanceof Timestamp ? data.clockIn.toDate() : null,
-          });
+  // Load recent sessions that never got a clock-out (forgotten clock-outs).
+  // Query by dateStr range and filter clockOut==null in memory so no extra
+  // composite index is required.
+  const loadOpenSessions = useCallback(async () => {
+    try {
+      setLoadingOpenSessions(true);
+      const since = new Date();
+      since.setDate(since.getDate() - OPEN_SESSION_DAYS);
+      const sinceStr = since.toISOString().slice(0, 10);
+      const snap = await getDocs(
+        query(
+          collection(db, "sessions"),
+          where("dateStr", ">=", sinceStr),
+          orderBy("dateStr", "desc"),
+          limitClause(500)
+        )
+      );
+      const open: OpenSession[] = [];
+      snap.forEach((doc) => {
+        const data = doc.data();
+        if (data.clockOut) return;
+        open.push({
+          id: doc.id,
+          studentId: data.studentId ?? "",
+          dateStr: data.dateStr ?? "",
+          clockIn: data.clockIn instanceof Timestamp ? data.clockIn.toDate() : null,
         });
-        setOpenSessions(open);
-      } catch (err) {
-        console.error(err);
-      }
-    })();
+      });
+      setOpenSessions(open);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingOpenSessions(false);
+    }
   }, []);
+
+  useEffect(() => {
+    void loadOpenSessions();
+  }, [loadOpenSessions]);
 
   // Map a session's studentId (canonical doc id, or a name for account-less
   // students) to a display name.
@@ -426,7 +390,16 @@ export default function TimeclockDashboardPage() {
             <h3 className="text-sm font-semibold text-amber-800">
               ⚠ Open sessions — no clock-out ({openSessions.length})
             </h3>
-            <span className="text-xs text-amber-600">last {OPEN_SESSION_DAYS} days</span>
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-amber-600">last {OPEN_SESSION_DAYS} days</span>
+              <button
+                onClick={() => void loadOpenSessions()}
+                disabled={loadingOpenSessions}
+                className="text-xs text-amber-700 hover:underline disabled:opacity-50"
+              >
+                {loadingOpenSessions ? "Refreshing..." : "Refresh"}
+              </button>
+            </div>
           </div>
           <p className="mt-1 text-xs text-amber-700">
             These students clocked in but never clocked out, so the day counts as

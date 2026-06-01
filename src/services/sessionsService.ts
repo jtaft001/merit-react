@@ -83,11 +83,15 @@ export async function fetchWarningsForStudent(
   const since = new Date();
   since.setDate(since.getDate() - daysBack);
 
+  const sinceStr = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Los_Angeles",
+  }).format(since);
+
   const q = query(
     collection(db, "warnings"),
     where("studentId", "==", studentId),
-    where("startTs", ">=", since),
-    orderBy("startTs", "desc"),
+    where("dateStr", ">=", sinceStr),
+    orderBy("dateStr", "desc"),
     limitClause(max)
   );
 

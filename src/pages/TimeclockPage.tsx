@@ -8,6 +8,7 @@ import {
   type SessionRecord,
   type WarningRecord,
 } from "../services/sessionsService";
+import { fetchStudents } from "../services/studentService";
 
 type EventRecord = {
   id: string;
@@ -34,6 +35,20 @@ export default function TimeclockPage() {
   const [detailError, setDetailError] = useState("");
   const [backfilling, setBackfilling] = useState(false);
   const [backfillResult, setBackfillResult] = useState<string>("");
+  const [studentNameMap, setStudentNameMap] = useState<Map<string, string>>(new Map());
+
+  useEffect(() => {
+    void (async () => {
+      try {
+        const list = await fetchStudents();
+        const m = new Map<string, string>();
+        list.forEach((s) => m.set(s.id, s.name || s.email || s.id));
+        setStudentNameMap(m);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     async function load() {
@@ -159,12 +174,12 @@ export default function TimeclockPage() {
             {loadingEvents ? "Refreshing..." : "Refresh"}
           </button>
         </div>
-        {backfillResult && (
-          <p className={`mt-1 text-sm ${backfillResult.startsWith("Error") ? "text-rose-600" : "text-emerald-700"}`}>
-            {backfillResult}
-          </p>
-        )}
       </div>
+      {backfillResult && (
+        <p className={`text-sm ${backfillResult.startsWith("Error") ? "text-rose-600" : "text-emerald-700"}`}>
+          {backfillResult}
+        </p>
+      )}
 
       <div className="grid gap-4 lg:grid-cols-3">
         <div className="lg:col-span-2 rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -230,7 +245,7 @@ export default function TimeclockPage() {
                 <option value="">Select student</option>
                 {students.map((id) => (
                   <option key={id} value={id}>
-                    {id}
+                    {studentNameMap.get(id) || id}
                   </option>
                 ))}
               </select>
@@ -320,7 +335,7 @@ function deriveSessionsFromEvents(
   events.forEach((ev) => {
     if (ev.studentId !== studentId) return;
     if (ev.timestamp < since) return;
-    const ds = ev.timestamp.toISOString().slice(0, 10);
+    const ds = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Los_Angeles" }).format(ev.timestamp);
     if (!grouped.has(ds)) grouped.set(ds, []);
     grouped.get(ds)!.push(ev);
   });
