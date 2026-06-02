@@ -51,8 +51,6 @@ function deriveSession(events, studentId, dateStr) {
   events.forEach((ev) => {
     const action = (ev.action || "").toUpperCase();
     if (action.includes("CLOCK IN")) {
-      // Ignore a duplicate clock-in while already in a stint (keeps the
-      // earliest start); a real second stint only begins after a clock-out.
       if (!inSession) {
         inSession = true;
         stintStart = ev.timestamp;
@@ -98,9 +96,80 @@ function deriveSession(events, studentId, dateStr) {
 }
 
 /**
+ * Detects timeclock anomalies for a student+day.
+ * Each returned anomaly generates a $1 auto-warning.
+ *
+ * Anomaly types:
+ *   "open"         — clocked in, no clock-out
+ *   "no_clockin"   — clock-out event with no preceding clock-in
+ *   "zero_duration" — clock-in and clock-out at the exact same time
+ */
+function detectAnomalies(events, session) {
+  const anomalies = [];
+
+  const hasClockIn = events.some((ev) =>
+    (ev.action || "").toUpperCase().includes("CLOCK IN")
+  );
+  const hasClockOut = events.some((ev) =>
+    (ev.action || "").toUpperCase().includes("CLOCK OUT")
+  );
+
+  if (hasClockOut && !hasClockIn) {
+    anomalies.push({ type: "no_clockin", issue: "No clock-in" });
+  }
+
+  if (session) {
+    if (session.open) {
+      anomalies.push({ type: "open", issue: "No clock-out" });
+    }
+    if (!session.open && session.grossMs === 0) {
+      anomalies.push({ type: "zero_duration", issue: "Same-time in/out" });
+    }
+  }
+
+  return anomalies;
+}
+
+const WARN_TYPES = ["open", "no_clockin", "zero_duration"];
+
+/**
+ * Idempotently writes or deletes the three auto-warning slots for a
+ * student+day. Deleting a slot that doesn't exist is a Firestore no-op.
+ */
+async function syncAutoWarnings(db, studentId, dateStr, anomalies) {
+  const safeId = studentId.replace(/[^a-zA-Z0-9_-]/g, "_");
+  const batch = db.batch();
+  for (const type of WARN_TYPES) {
+    const ref = db
+      .collection("warnings")
+      .doc(`${safeId}_${dateStr}_${type}`);
+    const detected = anomalies.find((a) => a.type === type);
+    if (detected) {
+      batch.set(
+        ref,
+        {
+          studentId,
+          dateStr,
+          issue: detected.issue,
+          type: "auto",
+          amount: 1,
+          startTs: null,
+          endTs: null,
+          createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        },
+        { merge: true }
+      );
+    } else {
+      batch.delete(ref);
+    }
+  }
+  await batch.commit();
+}
+
+/**
  * Firestore trigger (Gen 1): whenever a new timeclock document is created,
- * re-derive and upsert the session for that student+day.
- * Signature: (snap, context) for Gen 1 triggers.
+ * re-derive and upsert the session for that student+day, then sync
+ * auto-warnings based on detected anomalies.
  */
 const onTimeclockEvent = async (snap, _context) => {
   const db = admin.firestore();
@@ -110,9 +179,6 @@ const onTimeclockEvent = async (snap, _context) => {
   const rawStudentId = data.studentId;
   if (!rawStudentId) return;
 
-  // Resolve to the canonical students doc ID so Form (name) and NFC (doc id)
-  // events for the same person land in the same session. Falls back to the
-  // raw value for clock-in users who have no student account.
   const resolve = await buildResolver(db);
   const studentId = resolve(rawStudentId);
 
@@ -121,9 +187,6 @@ const onTimeclockEvent = async (snap, _context) => {
     rawTs?.toDate?.() ?? (rawTs ? new Date(rawTs) : new Date());
   const dateStr = toDateStr(timestamp);
 
-  // Query all timeclock events for this *local* day (small result set).
-  // The window is the UTC span of the local calendar day, so an evening
-  // Pacific tap is grouped with the rest of that day rather than the next.
   const dayStart = startOfDayUtc(dateStr);
   const dayEnd = endOfDayUtc(dateStr);
 
@@ -134,7 +197,6 @@ const onTimeclockEvent = async (snap, _context) => {
     .orderBy("timestamp", "asc")
     .get();
 
-  // Resolve every event's studentId to canonical, then keep this student's.
   const events = daySnap.docs
     .map((doc) => {
       const d = doc.data();
@@ -148,26 +210,31 @@ const onTimeclockEvent = async (snap, _context) => {
     .filter((ev) => ev.studentId === studentId);
 
   const session = deriveSession(events, studentId, dateStr);
-  if (!session) return;
+  const safeId = studentId.replace(/[^a-zA-Z0-9_-]/g, "_");
 
-  const docId = `${studentId.replace(/[^a-zA-Z0-9_-]/g, "_")}_${dateStr}`;
-  const sessionRef = db.collection("sessions").doc(docId);
-  const existing = await sessionRef.get();
-  await sessionRef.set(
-    {
-      ...session,
-      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-      ...(existing.exists ? {} : { createdAt: admin.firestore.FieldValue.serverTimestamp() }),
-    },
-    { merge: true }
-  );
+  if (session) {
+    const docId = `${safeId}_${dateStr}`;
+    const sessionRef = db.collection("sessions").doc(docId);
+    const existing = await sessionRef.get();
+    await sessionRef.set(
+      {
+        ...session,
+        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+        ...(existing.exists
+          ? {}
+          : { createdAt: admin.firestore.FieldValue.serverTimestamp() }),
+      },
+      { merge: true }
+    );
+    console.log(`Session upserted: ${docId}`);
+  }
 
-  console.log(`Session upserted: ${docId}`);
+  const anomalies = detectAnomalies(events, session);
+  await syncAutoWarnings(db, studentId, dateStr, anomalies);
 };
 
 /**
- * Callable: backfill sessions for all timeclock events.
- * Call once from the admin UI to recover all missing sessions since Dec 12.
+ * Callable: backfill sessions and auto-warnings for all timeclock events.
  */
 const backfillSessions = async (request) => {
   const { HttpsError } = require("firebase-functions/v2/https");
@@ -178,7 +245,6 @@ const backfillSessions = async (request) => {
       "You must be authenticated to backfill sessions."
     );
   }
-
   if (!request.auth.token.staff) {
     throw new HttpsError(
       "permission-denied",
@@ -188,9 +254,6 @@ const backfillSessions = async (request) => {
 
   const db = admin.firestore();
 
-  // Optionally wipe existing (derived) sessions first so re-keying a student
-  // from name -> canonical doc ID doesn't leave a stale duplicate session.
-  // Sessions are fully derived from timeclock, so this is safe to rebuild.
   const wipe = request.data?.wipe === true;
   let deleted = 0;
   if (wipe) {
@@ -210,17 +273,14 @@ const backfillSessions = async (request) => {
     if (delCount > 0) await delBatch.commit();
   }
 
-  // Resolve any raw studentId (Form name / NFC doc id) to canonical doc ID.
   const resolve = await buildResolver(db);
 
-  // Fetch all timeclock events (up to 10,000)
   const snap = await db
     .collection("timeclock")
     .orderBy("timestamp", "asc")
     .limit(10000)
     .get();
 
-  // Group events by canonical studentId + dateStr
   const grouped = new Map();
   snap.docs.forEach((doc) => {
     const d = doc.data();
@@ -236,19 +296,21 @@ const backfillSessions = async (request) => {
     grouped.get(key).events.push({ action: d.action || "", timestamp });
   });
 
-  // Sort each group's events by timestamp
   grouped.forEach((g) => {
     g.events.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
   });
 
-  // Derive sessions and batch-write
+  // First pass: sessions
   let count = 0;
   const BATCH_SIZE = 400;
   let batch = db.batch();
   let batchCount = 0;
+  const allGroups = [];
 
   for (const [, g] of grouped) {
     const session = deriveSession(g.events, g.studentId, g.dateStr);
+    allGroups.push({ g, session });
+
     if (!session) continue;
 
     const docId = `${g.studentId.replace(/[^a-zA-Z0-9_-]/g, "_")}_${g.dateStr}`;
@@ -274,7 +336,51 @@ const backfillSessions = async (request) => {
 
   if (batchCount > 0) await batch.commit();
 
-  console.log(`Backfill complete: ${count} sessions written${wipe ? `, ${deleted} deleted first` : ""}.`);
+  // Second pass: auto-warnings
+  let warnBatch = db.batch();
+  let warnCount = 0;
+
+  for (const { g, session } of allGroups) {
+    const anomalies = detectAnomalies(g.events, session);
+    const safeId = g.studentId.replace(/[^a-zA-Z0-9_-]/g, "_");
+
+    for (const type of WARN_TYPES) {
+      const warnRef = db
+        .collection("warnings")
+        .doc(`${safeId}_${g.dateStr}_${type}`);
+      const detected = anomalies.find((a) => a.type === type);
+      if (detected) {
+        warnBatch.set(
+          warnRef,
+          {
+            studentId: g.studentId,
+            dateStr: g.dateStr,
+            issue: detected.issue,
+            type: "auto",
+            amount: 1,
+            startTs: null,
+            endTs: null,
+            createdAt: admin.firestore.FieldValue.serverTimestamp(),
+          },
+          { merge: true }
+        );
+      } else {
+        warnBatch.delete(warnRef);
+      }
+      warnCount += 1;
+      if (warnCount >= 400) {
+        await warnBatch.commit();
+        warnBatch = db.batch();
+        warnCount = 0;
+      }
+    }
+  }
+
+  if (warnCount > 0) await warnBatch.commit();
+
+  console.log(
+    `Backfill complete: ${count} sessions written${wipe ? `, ${deleted} deleted first` : ""}.`
+  );
   return { count, deleted, wiped: wipe };
 };
 

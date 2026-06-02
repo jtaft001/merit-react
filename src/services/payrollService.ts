@@ -30,6 +30,8 @@ export type Warning = {
   issue?: string;
   startTs?: Date | null;
   endTs?: Date | null;
+  amount?: number;
+  type?: string;
 };
 
 export type PayrollRecord = {
@@ -163,6 +165,8 @@ export async function fetchWarningsForStudentPeriod(
       issue: data.issue,
       startTs: toDate(data.startTs),
       endTs: toDate(data.endTs),
+      amount: data.amount,
+      type: data.type,
     };
   });
 }

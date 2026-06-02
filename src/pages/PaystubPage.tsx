@@ -463,6 +463,7 @@ export default function PaystubPage() {
                       <th className="px-3 py-2 text-left text-slate-600">Issue</th>
                       <th className="px-3 py-2 text-left text-slate-600">Start</th>
                       <th className="px-3 py-2 text-left text-slate-600">End</th>
+                      <th className="px-3 py-2 text-right text-slate-600">Amount</th>
                       {isAdmin && <th className="px-3 py-2 text-right text-slate-600">Actions</th>}
                     </tr>
                   </thead>
@@ -473,6 +474,7 @@ export default function PaystubPage() {
                         <td className="px-3 py-2 text-slate-700">{w.issue || "—"}</td>
                         <td className="px-3 py-2 text-slate-700">{formatTime(w.startTs)}</td>
                         <td className="px-3 py-2 text-slate-700">{formatTime(w.endTs)}</td>
+                        <td className="px-3 py-2 text-right text-rose-700">{formatMoney(w.amount ?? 5)}</td>
                         {isAdmin && (
                           <td className="px-3 py-2 text-right">
                             <button
@@ -487,7 +489,7 @@ export default function PaystubPage() {
                     ))}
                     {!detailLoading && warnings.length === 0 && (
                       <tr>
-                        <td className="px-3 py-3 text-slate-500 text-sm" colSpan={isAdmin ? 5 : 4}>
+                        <td className="px-3 py-3 text-slate-500 text-sm" colSpan={isAdmin ? 6 : 5}>
                           No warnings in this period.
                         </td>
                       </tr>

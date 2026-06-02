@@ -31,6 +31,8 @@ export async function createWarning(params: {
     studentId,
     dateStr,
     issue: issue.trim(),
+    type: "manual",
+    amount: 5,
     startTs: startTs ? Timestamp.fromDate(startTs) : null,
     endTs: endTs ? Timestamp.fromDate(endTs) : null,
     createdAt: serverTimestamp(),

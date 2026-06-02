@@ -28,6 +28,8 @@ export type WarningRecord = {
   issue: string;
   startTs?: Date | null;
   endTs?: Date | null;
+  amount?: number;
+  type?: string;
 };
 
 /**
@@ -107,6 +109,8 @@ export async function fetchWarningsForStudent(
       issue: data.issue ?? "",
       startTs: startTs ?? null,
       endTs: endTs ?? null,
+      amount: data.amount,
+      type: data.type,
     };
   });
 }

@@ -306,7 +306,9 @@ export default function TimeclockPage() {
                       >
                         <div className="flex justify-between text-xs">
                           <span>{w.issue}</span>
-                          <span className="text-amber-600">{w.dateStr}</span>
+                          <span className="text-amber-600">
+                            {w.dateStr} · ${w.amount ?? 5}
+                          </span>
                         </div>
                         <div className="text-[11px] text-amber-700">
                           Start: {formatTs(w.startTs)} · End: {formatTs(w.endTs)}

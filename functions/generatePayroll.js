@@ -106,13 +106,18 @@ const generatePayroll = async (request) => {
     totals.set(sid, (totals.get(sid) || 0) + netMs);
   });
 
-  // Aggregate warning counts per student
+  // Aggregate warning counts and deductions per student.
+  // Each warning carries its own `amount` (auto = $1, manual = $5 default).
   const warningCounts = new Map();
+  const warningDeductions = new Map();
   warningsSnap.forEach((doc) => {
     const w = doc.data();
     const sid = resolve(w.studentId || "");
     if (!sid) return;
     warningCounts.set(sid, (warningCounts.get(sid) || 0) + 1);
+    const amount =
+      typeof w.amount === "number" ? w.amount : DEDUCTION_PER_WARNING;
+    warningDeductions.set(sid, (warningDeductions.get(sid) || 0) + amount);
   });
 
   // Aggregate reward deductions per student
@@ -146,7 +151,7 @@ const generatePayroll = async (request) => {
     const netHours = netMs / 1000 / 60 / 60;
     const totalPay = Math.round(netHours * hourlyRate * 100) / 100;
     const warningCount = warningCounts.get(sid) || 0;
-    const warningDeduction = warningCount * DEDUCTION_PER_WARNING;
+    const warningDeduction = warningDeductions.get(sid) || 0;
     const rewardDeduction = rewardTotals.get(sid) || 0;
     const deductions = warningDeduction + rewardDeduction;
     const netPay = Math.max(0, Math.round((totalPay - deductions) * 100) / 100);
