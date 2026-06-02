@@ -13,7 +13,7 @@ const { getMyClockStatus, getMyAttendance } = require("./studentFunctions");
 
 exports.createUser = onCall(createUser);
 exports.generatePayroll = onCall(generatePayroll);
-exports.backfillSessions = onCall(backfillSessions);
+exports.backfillSessions = onCall({ memory: "512MiB" }, backfillSessions);
 exports.onTimeclockEvent = firestore
   .document("timeclock/{docId}")
   .onCreate(onTimeclockEvent);

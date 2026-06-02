@@ -68,6 +68,14 @@
       ]
     },
     {
+      "collectionGroup": "warnings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "studentId", "order": "ASCENDING" },
+        { "fieldPath": "dateStr", "order": "DESCENDING" }
+      ]
+    },
+    {
       "collectionGroup": "reward_purchases",
       "queryScope": "COLLECTION",
       "fields": [

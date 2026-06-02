@@ -300,57 +300,40 @@ const backfillSessions = async (request) => {
     g.events.sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime());
   });
 
-  // First pass: sessions
+  // Single pass: sessions + auto-warnings together.
+  // Max 4 ops per group (1 session + 3 warning slots); flush at 400 to stay
+  // well under the 500-write batch limit.
   let count = 0;
-  const BATCH_SIZE = 400;
   let batch = db.batch();
   let batchCount = 0;
-  const allGroups = [];
 
   for (const [, g] of grouped) {
     const session = deriveSession(g.events, g.studentId, g.dateStr);
-    allGroups.push({ g, session });
-
-    if (!session) continue;
-
-    const docId = `${g.studentId.replace(/[^a-zA-Z0-9_-]/g, "_")}_${g.dateStr}`;
-    const ref = db.collection("sessions").doc(docId);
-    batch.set(
-      ref,
-      {
-        ...session,
-        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
-      },
-      { merge: true }
-    );
-    batchCount += 1;
-    count += 1;
-
-    if (batchCount >= BATCH_SIZE) {
-      await batch.commit();
-      batch = db.batch();
-      batchCount = 0;
-    }
-  }
-
-  if (batchCount > 0) await batch.commit();
-
-  // Second pass: auto-warnings
-  let warnBatch = db.batch();
-  let warnCount = 0;
-
-  for (const { g, session } of allGroups) {
-    const anomalies = detectAnomalies(g.events, session);
     const safeId = g.studentId.replace(/[^a-zA-Z0-9_-]/g, "_");
 
+    if (session) {
+      const docId = `${safeId}_${g.dateStr}`;
+      batch.set(
+        db.collection("sessions").doc(docId),
+        {
+          ...session,
+          updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+          createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        },
+        { merge: true }
+      );
+      batchCount += 1;
+      count += 1;
+    }
+
+    const anomalies = detectAnomalies(g.events, session);
     for (const type of WARN_TYPES) {
       const warnRef = db
         .collection("warnings")
         .doc(`${safeId}_${g.dateStr}_${type}`);
       const detected = anomalies.find((a) => a.type === type);
       if (detected) {
-        warnBatch.set(
+        batch.set(
           warnRef,
           {
             studentId: g.studentId,
@@ -365,18 +348,19 @@ const backfillSessions = async (request) => {
           { merge: true }
         );
       } else {
-        warnBatch.delete(warnRef);
+        batch.delete(warnRef);
       }
-      warnCount += 1;
-      if (warnCount >= 400) {
-        await warnBatch.commit();
-        warnBatch = db.batch();
-        warnCount = 0;
-      }
+      batchCount += 1;
+    }
+
+    if (batchCount >= 400) {
+      await batch.commit();
+      batch = db.batch();
+      batchCount = 0;
     }
   }
 
-  if (warnCount > 0) await warnBatch.commit();
+  if (batchCount > 0) await batch.commit();
 
   console.log(
     `Backfill complete: ${count} sessions written${wipe ? `, ${deleted} deleted first` : ""}.`
