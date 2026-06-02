@@ -4,7 +4,7 @@ import {
   scenarioTypes as SCENARIO_TYPES,
   scenarios as SCENARIOS,
 } from "./scenarios/shockScenarios";
-import type { ScenarioKey, ScenarioColors } from "./scenarios/shockScenarios";
+import type { ScenarioColors } from "./scenarios/shockScenarios";
 import {
   createAttempt,
   updateAttempt,
