@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { db } from "../firebase";
 import { scenarioTypes as BUILT_IN_SCENARIOS } from "../scenarios/shockScenarios";
 
@@ -19,11 +19,13 @@ type ScenarioDoc = {
   scenarioKey?: string;
 };
 
+type Category = "all" | "shock" | "trauma";
+
 export default function ScenarioPage() {
-  const navigate = useNavigate();
   const [scenarios, setScenarios] = useState<Scenario[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<Category>("all");
 
   useEffect(() => {
     async function load() {
@@ -52,6 +54,10 @@ export default function ScenarioPage() {
     load();
   }, []);
 
+  const filteredBuiltIn = BUILT_IN_SCENARIOS.filter(
+    (sc) => selectedCategory === "all" || sc.category === selectedCategory
+  );
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50">
       {/* HEADER */}
@@ -70,7 +76,7 @@ export default function ScenarioPage() {
 
       {/* MAIN CONTENT */}
       <main className="mx-auto max-w-5xl px-4 pb-10 pt-6">
-        
+
         {/* Title Banner */}
         <section className="mb-6 rounded-xl border border-emerald-500/40 bg-gradient-to-r from-emerald-600/25 via-slate-900 to-slate-950 p-4 shadow-lg shadow-emerald-900/20">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -82,25 +88,24 @@ export default function ScenarioPage() {
                 Select a scenario to launch the interactive trainer.
               </p>
             </div>
-            <div className="flex flex-wrap gap-2 text-[0.7rem] text-emerald-200/80">
-              <button
-                onClick={() => navigate(`/scenario?category=shock`)}
-                className="rounded-full border border-emerald-500/60 bg-emerald-500/10 px-3 py-1 hover:bg-emerald-500/20"
-              >
-                Shock Scenarios
-              </button>
-              <button
-                onClick={() => navigate(`/scenario?category=trauma`)}
-                className="rounded-full border border-amber-500/60 bg-amber-500/10 px-3 py-1 hover:bg-amber-500/20 text-amber-100"
-              >
-                Trauma / Bleeding Scenarios
-              </button>
-              <button
-                onClick={() => navigate(`/contact`)}
-                className="rounded-full border border-slate-500/60 bg-slate-500/10 px-3 py-1 hover:bg-slate-500/20 text-slate-100"
-              >
-                Contact Sales
-              </button>
+            <div className="flex flex-wrap gap-2 text-[0.7rem]">
+              {(["all", "shock", "trauma"] as Category[]).map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`rounded-full border px-3 py-1 capitalize transition ${
+                    selectedCategory === cat
+                      ? cat === "shock"
+                        ? "border-red-400/80 bg-red-500/20 text-red-100"
+                        : cat === "trauma"
+                        ? "border-amber-400/80 bg-amber-500/20 text-amber-100"
+                        : "border-emerald-400/80 bg-emerald-500/20 text-emerald-100"
+                      : "border-slate-600/60 bg-slate-700/30 text-slate-300 hover:bg-slate-700/60"
+                  }`}
+                >
+                  {cat === "all" ? "All scenarios" : cat === "shock" ? "Shock" : "Trauma / Bleeding"}
+                </button>
+              ))}
             </div>
           </div>
         </section>
@@ -110,13 +115,13 @@ export default function ScenarioPage() {
           <div className="flex items-center gap-2">
             <span className="inline-flex h-2 w-2 rounded-full bg-emerald-400" />
             <span>
-              Scenarios loaded:{" "}
+              Showing{" "}
               <span className="font-semibold text-emerald-300">
-                {loading ? "loading..." : scenarios.length}
-              </span>
+                {filteredBuiltIn.length}
+              </span>{" "}
+              of {BUILT_IN_SCENARIOS.length} built-in scenarios
             </span>
           </div>
-
           <div className="text-[0.7rem]">
             Click any scenario card to open it instantly.
           </div>
@@ -129,25 +134,14 @@ export default function ScenarioPage() {
           </div>
         )}
 
-        {/* Loading */}
-        {loading && (
-          <div className="mt-6 rounded-xl border border-slate-800 bg-slate-900 px-4 py-6 text-center text-sm text-slate-300">
-            Loading scenarios...
-          </div>
-        )}
-
-        {/* No scenarios */}
-        {!loading && !error && scenarios.length === 0 && (
-          <div className="mt-6 rounded-xl border border-slate-800 bg-slate-900 px-4 py-6 text-center text-sm text-slate-300">
-            No scenarios found. Add entries to Firestore to populate the list.
-          </div>
-        )}
-
-        {/* SCENARIO GRID */}
+        {/* Firestore scenarios (admin-defined) */}
         {!loading && !error && scenarios.length > 0 && (
-          <section className="mt-4 grid gap-3 sm:grid-cols-2">
-            {scenarios.map((sc) => (
-              (() => {
+          <section className="mb-8">
+            <h3 className="text-sm font-semibold text-slate-300 mb-2">
+              Custom scenarios
+            </h3>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {scenarios.map((sc) => {
                 const path = sc.scenarioKey
                   ? `/scenario/${encodeURIComponent(sc.scenarioKey)}`
                   : "/scenario";
@@ -161,7 +155,7 @@ export default function ScenarioPage() {
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex-1">
                         <p className="text-[0.75rem] font-semibold uppercase tracking-wide text-emerald-300/90">
-                          {sc.type || "Shock Scenario"}
+                          {sc.type || "Custom Scenario"}
                         </p>
                         <h3 className="mt-1 text-sm font-semibold text-slate-50">
                           {sc.title}
@@ -172,12 +166,10 @@ export default function ScenarioPage() {
                           </p>
                         )}
                       </div>
-
                       <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[0.65rem] font-semibold text-emerald-300 group-hover:bg-emerald-500/20">
                         Open
                       </span>
                     </div>
-
                     <div className="mt-3 flex items-center justify-between text-[0.7rem] text-slate-500">
                       <span className="truncate">
                         Key:{" "}
@@ -196,55 +188,60 @@ export default function ScenarioPage() {
                     </div>
                   </Link>
                 );
-              })()
-            ))}
+              })}
+            </div>
           </section>
         )}
 
         {/* Built-in scenarios */}
-        <section className="mt-8">
+        <section>
           <h3 className="text-sm font-semibold text-emerald-200 mb-2">
-            Built-in scenarios (local)
+            Built-in scenarios
           </h3>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {BUILT_IN_SCENARIOS.map((sc) => {
-              const path = `/scenario/${encodeURIComponent(sc.id)}?category=${sc.category}`;
-              return (
-                <Link
-                  key={sc.id}
-                  to={path}
-                  className="group flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-3 shadow-sm shadow-slate-950/40 transition hover:border-emerald-400/70 hover:bg-slate-900 hover:shadow-emerald-900/30"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex-1">
-                      <p className="text-[0.75rem] font-semibold uppercase tracking-wide text-emerald-300/90">
-                        {sc.category === "shock" ? "Shock" : "Trauma / Bleeding"}
-                      </p>
-                      <h3 className="mt-1 text-sm font-semibold text-slate-50">
-                        {sc.name}
-                      </h3>
-                      <p className="mt-1 line-clamp-2 text-[0.75rem] text-slate-400">
-                        {sc.description}
-                      </p>
+
+          {filteredBuiltIn.length === 0 ? (
+            <div className="rounded-xl border border-slate-800 bg-slate-900 px-4 py-6 text-center text-sm text-slate-400">
+              No scenarios match the selected category.
+            </div>
+          ) : (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {filteredBuiltIn.map((sc) => {
+                const path = `/scenario/${encodeURIComponent(sc.id)}?category=${sc.category}`;
+                return (
+                  <Link
+                    key={sc.id}
+                    to={path}
+                    className="group flex flex-col justify-between rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-3 shadow-sm shadow-slate-950/40 transition hover:border-emerald-400/70 hover:bg-slate-900 hover:shadow-emerald-900/30"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1">
+                        <p className="text-[0.75rem] font-semibold uppercase tracking-wide text-emerald-300/90">
+                          {sc.category === "shock" ? "Shock" : "Trauma / Bleeding"}
+                        </p>
+                        <h3 className="mt-1 text-sm font-semibold text-slate-50">
+                          {sc.name}
+                        </h3>
+                        <p className="mt-1 line-clamp-2 text-[0.75rem] text-slate-400">
+                          {sc.description}
+                        </p>
+                      </div>
+                      <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[0.65rem] font-semibold text-emerald-300 group-hover:bg-emerald-500/20">
+                        Open
+                      </span>
                     </div>
-
-                    <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-[0.65rem] font-semibold text-emerald-300 group-hover:bg-emerald-500/20">
-                      Open
-                    </span>
-                  </div>
-
-                  <div className="mt-3 flex items-center justify-between text-[0.7rem] text-slate-500">
-                    <span className="truncate">
-                      Key: <span className="font-mono">{sc.id}</span>
-                    </span>
-                    <span className="text-emerald-300/80 group-hover:text-emerald-200">
-                      Launch scenario →
-                    </span>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+                    <div className="mt-3 flex items-center justify-between text-[0.7rem] text-slate-500">
+                      <span className="truncate">
+                        Key: <span className="font-mono">{sc.id}</span>
+                      </span>
+                      <span className="text-emerald-300/80 group-hover:text-emerald-200">
+                        Launch scenario →
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
         </section>
       </main>
     </div>

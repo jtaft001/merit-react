@@ -17,68 +17,36 @@ export type AttemptPayload = AttemptDoc & {
   studentId: string;
 };
 
-export async function saveAttempt({
-  studentId,
-  studentName,
-  scenarioId,
-  scenarioTitle,
-  score,
-  passed,
-  status = "Complete",
-  currentSceneKey,
-  decisions,
-}: AttemptPayload) {
-  if (!studentId) {
-    throw new Error("studentId is required");
-  }
-
+function buildPayload(
+  data: AttemptPayload,
+  defaultStatus: string
+): Record<string, unknown> {
   const payload: Record<string, unknown> = {
-    studentId,
+    studentId: data.studentId,
     attemptedAt: serverTimestamp(),
-    status,
+    status: data.status ?? defaultStatus,
   };
-
-  if (studentName != null) payload.studentName = studentName;
-  if (scenarioId != null) payload.scenarioId = scenarioId;
-  if (scenarioTitle != null) payload.scenarioTitle = scenarioTitle;
-  if (score != null) payload.score = score;
-  if (passed != null) payload.passed = passed;
-  if (currentSceneKey != null) payload.currentSceneKey = currentSceneKey;
-  if (decisions != null) payload.decisions = decisions;
-
-  await addDoc(collection(db, "attempts"), payload);
+  if (data.studentName != null) payload.studentName = data.studentName;
+  if (data.scenarioId != null) payload.scenarioId = data.scenarioId;
+  if (data.scenarioTitle != null) payload.scenarioTitle = data.scenarioTitle;
+  if (data.score != null) payload.score = data.score;
+  if (data.passed != null) payload.passed = data.passed;
+  if (data.currentSceneKey != null) payload.currentSceneKey = data.currentSceneKey;
+  if (data.decisions != null) payload.decisions = data.decisions;
+  return payload;
 }
 
-export async function createAttempt({
-  studentId,
-  studentName,
-  scenarioId,
-  scenarioTitle,
-  score,
-  passed,
-  status = "In Progress",
-  currentSceneKey,
-  decisions,
-}: AttemptPayload) {
-  if (!studentId) {
-    throw new Error("studentId is required");
-  }
+export async function saveAttempt(data: AttemptPayload): Promise<void> {
+  if (!data.studentId) throw new Error("studentId is required");
+  await addDoc(collection(db, "attempts"), buildPayload(data, "Complete"));
+}
 
-  const payload: Record<string, unknown> = {
-    studentId,
-    attemptedAt: serverTimestamp(),
-    status,
-  };
-
-  if (studentName != null) payload.studentName = studentName;
-  if (scenarioId != null) payload.scenarioId = scenarioId;
-  if (scenarioTitle != null) payload.scenarioTitle = scenarioTitle;
-  if (score != null) payload.score = score;
-  if (passed != null) payload.passed = passed;
-  if (currentSceneKey != null) payload.currentSceneKey = currentSceneKey;
-  if (decisions != null) payload.decisions = decisions;
-
-  const docRef = await addDoc(collection(db, "attempts"), payload);
+export async function createAttempt(data: AttemptPayload): Promise<string> {
+  if (!data.studentId) throw new Error("studentId is required");
+  const docRef = await addDoc(
+    collection(db, "attempts"),
+    buildPayload(data, "In Progress")
+  );
   return docRef.id;
 }
 

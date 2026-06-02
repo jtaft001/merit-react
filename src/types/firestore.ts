@@ -1,5 +1,11 @@
 // Shared Firestore doc shapes
 
+export type Decision = {
+  sceneKey: string;
+  choiceText: string;
+  points: number;
+};
+
 export type AttemptDoc = {
   studentId?: string;
   studentName?: string;
@@ -9,11 +15,7 @@ export type AttemptDoc = {
   passed?: boolean;
   status?: string;
   currentSceneKey?: string;
-  decisions?: Array<{
-    sceneKey: string;
-    choiceText: string;
-    points: number;
-  }>;
+  decisions?: Decision[];
   attemptedAt?: unknown;
 };
 

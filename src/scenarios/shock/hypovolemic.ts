@@ -61,7 +61,7 @@ export const hypovolemicScenario: Scenario = {
         },
         {
           text: "Splint the leg first, then address bleeding",
-          next: "initial_assessment",
+          next: "wrong_order",
           points: -5,
           isWrong: true,
           feedback:
@@ -214,7 +214,7 @@ export const hypovolemicScenario: Scenario = {
       options: [
         {
           text: "Review scenario and debrief",
-          next: "initial",
+          next: "success",
           points: 0,
         },
       ],

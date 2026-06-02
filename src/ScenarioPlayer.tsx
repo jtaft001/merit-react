@@ -4,6 +4,7 @@ import {
   scenarioTypes as SCENARIO_TYPES,
   scenarios as SCENARIOS,
 } from "./scenarios/shockScenarios";
+import type { ScenarioKey, ScenarioColors } from "./scenarios/shockScenarios";
 import {
   createAttempt,
   updateAttempt,
@@ -16,15 +17,10 @@ import {
 import { getStudentForUser } from "./services/studentService";
 import { auth } from "./firebase";
 import { useNavigate } from "react-router-dom";
-import { CATEGORY_LABELS, COLOR_MAP, PASS_THRESHOLD } from "./config/scenarioConfig";
+import { CATEGORY_LABELS, PASS_THRESHOLD } from "./config/scenarioConfig";
+import type { Decision } from "./types/firestore";
 
 type ScenarioId = keyof typeof SCENARIOS;
-
-type Decision = {
-  sceneKey: string;
-  choiceText: string;
-  points: number;
-};
 
 type FeedbackData = {
   explanation: string;
@@ -50,6 +46,12 @@ type Option = {
   points: number;
   isWrong?: boolean;
   feedback?: string;
+};
+
+const DEFAULT_COLORS: ScenarioColors = {
+  bg: "bg-red-600",
+  border: "border-red-600",
+  accent: "text-red-400",
 };
 
 const ScenarioPlayer: React.FC = () => {
@@ -203,7 +205,6 @@ const ScenarioPlayer: React.FC = () => {
         return;
       }
 
-      // Fallback: create an attempt if we couldn't earlier
       if (selectedScenario) {
         const scenarioMeta =
           SCENARIO_TYPES.find((s) => s.id === selectedScenario) || null;
@@ -280,7 +281,6 @@ const ScenarioPlayer: React.FC = () => {
     }
 
     try {
-      // Try to resume the latest in-progress attempt for this scenario
       const existing = await fetchLatestAttemptForScenario(ctx.studentId, id, "In Progress");
       if (existing) {
         hydrateFromAttempt(existing, id);
@@ -295,7 +295,6 @@ const ScenarioPlayer: React.FC = () => {
       );
     }
 
-    // Otherwise start fresh
     setSelectedScenario(id);
     setCurrentSceneKey("initial");
     setScore(0);
@@ -306,7 +305,6 @@ const ScenarioPlayer: React.FC = () => {
     setPendingNextScene(null);
     setPendingPenalty(0);
     setPendingChoiceText(null);
-    // Only create attempt if we have a real studentId
     if (ctx.studentId !== "anonymous") {
       await beginAttempt(id, ctx);
     }
@@ -353,7 +351,6 @@ const ScenarioPlayer: React.FC = () => {
       }
 
       try {
-        // Unknown key: try to resume the latest in-progress attempt for this student
         const ctx = await resolveStudentContext();
         if (ctx) {
           const latest = await fetchLatestInProgressForStudent(ctx.studentId);
@@ -411,7 +408,8 @@ const ScenarioPlayer: React.FC = () => {
         [currentSceneKey]: shuffleOptions(scene.options as Option[]),
       }));
     }
-  }, [selectedScenario, currentSceneKey, shuffledOptions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedScenario, currentSceneKey]);
 
   // MAIN MENU
   if (!selectedScenario) {
@@ -488,23 +486,16 @@ const ScenarioPlayer: React.FC = () => {
 
               {SCENARIO_TYPES.filter(
                 (type) => type.category === selectedCategory
-              ).map((type) => {
-                const colors = COLOR_MAP[type.id] ?? {
-                  bg: "bg-gray-700",
-                  border: "border-gray-700",
-                  accent: "text-gray-300",
-                };
-                return (
-                  <button
-                    key={type.id}
-                    onClick={() => handleScenarioSelect(type.id as ScenarioId)}
-                    className={`${colors.bg} hover:opacity-90 text-white p-6 rounded-lg text-left transition transform hover:-translate-y-0.5`}
-                  >
-                    <h3 className="text-xl font-bold mb-2">{type.name}</h3>
-                    <p className="text-sm opacity-90">{type.description}</p>
-                  </button>
-                );
-              })}
+              ).map((type) => (
+                <button
+                  key={type.id}
+                  onClick={() => handleScenarioSelect(type.id as ScenarioId)}
+                  className={`${type.colors.bg} hover:opacity-90 text-white p-6 rounded-lg text-left transition transform hover:-translate-y-0.5`}
+                >
+                  <h3 className="text-xl font-bold mb-2">{type.name}</h3>
+                  <p className="text-sm opacity-90">{type.description}</p>
+                </button>
+              ))}
             </div>
 
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-300">
@@ -592,6 +583,12 @@ const ScenarioPlayer: React.FC = () => {
   }
 
   const handleChoice = (option: Option) => {
+    // Terminal "review" options — return to menu rather than looping the scenario
+    if (option.next === "initial") {
+      void resetToMenu();
+      return;
+    }
+
     if (option.points < 0 || option.isWrong) {
       const nextScene = scenario[option.next as keyof typeof scenario];
 
@@ -607,13 +604,12 @@ const ScenarioPlayer: React.FC = () => {
       setPendingNextScene(option.next);
       setPendingPenalty(option.points);
       setPendingChoiceText(option.text);
-      // Persist current state as in-progress; score doesn't change here.
       void persistProgress({ status: "In Progress", score });
       return;
     }
 
     const newScore = score + option.points;
-    const newDecisions = [
+    const newDecisions: Decision[] = [
       ...decisions,
       {
         sceneKey: currentSceneKey,
@@ -643,8 +639,8 @@ const ScenarioPlayer: React.FC = () => {
     const penalty = pendingPenalty || 0;
     const choiceText = pendingChoiceText;
 
-    const newScore = score + penalty;
-    const newDecisions =
+    const newScore = Math.max(0, score + penalty);
+    const newDecisions: Decision[] =
       choiceText != null
         ? [
             ...decisions,
@@ -677,36 +673,20 @@ const ScenarioPlayer: React.FC = () => {
     });
   };
 
-  const handleSaveProgress = () => {
-    void persistProgress({
-      status: "In Progress",
-      score,
-      currentSceneKey,
-      decisions,
-      attemptedAt: "serverTimestamp",
-    });
-  };
-
-  const handleSubmitAttempt = () => {
-    const passed = score >= PASS_THRESHOLD;
-    void persistProgress({
-      status: "Complete",
-      score,
-      passed,
-      currentSceneKey,
-      decisions,
-      attemptedAt: "serverTimestamp",
-    });
-    setPlayerError(null);
-  };
+  const scenarioEntry = SCENARIO_TYPES.find((s) => s.id === selectedScenario);
+  const meta: ScenarioMeta = scenarioEntry ?? { id: selectedScenario ?? "", name: selectedScenario ?? "" };
+  const colors = scenarioEntry?.colors ?? DEFAULT_COLORS;
 
   // FEEDBACK SCREEN
   if (showingFeedback && feedbackData) {
+    const feedbackLabel =
+      feedbackData.points <= -8 ? "Critical error" : "Poor choice";
+
     return (
       <div className="min-h-screen bg-gray-900 text-white p-8">
         <div className="max-w-3xl mx-auto">
           <div className="bg-red-600 px-6 py-4 rounded-t-lg flex items-center justify-between">
-            <h1 className="text-2xl font-bold">Incorrect choice</h1>
+            <h1 className="text-2xl font-bold">{feedbackLabel}</h1>
             <span className="text-sm opacity-90">
               Score:{" "}
               <span className="font-semibold text-yellow-200">{score}</span>
@@ -727,6 +707,9 @@ const ScenarioPlayer: React.FC = () => {
                 <span className="font-bold text-red-400">
                   {feedbackData.points}
                 </span>
+                {score + feedbackData.points < 0 && (
+                  <span className="ml-2 text-gray-400">(floored at 0)</span>
+                )}
               </p>
             )}
 
@@ -754,28 +737,118 @@ const ScenarioPlayer: React.FC = () => {
     );
   }
 
-  const meta =
-    SCENARIO_TYPES.find((s) => s.id === selectedScenario) ||
-    ({ name: selectedScenario } as ScenarioMeta);
+  // COMPLETION SCREEN
+  if (currentSceneKey === "success") {
+    const passed = score >= PASS_THRESHOLD;
+    const correctCount = decisions.filter((d) => d.points > 0).length;
+    const incorrectCount = decisions.filter((d) => d.points < 0).length;
 
-  const colors =
-    COLOR_MAP[selectedScenario as string] ?? COLOR_MAP["hypovolemic"];
+    return (
+      <div className="min-h-screen bg-gray-900 text-white p-6">
+        <div className="max-w-4xl mx-auto">
+          <div className={`${colors.bg} px-6 py-4 rounded-t-lg`}>
+            <h1 className="text-2xl font-bold tracking-tight">{meta.name}</h1>
+            <p className="text-xs opacity-90 mt-1">Scenario complete</p>
+          </div>
 
-  // BP normalization
+          <div className="bg-gray-800 p-6 rounded-b-lg border border-gray-700">
+            {/* Score summary */}
+            <div className="text-center py-6 border-b border-gray-700 mb-6">
+              <p className="text-6xl font-bold text-yellow-200">{score}</p>
+              <p className="text-sm text-gray-400 mt-1">Final score</p>
+              <span
+                className={`inline-block mt-3 px-5 py-1.5 rounded-full text-sm font-semibold ${
+                  passed
+                    ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
+                    : "bg-red-500/20 text-red-300 border border-red-500/40"
+                }`}
+              >
+                {passed ? "PASSED" : "NEEDS PRACTICE"} — threshold {PASS_THRESHOLD}
+              </span>
+              <div className="mt-3 flex justify-center gap-6 text-xs text-gray-400">
+                <span>
+                  <span className="text-green-400 font-semibold">{correctCount}</span> correct
+                </span>
+                <span>
+                  <span className="text-red-400 font-semibold">{incorrectCount}</span> incorrect
+                </span>
+              </div>
+            </div>
+
+            {/* Scenario learning text */}
+            <div className="bg-gray-700 p-4 rounded-lg mb-6 text-sm leading-relaxed text-gray-200">
+              <p className="font-semibold text-gray-100 mb-2">{scene.title}</p>
+              <p>{scene.text}</p>
+            </div>
+
+            {/* Decision history */}
+            {decisions.length > 0 && (
+              <div className="mb-6">
+                <h3 className="text-sm font-bold mb-3 text-gray-200">Your decisions</h3>
+                <div className="space-y-1 max-h-56 overflow-y-auto">
+                  {decisions.map((d, i) => (
+                    <div
+                      key={i}
+                      className="flex justify-between items-center bg-gray-700 px-3 py-2 rounded text-xs"
+                    >
+                      <span className="flex-1 pr-4 text-gray-200">{d.choiceText}</span>
+                      <span
+                        className={
+                          d.points > 0
+                            ? "text-green-400 font-semibold"
+                            : d.points < 0
+                            ? "text-red-400 font-semibold"
+                            : "text-gray-400"
+                        }
+                      >
+                        {d.points > 0 ? "+" : ""}
+                        {d.points}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {saveMessage && (
+              <div className="mb-4 rounded-md border border-emerald-400 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-100">
+                {saveMessage}
+              </div>
+            )}
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  if (selectedScenario) void handleScenarioSelect(selectedScenario);
+                }}
+                className="flex-1 bg-blue-600 hover:bg-blue-700 py-3 rounded font-semibold text-sm"
+              >
+                Try again
+              </button>
+              <button
+                onClick={resetToMenu}
+                className="flex-1 bg-gray-700 hover:bg-gray-600 py-3 rounded font-semibold text-sm"
+              >
+                Back to menu
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // BP display
   const vitals = scene.vitals || {};
   let bp: string | null = null;
   let systolicForColor: number | undefined;
 
   if (vitals.bp) {
-    if (typeof vitals.bp === "string") {
-      bp = vitals.bp;
-      const s = parseInt(vitals.bp.split("/")[0], 10);
-      if (!isNaN(s)) systolicForColor = s;
-    } else {
-      bp = `${vitals.bp.systolic}/${vitals.bp.diastolic}`;
-      systolicForColor = vitals.bp.systolic;
-    }
+    bp = `${vitals.bp.systolic}/${vitals.bp.diastolic}`;
+    systolicForColor = vitals.bp.systolic;
   }
+
+  const decisionNumber = decisions.length + 1;
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
@@ -792,31 +865,16 @@ const ScenarioPlayer: React.FC = () => {
           </div>
           <div className="flex items-center gap-4">
             <div className="text-right">
-              <p className="text-xs uppercase tracking-wide opacity-75">
-                Score
-              </p>
+              <p className="text-xs uppercase tracking-wide opacity-75">Score</p>
               <p className="text-xl font-bold text-yellow-200">{score}</p>
+              <p className="text-xs opacity-60">Decision #{decisionNumber}</p>
             </div>
-            <div className="flex flex-col gap-2">
-              <button
-                onClick={handleSaveProgress}
-                className="bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded text-xs font-semibold"
-              >
-                Save progress
-              </button>
-              <button
-                onClick={handleSubmitAttempt}
-                className="bg-emerald-600 hover:bg-emerald-700 px-4 py-2 rounded text-xs font-semibold"
-              >
-                Submit as complete
-              </button>
-              <button
-                onClick={resetToMenu}
-                className="bg-red-700 hover:bg-red-800 px-4 py-2 rounded text-xs font-semibold"
-              >
-                Scenario menu
-              </button>
-            </div>
+            <button
+              onClick={resetToMenu}
+              className="bg-black/30 hover:bg-black/50 px-4 py-2 rounded text-xs font-semibold"
+            >
+              Back to menu
+            </button>
           </div>
         </div>
 
@@ -827,8 +885,9 @@ const ScenarioPlayer: React.FC = () => {
               {saveMessage}
             </div>
           )}
+
           {/* Scene title */}
-          <div className="mb-4 flex items-center justify-between">
+          <div className="mb-4">
             <h2 className={`text-xl font-bold ${colors.accent}`}>
               {scene.title}
             </h2>
@@ -849,9 +908,7 @@ const ScenarioPlayer: React.FC = () => {
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                 {bp && (
                   <div>
-                    <p className="text-xs text-gray-400 uppercase">
-                      Blood pressure
-                    </p>
+                    <p className="text-xs text-gray-400 uppercase">Blood pressure</p>
                     <p
                       className={`text-lg font-bold ${
                         systolicForColor && systolicForColor < 90
@@ -865,9 +922,7 @@ const ScenarioPlayer: React.FC = () => {
                 )}
                 {vitals.hr && (
                   <div>
-                    <p className="text-xs text-gray-400 uppercase">
-                      Heart rate
-                    </p>
+                    <p className="text-xs text-gray-400 uppercase">Heart rate</p>
                     <p
                       className={`text-lg font-bold ${
                         vitals.hr > 120 || vitals.hr < 60
@@ -881,9 +936,7 @@ const ScenarioPlayer: React.FC = () => {
                 )}
                 {vitals.rr && (
                   <div>
-                    <p className="text-xs text-gray-400 uppercase">
-                      Respirations
-                    </p>
+                    <p className="text-xs text-gray-400 uppercase">Respirations</p>
                     <p
                       className={`text-lg font-bold ${
                         vitals.rr > 24 || vitals.rr < 12
@@ -897,14 +950,10 @@ const ScenarioPlayer: React.FC = () => {
                 )}
                 {vitals.spo2 && (
                   <div>
-                    <p className="text-xs text-gray-400 uppercase">
-                      SpO₂
-                    </p>
+                    <p className="text-xs text-gray-400 uppercase">SpO₂</p>
                     <p
                       className={`text-lg font-bold ${
-                        vitals.spo2 < 94
-                          ? "text-red-400"
-                          : "text-green-400"
+                        vitals.spo2 < 94 ? "text-red-400" : "text-green-400"
                       }`}
                     >
                       {vitals.spo2}%
@@ -913,9 +962,7 @@ const ScenarioPlayer: React.FC = () => {
                 )}
                 {vitals.temp && (
                   <div>
-                    <p className="text-xs text-gray-400 uppercase">
-                      Temperature
-                    </p>
+                    <p className="text-xs text-gray-400 uppercase">Temperature</p>
                     <p
                       className={`text-lg font-bold ${
                         vitals.temp > 100.4 || vitals.temp < 96
@@ -929,14 +976,10 @@ const ScenarioPlayer: React.FC = () => {
                 )}
                 {vitals.gcs && (
                   <div>
-                    <p className="text-xs text-gray-400 uppercase">
-                      GCS
-                    </p>
+                    <p className="text-xs text-gray-400 uppercase">GCS</p>
                     <p
                       className={`text-lg font-bold ${
-                        vitals.gcs < 15
-                          ? "text-red-400"
-                          : "text-green-400"
+                        vitals.gcs < 15 ? "text-red-400" : "text-green-400"
                       }`}
                     >
                       {vitals.gcs}
@@ -945,9 +988,7 @@ const ScenarioPlayer: React.FC = () => {
                 )}
                 {vitals.skin && (
                   <div className="md:col-span-3 col-span-2">
-                    <p className="text-xs text-gray-400 uppercase">
-                      Skin
-                    </p>
+                    <p className="text-xs text-gray-400 uppercase">Skin</p>
                     <p className="text-sm font-semibold text-gray-200">
                       {vitals.skin}
                     </p>

@@ -3,6 +3,7 @@ import type { ChangeEvent } from 'react';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 import { saveAttempt } from '../services/attemptsService';
+import { PASS_THRESHOLD } from '../config/scenarioConfig';
 
 type Student = {
   id: string;
@@ -66,7 +67,7 @@ function ScenarioResultPage({ currentScenarioId, currentScenarioTitle, currentSc
     }
     setSaving(true);
     try {
-      const passed = typeof currentScore === 'number' ? currentScore >= 80 : false;
+      const passed = typeof currentScore === 'number' ? currentScore >= PASS_THRESHOLD : false;
 
       await saveAttempt({
         studentId: selectedStudentId,
