@@ -17,6 +17,9 @@ const createUser = async (request) => {
   }
 
   const { email, password, firstName, lastName } = request.data;
+  // Optional roster fields. `studentNumber` is the SCHOOL's ID number — it is
+  // deliberately separate from the Firestore/auth key (the doc id == uid).
+  const { grade, studentNumber, classId, className } = request.data;
 
   if (!email || !password || !firstName || !lastName) {
     throw new HttpsError(
@@ -31,15 +34,28 @@ const createUser = async (request) => {
       password: password,
     });
 
-    const studentDocRef = admin.firestore().collection("students").doc(userRecord.uid);
-    await studentDocRef.set({
+    const studentDoc = {
       authUid: userRecord.uid,
       email: email,
       firstName: firstName,
       lastName: lastName,
       name: `${firstName} ${lastName}`,
       status: "Active",
-    });
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    };
+    // Only write optional fields when provided, so we never overwrite with undefined.
+    if (grade != null && grade !== "") studentDoc.grade = String(grade);
+    if (studentNumber != null && studentNumber !== "")
+      studentDoc.studentNumber = String(studentNumber);
+    if (classId != null && classId !== "") studentDoc.classId = String(classId);
+    if (className != null && className !== "")
+      studentDoc.className = String(className);
+
+    const studentDocRef = admin
+      .firestore()
+      .collection("students")
+      .doc(userRecord.uid);
+    await studentDocRef.set(studentDoc);
 
     return { uid: userRecord.uid };
   } catch (error) {

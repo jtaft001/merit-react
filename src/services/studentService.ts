@@ -1,7 +1,10 @@
 import {
   collection,
+  doc,
   getDocs,
   query,
+  serverTimestamp,
+  updateDoc,
   where,
   orderBy,
   limit,
@@ -13,8 +16,13 @@ import type { StudentDoc } from "../types/firestore";
 export type StudentRecord = {
 	id: string;
 	name?: string;
+	firstName?: string;
+	lastName?: string;
 	email?: string;
 	status?: string;
+	grade?: string;
+	studentNumber?: string;
+	classId?: string;
 	className?: string;
 	authUid?: string;
 	[key: string]: unknown;
@@ -67,9 +75,40 @@ export async function getStudentForUser(user: User | null): Promise<StudentRecor
 
 	if (snapshot.empty) return null;
 
-	const doc = snapshot.docs[0];
+	const docSnap = snapshot.docs[0];
 	return {
-		id: doc.id,
-		...(doc.data() as StudentDoc),
+		id: docSnap.id,
+		...(docSnap.data() as StudentDoc),
 	} as StudentRecord;
+}
+
+/**
+ * Archive ("drop") or restore a student. This is a soft status change — it never
+ * deletes the underlying record, so timeclock, payroll, and scenario history are
+ * preserved (FERPA-safe and reversible).
+ */
+export async function setStudentStatus(
+	studentId: string,
+	status: "Active" | "Dropped"
+): Promise<void> {
+	if (!studentId) throw new Error("studentId is required.");
+	const payload: Record<string, unknown> = { status };
+	if (status === "Dropped") payload.droppedAt = serverTimestamp();
+	await updateDoc(doc(db, "students", studentId), payload);
+}
+
+/**
+ * Assign a student to a class (or clear it by passing null). We denormalize the
+ * className onto the student doc so existing list/search views keep working.
+ */
+export async function assignStudentToClass(
+	studentId: string,
+	classId: string | null,
+	className: string | null
+): Promise<void> {
+	if (!studentId) throw new Error("studentId is required.");
+	await updateDoc(doc(db, "students", studentId), {
+		classId: classId ?? "",
+		className: className ?? "",
+	});
 }

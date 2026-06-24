@@ -67,6 +67,13 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Classes: readable by any authenticated user (students need their class
+    // name and meeting times); only admins can create/edit/archive.
+    match /classes/{classId} {
+      allow read: if isAuthed();
+      allow write: if isAdmin();
+    }
+
     // Scenario attempts: admin sees all; users see/manage only their own (studentId == uid)
     match /attempts/{docId} {
       allow read: if isAdmin() || (isAuthed() && resource.data.studentId == request.auth.uid);

@@ -20,6 +20,8 @@ import LandingPage from "./pages/LandingPage";
 import ScenarioPage from "./pages/ScenarioPage";
 import SettingsPage from "./pages/SettingsPage";
 import AddUserPage from "./pages/AddUserPage";
+import StudentsAdminPage from "./pages/StudentsAdminPage";
+import ClassesPage from "./pages/ClassesPage";
 import NfcClockPage from "./pages/NfcClockPage";
 import NfcImportPage from "./pages/NfcImportPage";
 
@@ -186,6 +188,8 @@ function App() {
             <Route path="/contact" element={<ContactSalesPage />} />
             <Route path="/settings" element={isAdmin ? <SettingsPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/settings/add-user" element={isAdmin ? <AddUserPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
+            <Route path="/settings/students" element={isAdmin ? <StudentsAdminPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
+            <Route path="/settings/classes" element={isAdmin ? <ClassesPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/settings/nfc-import" element={isAdmin ? <NfcImportPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route
               path="/scenario-result"
