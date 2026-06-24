@@ -39,7 +39,15 @@ export type StudentDoc = {
 };
 
 export type ClassDoc = {
+  /** Display name, derived from courseType + period + schoolYear. */
   name?: string;
+  /** One of the fixed course ids from config/courses.ts. */
+  courseType?: string;
+  /** Human label for the school year, e.g. "2025-2026". */
+  schoolYear?: string;
+  /** School period, 1-6. */
+  period?: number;
+  /** @deprecated legacy free-text grade; kept for older docs. */
   grade?: string;
   /** Daily meeting time, stored as "HH:MM" 24-hour strings. */
   dailyStart?: string;

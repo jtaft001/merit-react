@@ -6,6 +6,7 @@ import {
   setClassStatusWithStudents,
   type ClassRecord,
 } from "../services/classService";
+import { COURSE_TYPES, SCHOOL_PERIODS, courseLabel } from "../config/courses";
 
 function formatDate(d?: Date | null) {
   if (!d) return "—";
@@ -31,8 +32,9 @@ export default function ClassesPage() {
   const [notice, setNotice] = useState("");
 
   // form state
-  const [name, setName] = useState("");
-  const [grade, setGrade] = useState("");
+  const [courseType, setCourseType] = useState("");
+  const [schoolYear, setSchoolYear] = useState("");
+  const [period, setPeriod] = useState("");
   const [dailyStart, setDailyStart] = useState("");
   const [dailyEnd, setDailyEnd] = useState("");
   const [termStart, setTermStart] = useState("");
@@ -65,8 +67,16 @@ export default function ClassesPage() {
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim()) {
-      setError("Class name is required.");
+    if (!courseType) {
+      setError("Please choose a course.");
+      return;
+    }
+    if (!schoolYear.trim()) {
+      setError("School year is required.");
+      return;
+    }
+    if (!period) {
+      setError("Please choose a period.");
       return;
     }
     if (dailyStart && dailyEnd && dailyEnd <= dailyStart) {
@@ -81,16 +91,18 @@ export default function ClassesPage() {
     setError("");
     try {
       await createClass({
-        name,
-        grade: grade || undefined,
+        courseType,
+        schoolYear: schoolYear || undefined,
+        period: period ? parseInt(period, 10) : undefined,
         dailyStart: dailyStart || undefined,
         dailyEnd: dailyEnd || undefined,
         // Parse as local dates (append T00:00 so it isn't treated as UTC).
         termStart: termStart ? new Date(`${termStart}T00:00`) : null,
         termEnd: termEnd ? new Date(`${termEnd}T00:00`) : null,
       });
-      setName("");
-      setGrade("");
+      setCourseType("");
+      setSchoolYear("");
+      setPeriod("");
       setDailyStart("");
       setDailyEnd("");
       setTermStart("");
@@ -159,27 +171,49 @@ export default function ClassesPage() {
           <div className="mt-3 grid gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
               <label className="block text-sm font-medium text-slate-600">
-                Class name <span className="text-rose-500">*</span>
+                Course <span className="text-rose-500">*</span>
+              </label>
+              <select
+                value={courseType}
+                onChange={(e) => setCourseType(e.target.value)}
+                className={inputCls}
+              >
+                <option value="">— Select a course —</option>
+                {COURSE_TYPES.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-600">
+                School year <span className="text-rose-500">*</span>
               </label>
               <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. EMR — 1st Period"
+                value={schoolYear}
+                onChange={(e) => setSchoolYear(e.target.value)}
+                placeholder="e.g. 2025-2026"
                 className={inputCls}
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-600">
-                Grade level
+                Period <span className="text-rose-500">*</span>
               </label>
-              <input
-                value={grade}
-                onChange={(e) => setGrade(e.target.value)}
-                placeholder="e.g. 11"
+              <select
+                value={period}
+                onChange={(e) => setPeriod(e.target.value)}
                 className={inputCls}
-              />
+              >
+                <option value="">— Select —</option>
+                {SCHOOL_PERIODS.map((p) => (
+                  <option key={p} value={p}>
+                    Period {p}
+                  </option>
+                ))}
+              </select>
             </div>
-            <div />
             <div>
               <label className="block text-sm font-medium text-slate-600">
                 Daily start time
@@ -264,8 +298,9 @@ export default function ClassesPage() {
             <table className="min-w-full text-sm">
               <thead className="bg-slate-50">
                 <tr className="text-left text-slate-600">
-                  <th className="px-4 py-2">Class</th>
-                  <th className="px-4 py-2">Grade</th>
+                  <th className="px-4 py-2">Course</th>
+                  <th className="px-4 py-2">Period</th>
+                  <th className="px-4 py-2">School year</th>
                   <th className="px-4 py-2">Daily time</th>
                   <th className="px-4 py-2">Term</th>
                   <th className="px-4 py-2"></th>
@@ -275,9 +310,12 @@ export default function ClassesPage() {
                 {visible.map((c) => (
                   <tr key={c.id} className="border-t border-slate-100">
                     <td className="px-4 py-2 font-medium text-slate-800">
-                      {c.name}
+                      {c.courseType ? courseLabel(c.courseType) : c.name}
                     </td>
-                    <td className="px-4 py-2 text-slate-600">{c.grade || "—"}</td>
+                    <td className="px-4 py-2 text-slate-600">
+                      {c.period ? `Period ${c.period}` : "—"}
+                    </td>
+                    <td className="px-4 py-2 text-slate-600">{c.schoolYear || "—"}</td>
                     <td className="px-4 py-2 text-slate-600">
                       {c.dailyStart || c.dailyEnd
                         ? `${formatTime(c.dailyStart)} – ${formatTime(c.dailyEnd)}`
@@ -300,7 +338,7 @@ export default function ClassesPage() {
                 ))}
                 {visible.length === 0 && !loading && (
                   <tr>
-                    <td colSpan={5} className="px-4 py-6 text-center text-slate-500">
+                    <td colSpan={6} className="px-4 py-6 text-center text-slate-500">
                       {showArchived
                         ? "No archived classes."
                         : "No active classes yet. Create one above."}
@@ -309,7 +347,7 @@ export default function ClassesPage() {
                 )}
                 {loading && (
                   <tr>
-                    <td colSpan={5} className="px-4 py-6 text-center text-slate-500">
+                    <td colSpan={6} className="px-4 py-6 text-center text-slate-500">
                       Loading…
                     </td>
                   </tr>
