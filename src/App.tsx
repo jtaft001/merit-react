@@ -172,7 +172,7 @@ function App() {
           <Routes>
             <Route path="/nfc-login" element={<NfcClockPage />} />
             <Route path="/nfc-clock" element={<NfcClockPage />} />
-            <Route path="/" element={<DashboardPage user={user} />} />
+            <Route path="/" element={<DashboardPage user={user} isAdmin={isAdmin} />} />
             <Route path="/scenarios" element={<ScenarioPage />} />
             <Route path="/students" element={isAdmin ? <StudentTrackingPage isAdmin={true} /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/time-attendance" element={<TimeAttendancePage />} />
