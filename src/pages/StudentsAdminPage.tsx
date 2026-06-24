@@ -5,6 +5,7 @@ import { functions } from "../firebase";
 import {
   fetchStudents,
   setStudentStatus,
+  assignStudentToClass,
   type StudentRecord,
 } from "../services/studentService";
 import { fetchClasses, type ClassRecord } from "../services/classService";
@@ -41,11 +42,17 @@ export default function StudentsAdminPage() {
   const [creating, setCreating] = useState(false);
   const [formMsg, setFormMsg] = useState("");
 
+  // bulk class assignment
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [bulkClassId, setBulkClassId] = useState("__none__");
+  const [assigning, setAssigning] = useState(false);
+
   const load = useCallback(async () => {
     setLoading(true);
     setError("");
     try {
-      const [s, c] = await Promise.all([fetchStudents(), fetchClasses()]);
+      // includeDropped=true: this admin view needs to show + restore dropped students.
+      const [s, c] = await Promise.all([fetchStudents(true), fetchClasses()]);
       setStudents(s);
       setClasses(c);
     } catch (err) {
@@ -64,6 +71,49 @@ export default function StudentsAdminPage() {
     () => classes.filter((c) => c.status === "active"),
     [classes]
   );
+
+  // Assign or clear one student's class. Passing "" clears (unassigns).
+  async function handleAssignClass(studentId: string, classId: string) {
+    const cls = classes.find((c) => c.id === classId);
+    try {
+      await assignStudentToClass(studentId, classId || null, cls?.name || null);
+      await load();
+    } catch (err) {
+      console.error(err);
+      setError("Could not update the student's class.");
+    }
+  }
+
+  // Assign every selected student to the chosen class ("" = unassign).
+  async function handleBulkAssign() {
+    if (bulkClassId === "__none__" || selected.size === 0) return;
+    const targetId = bulkClassId; // "" means unassign
+    const cls = classes.find((c) => c.id === targetId);
+    setAssigning(true);
+    setError("");
+    try {
+      for (const id of selected) {
+        await assignStudentToClass(id, targetId || null, cls?.name || null);
+      }
+      setSelected(new Set());
+      setBulkClassId("__none__");
+      await load();
+    } catch (err) {
+      console.error(err);
+      setError("Could not assign the selected students.");
+    } finally {
+      setAssigning(false);
+    }
+  }
+
+  function toggleSelect(id: string) {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
 
   const visible = useMemo(() => {
     const lower = search.trim().toLowerCase();
@@ -302,17 +352,72 @@ export default function StudentsAdminPage() {
                 ))}
               </select>
               <button
-                onClick={() => setShowDropped((v) => !v)}
+                onClick={() => {
+                  setShowDropped((v) => !v);
+                  setSelected(new Set());
+                }}
                 className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
               >
                 {showDropped ? "Show active" : "Show dropped"}
               </button>
             </div>
           </div>
+
+          {/* BULK ASSIGN BAR */}
+          {selected.size > 0 && (
+            <div className="flex flex-wrap items-center gap-3 border-b border-slate-200 bg-sky-50 px-5 py-3">
+              <span className="text-sm font-medium text-slate-700">
+                {selected.size} selected
+              </span>
+              <select
+                value={bulkClassId}
+                onChange={(e) => setBulkClassId(e.target.value)}
+                className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm"
+              >
+                <option value="__none__" disabled>
+                  Assign to class…
+                </option>
+                {activeClasses.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name}
+                  </option>
+                ))}
+                <option value="">— Unassign —</option>
+              </select>
+              <button
+                onClick={handleBulkAssign}
+                disabled={assigning || bulkClassId === "__none__"}
+                className="rounded-md bg-sky-600 px-3 py-1.5 text-sm font-medium text-white shadow-sm hover:bg-sky-700 disabled:opacity-60"
+              >
+                {assigning ? "Assigning…" : "Apply"}
+              </button>
+              <button
+                onClick={() => setSelected(new Set())}
+                className="text-sm text-slate-500 hover:underline"
+              >
+                Clear
+              </button>
+            </div>
+          )}
+
           <div className="overflow-auto">
             <table className="min-w-full text-sm">
               <thead className="bg-slate-50">
                 <tr className="text-left text-slate-600">
+                  <th className="px-4 py-2 w-8">
+                    <input
+                      type="checkbox"
+                      aria-label="Select all"
+                      checked={visible.length > 0 && visible.every((s) => selected.has(s.id))}
+                      onChange={(e) =>
+                        setSelected(
+                          e.target.checked
+                            ? new Set(visible.map((s) => s.id))
+                            : new Set()
+                        )
+                      }
+                    />
+                  </th>
                   <th className="px-4 py-2">Name</th>
                   <th className="px-4 py-2">Email</th>
                   <th className="px-4 py-2">Grade</th>
@@ -324,11 +429,38 @@ export default function StudentsAdminPage() {
               <tbody>
                 {visible.map((s) => (
                   <tr key={s.id} className="border-t border-slate-100">
+                    <td className="px-4 py-2">
+                      <input
+                        type="checkbox"
+                        aria-label={`Select ${s.name || s.id}`}
+                        checked={selected.has(s.id)}
+                        onChange={() => toggleSelect(s.id)}
+                      />
+                    </td>
                     <td className="px-4 py-2 font-medium text-slate-800">{s.name || "—"}</td>
                     <td className="px-4 py-2 text-slate-600">{s.email || "—"}</td>
                     <td className="px-4 py-2 text-slate-600">{s.grade || "—"}</td>
                     <td className="px-4 py-2 text-slate-600">{s.studentNumber || "—"}</td>
-                    <td className="px-4 py-2 text-slate-600">{s.className || "—"}</td>
+                    <td className="px-4 py-2 text-slate-600">
+                      <select
+                        value={s.classId || ""}
+                        onChange={(e) => handleAssignClass(s.id, e.target.value)}
+                        className="rounded-md border border-slate-300 bg-white px-2 py-1 text-sm"
+                      >
+                        <option value="">— Unassigned —</option>
+                        {/* Show the current class even if it's archived, so the value renders. */}
+                        {classes
+                          .filter(
+                            (c) => c.status === "active" || c.id === s.classId
+                          )
+                          .map((c) => (
+                            <option key={c.id} value={c.id}>
+                              {c.name}
+                              {c.status === "archived" ? " (archived)" : ""}
+                            </option>
+                          ))}
+                      </select>
+                    </td>
                     <td className="px-4 py-2 text-right">
                       <button
                         onClick={() => handleDropToggle(s)}
@@ -346,14 +478,14 @@ export default function StudentsAdminPage() {
                 ))}
                 {visible.length === 0 && !loading && (
                   <tr>
-                    <td colSpan={6} className="px-4 py-6 text-center text-slate-500">
+                    <td colSpan={7} className="px-4 py-6 text-center text-slate-500">
                       No students match.
                     </td>
                   </tr>
                 )}
                 {loading && (
                   <tr>
-                    <td colSpan={6} className="px-4 py-6 text-center text-slate-500">
+                    <td colSpan={7} className="px-4 py-6 text-center text-slate-500">
                       Loading…
                     </td>
                   </tr>

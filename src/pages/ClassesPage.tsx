@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   createClass,
   fetchClasses,
-  setClassStatus,
+  setClassStatusWithStudents,
   type ClassRecord,
 } from "../services/classService";
 
@@ -28,6 +28,7 @@ export default function ClassesPage() {
   const [error, setError] = useState("");
   const [showArchived, setShowArchived] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [notice, setNotice] = useState("");
 
   // form state
   const [name, setName] = useState("");
@@ -104,8 +105,21 @@ export default function ClassesPage() {
   }
 
   async function handleArchiveToggle(c: ClassRecord) {
+    const archiving = c.status === "active";
+    const msg = archiving
+      ? `Archive "${c.name}"? All students in this class will be dropped from active views (timeclock, payroll, rosters). You can bring them back by restoring the class.`
+      : `Restore "${c.name}"? Students that were dropped when this class was archived will be reactivated.`;
+    if (!window.confirm(msg)) return;
     try {
-      await setClassStatus(c.id, c.status === "active" ? "archived" : "active");
+      const affected = await setClassStatusWithStudents(
+        c.id,
+        archiving ? "archived" : "active"
+      );
+      setNotice(
+        archiving
+          ? `Archived "${c.name}" and dropped ${affected} student${affected === 1 ? "" : "s"}.`
+          : `Restored "${c.name}" and reactivated ${affected} student${affected === 1 ? "" : "s"}.`
+      );
       await load();
     } catch (err) {
       console.error(err);
@@ -220,6 +234,18 @@ export default function ClassesPage() {
             {saving ? "Creating…" : "Create class"}
           </button>
         </form>
+
+        {notice && (
+          <div className="flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+            <span>{notice}</span>
+            <button
+              onClick={() => setNotice("")}
+              className="text-emerald-600 hover:underline"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
 
         {/* CLASS LIST */}
         <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">

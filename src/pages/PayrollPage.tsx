@@ -4,6 +4,7 @@ import { httpsCallable } from "firebase/functions";
 import { functions } from "../firebase";
 import { fetchPayrollReports, fetchPayrollForPeriod, fetchPayrollForStudent, type PayrollRecord } from "../services/payrollService";
 import { fetchPayPeriods, type PayPeriod } from "../services/payPeriodService";
+import { fetchStudents, isDropped } from "../services/studentService";
 
 function formatMoney(n?: number) {
   if (n == null || isNaN(n)) return "—";
@@ -28,6 +29,8 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
   const [selectedPeriod, setSelectedPeriod] = useState<string>("");
   const [showGenerateModal, setShowGenerateModal] = useState(false);
   const [generating, setGenerating] = useState(false);
+  // IDs of dropped students — used to hide them from the admin payroll list.
+  const [droppedIds, setDroppedIds] = useState<Set<string>>(new Set());
 
   // Keep the latest periods in a ref so `load` can read them WITHOUT depending
   // on `periods` — otherwise setPeriods() recreates `load`, which re-runs the
@@ -104,6 +107,21 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
     else void load();
   }, [isAdmin, loadPeriods, load]);
 
+  // Load the set of dropped students once (admin only) so we can hide their
+  // rows from the active payroll list. Their records are NOT deleted — past
+  // paystubs remain in Firestore, just hidden from this active view.
+  useEffect(() => {
+    if (!isAdmin) return;
+    void (async () => {
+      try {
+        const all = await fetchStudents(true);
+        setDroppedIds(new Set(all.filter((s) => isDropped(s.status)).map((s) => s.id)));
+      } catch (err) {
+        console.error("Could not load dropped students", err);
+      }
+    })();
+  }, [isAdmin]);
+
   useEffect(() => {
     if (isAdmin && selectedPeriod) {
       setShowGenerateModal(false);
@@ -122,6 +140,12 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
     if (!found) return "All periods";
     return found.display || `${found.startDate ? formatDate(found.startDate) : ""} – ${found.endDate ? formatDate(found.endDate) : ""}`;
   }, [periods, selectedPeriod]);
+
+  // Hide dropped students from the admin list (a student's own view is unfiltered).
+  const visibleReports = useMemo(() => {
+    if (!isAdmin || droppedIds.size === 0) return reports;
+    return reports.filter((r) => !r.studentId || !droppedIds.has(r.studentId));
+  }, [reports, droppedIds, isAdmin]);
 
   return (
     <div className="p-6 space-y-4">
@@ -164,7 +188,7 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
         <div className="flex items-center justify-between border-b border-slate-200 px-4 py-2">
           <h2 className="text-sm font-semibold text-slate-800">Payroll for {periodLabel}</h2>
           <span className="text-xs text-slate-500">
-            {loading ? "Loading..." : `${reports.length} items`}
+            {loading ? "Loading..." : `${visibleReports.length} items`}
           </span>
         </div>
         <div className="max-h-[520px] overflow-auto">
@@ -181,7 +205,7 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
               </tr>
             </thead>
             <tbody>
-              {reports.map((r) => (
+              {visibleReports.map((r) => (
                 <tr key={r.id} className="hover:bg-slate-50">
                   <td className="px-3 py-2 text-slate-800">
                     {r.studentId ? (
@@ -213,7 +237,7 @@ export default function PayrollPage({ isAdmin = false, userId = "" }: { isAdmin?
                   <td className="px-3 py-2 text-slate-500">{formatDate(r.createdAt)}</td>
                 </tr>
               ))}
-              {reports.length === 0 && !loading && (
+              {visibleReports.length === 0 && !loading && (
                 <tr>
                   <td className="px-3 py-6 text-sm text-slate-500" colSpan={7}>
                     <div className="flex flex-col items-center gap-3">

@@ -8,6 +8,8 @@ import {
   serverTimestamp,
   Timestamp,
   updateDoc,
+  where,
+  writeBatch,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import type { ClassDoc } from "../types/firestore";
@@ -93,6 +95,62 @@ export async function setClassStatus(
   const payload: Record<string, unknown> = { status };
   if (status === "archived") payload.archivedAt = serverTimestamp();
   await updateDoc(doc(db, "classes", classId), payload);
+}
+
+/**
+ * Archive (or restore) a class AND cascade the change to its students in a
+ * single atomic batch:
+ *   - Archiving drops every still-active student in the class (status →
+ *     "Dropped") and tags them `droppedByClassArchive` so the action is
+ *     reversible without affecting students dropped for other reasons.
+ *   - Restoring re-activates ONLY the students this archive dropped.
+ *
+ * Returns the number of students whose status changed. Note: a Firestore batch
+ * is capped at 500 writes; a single class roster is far below that.
+ */
+export async function setClassStatusWithStudents(
+  classId: string,
+  status: "active" | "archived"
+): Promise<number> {
+  if (!classId) throw new Error("classId is required.");
+
+  const studentsSnap = await getDocs(
+    query(collection(db, "students"), where("classId", "==", classId))
+  );
+
+  const batch = writeBatch(db);
+
+  const classPayload: Record<string, unknown> = { status };
+  if (status === "archived") classPayload.archivedAt = serverTimestamp();
+  batch.update(doc(db, "classes", classId), classPayload);
+
+  let affected = 0;
+  studentsSnap.forEach((d) => {
+    const data = d.data();
+    const current = String(data.status || "").toLowerCase();
+    if (status === "archived") {
+      if (current !== "dropped") {
+        batch.update(d.ref, {
+          status: "Dropped",
+          droppedAt: serverTimestamp(),
+          droppedByClassArchive: true,
+        });
+        affected += 1;
+      }
+    } else {
+      // Restoring the class: only un-drop students this archive dropped.
+      if (current === "dropped" && data.droppedByClassArchive === true) {
+        batch.update(d.ref, {
+          status: "Active",
+          droppedByClassArchive: false,
+        });
+        affected += 1;
+      }
+    }
+  });
+
+  await batch.commit();
+  return affected;
 }
 
 export async function updateClass(

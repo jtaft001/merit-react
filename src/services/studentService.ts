@@ -28,18 +28,30 @@ export type StudentRecord = {
 	[key: string]: unknown;
 };
 
+/** A student counts as "dropped" if their status is Dropped (case-insensitive). */
+export function isDropped(status?: string): boolean {
+	return (status || "").toLowerCase() === "dropped";
+}
+
 /**
- * Fetch all students ordered by name.
+ * Fetch students ordered by name. Dropped (archived) students are EXCLUDED by
+ * default so they disappear from every active view (timeclock dashboard,
+ * rewards, etc.). Pass includeDropped=true for admin roster management where you
+ * need to see and restore dropped students.
  */
-export async function fetchStudents(): Promise<StudentRecord[]> {
+export async function fetchStudents(
+	includeDropped = false
+): Promise<StudentRecord[]> {
 	const colRef = collection(db, "students");
 	const q = query(colRef, orderBy("name"));
 	const snapshot = await getDocs(q);
 
-	return snapshot.docs.map((doc) => ({
+	const all = snapshot.docs.map((doc) => ({
 		id: doc.id,
 		...(doc.data() as StudentDoc),
 	})) as StudentRecord[];
+
+	return includeDropped ? all : all.filter((s) => !isDropped(s.status));
 }
 
 /**

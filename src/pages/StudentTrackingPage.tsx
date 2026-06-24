@@ -8,6 +8,7 @@ import {
   limit
 } from "firebase/firestore";
 import { db } from "../firebase";
+import { isDropped } from "../services/studentService";
 
 type Student = {
   id: string;
@@ -95,7 +96,8 @@ function StudentTrackingPage({ isAdmin: _isAdmin = false }: { isAdmin?: boolean 
       try {
         setLoadingStudents(true);
         setError("");
-        const result = await fetchStudents();
+        // Exclude dropped students from this active tracking view.
+        const result = (await fetchStudents()).filter((s) => !isDropped(s.status));
         setStudents(result);
         setFilteredStudents(result);
       } catch (err) {

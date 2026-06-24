@@ -81,7 +81,9 @@ const generatePayroll = async (request) => {
   ]);
 
   // Resolve display names so payroll/paystubs show a name, not the raw uid.
+  // Also collect dropped students so they are excluded from payroll going forward.
   const nameById = new Map();
+  const droppedIds = new Set();
   studentsSnap.forEach((doc) => {
     const sd = doc.data();
     const name =
@@ -89,6 +91,9 @@ const generatePayroll = async (request) => {
       `${sd.firstName || ""} ${sd.lastName || ""}`.trim() ||
       doc.id;
     nameById.set(doc.id, name);
+    if (String(sd.status || "").toLowerCase() === "dropped") {
+      droppedIds.add(doc.id);
+    }
   });
 
   // Resolve every source's studentId to the canonical doc ID so sessions,
@@ -145,7 +150,11 @@ const generatePayroll = async (request) => {
 
   // Write payroll documents
   const batch = db.batch();
+  let writtenCount = 0;
   allStudentIds.forEach((sid) => {
+    // Skip dropped students — they are no longer paid.
+    if (droppedIds.has(sid)) return;
+    writtenCount += 1;
     const netMs = totals.get(sid) || 0;
     const safeId = sid.replace(/\//g, "_");
     const netHours = netMs / 1000 / 60 / 60;
@@ -175,7 +184,7 @@ const generatePayroll = async (request) => {
   });
 
   await batch.commit();
-  return { count: allStudentIds.size, periodId };
+  return { count: writtenCount, periodId };
 };
 
 module.exports = { generatePayroll };
