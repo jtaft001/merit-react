@@ -6,6 +6,58 @@ export type Decision = {
   points: number;
 };
 
+// ---------------------------------------------------------------------------
+// Authored scenarios (admin-managed content stored in the `scenarios` doc)
+//
+// These mirror the built-in scene shapes in src/scenarios/shock/types.ts so an
+// authored scenario can be played by ScenarioPlayer without a second data model.
+// ---------------------------------------------------------------------------
+
+export type ScenarioVitals = {
+  hr?: number;
+  bp?: { systolic: number; diastolic: number };
+  rr?: number;
+  spo2?: number;
+  temp?: number;
+  gcs?: number;
+  skin?: string;
+};
+
+export type ScenarioSceneOption = {
+  text: string;
+  /** Scene key this choice leads to. */
+  next: string;
+  points: number;
+  isWrong?: boolean;
+  feedback?: string;
+};
+
+export type ScenarioScene = {
+  title: string;
+  text: string;
+  vitals?: ScenarioVitals | null;
+  options: ScenarioSceneOption[];
+};
+
+export type ScenarioCategory = "shock" | "trauma";
+export type ScenarioStatus = "draft" | "published";
+
+export type ScenarioDoc = {
+  title?: string;
+  description?: string;
+  category?: ScenarioCategory;
+  /** Human label shown on cards, e.g. "Shock" (legacy field kept for ScenarioPage). */
+  type?: string;
+  /** Legacy pointer to a built-in scenario id; unset for fully-authored scenarios. */
+  scenarioKey?: string;
+  status?: ScenarioStatus;
+  /** Key of the first scene to show. Defaults to "initial". */
+  startSceneKey?: string;
+  scenes?: Record<string, ScenarioScene>;
+  createdAt?: unknown;
+  updatedAt?: unknown;
+};
+
 export type AttemptDoc = {
   studentId?: string;
   studentName?: string;

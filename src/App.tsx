@@ -22,6 +22,8 @@ import SettingsPage from "./pages/SettingsPage";
 import AddUserPage from "./pages/AddUserPage";
 import StudentsAdminPage from "./pages/StudentsAdminPage";
 import ClassesPage from "./pages/ClassesPage";
+import ScenariosAdminPage from "./pages/ScenariosAdminPage";
+import ScenarioEditPage from "./pages/ScenarioEditPage";
 import NfcClockPage from "./pages/NfcClockPage";
 import NfcImportPage from "./pages/NfcImportPage";
 
@@ -190,6 +192,8 @@ function App() {
             <Route path="/settings/add-user" element={isAdmin ? <AddUserPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/settings/students" element={isAdmin ? <StudentsAdminPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/settings/classes" element={isAdmin ? <ClassesPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
+            <Route path="/settings/scenarios" element={isAdmin ? <ScenariosAdminPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
+            <Route path="/settings/scenarios/:id" element={isAdmin ? <ScenarioEditPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/settings/nfc-import" element={isAdmin ? <NfcImportPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route
               path="/scenario-result"

@@ -12,6 +12,11 @@ const cards = [
     desc: "Create classes with meeting times, view by class, and archive at year-end.",
   },
   {
+    to: "/settings/scenarios",
+    title: "Manage Scenarios",
+    desc: "Author interactive training scenarios and publish them to the library.",
+  },
+  {
     to: "/settings/nfc-import",
     title: "NFC Card Import",
     desc: "Assign NFC sticker IDs to students via CSV.",
