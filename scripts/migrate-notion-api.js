@@ -79,7 +79,7 @@ const FIELD_MAP = {
     Materials: "materials", Assessments: "assessments",
   },
   deadlines: {
-    Assessment: "assessment", Type: "type", Course: "course", "Due Date": "dueDate",
+    Assessment: "assessment", Type: "assessmentType", Course: "course", "Due Date": "dueDate",
     Status: "status", "Grading Status": "gradingStatus", Owner: "owner",
     "Weight / Points": "weightPoints", "Unit / Phase": "unitPhase",
     "Prep Lead Time": "prepLeadTime", Details: "details", "Lesson Day": "lessonDay",
@@ -111,7 +111,7 @@ const FIELD_MAP = {
     "Keep for Record": "keepForRecord", Reopened: "reopened",
   },
   districtCalendar: {
-    Event: "event", Type: "type", Date: "date",
+    Event: "event", Type: "eventType", Date: "date",
     "Affects Pacing For": "affectsPacingFor", "Students Present": "studentsPresent",
     "Instructional Impact": "instructionalImpact",
   },
