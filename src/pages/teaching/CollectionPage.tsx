@@ -378,7 +378,17 @@ export default function CollectionPage() {
                     )}
                     {listFields.map((f) => (
                       <td key={f.key} className="px-4 py-2">
-                        <CellValue field={f} value={rec[f.key]} relations={relations} />
+                        {f.type === "markdown" ? (
+                          rec[f.key] ? (
+                            <Link to={`/teaching/plan/${rec.id}`} className="font-medium text-sky-600 hover:underline">
+                              📄 Open
+                            </Link>
+                          ) : (
+                            <span className="text-slate-400">—</span>
+                          )
+                        ) : (
+                          <CellValue field={f} value={rec[f.key]} relations={relations} />
+                        )}
                       </td>
                     ))}
                     <td className="px-4 py-2">
