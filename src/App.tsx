@@ -26,11 +26,19 @@ import ScenariosAdminPage from "./pages/ScenariosAdminPage";
 import ScenarioEditPage from "./pages/ScenarioEditPage";
 import NfcClockPage from "./pages/NfcClockPage";
 import NfcImportPage from "./pages/NfcImportPage";
+import TeachingHQPage from "./pages/teaching/TeachingHQPage";
+import DailyDashboardPage from "./pages/teaching/DailyDashboardPage";
+import CollectionPage from "./pages/teaching/CollectionPage";
+import { OWNER_EMAIL } from "./teaching/schema";
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  // Teaching HQ is private to a single account (enforced server-side by
+  // Firestore rules; this only controls the UI).
+  const isOwner = user?.email === OWNER_EMAIL;
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
@@ -92,6 +100,18 @@ function App() {
             >
               Scenarios
             </NavLink>
+
+            {isOwner && (
+              <NavLink
+                to="/teaching"
+                className={({ isActive }) =>
+                  "block px-3 py-2 rounded-xl text-sm " +
+                  (isActive ? "bg-indigo-500 text-white" : "text-slate-200 hover:bg-slate-800")
+                }
+              >
+                🏫 Teaching HQ
+              </NavLink>
+            )}
 
             {isAdmin && (
               <NavLink
@@ -178,6 +198,9 @@ function App() {
             <Route path="/nfc-clock" element={<NfcClockPage />} />
             <Route path="/" element={<DashboardPage user={user} isAdmin={isAdmin} />} />
             <Route path="/scenarios" element={<ScenarioPage />} />
+            <Route path="/teaching" element={isOwner ? <TeachingHQPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
+            <Route path="/teaching/dashboard" element={isOwner ? <DailyDashboardPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
+            <Route path="/teaching/db/:type" element={isOwner ? <CollectionPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/students" element={isAdmin ? <StudentTrackingPage isAdmin={true} /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/time-attendance" element={<TimeAttendancePage />} />
             <Route path="/timeclock" element={<TimeclockPage />} />
