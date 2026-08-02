@@ -22,7 +22,8 @@
  *   node scripts/migrate-notion-api.js --wipe     # clear existing teaching docs first
  *   node scripts/migrate-notion-api.js --dry-run  # fetch + report counts, write nothing
  */
-import admin from "firebase-admin";
+import { initializeApp, cert, applicationDefault } from "firebase-admin/app";
+import { getFirestore, FieldValue, Timestamp } from "firebase-admin/firestore";
 import path from "path";
 import fs from "fs";
 
@@ -128,9 +129,9 @@ function initAdmin() {
       console.error("Credential file not found:", resolved);
       process.exit(1);
     }
-    admin.initializeApp({ credential: admin.credential.cert(resolved), projectId: PROJECT_ID });
+    initializeApp({ credential: cert(resolved), projectId: PROJECT_ID });
   } else {
-    admin.initializeApp({ credential: admin.credential.applicationDefault(), projectId: PROJECT_ID });
+    initializeApp({ credential: applicationDefault(), projectId: PROJECT_ID });
   }
 }
 
@@ -167,10 +168,10 @@ function tsFromNotionDate(start) {
   // Date-only "YYYY-MM-DD" → local midnight so calendar days don't shift.
   if (/^\d{4}-\d{2}-\d{2}$/.test(start)) {
     const [y, m, d] = start.split("-").map(Number);
-    return admin.firestore.Timestamp.fromDate(new Date(y, m - 1, d));
+    return Timestamp.fromDate(new Date(y, m - 1, d));
   }
   const d = new Date(start);
-  return Number.isNaN(d.getTime()) ? null : admin.firestore.Timestamp.fromDate(d);
+  return Number.isNaN(d.getTime()) ? null : Timestamp.fromDate(d);
 }
 
 /** Extract a single property's value by its Notion type. Returns {value} or {relation}. */
@@ -236,8 +237,8 @@ async function run() {
   }
 
   initAdmin();
-  const db = admin.firestore();
-  const now = admin.firestore.FieldValue.serverTimestamp();
+  const db = getFirestore();
+  const now = FieldValue.serverTimestamp();
 
   if (WIPE) console.log(`Wiped ${await wipeExisting(db)} existing teaching docs.`);
 
