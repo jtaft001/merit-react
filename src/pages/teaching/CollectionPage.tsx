@@ -76,6 +76,36 @@ function CellValue({
   }
 }
 
+/** A record field rendered as plain text, for search and string sorting. */
+function displayText(field: Field, value: unknown, relations: RelationMap): string {
+  if (value === undefined || value === null) return "";
+  if (field.type === "relation") {
+    const opts = relations[field.relationTo ?? ""] ?? [];
+    return (value as string[]).map((id) => opts.find((o) => o.id === id)?.title ?? "").join(", ");
+  }
+  if (field.type === "multiselect") return (value as string[]).join(", ");
+  if (field.type === "checkbox") return value ? "yes" : "";
+  return String(value);
+}
+
+function compareRecords(
+  a: TeachingRecord,
+  b: TeachingRecord,
+  field: Field,
+  relations: RelationMap
+): number {
+  if (field.type === "number" || field.type === "money") {
+    const an = a[field.key] == null ? -Infinity : Number(a[field.key]);
+    const bn = b[field.key] == null ? -Infinity : Number(b[field.key]);
+    return an - bn;
+  }
+  // Dates are "YYYY-MM-DD" strings, so lexicographic order is chronological.
+  return displayText(field, a[field.key], relations)
+    .toLowerCase()
+    .localeCompare(displayText(field, b[field.key], relations).toLowerCase());
+}
+
+type SortState = { key: string; dir: "asc" | "desc" };
 
 export default function CollectionPage() {
   const { type } = useParams<{ type: string }>();
@@ -87,7 +117,78 @@ export default function CollectionPage() {
   const [error, setError] = useState("");
   const [editing, setEditing] = useState<TeachingRecord | null | undefined>(undefined); // undefined = closed, null = new
 
+  const [search, setSearch] = useState("");
+  const [filters, setFilters] = useState<Record<string, string>>({});
+  const [sort, setSort] = useState<SortState | null>(null);
+
   const listFields = useMemo(() => def?.fields.filter((f) => f.inList) ?? [], [def]);
+  const filterFields = useMemo(
+    () => (def?.fields ?? []).filter((f) => f.type === "select" || f.type === "multiselect" || f.type === "relation"),
+    [def]
+  );
+
+  // Reset search/filters/sort when switching to a different database. Default
+  // sort is the first date column (ascending) so calendars read chronologically.
+  useEffect(() => {
+    setSearch("");
+    setFilters({});
+    const dateField = def?.fields.find((f) => f.inList && f.type === "date");
+    setSort(dateField ? { key: dateField.key, dir: "asc" } : null);
+  }, [def]);
+
+  const view = useMemo(() => {
+    if (!def) return [] as TeachingRecord[];
+    let rows = records;
+
+    const q = search.trim().toLowerCase();
+    if (q) {
+      rows = rows.filter((r) =>
+        def.fields.some(
+          (f) =>
+            (f.type === "text" || f.type === "longtext") &&
+            String(r[f.key] ?? "").toLowerCase().includes(q)
+        )
+      );
+    }
+
+    for (const [key, val] of Object.entries(filters)) {
+      if (!val) continue;
+      const field = def.fields.find((f) => f.key === key);
+      rows = rows.filter((r) => {
+        const v = r[key];
+        if (field?.type === "multiselect" || field?.type === "relation") {
+          return Array.isArray(v) && v.includes(val);
+        }
+        return String(v ?? "") === val;
+      });
+    }
+
+    if (sort) {
+      const field = def.fields.find((f) => f.key === sort.key);
+      if (field) {
+        const dir = sort.dir === "asc" ? 1 : -1;
+        rows = [...rows].sort((a, b) => compareRecords(a, b, field, relations) * dir);
+      }
+    }
+    return rows;
+  }, [def, records, search, filters, sort, relations]);
+
+  function toggleSort(key: string) {
+    setSort((prev) =>
+      prev && prev.key === key
+        ? { key, dir: prev.dir === "asc" ? "desc" : "asc" }
+        : { key, dir: "asc" }
+    );
+  }
+
+  function filterOptions(field: Field): { value: string; label: string }[] {
+    if (field.type === "relation") {
+      return (relations[field.relationTo ?? ""] ?? []).map((o) => ({ value: o.id, label: o.title }));
+    }
+    return (field.options ?? []).map((o) => ({ value: o.value, label: o.value }));
+  }
+
+  const activeFilters = search.trim() !== "" || Object.values(filters).some(Boolean);
 
   const load = useCallback(async () => {
     if (!def) return;
@@ -174,24 +275,72 @@ export default function CollectionPage() {
           />
         )}
 
+        {/* Filter / sort toolbar */}
+        <div className="flex flex-wrap items-center gap-2">
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search…"
+            className="rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-900 focus:border-sky-500 focus:ring-sky-500"
+          />
+          {filterFields.map((f) => (
+            <select
+              key={f.key}
+              value={filters[f.key] ?? ""}
+              onChange={(e) => setFilters((prev) => ({ ...prev, [f.key]: e.target.value }))}
+              className="rounded-md border border-slate-300 px-2 py-1.5 text-sm text-slate-700 focus:border-sky-500 focus:ring-sky-500"
+            >
+              <option value="">All {f.label.toLowerCase()}</option>
+              {filterOptions(f).map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+          ))}
+          {activeFilters && (
+            <button
+              onClick={() => {
+                setSearch("");
+                setFilters({});
+              }}
+              className="text-xs font-medium text-sky-600 hover:underline"
+            >
+              Clear
+            </button>
+          )}
+        </div>
+
         <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
           <div className="flex items-center justify-between border-b border-slate-200 px-5 py-3">
-            <h2 className="text-sm font-semibold text-slate-800">{records.length} records</h2>
+            <h2 className="text-sm font-semibold text-slate-800">
+              {view.length}
+              {view.length !== records.length ? ` of ${records.length}` : ""} records
+            </h2>
           </div>
           <div className="overflow-auto">
             <table className="min-w-full text-sm">
               <thead className="bg-slate-50">
                 <tr className="text-left text-slate-600">
-                  {listFields.map((f) => (
-                    <th key={f.key} className="px-4 py-2 whitespace-nowrap">
-                      {f.label}
-                    </th>
-                  ))}
+                  {listFields.map((f) => {
+                    const active = sort?.key === f.key;
+                    return (
+                      <th key={f.key} className="px-4 py-2 whitespace-nowrap">
+                        <button
+                          onClick={() => toggleSort(f.key)}
+                          className="inline-flex items-center gap-1 font-semibold hover:text-slate-900"
+                        >
+                          {f.label}
+                          <span className="text-slate-400">{active ? (sort?.dir === "asc" ? "▲" : "▼") : "↕"}</span>
+                        </button>
+                      </th>
+                    );
+                  })}
                   <th className="px-4 py-2"></th>
                 </tr>
               </thead>
               <tbody>
-                {records.map((rec) => (
+                {view.map((rec) => (
                   <tr key={rec.id} className="border-t border-slate-100 align-top">
                     {listFields.map((f) => (
                       <td key={f.key} className="px-4 py-2">
@@ -216,10 +365,12 @@ export default function CollectionPage() {
                     </td>
                   </tr>
                 ))}
-                {records.length === 0 && !loading && (
+                {view.length === 0 && !loading && (
                   <tr>
                     <td colSpan={listFields.length + 1} className="px-4 py-6 text-center text-slate-500">
-                      No records yet. Click “+ New” to add one.
+                      {records.length === 0
+                        ? "No records yet. Click “+ New” to add one."
+                        : "No records match the current filters."}
                     </td>
                   </tr>
                 )}
