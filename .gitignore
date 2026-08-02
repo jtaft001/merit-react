@@ -16,6 +16,9 @@ dist-ssr
 serviceAccountKey.json
 *.serviceAccountKey.json
 
+# Teaching HQ CSV exports — may contain student/parent PII; never commit
+scripts/teaching-csv/*.csv
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
