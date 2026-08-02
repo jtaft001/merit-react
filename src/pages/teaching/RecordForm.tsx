@@ -44,12 +44,13 @@ function FieldInput({
 }) {
   switch (field.type) {
     case "longtext":
+    case "markdown":
       return (
         <textarea
           value={(value as string) ?? ""}
           onChange={(e) => onChange(e.target.value)}
-          rows={3}
-          className={inputCls}
+          rows={field.type === "markdown" ? 10 : 3}
+          className={inputCls + (field.type === "markdown" ? " font-mono text-xs" : "")}
         />
       );
     case "number":
@@ -214,7 +215,7 @@ export function RecordForm({
       </div>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         {def.fields.map((field) => (
-          <div key={field.key} className={field.type === "longtext" ? "sm:col-span-2" : ""}>
+          <div key={field.key} className={field.type === "longtext" || field.type === "markdown" ? "sm:col-span-2" : ""}>
             {field.type !== "checkbox" && (
               <label className="block text-sm font-medium text-slate-600">
                 {field.label}
