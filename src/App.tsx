@@ -29,6 +29,7 @@ import NfcImportPage from "./pages/NfcImportPage";
 import TeachingHQPage from "./pages/teaching/TeachingHQPage";
 import DailyDashboardPage from "./pages/teaching/DailyDashboardPage";
 import CollectionPage from "./pages/teaching/CollectionPage";
+import LessonCalendarPage from "./pages/teaching/LessonCalendarPage";
 import { OWNER_EMAIL } from "./teaching/schema";
 
 function App() {
@@ -200,6 +201,7 @@ function App() {
             <Route path="/scenarios" element={<ScenarioPage />} />
             <Route path="/teaching" element={isOwner ? <TeachingHQPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/teaching/dashboard" element={isOwner ? <DailyDashboardPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
+            <Route path="/teaching/calendar" element={isOwner ? <LessonCalendarPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/teaching/db/:type" element={isOwner ? <CollectionPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/students" element={isAdmin ? <StudentTrackingPage isAdmin={true} /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/time-attendance" element={<TimeAttendancePage />} />

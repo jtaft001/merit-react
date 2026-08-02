@@ -32,6 +32,22 @@ export default function TeachingHQPage() {
           </div>
         </Link>
 
+        {/* Lesson calendar */}
+        <Link
+          to="/teaching/calendar"
+          className="block rounded-2xl border border-indigo-200 bg-gradient-to-r from-indigo-50 to-white p-5 shadow-sm transition hover:border-indigo-400"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-semibold text-indigo-800">📅 Lesson Calendar</h2>
+              <p className="mt-1 text-sm text-slate-600">
+                Your lessons on a month grid — filter by course, click a day to plan or edit.
+              </p>
+            </div>
+            <span className="text-sm font-medium text-indigo-600">Open →</span>
+          </div>
+        </Link>
+
         {/* Databases */}
         <section>
           <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">
