@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { COLOR_CLASSES, getCollection, optionColor, type Field } from "../../teaching/schema";
-import { deleteRecord, listRecords, type TeachingRecord } from "../../services/teachingService";
+import { deleteRecord, listRecords, updateRecord, type TeachingRecord } from "../../services/teachingService";
 import { RecordForm, loadRelations, type RelationMap } from "./RecordForm";
 
 function Badge({ field, value }: { field: Field; value: string }) {
@@ -126,6 +126,28 @@ export default function CollectionPage() {
     () => (def?.fields ?? []).filter((f) => f.type === "select" || f.type === "multiselect" || f.type === "relation"),
     [def]
   );
+
+  // A "status-like" select (its options include "Done") gets a quick-complete
+  // checkbox in each row — e.g. Tasks, Deadlines, Materials, Lesson Plans.
+  const statusField = useMemo(
+    () => (def?.fields ?? []).find((f) => f.type === "select" && f.options?.some((o) => o.value === "Done")),
+    [def]
+  );
+
+  async function toggleDone(rec: TeachingRecord) {
+    if (!def || !statusField) return;
+    const done = String(rec[statusField.key] ?? "") === "Done";
+    const next = done ? "Not started" : "Done";
+    // Optimistic: update the row immediately, then persist.
+    setRecords((prev) => prev.map((r) => (r.id === rec.id ? { ...r, [statusField.key]: next } : r)));
+    try {
+      await updateRecord(rec.id, def.id, { [statusField.key]: next });
+    } catch (err) {
+      console.error(err);
+      setError("Could not update status.");
+      await load();
+    }
+  }
 
   // Reset search/filters/sort when switching to a different database. Default
   // sort is the first date column (ascending) so calendars read chronologically.
@@ -322,6 +344,7 @@ export default function CollectionPage() {
             <table className="min-w-full text-sm">
               <thead className="bg-slate-50">
                 <tr className="text-left text-slate-600">
+                  {statusField && <th className="w-8 px-4 py-2" title="Done" aria-label="Done">✓</th>}
                   {listFields.map((f) => {
                     const active = sort?.key === f.key;
                     return (
@@ -342,6 +365,17 @@ export default function CollectionPage() {
               <tbody>
                 {view.map((rec) => (
                   <tr key={rec.id} className="border-t border-slate-100 align-top">
+                    {statusField && (
+                      <td className="px-4 py-2.5">
+                        <input
+                          type="checkbox"
+                          checked={String(rec[statusField.key] ?? "") === "Done"}
+                          onChange={() => toggleDone(rec)}
+                          className="h-4 w-4 cursor-pointer rounded border-slate-300 text-sky-600 focus:ring-sky-500"
+                          title="Mark done"
+                        />
+                      </td>
+                    )}
                     {listFields.map((f) => (
                       <td key={f.key} className="px-4 py-2">
                         <CellValue field={f} value={rec[f.key]} relations={relations} />
@@ -367,7 +401,7 @@ export default function CollectionPage() {
                 ))}
                 {view.length === 0 && !loading && (
                   <tr>
-                    <td colSpan={listFields.length + 1} className="px-4 py-6 text-center text-slate-500">
+                    <td colSpan={listFields.length + 1 + (statusField ? 1 : 0)} className="px-4 py-6 text-center text-slate-500">
                       {records.length === 0
                         ? "No records yet. Click “+ New” to add one."
                         : "No records match the current filters."}
@@ -376,7 +410,7 @@ export default function CollectionPage() {
                 )}
                 {loading && (
                   <tr>
-                    <td colSpan={listFields.length + 1} className="px-4 py-6 text-center text-slate-500">
+                    <td colSpan={listFields.length + 1 + (statusField ? 1 : 0)} className="px-4 py-6 text-center text-slate-500">
                       Loading…
                     </td>
                   </tr>
