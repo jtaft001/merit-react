@@ -26,6 +26,7 @@ const PROJECT_ID =
 
 const args = process.argv.slice(2);
 const WRITE = args.includes("--write");
+const LIST = args.includes("--list");
 const THRESHOLD = 0.45; // minimum token-overlap score to auto-attach
 const folderArg = args.find((a) => !a.startsWith("--"));
 const FOLDER = folderArg || path.join(os.homedir(), "Downloads", "introduction-to-patient-care");
@@ -36,7 +37,22 @@ const SKIP = [/bell-schedule/i, /school-district/i, /pacing-guide/i];
 // Manual overrides, filled in after reviewing a dry run:
 //   "some-file-name.md": "Exact Record Title"   → force this match
 //   "some-file-name.md": null                    → skip this file
-const OVERRIDES = {};
+// These 8 are correct but scored just under threshold (MA / A&P abbreviations).
+const OVERRIDES = {
+  "anatomy-physiology-essentials-body-organization-lesson-plan-pdf.md": "IPC — A&P Essentials: Body Organization",
+  "anatomy-physiology-essentials-body-systems-lesson-plan-pdf.md": "IPC — A&P Essentials: Body Systems",
+  "ianatomy-physiology-capstone-lesson-plan-pdf.md": "IPC — Anatomy & Physiology Capstone",
+  "lesson-plan-anatomy-physiology-essentials-diseases-disorders-pdf.md": "IPC — A&P Essentials: Diseases & Disorders",
+  "lesson-plan-medical-assistant-skills-cardiac-monitoring-pdf.md": "IPC — MA Skills: Cardiac Monitoring",
+  "lesson-plan-medical-assistant-skills-emergency-preparedness-pdf.md": "IPC — MA Skills: Emergency Preparedness",
+  "lesson-plan-medical-assistant-skills-lab-specimens-pdf.md": "IPC — MA Skills: Lab Specimens",
+  "lesson-plan-medical-assistant-skills-pulmonary-function-pdf.md": "IPC — MA Skills: Pulmonary Function",
+  // Corrections found by reviewing the full record list:
+  "lesson-plan-medical-assistant-skills-patient-prep-pdf.md": "IPC — MA Skills: Patient Prep",
+  "skills-for-health-science-professionals-activities-of-daily-living-lesson-plan-pdf.md": "IPC — Skills for Health Science Professionals: ADLs",
+  // This folder is all IPC; use the IPC record, not the LPSCS one of the same name.
+  "criminal-law-history-development-lesson-plan-pdf.md": "IPC — Criminal Law History & Development",
+};
 
 const STOPWORDS = new Set([
   "lesson", "plan", "plans", "pdf", "the", "a", "an", "of", "in", "for", "and",
@@ -95,6 +111,14 @@ async function run() {
   }));
   console.log(`Loaded ${records.length} Lesson Plan records.\n`);
 
+  if (LIST) {
+    console.log("All Lesson Plan record titles (alphabetical):");
+    for (const r of [...records].sort((a, b) => a.title.localeCompare(b.title))) {
+      console.log(`  ${r.title}`);
+    }
+    return;
+  }
+
   const matches = []; // { file, record, score }
   const unmatched = [];
   const skipped = [];
@@ -106,7 +130,13 @@ async function run() {
       const target = OVERRIDES[file];
       if (target === null) { skipped.push(file); continue; }
       const rec = records.find((r) => r.title.toLowerCase() === String(target).toLowerCase());
-      if (rec) { matches.push({ file, record: rec, score: 1 }); continue; }
+      if (rec) {
+        matches.push({ file, record: rec, score: 1 });
+        usedByRecord.set(rec.id, (usedByRecord.get(rec.id) || 0) + 1);
+      } else {
+        unmatched.push({ file, best: null, bestScore: 0, note: `override title not found: "${target}"` });
+      }
+      continue; // an override is explicit — never fall back to fuzzy matching
     }
     const ft = tokens(file);
     let best = null;
@@ -132,7 +162,8 @@ async function run() {
   if (unmatched.length) {
     console.log(`\n=== NO CONFIDENT MATCH (${unmatched.length}) — review / add to OVERRIDES ===`);
     for (const u of unmatched) {
-      console.log(`  ${u.file}\n         best guess (${u.bestScore.toFixed(2)}): ${u.best ? u.best.title : "—"}`);
+      const detail = u.note ? u.note : `best guess (${u.bestScore.toFixed(2)}): ${u.best ? u.best.title : "—"}`;
+      console.log(`  ${u.file}\n         ${detail}`);
     }
   }
   if (skipped.length) {
