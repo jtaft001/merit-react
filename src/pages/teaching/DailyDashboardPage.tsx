@@ -274,7 +274,7 @@ export default function DailyDashboardPage() {
             {deadlines.slice(0, 12).map((d) => (
               <li key={d.id} className="flex items-center justify-between gap-3 py-2">
                 <div className="flex flex-wrap items-center gap-2">
-                  <Chip fieldId="type" type="deadlines" value={d.type as string} />
+                  <Chip fieldId="assessmentType" type="deadlines" value={d.assessmentType as string} />
                   <span className="font-medium text-slate-800">{(d.assessment as string) || "(untitled)"}</span>
                   <span className="text-xs text-slate-500">{courseTitle(d.course as string[])}</span>
                 </div>
@@ -322,7 +322,7 @@ export default function DailyDashboardPage() {
             {daysOff.slice(0, 6).map((e) => (
               <li key={e.id} className="flex items-center justify-between gap-3 py-2">
                 <div className="flex flex-wrap items-center gap-2">
-                  <Chip fieldId="type" type="districtCalendar" value={e.type as string} />
+                  <Chip fieldId="eventType" type="districtCalendar" value={e.eventType as string} />
                   <span className="font-medium text-slate-800">{(e.event as string) || "(event)"}</span>
                 </div>
                 <DateLabel value={e.date} />

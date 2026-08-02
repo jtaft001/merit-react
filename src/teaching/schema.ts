@@ -228,7 +228,7 @@ export const COLLECTIONS: CollectionDef[] = [
     fields: [
       { key: "assessment", label: "Assessment", type: "text", inList: true },
       {
-        key: "type",
+        key: "assessmentType",
         label: "Type",
         type: "select",
         inList: true,
@@ -472,7 +472,7 @@ export const COLLECTIONS: CollectionDef[] = [
     fields: [
       { key: "event", label: "Event", type: "text", inList: true },
       {
-        key: "type",
+        key: "eventType",
         label: "Type",
         type: "select",
         inList: true,
