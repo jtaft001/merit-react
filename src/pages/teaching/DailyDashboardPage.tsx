@@ -187,12 +187,20 @@ export default function DailyDashboardPage() {
             <h1 className="text-2xl font-semibold tracking-tight">{greeting} ☀️</h1>
             <p className="text-sm text-slate-500">{longDate}</p>
           </div>
-          <Link
-            to="/teaching/calendar"
-            className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
-          >
-            📅 Calendar
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              to={`/teaching/print/day/${today}`}
+              className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            >
+              🖨 Print today
+            </Link>
+            <Link
+              to="/teaching/calendar"
+              className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            >
+              📅 Calendar
+            </Link>
+          </div>
         </div>
       </header>
 

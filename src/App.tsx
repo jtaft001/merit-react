@@ -31,6 +31,7 @@ import DailyDashboardPage from "./pages/teaching/DailyDashboardPage";
 import CollectionPage from "./pages/teaching/CollectionPage";
 import LessonCalendarPage from "./pages/teaching/LessonCalendarPage";
 import PlanViewPage from "./pages/teaching/PlanViewPage";
+import PrintPlanPage from "./pages/teaching/PrintPlanPage";
 import { OWNER_EMAIL } from "./teaching/schema";
 
 function App() {
@@ -205,6 +206,7 @@ function App() {
             <Route path="/teaching/calendar" element={isOwner ? <LessonCalendarPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/teaching/db/:type" element={isOwner ? <CollectionPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/teaching/plan/:id" element={isOwner ? <PlanViewPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
+            <Route path="/teaching/print/:mode/:date" element={isOwner ? <PrintPlanPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/students" element={isAdmin ? <StudentTrackingPage isAdmin={true} /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/time-attendance" element={<TimeAttendancePage />} />
             <Route path="/timeclock" element={<TimeclockPage />} />
