@@ -48,6 +48,26 @@ export default function TeachingHQPage() {
           </div>
         </Link>
 
+        {/* Classroom status board (standalone projector page) */}
+        <a
+          href="/board.html"
+          target="_blank"
+          rel="noreferrer"
+          className="block rounded-2xl border border-slate-700 bg-gradient-to-r from-slate-900 to-slate-800 p-5 shadow-sm transition hover:border-amber-400"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-semibold text-amber-400" style={{ letterSpacing: "0.05em" }}>
+                🖥️ STATUS BOARD
+              </h2>
+              <p className="mt-1 text-sm text-slate-300">
+                Classroom projector board — timers, name draw, crews, work mode, patient monitor, triage. Opens full-screen in a new tab.
+              </p>
+            </div>
+            <span className="text-sm font-medium text-amber-400">Open →</span>
+          </div>
+        </a>
+
         {/* This week's prep */}
         <Link
           to="/teaching/prep"
