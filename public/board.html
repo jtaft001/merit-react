@@ -170,6 +170,10 @@
   <button class="addbtn" data-add="mode">Work mode</button>
   <button class="addbtn" data-add="monitor">Patient monitor</button>
   <button class="addbtn" data-add="triage">Triage tally</button>
+  <span id="linkwrap" style="display:none;align-items:center;gap:6px;margin-left:10px">
+    <span class="lbl">OPEN</span>
+    <span id="links" style="display:flex;gap:6px"></span>
+  </span>
   <span class="spacer"></span>
   <button class="iconbtn" id="rename">Rename period</button>
   <button class="iconbtn" id="clear">Clear board</button>
@@ -272,6 +276,16 @@ const DEFAULT_PERIODS = [
 ];
 let periods = DEFAULT_PERIODS.slice();
 let active = 'p1';
+
+// Per-period quick links (open in a new window). Keyed by period id so they
+// survive renaming. iCEV is the platform for Law & Public Safety (p1, p2) and
+// Patient Care (p4).
+const ICEV_URL = "https://www.icevonline.com/";
+const LINKS = {
+  p1: [{ label: 'iCEV', url: ICEV_URL }],
+  p2: [{ label: 'iCEV', url: ICEV_URL }],
+  p4: [{ label: 'iCEV', url: ICEV_URL }]
+};
 let board = {widgets:[], roster:'', bell:''};
 let muted = false;
 let saveT = null;
@@ -779,6 +793,20 @@ function renderTabs(){
     b.appendChild(document.createTextNode(p.name));
     b.onclick=()=>switchTo(p.id);
     ptabs.appendChild(b);
+  });
+  renderLinks();
+}
+function renderLinks(){
+  const wrap = document.getElementById('linkwrap');
+  const box = document.getElementById('links');
+  const arr = LINKS[active] || [];
+  box.innerHTML = '';
+  wrap.style.display = arr.length ? 'flex' : 'none';
+  arr.forEach(x=>{
+    const b = el('button','iconbtn', x.label+' ↗');
+    b.title = 'Open '+x.label+' in a new window';
+    b.onclick = ()=> window.open(x.url, x.label, 'noopener');
+    box.appendChild(b);
   });
 }
 async function switchTo(id){
