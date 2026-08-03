@@ -152,6 +152,16 @@ export const COLLECTIONS: CollectionDef[] = [
           opt("Phase 7: Court Advocacy", "pink"),
           opt("Phase 8: Pathway Explorations", "yellow"),
           opt("Phase 9: Final Evaluations", "gray"),
+          // Wildfire Science (WILD) phases:
+          opt("Phase 0: Course Setup", "gray"),
+          opt("Phase 1: Introduction to Wildland Fire", "blue"),
+          opt("Phase 2: Physical Science of Wildland Fire", "orange"),
+          opt("Phase 3: The Wildland Fire Environment", "green"),
+          opt("Phase 4: Fire Effects on the Environment", "red"),
+          opt("Phase 5: Fire & Organisms/Communities", "purple"),
+          opt("Phase 6: Fire History & Succession", "brown"),
+          opt("Phase 7: People in Fire's Homeland", "pink"),
+          opt("Phase 8: Semester Wrap-Up & Finals", "yellow"),
         ],
       },
       {
