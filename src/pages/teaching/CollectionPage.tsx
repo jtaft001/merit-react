@@ -340,7 +340,7 @@ export default function CollectionPage() {
               {view.length !== records.length ? ` of ${records.length}` : ""} records
             </h2>
           </div>
-          <div className="overflow-auto">
+          <div className="hidden overflow-auto md:block">
             <table className="min-w-full text-sm">
               <thead className="bg-slate-50">
                 <tr className="text-left text-slate-600">
@@ -427,6 +427,58 @@ export default function CollectionPage() {
                 )}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile card list */}
+          <div className="divide-y divide-slate-100 md:hidden">
+            {view.map((rec) => (
+              <div key={rec.id} className="p-4">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-start gap-2">
+                    {statusField && (
+                      <input
+                        type="checkbox"
+                        checked={String(rec[statusField.key] ?? "") === "Done"}
+                        onChange={() => toggleDone(rec)}
+                        className="mt-0.5 h-4 w-4"
+                      />
+                    )}
+                    <span className="font-medium text-slate-800">
+                      {(rec[def.titleField] as string) || "(untitled)"}
+                    </span>
+                  </div>
+                  <div className="flex gap-2">
+                    <button onClick={() => setEditing(rec)} className="text-xs font-medium text-sky-600 hover:underline">
+                      Edit
+                    </button>
+                    <button onClick={() => handleDelete(rec)} className="text-xs font-medium text-rose-600 hover:underline">
+                      Delete
+                    </button>
+                  </div>
+                </div>
+                <dl className="mt-2 space-y-1">
+                  {listFields
+                    .filter((f) => f.key !== def.titleField && rec[f.key] != null && rec[f.key] !== "")
+                    .map((f) => (
+                      <div key={f.key} className="flex gap-2 text-xs">
+                        <dt className="w-28 shrink-0 text-slate-400">{f.label}</dt>
+                        <dd className="text-slate-700">
+                          {f.type === "markdown" ? (
+                            <Link to={`/teaching/plan/${rec.id}`} className="font-medium text-sky-600">📄 Open</Link>
+                          ) : (
+                            <CellValue field={f} value={rec[f.key]} relations={relations} />
+                          )}
+                        </dd>
+                      </div>
+                    ))}
+                </dl>
+              </div>
+            ))}
+            {view.length === 0 && !loading && (
+              <p className="p-6 text-center text-sm text-slate-500">
+                {records.length === 0 ? "No records yet." : "No records match the current filters."}
+              </p>
+            )}
           </div>
         </div>
       </main>
