@@ -33,6 +33,11 @@ export default function LessonCalendarPage() {
   const [year, setYear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth()); // 0-based
   const [courseFilter, setCourseFilter] = useState("all");
+  const [view, setView] = useState<"month" | "week">("month");
+  const [weekAnchor, setWeekAnchor] = useState<string>(() => {
+    const d = new Date();
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  });
 
   const [lessons, setLessons] = useState<TeachingRecord[]>([]);
   const [courses, setCourses] = useState<TeachingRecord[]>([]);
@@ -70,12 +75,11 @@ export default function LessonCalendarPage() {
 
   const todayStr = dateStr(now.getFullYear(), now.getMonth(), now.getDate());
 
-  // Lessons for the visible month, filtered by course, grouped by date string.
+  // All lessons (course-filtered) grouped by date string; used by both views.
   const byDate = useMemo(() => {
     const map = new Map<string, TeachingRecord[]>();
     for (const l of lessons) {
       if (typeof l.date !== "string") continue;
-      if (!l.date.startsWith(`${year}-${pad(month + 1)}`)) continue;
       if (courseFilter !== "all") {
         const ids = (l.course as string[] | undefined) ?? [];
         if (!ids.includes(courseFilter)) continue;
@@ -85,7 +89,33 @@ export default function LessonCalendarPage() {
       map.set(l.date, arr);
     }
     return map;
-  }, [lessons, year, month, courseFilter]);
+  }, [lessons, courseFilter]);
+
+  // Mon–Fri of the week containing weekAnchor.
+  const weekDates = useMemo(() => {
+    const [y, m, d] = weekAnchor.split("-").map(Number);
+    const base = new Date(y, m - 1, d);
+    const monday = new Date(base);
+    monday.setDate(base.getDate() - ((base.getDay() + 6) % 7));
+    return Array.from({ length: 5 }, (_, i) => {
+      const x = new Date(monday);
+      x.setDate(monday.getDate() + i);
+      return dateStr(x.getFullYear(), x.getMonth(), x.getDate());
+    });
+  }, [weekAnchor]);
+
+  function shiftWeek(days: number) {
+    const [y, m, d] = weekAnchor.split("-").map(Number);
+    const x = new Date(y, m - 1, d);
+    x.setDate(x.getDate() + days);
+    setWeekAnchor(dateStr(x.getFullYear(), x.getMonth(), x.getDate()));
+  }
+  const prev = () => (view === "week" ? shiftWeek(-7) : prevMonth());
+  const next = () => (view === "week" ? shiftWeek(7) : nextMonth());
+  const goNow = () => {
+    if (view === "week") setWeekAnchor(todayStr);
+    else goToday();
+  };
 
   // Build the month grid: leading blanks + each day, padded to full weeks.
   const cells = useMemo(() => {
@@ -161,26 +191,85 @@ export default function LessonCalendarPage() {
           <div className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</div>
         )}
 
-        {/* Month nav */}
-        <div className="flex items-center justify-between">
+        {/* Nav + view toggle */}
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <button onClick={prevMonth} className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm hover:bg-slate-50">
+            <button onClick={prev} className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm hover:bg-slate-50">
               ‹
             </button>
-            <button onClick={goToday} className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium hover:bg-slate-50">
+            <button onClick={goNow} className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium hover:bg-slate-50">
               Today
             </button>
-            <button onClick={nextMonth} className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm hover:bg-slate-50">
+            <button onClick={next} className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm hover:bg-slate-50">
               ›
             </button>
           </div>
           <h2 className="text-lg font-semibold text-slate-800">
-            {MONTHS[month]} {year}
+            {view === "month"
+              ? `${MONTHS[month]} ${year}`
+              : `Week of ${new Date(`${weekDates[0]}T00:00`).toLocaleDateString(undefined, { month: "long", day: "numeric" })}`}
           </h2>
-          <span className="text-xs text-slate-400">{loading ? "Loading…" : `${lessons.length} lessons total`}</span>
+          <div className="inline-flex overflow-hidden rounded-md border border-slate-300 text-sm">
+            {(["month", "week"] as const).map((v) => (
+              <button
+                key={v}
+                onClick={() => setView(v)}
+                className={"px-3 py-1.5 capitalize " + (view === v ? "bg-sky-600 text-white" : "bg-white text-slate-700 hover:bg-slate-50")}
+              >
+                {v}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Calendar grid */}
+        {loading && <p className="text-xs text-slate-400">Loading…</p>}
+
+        {/* Week view */}
+        {view === "week" && (
+          <div className="space-y-3">
+            {weekDates.map((ds) => {
+              const dayLessons = byDate.get(ds) ?? [];
+              const isToday = ds === todayStr;
+              const d = new Date(`${ds}T00:00`);
+              return (
+                <div key={ds} className={"rounded-2xl border bg-white p-4 shadow-sm " + (isToday ? "border-sky-400" : "border-slate-200")}>
+                  <div className="mb-2 flex items-center justify-between">
+                    <h3 className={"text-sm font-semibold " + (isToday ? "text-sky-700" : "text-slate-700")}>
+                      {d.toLocaleDateString(undefined, { weekday: "long", month: "short", day: "numeric" })}
+                    </h3>
+                    <button
+                      onClick={() => { setNewDefaults({ date: ds }); setEditing(null); }}
+                      className="text-xs font-medium text-sky-600 hover:underline"
+                    >
+                      + Add
+                    </button>
+                  </div>
+                  {dayLessons.length === 0 ? (
+                    <p className="text-xs italic text-slate-400">No lessons.</p>
+                  ) : (
+                    <div className="space-y-1.5">
+                      {dayLessons.map((l) => (
+                        <button
+                          key={l.id}
+                          onClick={() => setEditing(l)}
+                          className={"block w-full rounded px-2 py-1 text-left text-sm font-medium hover:opacity-80 " + lessonColor(l)}
+                        >
+                          {(l.lesson as string) || "(untitled)"}
+                          {courseTitle(l.course as string[]) && (
+                            <span className="ml-1 text-xs font-normal opacity-70">· {courseTitle(l.course as string[])}</span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Calendar grid (month) */}
+        {view === "month" && (
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
           <div className="grid grid-cols-7 border-b border-slate-200 bg-slate-50 text-center text-xs font-semibold text-slate-500">
             {WEEKDAYS.map((d) => (
@@ -232,6 +321,7 @@ export default function LessonCalendarPage() {
             })}
           </div>
         </div>
+        )}
 
         <p className="text-xs text-slate-400">
           Click a lesson to edit it, or hover a day and click + to add one. Colors follow the lesson type.
