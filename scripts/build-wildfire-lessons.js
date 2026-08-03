@@ -78,7 +78,7 @@ const BLOCKS = [
   [P[8], "Wildfire Science Course Semester Project", "2026-12-01", "2026-12-04", ["Project Work"], "Group research project analyzing a historic Sierra Nevada wildfire (e.g., the Chips Fire): fuel loads, weather, fire behavior, post-fire recovery.", "FEIS, online fire databases, project rubric"],
   [P[8], "Semester Project Presentations", "2026-12-07", "2026-12-09", ["Project Work"], "Group presentations of the historical fire case studies. Peer evaluations.", "Presentation rubrics, peer evaluation sheets"],
   [P[8], "Semester Final Review", "2026-12-10", "2026-12-14", ["Review"], "Game-based comprehensive review of Units I-VII (physical science, fire environment, ecology, history, human management).", "Jeopardy review board, review sheets"],
-  [P[8], "Semester Final Exams", "2026-12-15", "2026-12-16", ["Unit Exam"], "1st Period final examination: comprehensive written exam and laboratory safety practical. (Minimum days Dec 17-18 for finals.)", "Final Exam papers"],
+  [P[8], "Semester Final Exams", "2026-12-15", "2026-12-18", ["Unit Exam"], "1st Period final examination: comprehensive written exam and laboratory safety practical. Dec 17-18 are the Ridgeview minimum-day finals.", "Final Exam papers"],
 ];
 
 function eachSchoolDay(startYmd, endYmd) {
