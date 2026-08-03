@@ -48,6 +48,22 @@ export default function TeachingHQPage() {
           </div>
         </Link>
 
+        {/* This week's prep */}
+        <Link
+          to="/teaching/prep"
+          className="block rounded-2xl border border-amber-200 bg-gradient-to-r from-amber-50 to-white p-5 shadow-sm transition hover:border-amber-400"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-semibold text-amber-800">🧰 This Week's Prep</h2>
+              <p className="mt-1 text-sm text-slate-600">
+                Everything to copy, set up, and gather for the next 7 days — check it off as you go.
+              </p>
+            </div>
+            <span className="text-sm font-medium text-amber-700">Open →</span>
+          </div>
+        </Link>
+
         {/* Databases */}
         <section>
           <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">
