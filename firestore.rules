@@ -123,6 +123,12 @@ service cloud.firestore {
       allow read, write: if isTeachingOwner();
     }
 
+    // Classroom Status Board state (per-period boards), synced across devices.
+    // Owner-only, same as Teaching HQ.
+    match /statusBoard/{docId} {
+      allow read, write: if isTeachingOwner();
+    }
+
     // Default deny
     match /{document=**} {
       allow read, write: if false;

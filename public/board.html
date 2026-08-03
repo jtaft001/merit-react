@@ -154,6 +154,7 @@
       <input id="bell" type="time" aria-label="Period end time">
     </div>
     <div id="clock">--:--<small>--</small></div>
+    <button class="iconbtn" id="sync" title="Board sync status">LOCAL</button>
     <button class="iconbtn" id="mute" title="Mute the end-of-timer tone">SOUND ON</button>
     <button class="iconbtn" id="fs">FULL SCREEN</button>
   </div>
@@ -178,17 +179,86 @@
   <div id="empty"><b>BOARD CLEAR</b><span>Add a tool from the rail above. Everything you place saves to this period automatically.</span></div>
 </div>
 
+<!-- Cloud sync stub: created first so the main script can await it. Fails open
+     to localStorage after 3.5s if Firebase can't load (offline / CDN blocked). -->
+<script>
+  window.__cloud = { ready:false, owner:false };
+  window.__cloudReady = new Promise(res => {
+    window.__resolveCloud = res;
+    setTimeout(res, 3500);
+  });
+  // The sync chip opens the app to sign in when the board is local-only.
+  (function(){
+    const s = document.getElementById('sync');
+    if(s) s.onclick = () => { if(!window.__cloud.owner) window.open('/', '_blank'); };
+  })();
+</script>
+
+<!-- Firebase: reuses the app's login session (same origin) to sync boards. -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+  const OWNER = "jtaft@pusdk12.org";
+  try {
+    const app = initializeApp({
+      apiKey: "AIzaSyCQklb581etGne04VWMQeFt_-Di_QB0jYY",
+      authDomain: "merit-ems.firebaseapp.com",
+      projectId: "merit-ems",
+      storageBucket: "merit-ems.firebasestorage.app",
+      messagingSenderId: "541889581184",
+      appId: "1:541889581184:web:207f06706db10d5252d665"
+    });
+    const db = getFirestore(app);
+    const c = window.__cloud;
+    c.docRef = (k) => doc(db, "statusBoard", k.replace(/[^a-zA-Z0-9]+/g, "_"));
+    c.getDoc = getDoc;
+    c.setDoc = setDoc;
+    c.serverTs = serverTimestamp;
+    let firstCb = true;
+    onAuthStateChanged(getAuth(app), (u) => {
+      c.owner = !!(u && u.email === OWNER);
+      c.ready = true;
+      const s = document.getElementById('sync');
+      if(s){
+        s.textContent = c.owner ? 'SYNCED' : 'LOCAL';
+        s.className = 'iconbtn' + (c.owner ? ' on' : '');
+        s.title = c.owner ? 'Boards sync to your account across devices' : 'Local only — click to open the app and sign in on this computer, then refresh';
+      }
+      if(firstCb){ firstCb = false; window.__resolveCloud(); }
+    });
+  } catch(e){ window.__resolveCloud(); }
+</script>
+
 <script>
 /* ============================ storage ============================ */
 const mem = {};
+// Only the per-period boards and the period list sync to the cloud; the active
+// tab and mute are per-device UI prefs (kept in localStorage).
+const CLOUD_KEY = k => k.indexOf('board:') === 0 || k === 'periods';
 const store = {
   async get(k){
+    await window.__cloudReady;
+    if(window.__cloud.owner && CLOUD_KEY(k)){
+      try{
+        const snap = await window.__cloud.getDoc(window.__cloud.docRef(k));
+        if(snap.exists()){
+          const v = snap.data().v;
+          mem[k] = v;
+          try{ localStorage.setItem('statusboard:'+k, JSON.stringify(v)); }catch(e){}
+          return v;
+        }
+      }catch(e){}
+    }
     try{ const r = localStorage.getItem('statusboard:'+k); return r ? JSON.parse(r) : (mem[k] ?? null); }
     catch(e){ return mem[k] ?? null; }
   },
   async set(k,v){
     mem[k]=v;
     try{ localStorage.setItem('statusboard:'+k, JSON.stringify(v)); }catch(e){}
+    if(window.__cloud && window.__cloud.owner && CLOUD_KEY(k)){
+      try{ await window.__cloud.setDoc(window.__cloud.docRef(k), { v, updatedAt: window.__cloud.serverTs() }); }catch(e){}
+    }
   }
 };
 
