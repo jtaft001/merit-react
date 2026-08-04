@@ -17,6 +17,7 @@ export type FieldType =
   | "text"
   | "longtext"
   | "markdown"
+  | "file"
   | "number"
   | "money"
   | "url"
@@ -235,8 +236,9 @@ export const COLLECTIONS: CollectionDef[] = [
       },
       { key: "planStatus", label: "Plan Status", type: "select", inList: true, options: STATUS },
       { key: "chapters", label: "Chapters", type: "text" },
+      { key: "pdf", label: "Plan PDF", type: "file", inList: true, help: "Upload the lesson plan PDF. Opens when you click a lesson." },
       { key: "objectives", label: "Objectives", type: "longtext" },
-      { key: "content", label: "Plan Document", type: "markdown", inList: true, help: "Full lesson plan text (markdown). Opens as a formatted page." },
+      { key: "content", label: "Plan Document", type: "markdown", help: "Full lesson plan text (markdown). Fallback when no PDF is uploaded." },
       { key: "inClassFlow", label: "In-Class Flow", type: "longtext", help: "Activity sequence from the publisher plan" },
       { key: "materialsNeeded", label: "Materials Needed", type: "longtext" },
       { key: "daysCovered", label: "Days Covered", type: "number" },

@@ -1,0 +1,20 @@
+rules_version = '2';
+
+// Cloud Storage security rules. Lesson-plan PDFs (and any Teaching HQ files)
+// live under teaching/** and are readable/writable ONLY by the owner, matching
+// the Firestore Teaching HQ lock. Everything else is denied.
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isOwner() {
+      return request.auth != null && request.auth.token.email == 'jtaft@pusdk12.org';
+    }
+
+    match /teaching/{allPaths=**} {
+      allow read, write: if isOwner();
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
