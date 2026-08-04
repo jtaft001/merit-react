@@ -6,6 +6,77 @@ import {
   updateRecord,
   type TeachingRecord,
 } from "../../services/teachingService";
+import { uploadTeachingFile, deleteTeachingFile, type StoredFile } from "../../services/storageService";
+
+function bytes(n: number): string {
+  if (n < 1024) return n + " B";
+  if (n < 1024 * 1024) return (n / 1024).toFixed(0) + " KB";
+  return (n / (1024 * 1024)).toFixed(1) + " MB";
+}
+
+/** Upload / view / remove a single stored file (e.g. a lesson-plan PDF). */
+function FileField({
+  value,
+  onChange,
+  scopeId,
+}: {
+  value: StoredFile | undefined;
+  onChange: (v: StoredFile | null) => void;
+  scopeId: string;
+}) {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+
+  async function pick(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = ""; // allow re-selecting the same file
+    if (!file) return;
+    if (file.type && file.type !== "application/pdf") {
+      setError("Please choose a PDF.");
+      return;
+    }
+    setBusy(true);
+    setError("");
+    try {
+      const stored = await uploadTeachingFile("plans", scopeId, file);
+      onChange(stored);
+    } catch (err) {
+      console.error(err);
+      setError(err instanceof Error ? err.message : "Upload failed.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function remove() {
+    const old = value;
+    onChange(null);
+    if (old?.path) await deleteTeachingFile(old.path);
+  }
+
+  return (
+    <div className="mt-1">
+      {value?.url ? (
+        <div className="flex flex-wrap items-center gap-2 rounded-md border border-slate-200 bg-slate-50 p-2 text-sm">
+          <span className="font-medium text-slate-700">📄 {value.name}</span>
+          <span className="text-xs text-slate-400">{bytes(value.size)}</span>
+          <a href={value.url} target="_blank" rel="noreferrer" className="text-sky-600 hover:underline">
+            View
+          </a>
+          <button type="button" onClick={remove} className="text-rose-600 hover:underline">
+            Remove
+          </button>
+        </div>
+      ) : (
+        <label className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+          {busy ? "Uploading…" : "Upload PDF"}
+          <input type="file" accept="application/pdf" onChange={pick} disabled={busy} className="hidden" />
+        </label>
+      )}
+      {error && <p className="mt-1 text-xs text-rose-600">{error}</p>}
+    </div>
+  );
+}
 
 export type RelationMap = Record<string, { id: string; title: string }[]>;
 
@@ -36,13 +107,23 @@ function FieldInput({
   value,
   onChange,
   relations,
+  scopeId,
 }: {
   field: Field;
   value: unknown;
   onChange: (v: unknown) => void;
   relations: RelationMap;
+  scopeId: string;
 }) {
   switch (field.type) {
+    case "file":
+      return (
+        <FileField
+          value={(value as StoredFile) || undefined}
+          onChange={(v) => onChange(v)}
+          scopeId={scopeId}
+        />
+      );
     case "longtext":
     case "markdown":
       return (
@@ -178,6 +259,8 @@ export function RecordForm({
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  // Stable folder id for file uploads (existing record id, or a fresh id for new ones).
+  const [scopeId] = useState(() => initial?.id || crypto.randomUUID());
 
   function set(key: string, val: unknown) {
     setValues((prev) => ({ ...prev, [key]: val }));
@@ -222,7 +305,7 @@ export function RecordForm({
                 {field.key === def.titleField && <span className="text-rose-500"> *</span>}
               </label>
             )}
-            <FieldInput field={field} value={values[field.key]} onChange={(v) => set(field.key, v)} relations={relations} />
+            <FieldInput field={field} value={values[field.key]} onChange={(v) => set(field.key, v)} relations={relations} scopeId={scopeId} />
             {field.help && <p className="mt-1 text-xs text-slate-400">{field.help}</p>}
           </div>
         ))}

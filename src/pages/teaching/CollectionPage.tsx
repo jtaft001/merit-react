@@ -107,6 +107,13 @@ function compareRecords(
 
 type SortState = { key: string; dir: "asc" | "desc" };
 
+/** Does a markdown/file field have something to open? */
+function hasDoc(field: Field, rec: TeachingRecord): boolean {
+  const v = rec[field.key];
+  if (field.type === "file") return !!(v && (v as { url?: string }).url);
+  return !!v;
+}
+
 export default function CollectionPage() {
   const { type } = useParams<{ type: string }>();
   const def = type ? getCollection(type) : undefined;
@@ -378,8 +385,8 @@ export default function CollectionPage() {
                     )}
                     {listFields.map((f) => (
                       <td key={f.key} className="px-4 py-2">
-                        {f.type === "markdown" ? (
-                          rec[f.key] ? (
+                        {f.type === "markdown" || f.type === "file" ? (
+                          hasDoc(f, rec) ? (
                             <Link to={`/teaching/plan/${rec.id}`} className="font-medium text-sky-600 hover:underline">
                               📄 Open
                             </Link>
@@ -463,8 +470,12 @@ export default function CollectionPage() {
                       <div key={f.key} className="flex gap-2 text-xs">
                         <dt className="w-28 shrink-0 text-slate-400">{f.label}</dt>
                         <dd className="text-slate-700">
-                          {f.type === "markdown" ? (
-                            <Link to={`/teaching/plan/${rec.id}`} className="font-medium text-sky-600">📄 Open</Link>
+                          {f.type === "markdown" || f.type === "file" ? (
+                            hasDoc(f, rec) ? (
+                              <Link to={`/teaching/plan/${rec.id}`} className="font-medium text-sky-600">📄 Open</Link>
+                            ) : (
+                              <span className="text-slate-400">—</span>
+                            )
                           ) : (
                             <CellValue field={f} value={rec[f.key]} relations={relations} />
                           )}
