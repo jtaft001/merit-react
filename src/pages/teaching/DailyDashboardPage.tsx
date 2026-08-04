@@ -230,10 +230,18 @@ export default function DailyDashboardPage() {
                     {l.unitPhase ? ` · ${l.unitPhase}` : ""}
                     {(l.classActivity as string) ? ` · ${l.classActivity}` : ""}
                   </p>
-                  <div className="mt-1 flex flex-wrap gap-1">
+                  <div className="mt-1 flex flex-wrap items-center gap-2">
                     {(l.lessonType as string[] | undefined)?.map((t) => (
                       <Chip key={t} fieldId="lessonType" type="lessonDays" value={t} />
                     ))}
+                    {Array.isArray(l.lessonPlan) && (l.lessonPlan as string[]).length > 0 && (
+                      <Link
+                        to={`/teaching/plan/${(l.lessonPlan as string[])[0]}`}
+                        className="text-xs font-medium text-sky-600 hover:underline"
+                      >
+                        📄 Open plan →
+                      </Link>
+                    )}
                   </div>
                 </div>
                 <div className="flex flex-col items-end gap-1">
