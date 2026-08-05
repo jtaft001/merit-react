@@ -25,8 +25,25 @@ export async function uploadTeachingFile(
 ): Promise<StoredFile> {
   const path = `teaching/${folder}/${id}/${Date.now()}-${sanitize(file.name)}`;
   const r = ref(storage, path);
-  await uploadBytes(r, file, { contentType: file.type || "application/octet-stream" });
-  const url = await getDownloadURL(r);
+  // Guard against a silent hang (Storage not enabled / rules not deployed /
+  // network stall) so the UI surfaces a real error instead of spinning forever.
+  const withTimeout = <T>(p: Promise<T>, ms: number, label: string): Promise<T> => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const guard = new Promise<T>((_, reject) => {
+      timer = setTimeout(
+        () => reject(new Error(`${label} timed out after ${ms / 1000}s — check that Firebase Storage is enabled and its rules are deployed.`)),
+        ms
+      );
+    });
+    return Promise.race([p, guard]).finally(() => clearTimeout(timer)) as Promise<T>;
+  };
+
+  await withTimeout(
+    uploadBytes(r, file, { contentType: file.type || "application/octet-stream" }),
+    60000,
+    "Upload"
+  );
+  const url = await withTimeout(getDownloadURL(r), 20000, "Getting the file URL");
   return { path, name: file.name, size: file.size, url, contentType: file.type };
 }
 
