@@ -4,8 +4,8 @@
  * day-ranges → lesson-plan titles. Every day in a range gets its plan's
  * lessonPlan relation, so "click a day → open the plan" works across the unit.
  *
- * Days with no iCEV plan (FEMA, AHA BLS, capstone labs, finals, orientation,
- * and the IPC-owned soft-skills units) are intentionally left unlinked.
+ * Days with no LPSCS plan (FEMA, AHA BLS, capstone labs, finals, orientation)
+ * are intentionally left unlinked.
  *
  * Dry run by default. --write applies.
  *
@@ -24,14 +24,8 @@ const WRITE = process.argv.includes("--write");
 
 // [startDay, endDay, exact LPSCS plan title]. Days are inclusive.
 const MAP = [
-  // Phase 1 — Exploring Careers (each pathway day → its own plan) + Ethics
-  [2, 2, "Exploring Careers: Law / Public Safety / Corrections & Security"],
-  [3, 3, "Correction Services"],
-  [4, 4, "Emergency & Fire Management Services"],
-  [5, 5, "Security & Protective Services"],
-  [6, 6, "Law Enforcement Services"],
-  [7, 7, "Legal Services"],
-  [8, 10, "Exploring Careers: Law / Public Safety / Corrections & Security"],
+  // Phase 1 — Exploring Careers is one unit plan covering all pathway days.
+  [2, 10, "Exploring Careers: Law / Public Safety / Corrections & Security"],
   [11, 17, "Ethical Practices in Law / Public Safety / Corrections & Security"],
   // Phase 2 — job-defined + first aid (FEMA/BLS have no iCEV plan)
   [45, 46, "A Job Defined: Emergency Dispatcher"],
@@ -40,14 +34,15 @@ const MAP = [
   // Phase 3 — Criminal Law + Codes
   [73, 81, "Criminal Law History & Development"],
   [82, 84, "Fundamentals of Laws & Codes"],
-  // Phase 4 — Public Safety Systems, then corrections intro
-  [91, 98, "Public Safety Systems & Agencies"],
-  [99, 101, "The Correctional System"],
-  // Phase 5 — Law enforcement + patrol
+  // Phase 4 — Unit 4.2 Public Safety Systems (Days 91-101, incl. jail structures)
+  [91, 101, "Public Safety Systems & Agencies"],
+  // Phase 5 — Law enforcement + patrol + soft-skills units
   [102, 103, "Law Enforcement Services"],
   [104, 105, "A Job Defined: Police Officer"],
   [106, 107, "A Job Defined: Chief of Police"],
   [108, 111, "Public Safety Systems & Agencies"],
+  [112, 114, "Listening 101"],
+  [115, 119, "Conflict Management"],
   // Phase 6 — Corrections
   [126, 127, "Correction Services"],
   [128, 138, "The Correctional System"],
@@ -58,6 +53,9 @@ const MAP = [
   [152, 158, "Private Security Systems & Agencies"],
   [159, 164, "Interagency Cooperation"],
   [165, 166, "Emergency & Fire Management Services"],
+  // Unit 8.5 — Interviews (Prep = 171-172, Process = 173-177)
+  [171, 172, "Formulas for Career Success: Interview Preparation"],
+  [173, 177, "Formulas for Career Success: The Interview Process"],
 ];
 
 function initAdmin() {
