@@ -33,7 +33,17 @@ const FOLDER = folderArg || path.join(os.homedir(), "Downloads");
 
 // Manual matches, filled after reviewing a dry run: "file.pdf": "Exact Plan Title"
 // (or null to skip a file).
-const OVERRIDES = {};
+const OVERRIDES = {
+  // Corrected targets:
+  "Lesson Plan - Medical Assistant Skills_Patient Prep.pdf": "IPC — MA Skills: Patient Prep",
+  "Lesson Plan - Skills for Health Science Professionals_Activities of Daily Living.pdf": "IPC — Skills for Health Science Professionals: ADLs",
+  // Duplicate file:
+  "First Aid Basics_Lesson_Plan copy.pdf": null,
+  // No matching lesson-plan record yet — skip so they don't clobber a shared plan:
+  "Lesson Plan - Medical Assistant Skills_First Aid Basics.pdf": null,
+  "Lesson Plan - Skills for Health Science Professionals_CPR & AED.pdf": null,
+  "Lesson Plan - Health Science Professionalism_ Leadership Lesson Plan.pdf": null,
+};
 
 const STOP = new Set(["the","a","an","of","in","for","and","to","on","s","lesson","plan","pdf","ipc","lpscs","emt","wild","skills","ma"]);
 function tokens(s) {
