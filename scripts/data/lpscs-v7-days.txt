@@ -1,0 +1,180 @@
+Day 1 (Wednesday, August 12, 2026): Orientation Day & iCEV Program Registration Setup
+Day 2 (Thursday, August 13, 2026): Overview & Career Cluster Background
+Day 3 (Friday, August 14, 2026): Correction Services Pathway
+Day 4 (Monday, August 17, 2026): Emergency & Fire Management Services Pathway
+Day 5 (Tuesday, August 18, 2026): Security & Protective Services Pathway
+Day 6 (Wednesday, August 19, 2026): Law Enforcement Services Pathway
+Day 7 (Thursday, August 20, 2026): Legal Services Pathway
+Day 8 (Friday, August 21, 2026): Designing a Career Plan
+Day 9 (Monday, August 24, 2026): Technical Review & Professional Documents
+Day 10 (Tuesday, August 25, 2026): Comprehensive Assessment, Career Scattergories Review & Journal Compilation
+Day 11 (Wednesday, August 26, 2026): Ethics & Professional Conduct
+Day 12 (Thursday, August 27, 2026): Police Integrity
+Day 13 (Friday, August 28, 2026): Courtroom Ethics
+Day 14 (Monday, August 31, 2026): Corrections & Private Security Integrity
+Day 15 (Tuesday, September 01, 2026): Professional Codes & Codes of Conduct
+Day 16 (Wednesday, September 02, 2026): Skit Preparation
+Day 17 (Thursday, September 03, 2026): Ethical Skit Showcase & Ethics Final Assessment
+Day 18 (Friday, September 04, 2026): FEMA IS-100.c — SID Registration & ICS Orientation (Session 1 of 7)
+Day 19 (Tuesday, September 08, 2026): FEMA IS-100.c — Lesson 1 & 2: ICS Overview and Purpose (Session 2 of 7)
+Day 20 (Wednesday, September 09, 2026): FEMA IS-100.c — Lesson 3: Command and Command Staff (Session 3 of 7)
+Day 21 (Thursday, September 10, 2026): FEMA IS-100.c — Lesson 4: General Staff & Incident Facilities (Session 4 of 7)
+Day 22 (Friday, September 11, 2026): FEMA IS-100.c — Lesson 5: Common Responsibilities & Transfer of Command (Session 5 of 7)
+Day 23 (Monday, September 14, 2026): FEMA IS-100.c — Applied Tabletop Exercise (Session 6 of 7)
+Day 24 (Tuesday, September 15, 2026): FEMA IS-100.c — Final Exam Lab & Certificate Submission (Session 7 of 7)
+Day 25 (Wednesday, September 16, 2026): FEMA IS-700.b — Lesson 1: NIMS Foundations & Guiding Principles (Session 1 of 8)
+Day 26 (Thursday, September 17, 2026): FEMA IS-700.b — Lesson 2: Resource Management Preparedness (Session 2 of 8)
+Day 27 (Friday, September 18, 2026): FEMA IS-700.b — Lesson 3: Resource Management in Action (Session 3 of 8)
+Day 28 (Monday, September 21, 2026): FEMA IS-700.b — Lesson 4: Command & Coordination Structures (Session 4 of 8)
+Day 29 (Tuesday, September 22, 2026): FEMA IS-700.b — Lesson 5: Communications & Information Management (Session 5 of 8)
+Day 30 (Wednesday, September 23, 2026): FEMA IS-700.b — Multi-Agency Coordination Tabletop (Session 6 of 8)
+Day 31 (Thursday, September 24, 2026): FEMA IS-700.b — Review & Practice Examination (Session 7 of 8)
+Day 32 (Friday, September 25, 2026): FEMA IS-700.b — Final Exam Lab & Certificate Submission (Session 8 of 8)
+Day 33 (Monday, September 28, 2026): Professional Readiness: Résumé Fundamentals for Public Safety
+Day 34 (Tuesday, September 29, 2026): Professional Readiness: Building Your Résumé
+Day 35 (Wednesday, September 30, 2026): The Public Safety Application & Background Process
+Day 36 (Thursday, October 01, 2026): Professional Communication & Report Writing
+Day 37 (Friday, October 02, 2026): CTSO Introduction: SkillsUSA & HOSA Competitive Events
+Day 38 (Monday, October 05, 2026): Digital Portfolio Assembly & Peer Review
+Day 39 (Tuesday, October 06, 2026): Phase 1 Culminating Portfolio Review and Pathway Case Studies
+Day 40 (Wednesday, October 07, 2026): FEMA CERT Unit 1: Disaster Preparedness — CERT Mission & Local Hazards (Day 1 of 5)
+Day 41 (Thursday, October 08, 2026): FEMA CERT Unit 1: Disaster Preparedness — Home & Family Preparedness (Day 2 of 5)
+Day 42 (Friday, October 09, 2026): FEMA CERT Unit 1: Disaster Preparedness — Evacuation & Sheltering (Day 3 of 5)
+Day 43 (Monday, October 12, 2026): FEMA CERT Unit 1: Disaster Preparedness — Hazardous Materials Awareness (Day 4 of 5)
+Day 44 (Tuesday, October 13, 2026): FEMA CERT Unit 1: Disaster Preparedness — Team Organization & Unit Assessment (Day 5 of 5)
+Day 45 (Wednesday, October 14, 2026): Technical Communications and Job Design
+Day 46 (Thursday, October 15, 2026): Simulating Communications and Performance Assessment
+Day 47 (Friday, October 16, 2026): Role Classification and Training Pathways
+Day 48 (Monday, October 19, 2026): Ambulance Equipment and Medical Technology
+Day 49 (Tuesday, October 20, 2026): Simulation Showcase and Assessment
+Day 50 (Wednesday, October 21, 2026): First Aid Introduction
+Day 51 (Thursday, October 22, 2026): Bleeding and Soft Tissue Treatments
+Day 52 (Friday, October 23, 2026): Bone and Muscle Injury Management
+Day 53 (Monday, October 26, 2026): Sudden Illness & Shock Treatments
+Day 54 (Tuesday, October 27, 2026): Environmental Emergency Management
+Day 55 (Wednesday, October 28, 2026): Environmental Techniques & Tech Assessment
+Day 56 (Thursday, October 29, 2026): EMT Live Medical Scenario Role Play
+Day 57 (Friday, October 30, 2026): Present Brochures & Final Assessment
+Day 58 (Monday, November 02, 2026): AHA BLS Provider Certification (Day 1 of 5): Chain of Survival & the Science of High-Quality CPR
+Day 59 (Tuesday, November 03, 2026): AHA BLS Provider Certification (Day 2 of 5): Adult 1-Rescuer BLS & AED Operation
+Day 60 (Wednesday, November 04, 2026): AHA BLS Provider Certification (Day 3 of 5): Team Dynamics, 2-Rescuer CPR & Bag-Mask Ventilation
+Day 61 (Thursday, November 05, 2026): AHA BLS Provider Certification (Day 4 of 5): Child & Infant BLS, Choking Relief & Opioid Emergencies
+Day 62 (Friday, November 06, 2026): AHA BLS Provider Certification (Day 5 of 5): Skills Testing & BLS Provider Written Exam
+Day 63 (Monday, November 09, 2026): FEMA CERT Unit 2: Fire Safety — Fire Chemistry & the Fire Tetrahedron (Day 1 of 5)
+Day 64 (Tuesday, November 10, 2026): FEMA CERT Unit 2: Fire Safety — Extinguisher Selection & PASS Technique (Day 2 of 5)
+Day 65 (Thursday, November 12, 2026): FEMA CERT Unit 2: Fire Safety — Size-Up & the Decision to Act (Day 3 of 5)
+Day 66 (Friday, November 13, 2026): FEMA CERT Unit 2: Fire Safety — Utility Controls & Hazard Shutoff (Day 4 of 5)
+Day 67 (Monday, November 16, 2026): FEMA CERT Unit 2: Fire Safety — Fire Suppression Drill & Unit Assessment (Day 5 of 5)
+Day 68 (Tuesday, November 17, 2026): FEMA CERT Unit 5: Light Search & Rescue — Structural Assessment (Day 1 of 4)
+Day 69 (Wednesday, November 18, 2026): FEMA CERT Unit 5: Light Search & Rescue — Search Marking Systems (Day 2 of 4)
+Day 70 (Thursday, November 19, 2026): FEMA CERT Unit 5: Light Search & Rescue — Search Patterns & Victim Location (Day 3 of 4)
+Day 71 (Friday, November 20, 2026): FEMA CERT Unit 5: Light Search & Rescue — Victim Carries & Unit Assessment (Day 4 of 4)
+Day 72 (Monday, November 30, 2026): Emergency Response Cumulative Capstone Drill & Phase 2 Assessment
+Day 73 (Tuesday, December 01, 2026): Foundations of Criminal Law
+Day 74 (Wednesday, December 02, 2026): Legislation Enactment & Legislative Skit
+Day 75 (Thursday, December 03, 2026): Legislative Bill Drafting
+Day 76 (Friday, December 04, 2026): Legislative Debate & Vote
+Day 77 (Monday, December 07, 2026): Defining Criminal Acts
+Day 78 (Tuesday, December 08, 2026): Elements of a Crime Lab
+Day 79 (Wednesday, December 09, 2026): Constitutional Protections
+Day 80 (Thursday, December 10, 2026): PSA Project - Public Safety Skits
+Day 81 (Friday, December 11, 2026): PSA Present and Law Assessment
+Day 82 (Monday, December 14, 2026): Law Levels & Crime Offense Classification
+Day 83 (Tuesday, December 15, 2026): Classifying Offenses Across Jurisdictions
+Day 84 (Wednesday, December 16, 2026): Crime Scenarios Lab & Semester 1 Exam Review
+Day 85 (Thursday, December 17, 2026): SEMESTER 1 FINAL EXAM — Period 2 (Minimum Day Finals Schedule)
+Day 86 (Friday, December 18, 2026): NO PERIOD 2 CLASS — Semester 1 Finals Day 2 (Periods 4, 5 & 6)
+Day 87 (Monday, January 04, 2027): Local Ordinances
+Day 88 (Tuesday, January 05, 2027): Civil vs Criminal Law
+Day 89 (Wednesday, January 06, 2027): Civil vs Criminal Cases
+Day 90 (Thursday, January 07, 2027): Crime Podcast Production & Showcase
+Day 91 (Friday, January 08, 2027): Law Enforcement Systems
+Day 92 (Monday, January 11, 2027): Core Police Responsibilities
+Day 93 (Tuesday, January 12, 2027): Police & Crime Prevention
+Day 94 (Wednesday, January 13, 2027): Assessing Police Actions
+Day 95 (Thursday, January 14, 2027): Incident Assessment Discussion
+Day 96 (Friday, January 15, 2027): Emergency Response Systems
+Day 97 (Tuesday, January 19, 2027): Rescue & Hazard Protocols
+Day 98 (Wednesday, January 20, 2027): First Responder Stress Management
+Day 99 (Thursday, January 21, 2027): Corrections Within the Public Safety System
+Day 100 (Friday, January 22, 2027): Jail vs. Prison: Jurisdiction, Booking & Intake
+Day 101 (Monday, January 25, 2027): Inmate & Staff Health, Safety Regulations, and Phase 4 Assessment
+Day 102 (Tuesday, January 26, 2027): Law Enforcement Services: Role Definition, Recruitment & Hiring Criteria
+Day 103 (Wednesday, January 27, 2027): Protective Gear Lab & Law Enforcement Services Unit Assessment
+Day 104 (Thursday, January 28, 2027): A Job Defined — Police Officer: Duties, Qualifications & Physical Readiness
+Day 105 (Friday, January 29, 2027): Specialization Pathways, SRO Presentation & Host Officer Interview
+Day 106 (Monday, February 01, 2027): A Job Defined — Chief of Police: Command Rank & Agency Leadership
+Day 107 (Tuesday, February 02, 2027): Command Staff Simulation & Chief of Police Unit Assessment
+Day 108 (Wednesday, February 03, 2027): Patrol Pathway & Municipal Agency Structures
+Day 109 (Thursday, February 04, 2027): Protective Careers & Private Security Integration
+Day 110 (Friday, February 05, 2027): Agency & Security Company Research Project
+Day 111 (Monday, February 08, 2027): Agency Research Presentations & Peer Analysis
+Day 112 (Tuesday, February 09, 2027): Listening 101 (Day 1 of 3): Hearing vs. Listening & Listener Types
+Day 113 (Wednesday, February 10, 2027): Listening 101 (Day 2 of 3): Draw What You Hear & the Newsletter Project
+Day 114 (Thursday, February 11, 2027): Listening 101 (Day 3 of 3): Newsletter Presentations & Accuracy Analysis
+Day 115 (Tuesday, February 16, 2027): Conflict Management (Day 1 of 5): Defining Conflict
+Day 116 (Wednesday, February 17, 2027): Conflict Management (Day 2 of 5): Analyzing Conflict & Root Causes
+Day 117 (Thursday, February 18, 2027): Conflict Management (Day 3 of 5): The Five Conflict Management Styles
+Day 118 (Friday, February 19, 2027): Conflict Management (Day 4 of 5): Resolving Conflict & Positive Language
+Day 119 (Monday, February 22, 2027): Conflict Management (Day 5 of 5): Third Party Intervention & Unit Assessment
+Day 120 (Tuesday, February 23, 2027): Tactical Patrol & Simulated Traffic Stops Lab (Day 1 of 2): Approach, Positioning & Lawful Contact
+Day 121 (Wednesday, February 24, 2027): Tactical Patrol & Simulated Traffic Stops Lab (Day 2 of 2): Full Scenario Assessment
+Day 122 (Thursday, February 25, 2027): Mock Crime Scene Investigation Lab (Day 1 of 3): Scene Security & Documentation
+Day 123 (Friday, February 26, 2027): Mock Crime Scene Investigation Lab (Day 2 of 3): Evidence Collection & Chain of Custody
+Day 124 (Monday, March 01, 2027): Mock Crime Scene Investigation Lab (Day 3 of 3): Forensic Analysis & Case File Assembly
+Day 125 (Tuesday, March 02, 2027): Phase 5 Capstone Presentations & Law Enforcement Unit Exam
+Day 126 (Wednesday, March 03, 2027): Correctional Roles and Pathways
+Day 127 (Thursday, March 04, 2027): Pathway Presentation and Evaluation
+Day 128 (Friday, March 05, 2027): Corrections Principles
+Day 129 (Monday, March 08, 2027): Secure Custody Levels
+Day 130 (Tuesday, March 09, 2027): Specialized Prison Populations
+Day 131 (Wednesday, March 10, 2027): Prison Life & Custodian Duties
+Day 132 (Thursday, March 11, 2027): Privatization & Evidence-Based Correctional Practice
+Day 133 (Friday, March 12, 2027): Group Collaborative Workspace: Research, Production & Peer Review
+Day 134 (Monday, March 15, 2027): Prisoner Rights & Crowding Issues
+Day 135 (Tuesday, March 16, 2027): History & Trends Relay Race
+Day 136 (Wednesday, March 17, 2027): Assessment & Showcase Prep
+Day 137 (Tuesday, March 23, 2027): Present Civilian Guides
+Day 138 (Wednesday, March 24, 2027): Correctional Reforms, Rehabilitation & Case Studies
+Day 139 (Thursday, March 25, 2027): Lawyers & Paralegals
+Day 140 (Monday, April 05, 2027): Cost of College/Trade School Project
+Day 141 (Tuesday, April 06, 2027): Court Systems: Vocabulary, Structure & Civil vs. Criminal Concept Maps
+Day 142 (Wednesday, April 07, 2027): Criminal Court Levels and Sentencing
+Day 143 (Thursday, April 08, 2027): Federal Courts & Constitutional Rights
+Day 144 (Friday, April 09, 2027): Federal Judiciary & SCOTUS
+Day 145 (Monday, April 12, 2027): Landmark Precedent & Mock Trial Setup
+Day 146 (Tuesday, April 13, 2027): Courtroom Role Assignments and Prep
+Day 147 (Wednesday, April 14, 2027): Mock Trial Simulation (Session A)
+Day 148 (Thursday, April 15, 2027): Mock Trial Simulation (Session B)
+Day 149 (Friday, April 16, 2027): Mock Trial Debrief & Court Final Assessment
+Day 150 (Monday, April 19, 2027): Moot Court (Day 1 of 2): Appellate Process, Standards of Review & Brief Writing
+Day 151 (Tuesday, April 20, 2027): Moot Court (Day 2 of 2): Hot Bench Drills, Full Oral Argument & Bench Ruling
+Day 152 (Wednesday, April 21, 2027): Introduction to Private Security
+Day 153 (Thursday, April 22, 2027): Asset Protection & Security Guards
+Day 154 (Friday, April 23, 2027): History of Private Protection
+Day 155 (Monday, April 26, 2027): Modern Security History
+Day 156 (Tuesday, April 27, 2027): Public-Private Partnerships
+Day 157 (Wednesday, April 28, 2027): Designing Security Collaboration
+Day 158 (Thursday, April 29, 2027): Private Security Unit Assessment & Collaboration Program Proposals
+Day 159 (Friday, April 30, 2027): Agencies in Public Safety
+Day 160 (Monday, May 03, 2027): Emergency Communications & 9-1-1 Systems
+Day 161 (Tuesday, May 04, 2027): Joint Operations & Jurisdictional Conflict
+Day 162 (Wednesday, May 05, 2027): Criminal Justice Coordination
+Day 163 (Thursday, May 06, 2027): Private-Public Security Collaboration
+Day 164 (Friday, May 07, 2027): Final Assessment & Technology Forum
+Day 165 (Monday, May 10, 2027): Fire Pathway Careers
+Day 166 (Tuesday, May 11, 2027): PHS Fire Career Forum
+Day 167 (Wednesday, May 12, 2027): PHS Campus Command Lab (Day 1 of 4): Hazard Assessment & Incident Action Plan Development
+Day 168 (Thursday, May 13, 2027): PHS Campus Command Lab (Day 2 of 4): Command Structure, Role Assignment & Communications
+Day 169 (Friday, May 14, 2027): PHS Campus Command Lab (Day 3 of 4): Full-Scale Simulation
+Day 170 (Monday, May 17, 2027): PHS Campus Command Lab (Day 4 of 4): After-Action Review & Safety Proposal
+Day 171 (Tuesday, May 18, 2027): Interview Preparation (Day 1 of 2): Research, Preparation & Practice
+Day 172 (Wednesday, May 19, 2027): Interview Preparation (Day 2 of 2): Common Questions & Unit Assessment
+Day 173 (Thursday, May 20, 2027): The Interview Process (Day 1 of 5): Basic Tips & Interview Methods
+Day 174 (Friday, May 21, 2027): The Interview Process (Day 2 of 5): The Good & The Bad
+Day 175 (Monday, May 24, 2027): The Interview Process (Day 3 of 5): Unit Assessment & Mock Interview Launch
+Day 176 (Tuesday, May 25, 2027): The Interview Process (Day 4 of 5): Mock Interviews & the Thank You Note
+Day 177 (Wednesday, May 26, 2027): The Interview Process (Day 5 of 5): Guide to Interviews Presentations
+Day 178 (Thursday, May 27, 2027): Course Portfolio Showcase & Career Exploration Journal Submission
+Day 179 (Tuesday, June 01, 2027): SEMESTER 2 FINAL EXAM — Period 2 (Minimum Day Finals Schedule)
+Day 180 (Wednesday, June 02, 2027): NO PERIOD 2 CLASS — Semester 2 Finals Day 2 (Periods 4, 5 & 6)
