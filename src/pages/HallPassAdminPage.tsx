@@ -4,7 +4,9 @@ import {
   hallPassReturn,
   hallPassOverride,
   hallPassMarkExempt,
+  hallPassRollover,
   getHallPassSettings,
+  saveHallPassSettings,
   type PassRecord,
 } from "../services/hallPassService";
 import { fetchStudents, type StudentRecord } from "../services/studentService";
@@ -38,6 +40,10 @@ export default function HallPassAdminPage() {
   const [now, setNow] = useState(Date.now());
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const [form, setForm] = useState({ passesPerSemester: 5, pointsPerUnusedPass: 50, oneOutAtATime: false });
+  const [newSemester, setNewSemester] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [rollBusy, setRollBusy] = useState(false);
 
   const loadRoster = useCallback(async () => {
     try {
@@ -50,7 +56,12 @@ export default function HallPassAdminPage() {
 
   useEffect(() => {
     void loadRoster();
-    getHallPassSettings().then(setSettings).catch(() => setSettings(null));
+    getHallPassSettings()
+      .then((s) => {
+        setSettings(s);
+        setForm({ passesPerSemester: s.passesPerSemester, pointsPerUnusedPass: s.pointsPerUnusedPass, oneOutAtATime: s.oneOutAtATime });
+      })
+      .catch(() => setSettings(null));
     const unsub = subscribeOpenPasses(setOpen);
     const tick = setInterval(() => setNow(Date.now()), 1000);
     return () => { unsub(); clearInterval(tick); };
@@ -81,6 +92,43 @@ export default function HallPassAdminPage() {
     if (!window.confirm(`Grant an override pass to ${s.name}? (Does not use their balance.)`)) return;
     try { await hallPassOverride({ studentDocId: s.id }); setNotice(`Override pass granted to ${s.name}.`); }
     catch (err) { setError(err instanceof Error ? err.message : "Could not grant override."); }
+  }
+
+  async function saveSettings() {
+    setSaving(true);
+    setError("");
+    try {
+      await saveHallPassSettings(form);
+      setSettings((prev) => (prev ? { ...prev, ...form } : prev));
+      setNotice("Settings saved.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not save settings.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function runRollover() {
+    if (rollBusy) return; // guard against a double run
+    const target = newSemester.trim();
+    if (!target) { setError("Enter the new semester name first."); return; }
+    if (!window.confirm(
+      `Run semester rollover?\n\nThis pays out every student's unused passes (× ${perPass} pts) to the economy, resets everyone to ${maxPasses}, and sets the term to "${target}". It cannot be undone.`
+    )) return;
+    setRollBusy(true);
+    setError("");
+    try {
+      const res = await hallPassRollover({ newSemester: target });
+      setNotice(`Rollover complete: paid ${res.totalPoints} pts to ${res.studentsPaid} students. Now on ${res.newSemester}.`);
+      setNewSemester("");
+      const s = await getHallPassSettings();
+      setSettings(s);
+      void loadRoster();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Rollover failed.");
+    } finally {
+      setRollBusy(false);
+    }
   }
 
   const balColor = (n: number) => (n <= 0 ? "text-rose-600" : n <= 2 ? "text-amber-600" : "text-emerald-600");
@@ -187,6 +235,50 @@ export default function HallPassAdminPage() {
             </div>
           </section>
         ))}
+
+        {/* Settings & semester rollover */}
+        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-sm font-semibold text-slate-800">Settings</h2>
+          <div className="mt-3 grid gap-4 sm:grid-cols-3">
+            <label className="block text-sm">
+              <span className="font-medium text-slate-600">Passes per semester</span>
+              <input type="number" min={0} value={form.passesPerSemester}
+                onChange={(e) => setForm((f) => ({ ...f, passesPerSemester: Number(e.target.value) || 0 }))}
+                className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:ring-sky-500" />
+            </label>
+            <label className="block text-sm">
+              <span className="font-medium text-slate-600">Points per unused pass</span>
+              <input type="number" min={0} value={form.pointsPerUnusedPass}
+                onChange={(e) => setForm((f) => ({ ...f, pointsPerUnusedPass: Number(e.target.value) || 0 }))}
+                className="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:ring-sky-500" />
+            </label>
+            <label className="flex items-end gap-2 pb-2 text-sm text-slate-700">
+              <input type="checkbox" checked={form.oneOutAtATime}
+                onChange={(e) => setForm((f) => ({ ...f, oneOutAtATime: e.target.checked }))} />
+              One student out at a time
+            </label>
+          </div>
+          <button onClick={saveSettings} disabled={saving}
+            className="mt-4 rounded-md bg-sky-600 px-4 py-2 text-sm font-medium text-white hover:bg-sky-700 disabled:opacity-60">
+            {saving ? "Saving…" : "Save settings"}
+          </button>
+
+          <div className="mt-6 border-t border-slate-200 pt-4">
+            <h3 className="text-sm font-semibold text-slate-800">Semester rollover</h3>
+            <p className="mt-1 text-xs text-slate-500">
+              Pays out unused passes to the economy ({perPass} pts each), resets everyone to {maxPasses}, and advances the term.
+              Current term: <span className="font-medium">{settings?.currentSemester}</span>.
+            </p>
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <input value={newSemester} onChange={(e) => setNewSemester(e.target.value)} placeholder="new semester, e.g. 2027-spring"
+                className="rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:ring-sky-500" />
+              <button onClick={runRollover} disabled={rollBusy || !newSemester.trim()}
+                className="rounded-md bg-rose-600 px-4 py-2 text-sm font-medium text-white hover:bg-rose-700 disabled:opacity-50">
+                {rollBusy ? "Running…" : "Run rollover"}
+              </button>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   );

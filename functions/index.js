@@ -16,6 +16,7 @@ const {
   hallPassReturn,
   hallPassOverride,
   hallPassMarkExempt,
+  hallPassRollover,
 } = require("./hallPass");
 
 // invoker:"public" lets the browser reach the function; auth is still enforced
@@ -43,3 +44,4 @@ exports.hallPassCheckout   = onCall({ invoker: "public" }, hallPassCheckout);
 exports.hallPassReturn     = onCall({ invoker: "public" }, hallPassReturn);
 exports.hallPassOverride   = onCall({ invoker: "public" }, hallPassOverride);
 exports.hallPassMarkExempt = onCall({ invoker: "public" }, hallPassMarkExempt);
+exports.hallPassRollover   = onCall({ invoker: "public" }, hallPassRollover);

@@ -206,10 +206,77 @@ const hallPassMarkExempt = async (request) => {
   return { ok: true };
 };
 
+/**
+ * Teacher (auth): semester rollover. Pays out each active student's unused
+ * passes to the classroom economy (unused × pointsPerUnusedPass, credited as a
+ * negative-cost reward_purchase so it adds to the gross−spend balance), resets
+ * passesRemaining, and advances the current semester. Historical pass records
+ * keep their own `semester` tag and are never touched.
+ */
+const hallPassRollover = async (request) => {
+  requireStaff(request);
+  const newSemester = String((request.data && request.data.newSemester) || "").trim();
+  if (!newSemester) throw new HttpsError("invalid-argument", "newSemester is required.");
+
+  const db = admin.firestore();
+  const settings = await getSettings(db);
+  const oldSemester = settings.currentSemester;
+  if (newSemester === oldSemester) {
+    throw new HttpsError("failed-precondition", "New semester must differ from the current one (guards against a double run).");
+  }
+
+  const studentsSnap = await db.collection("students").get();
+  const active = studentsSnap.docs.filter((d) => String(d.data().status || "").toLowerCase() !== "dropped");
+
+  let totalPoints = 0;
+  let studentsPaid = 0;
+  let batch = db.batch();
+  let ops = 0;
+  const flush = async () => { if (ops) { await batch.commit(); batch = db.batch(); ops = 0; } };
+
+  for (const d of active) {
+    const s = d.data();
+    const remaining = typeof s.passesRemaining === "number" ? s.passesRemaining : settings.passesPerSemester;
+    const payout = Math.max(0, remaining) * settings.pointsPerUnusedPass;
+    if (payout > 0) {
+      batch.set(db.collection("reward_purchases").doc(), {
+        studentId: d.id,
+        rewardId: "hall-pass-payout",
+        rewardName: `Hall Pass Payout (${oldSemester})`,
+        cost: -payout, // negative cost = credit to the economy balance
+        status: "approved",
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      });
+      totalPoints += payout;
+      studentsPaid++;
+      ops++;
+    }
+    batch.update(d.ref, { passesRemaining: settings.passesPerSemester });
+    ops++;
+    if (ops >= 400) await flush();
+  }
+  await flush();
+
+  await db.collection("settings").doc("hallPass").set(
+    { currentSemester: newSemester, updatedAt: admin.firestore.FieldValue.serverTimestamp() },
+    { merge: true }
+  );
+  await db.collection("hallPassPayouts").add({
+    semester: oldSemester,
+    newSemester,
+    studentsPaid,
+    totalPoints,
+    ranAt: admin.firestore.FieldValue.serverTimestamp(),
+  });
+
+  return { oldSemester, newSemester, studentsPaid, totalPoints };
+};
+
 module.exports = {
   hallPassLookup,
   hallPassCheckout,
   hallPassReturn,
   hallPassOverride,
   hallPassMarkExempt,
+  hallPassRollover,
 };

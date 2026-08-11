@@ -136,6 +136,12 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // Hall pass semester payout summaries — written by the rollover function.
+    match /hallPassPayouts/{docId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
     // App settings (e.g. settings/hallPass): readable by authed users, admin-managed.
     match /settings/{docId} {
       allow read: if isAuthed();

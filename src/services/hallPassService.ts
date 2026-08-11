@@ -49,6 +49,10 @@ export const hallPassCheckout = call<
 export const hallPassReturn = call<{ studentDocId: string }, { studentName: string; durationSeconds: number }>("hallPassReturn");
 export const hallPassOverride = call<{ studentDocId: string; destination?: string }, { studentName: string }>("hallPassOverride");
 export const hallPassMarkExempt = call<{ passId: string }, { ok: boolean }>("hallPassMarkExempt");
+export const hallPassRollover = call<
+  { newSemester: string },
+  { oldSemester: string; newSemester: string; studentsPaid: number; totalPoints: number }
+>("hallPassRollover");
 
 // ---- Teacher (authenticated) — direct Firestore reads gated by rules ----
 
