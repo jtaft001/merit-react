@@ -27,6 +27,7 @@ import ScenarioEditPage from "./pages/ScenarioEditPage";
 import NfcClockPage from "./pages/NfcClockPage";
 import NfcImportPage from "./pages/NfcImportPage";
 import HallPassKioskPage from "./pages/HallPassKioskPage";
+import HallPassAdminPage from "./pages/HallPassAdminPage";
 import TeachingHQPage from "./pages/teaching/TeachingHQPage";
 import DailyDashboardPage from "./pages/teaching/DailyDashboardPage";
 import CollectionPage from "./pages/teaching/CollectionPage";
@@ -131,6 +132,18 @@ function App() {
               </NavLink>
             )}
 
+            {isAdmin && (
+              <NavLink
+                to="/passes"
+                className={({ isActive }) =>
+                  "block px-3 py-2 rounded-xl text-sm " +
+                  (isActive ? "bg-sky-500 text-white" : "text-slate-200 hover:bg-slate-800")
+                }
+              >
+                Hall Passes
+              </NavLink>
+            )}
+
             <NavLink
               to="/time-attendance"
               className={({ isActive }) =>
@@ -203,6 +216,7 @@ function App() {
             <Route path="/nfc-login" element={<NfcClockPage />} />
             <Route path="/nfc-clock" element={<NfcClockPage />} />
             <Route path="/hall-pass" element={<HallPassKioskPage />} />
+            <Route path="/passes" element={isAdmin ? <HallPassAdminPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
             <Route path="/" element={<DashboardPage user={user} isAdmin={isAdmin} />} />
             <Route path="/scenarios" element={<ScenarioPage />} />
             <Route path="/teaching" element={isOwner ? <TeachingHQPage /> : <div className="p-6 text-slate-400">Access denied.</div>} />
