@@ -88,6 +88,41 @@ export type StudentDoc = {
   className?: string;
   authUid?: string;
   lastActivity?: unknown;
+  /** Hall passes left this semester (seeded to settings.passesPerSemester). */
+  passesRemaining?: number;
+  /** Optional roster photo, shown on the kiosk confirmation screen. */
+  photoUrl?: string;
+  /** Denormalized time of the student's most recent hall pass (roster "last used"). */
+  lastPassAt?: unknown;
+};
+
+// ---------------------------------------------------------------------------
+// Hall passes
+// ---------------------------------------------------------------------------
+
+export type PassDestination = "restroom" | "water" | "nurse" | "office" | "counselor";
+
+export type PassDoc = {
+  studentDocId: string;
+  studentIdNumber: string; // denormalized school ID (from student.studentNumber)
+  studentName: string;
+  period: string;
+  destination: PassDestination | string;
+  exempt: boolean; // nurse/office/counselor + teacher overrides — no debit
+  teacherOverride: boolean;
+  outAt: unknown; // Timestamp
+  backAt: unknown | null; // null = currently out
+  durationSeconds: number | null;
+  semester: string;
+  createdAt?: unknown;
+};
+
+export type HallPassSettings = {
+  passesPerSemester: number; // default 5
+  pointsPerUnusedPass: number; // default 50
+  oneOutAtATime: boolean; // default false
+  currentSemester: string;
+  exemptDestinations: string[]; // default ["nurse", "office", "counselor"]
 };
 
 export type ClassDoc = {

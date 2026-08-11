@@ -106,6 +106,31 @@
         { "fieldPath": "studentId", "order": "ASCENDING" },
         { "fieldPath": "periodEnd", "order": "DESCENDING" }
       ]
+    },
+    {
+      "collectionGroup": "passes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "studentDocId", "order": "ASCENDING" },
+        { "fieldPath": "backAt", "order": "ASCENDING" },
+        { "fieldPath": "outAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "passes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "period", "order": "ASCENDING" },
+        { "fieldPath": "backAt", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "passes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "backAt", "order": "ASCENDING" },
+        { "fieldPath": "outAt", "order": "DESCENDING" }
+      ]
     }
   ],
   "fieldOverrides": []

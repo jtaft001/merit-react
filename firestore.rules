@@ -129,6 +129,19 @@ service cloud.firestore {
       allow read, write: if isTeachingOwner();
     }
 
+    // Hall passes: teachers read the log; all writes go through Cloud Functions
+    // (admin SDK), so the immutable audit trail can't be tampered with client-side.
+    match /passes/{docId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    // App settings (e.g. settings/hallPass): readable by authed users, admin-managed.
+    match /settings/{docId} {
+      allow read: if isAuthed();
+      allow write: if isAdmin();
+    }
+
     // Default deny
     match /{document=**} {
       allow read, write: if false;
