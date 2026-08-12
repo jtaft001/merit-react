@@ -237,7 +237,7 @@ export default function DailyDashboardPage() {
         </div>
 
         {/* 1. Teaching */}
-        <Section title="1. What am I teaching?" subtitle="Class meetings over the next 7 days." to="/teaching/calendar" empty={teaching.length === 0}>
+        <Section title="1. What am I teaching?" subtitle="Class meetings over the next 7 days." to="/teaching/calendar" empty={!loading && teaching.length === 0}>
           <ul className="divide-y divide-slate-100">
             {teaching.map((l) => (
               <li key={l.id} className={"flex items-start justify-between gap-3 py-2 " + (l.date === today ? "-mx-2 rounded-lg bg-amber-50 px-2" : "")}>
@@ -278,7 +278,7 @@ export default function DailyDashboardPage() {
         </Section>
 
         {/* Scenarios */}
-        <Section title="🎬 Scenarios coming up" subtitle="Lesson days flagged Scenario / Simulation." to="/teaching/db/lessonDays" empty={scenarios.length === 0}>
+        <Section title="🎬 Scenarios coming up" subtitle="Lesson days flagged Scenario / Simulation." to="/teaching/db/lessonDays" empty={!loading && scenarios.length === 0}>
           <ul className="divide-y divide-slate-100">
             {scenarios.slice(0, 8).map((l) => (
               <li key={l.id} className="flex items-center justify-between gap-3 py-2">
@@ -293,7 +293,7 @@ export default function DailyDashboardPage() {
         </Section>
 
         {/* 2. Tasks */}
-        <Section title="2. What has to get done?" subtitle="Open tasks, soonest due first." to="/teaching/db/tasks" empty={tasks.length === 0}>
+        <Section title="2. What has to get done?" subtitle="Open tasks, soonest due first." to="/teaching/db/tasks" empty={!loading && tasks.length === 0}>
           <ul className="divide-y divide-slate-100">
             {tasks.slice(0, 12).map((t) => (
               <li key={t.id} className="flex items-center justify-between gap-3 py-2">
@@ -309,7 +309,7 @@ export default function DailyDashboardPage() {
         </Section>
 
         {/* 3. Deadlines */}
-        <Section title="3. What’s coming at me?" subtitle="Exams, check-offs, projects, and grade dates." to="/teaching/db/deadlines" empty={deadlines.length === 0}>
+        <Section title="3. What’s coming at me?" subtitle="Exams, check-offs, projects, and grade dates." to="/teaching/db/deadlines" empty={!loading && deadlines.length === 0}>
           <ul className="divide-y divide-slate-100">
             {deadlines.slice(0, 12).map((d) => (
               <li key={d.id} className="flex items-center justify-between gap-3 py-2">
@@ -325,7 +325,7 @@ export default function DailyDashboardPage() {
         </Section>
 
         {/* 4. Materials */}
-        <Section title="4. What do I need to have ready?" subtitle="Equipment and consumables by the date needed." to="/teaching/db/materials" empty={materials.length === 0}>
+        <Section title="4. What do I need to have ready?" subtitle="Equipment and consumables by the date needed." to="/teaching/db/materials" empty={!loading && materials.length === 0}>
           <ul className="divide-y divide-slate-100">
             {materials.slice(0, 12).map((m) => (
               <li key={m.id} className="flex items-center justify-between gap-3 py-2">
@@ -341,7 +341,7 @@ export default function DailyDashboardPage() {
         </Section>
 
         {/* 5. Emails */}
-        <Section title="5. Who am I keeping waiting?" subtitle="Open threads that still need something from you." to="/teaching/db/emails" empty={emails.length === 0}>
+        <Section title="5. Who am I keeping waiting?" subtitle="Open threads that still need something from you." to="/teaching/db/emails" empty={!loading && emails.length === 0}>
           <ul className="divide-y divide-slate-100">
             {emails.map((e) => (
               <li key={e.id} className="flex items-center justify-between gap-3 py-2">
@@ -357,7 +357,7 @@ export default function DailyDashboardPage() {
         </Section>
 
         {/* Days off */}
-        <Section title="📅 Upcoming days off" subtitle="Holidays, breaks, minimum days, and grade deadlines." to="/teaching/db/districtCalendar" empty={daysOff.length === 0}>
+        <Section title="📅 Upcoming days off" subtitle="Holidays, breaks, minimum days, and grade deadlines." to="/teaching/db/districtCalendar" empty={!loading && daysOff.length === 0}>
           <ul className="divide-y divide-slate-100">
             {daysOff.slice(0, 6).map((e) => (
               <li key={e.id} className="flex items-center justify-between gap-3 py-2">

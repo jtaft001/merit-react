@@ -14,7 +14,12 @@ service cloud.firestore {
 
     // Helper: the single owner of the private Teaching HQ area.
     function isTeachingOwner() {
-      return isAuthed() && request.auth.token.email == 'jtaft@pusdk12.org';
+      // Prefer a server-set custom claim; fall back to the owner email but only
+      // when it is verified (an unverified same-email account cannot pass).
+      return isAuthed() && (
+        request.auth.token.teachingOwner == true ||
+        (request.auth.token.email == 'jtaft@pusdk12.org' && request.auth.token.email_verified == true)
+      );
     }
 
     // timeclock (raw events) - admin only

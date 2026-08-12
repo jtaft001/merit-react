@@ -42,6 +42,9 @@ export type OptionColor =
 
 export type SelectOption = { value: string; color?: OptionColor };
 
+/** A labeled set of options — renders as an <optgroup> in select inputs. */
+export type OptionGroup = { label: string; options: SelectOption[] };
+
 export type Field = {
   /** camelCase Firestore key. */
   key: string;
@@ -51,6 +54,9 @@ export type Field = {
   notion?: string;
   type: FieldType;
   options?: SelectOption[];
+  /** Optional grouped options for a select. When set, the editor renders these
+   *  as <optgroup>s; `options` should still hold the flat union (for colors). */
+  optionGroups?: OptionGroup[];
   /** For relation fields: the collection id this points at. */
   relationTo?: string;
   /** Show this field as a column in the list view. */
@@ -78,6 +84,48 @@ const STATUS: SelectOption[] = [
 ];
 
 const opt = (value: string, color?: OptionColor): SelectOption => ({ value, color });
+
+// Curriculum phase sets, one per course. Kept as named groups so the lesson-day
+// editor can show them as separate <optgroup>s (a lesson only really belongs to
+// one course's phases) while the flat union still drives the badge colors.
+const LPSCS_PHASES: SelectOption[] = [
+  opt("Phase 1: Common Concepts", "blue"),
+  opt("Phase 2: Emergency Response", "red"),
+  opt("Phase 3: Foundations of Law", "purple"),
+  opt("Phase 4: Justice & Juvenile", "orange"),
+  opt("Phase 5: Law Enforcement", "green"),
+  opt("Phase 6: Corrections", "brown"),
+  opt("Phase 7: Court Advocacy", "pink"),
+  opt("Phase 8: Pathway Explorations", "yellow"),
+  opt("Phase 9: Final Evaluations", "gray"),
+];
+const WILD_PHASES: SelectOption[] = [
+  opt("Phase 0: Course Setup", "gray"),
+  opt("Phase 1: Introduction to Wildland Fire", "blue"),
+  opt("Phase 2: Physical Science of Wildland Fire", "orange"),
+  opt("Phase 3: The Wildland Fire Environment", "green"),
+  opt("Phase 4: Fire Effects on the Environment", "red"),
+  opt("Phase 5: Fire & Organisms/Communities", "purple"),
+  opt("Phase 6: Fire History & Succession", "brown"),
+  opt("Phase 7: People in Fire's Homeland", "pink"),
+  opt("Phase 8: Semester Wrap-Up & Finals", "yellow"),
+];
+const IPC_PHASES: SelectOption[] = [
+  opt("Phase 1: Scientific Foundations & Professional Practice", "blue"),
+  opt("Phase 2: Medical Terminology & A&P Foundations", "purple"),
+  opt("Phase 3: Ethics, Law & Patient Interaction", "orange"),
+  opt("Phase 4: Clinical Foundations — Intake, Vitals & Documentation", "green"),
+  opt("Phase 5: Infection Control, Workplace Safety & Emergency Response", "red"),
+  opt("Phase 6: Therapeutic Communication & Patient Populations", "pink"),
+  opt("Phase 7: Core Nursing Skills & Activities of Daily Living", "brown"),
+  opt("Phase 8: Advanced Medical Assistant & Diagnostic Skills", "yellow"),
+  opt("Phase 9: Forensics, A&P Capstone & Final Evaluations", "gray"),
+];
+const PHASE_GROUPS: OptionGroup[] = [
+  { label: "LPSCS (Law & Public Safety)", options: LPSCS_PHASES },
+  { label: "Wildfire Science", options: WILD_PHASES },
+  { label: "Intro to Patient Care", options: IPC_PHASES },
+];
 
 // The nine databases -------------------------------------------------------
 
@@ -142,38 +190,10 @@ export const COLLECTIONS: CollectionDef[] = [
         label: "Phase",
         type: "select",
         inList: true,
-        help: "LPSCS curriculum phase (assigned by date).",
-        options: [
-          opt("Phase 1: Common Concepts", "blue"),
-          opt("Phase 2: Emergency Response", "red"),
-          opt("Phase 3: Foundations of Law", "purple"),
-          opt("Phase 4: Justice & Juvenile", "orange"),
-          opt("Phase 5: Law Enforcement", "green"),
-          opt("Phase 6: Corrections", "brown"),
-          opt("Phase 7: Court Advocacy", "pink"),
-          opt("Phase 8: Pathway Explorations", "yellow"),
-          opt("Phase 9: Final Evaluations", "gray"),
-          // Wildfire Science (WILD) phases:
-          opt("Phase 0: Course Setup", "gray"),
-          opt("Phase 1: Introduction to Wildland Fire", "blue"),
-          opt("Phase 2: Physical Science of Wildland Fire", "orange"),
-          opt("Phase 3: The Wildland Fire Environment", "green"),
-          opt("Phase 4: Fire Effects on the Environment", "red"),
-          opt("Phase 5: Fire & Organisms/Communities", "purple"),
-          opt("Phase 6: Fire History & Succession", "brown"),
-          opt("Phase 7: People in Fire's Homeland", "pink"),
-          opt("Phase 8: Semester Wrap-Up & Finals", "yellow"),
-          // Intro to Patient Care (IPC) phases:
-          opt("Phase 1: Scientific Foundations & Professional Practice", "blue"),
-          opt("Phase 2: Medical Terminology & A&P Foundations", "purple"),
-          opt("Phase 3: Ethics, Law & Patient Interaction", "orange"),
-          opt("Phase 4: Clinical Foundations — Intake, Vitals & Documentation", "green"),
-          opt("Phase 5: Infection Control, Workplace Safety & Emergency Response", "red"),
-          opt("Phase 6: Therapeutic Communication & Patient Populations", "pink"),
-          opt("Phase 7: Core Nursing Skills & Activities of Daily Living", "brown"),
-          opt("Phase 8: Advanced Medical Assistant & Diagnostic Skills", "yellow"),
-          opt("Phase 9: Forensics, A&P Capstone & Final Evaluations", "gray"),
-        ],
+        help: "Curriculum phase for this lesson's course (usually set by date). Pick from your course's group.",
+        // Grouped by course in the editor; flat union drives the badge colors.
+        optionGroups: PHASE_GROUPS,
+        options: [...LPSCS_PHASES, ...WILD_PHASES, ...IPC_PHASES],
       },
       {
         key: "lessonType",

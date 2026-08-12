@@ -175,11 +175,21 @@ function FieldInput({
       return (
         <select value={(value as string) ?? ""} onChange={(e) => onChange(e.target.value)} className={inputCls}>
           <option value="">— none —</option>
-          {field.options?.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.value}
-            </option>
-          ))}
+          {field.optionGroups?.length
+            ? field.optionGroups.map((g) => (
+                <optgroup key={g.label} label={g.label}>
+                  {g.options.map((o) => (
+                    <option key={o.value} value={o.value}>
+                      {o.value}
+                    </option>
+                  ))}
+                </optgroup>
+              ))
+            : field.options?.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.value}
+                </option>
+              ))}
         </select>
       );
     case "multiselect": {

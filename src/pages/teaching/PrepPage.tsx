@@ -114,7 +114,7 @@ export default function PrepPage() {
         <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <h2 className="text-base font-semibold text-slate-800">🖨 Copies to print ({copies.length})</h2>
           <div className="mt-2 divide-y divide-slate-100">
-            {copies.length === 0 && <p className={empty}>Nothing to print this week.</p>}
+            {!loading && copies.length === 0 && <p className={empty}>Nothing to print this week.</p>}
             {copies.map((l) => (
               <label key={l.id} className={rowCls}>
                 <input type="checkbox" className="mt-1 h-4 w-4" onChange={() => clearLessonFlag(l, "copiesNeeded")} />
@@ -131,7 +131,7 @@ export default function PrepPage() {
         <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <h2 className="text-base font-semibold text-slate-800">🔬 Labs to set up ({labs.length})</h2>
           <div className="mt-2 divide-y divide-slate-100">
-            {labs.length === 0 && <p className={empty}>No lab setups this week.</p>}
+            {!loading && labs.length === 0 && <p className={empty}>No lab setups this week.</p>}
             {labs.map((l) => (
               <label key={l.id} className={rowCls}>
                 <input type="checkbox" className="mt-1 h-4 w-4" onChange={() => clearLessonFlag(l, "labSetupNeeded")} />
@@ -148,7 +148,7 @@ export default function PrepPage() {
         <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <h2 className="text-base font-semibold text-slate-800">📦 Materials to gather ({gather.length})</h2>
           <div className="mt-2 divide-y divide-slate-100">
-            {gather.length === 0 && <p className={empty}>Nothing outstanding.</p>}
+            {!loading && gather.length === 0 && <p className={empty}>Nothing outstanding.</p>}
             {gather.map((m) => (
               <label key={m.id} className={rowCls}>
                 <input type="checkbox" className="mt-1 h-4 w-4" onChange={() => markMaterialDone(m)} />

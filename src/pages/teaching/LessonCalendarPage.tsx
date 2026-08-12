@@ -171,7 +171,7 @@ export default function LessonCalendarPage() {
               ))}
             </select>
             <Link
-              to={`/teaching/print/week/${todayStr}`}
+              to={`/teaching/print/week/${weekAnchor}`}
               className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
             >
               🖨 Print week
@@ -194,13 +194,13 @@ export default function LessonCalendarPage() {
         {/* Nav + view toggle */}
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <button onClick={prev} className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm hover:bg-slate-50">
+            <button onClick={prev} aria-label={view === "week" ? "Previous week" : "Previous month"} className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm hover:bg-slate-50">
               ‹
             </button>
             <button onClick={goNow} className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium hover:bg-slate-50">
               Today
             </button>
-            <button onClick={next} className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm hover:bg-slate-50">
+            <button onClick={next} aria-label={view === "week" ? "Next week" : "Next month"} className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm hover:bg-slate-50">
               ›
             </button>
           </div>
