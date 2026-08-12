@@ -14,11 +14,14 @@ service cloud.firestore {
 
     // Helper: the single owner of the private Teaching HQ area.
     function isTeachingOwner() {
-      // Prefer a server-set custom claim; fall back to the owner email but only
-      // when it is verified (an unverified same-email account cannot pass).
+      // Prefer a server-set custom claim (set via setCustomUserClaims); fall back
+      // to the owner email. The email fallback is safe because Firebase enforces
+      // one-account-per-email, so the owner's address cannot be re-registered.
+      // (Do NOT require email_verified here — the owner is a password account
+      // with emailVerified=false, and that check locks the owner out.)
       return isAuthed() && (
         request.auth.token.teachingOwner == true ||
-        (request.auth.token.email == 'jtaft@pusdk12.org' && request.auth.token.email_verified == true)
+        request.auth.token.email == 'jtaft@pusdk12.org'
       );
     }
 

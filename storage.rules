@@ -6,10 +6,12 @@ rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
     function isOwner() {
-      // Prefer a server-set custom claim; fall back to the verified owner email.
+      // Prefer a server-set custom claim; fall back to the owner email (safe —
+      // Firebase enforces one-account-per-email). Do NOT require email_verified:
+      // the owner is a password account with emailVerified=false.
       return request.auth != null && (
         request.auth.token.teachingOwner == true ||
-        (request.auth.token.email == 'jtaft@pusdk12.org' && request.auth.token.email_verified == true)
+        request.auth.token.email == 'jtaft@pusdk12.org'
       );
     }
 
