@@ -102,7 +102,7 @@ export const COLLECTIONS: CollectionDef[] = [
         label: "Period",
         type: "select",
         inList: true,
-        options: [opt("Period 2", "blue"), opt("Period 3", "red"), opt("TBD", "gray")],
+        options: [opt("Period 2", "blue"), opt("Period 3", "red"), opt("Period 4", "green"), opt("TBD", "gray")],
       },
       { key: "currentUnit", label: "Current Unit / Phase", type: "text", inList: true },
       {

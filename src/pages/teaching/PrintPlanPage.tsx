@@ -155,6 +155,12 @@ export default function PrintPlanPage() {
                             <span className="rounded-full bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-700">Lab setup</span>
                           ) : null}
                         </div>
+                        {(l.bellRinger as string) && (
+                          <p className="mt-2 whitespace-pre-wrap text-sm text-slate-700">
+                            <span className="font-semibold">🔔 Bell Work: </span>
+                            {l.bellRinger as string}
+                          </p>
+                        )}
                         {(l.classActivity as string) && (
                           <p className="mt-2 whitespace-pre-wrap text-sm text-slate-700">
                             <span className="font-semibold">Activity: </span>
@@ -171,6 +177,12 @@ export default function PrintPlanPage() {
                           <p className="mt-1 text-sm text-slate-700">
                             <span className="font-semibold">Materials: </span>
                             {l.chaptersMedia as string}
+                          </p>
+                        )}
+                        {(l.exitTicket as string) && (
+                          <p className="mt-1 whitespace-pre-wrap text-sm text-slate-700">
+                            <span className="font-semibold">🎟️ Exit Ticket: </span>
+                            {l.exitTicket as string}
                           </p>
                         )}
                         {linkedPlans.length > 0 && (

@@ -278,7 +278,7 @@ export default function DailyDashboardPage() {
         </Section>
 
         {/* Scenarios */}
-        <Section title="🎬 Scenarios coming up" subtitle="Lesson days flagged Scenario / Simulation." to="/scenarios" empty={scenarios.length === 0}>
+        <Section title="🎬 Scenarios coming up" subtitle="Lesson days flagged Scenario / Simulation." to="/teaching/db/lessonDays" empty={scenarios.length === 0}>
           <ul className="divide-y divide-slate-100">
             {scenarios.slice(0, 8).map((l) => (
               <li key={l.id} className="flex items-center justify-between gap-3 py-2">
