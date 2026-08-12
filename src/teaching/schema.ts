@@ -163,6 +163,16 @@ export const COLLECTIONS: CollectionDef[] = [
           opt("Phase 6: Fire History & Succession", "brown"),
           opt("Phase 7: People in Fire's Homeland", "pink"),
           opt("Phase 8: Semester Wrap-Up & Finals", "yellow"),
+          // Intro to Patient Care (IPC) phases:
+          opt("Phase 1: Scientific Foundations & Professional Practice", "blue"),
+          opt("Phase 2: Medical Terminology & A&P Foundations", "purple"),
+          opt("Phase 3: Ethics, Law & Patient Interaction", "orange"),
+          opt("Phase 4: Clinical Foundations — Intake, Vitals & Documentation", "green"),
+          opt("Phase 5: Infection Control, Workplace Safety & Emergency Response", "red"),
+          opt("Phase 6: Therapeutic Communication & Patient Populations", "pink"),
+          opt("Phase 7: Core Nursing Skills & Activities of Daily Living", "brown"),
+          opt("Phase 8: Advanced Medical Assistant & Diagnostic Skills", "yellow"),
+          opt("Phase 9: Forensics, A&P Capstone & Final Evaluations", "gray"),
         ],
       },
       {

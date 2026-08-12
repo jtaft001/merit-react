@@ -1,0 +1,2180 @@
+[
+ {
+  "day": 1,
+  "title": "Orientation Day & Allied Health Program Setup",
+  "date": "2026-08-12",
+  "weekday": "Wednesday",
+  "bellRinger": "Icebreaker. Students introduce themselves and name one allied health career they are curious about, plus one thing they already know about patient care.",
+  "exitTicket": "Write one question you have about the course, the certification, or the lab. Teacher collects and answers aloud.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 2,
+  "title": "History of Medicine & Science Timeline",
+  "date": "2026-08-13",
+  "weekday": "Thursday",
+  "bellRinger": "Board prompt: name any medical treatment that exists today but did not exist when your grandparents were born.",
+  "exitTicket": "Name three historic medical discoveries that still affect how a hospital runs today.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Project Work"
+  ]
+ },
+ {
+  "day": 3,
+  "title": "Medical Biographies Research",
+  "date": "2026-08-14",
+  "weekday": "Friday",
+  "bellRinger": "Quick write: what makes an online source trustworthy for medical information? List three tests.",
+  "exitTicket": "Submit your source list with a one-sentence justification for each source.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 4,
+  "title": "Biography Presentations & Peer Review",
+  "date": "2026-08-17",
+  "weekday": "Monday",
+  "bellRinger": "Review the presentation rubric. Students set one personal delivery goal (volume, eye contact, or pacing).",
+  "exitTicket": "Name one presentation skill you saw today that you intend to borrow.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Project Work",
+   "Review"
+  ]
+ },
+ {
+  "day": 5,
+  "title": "Limitations of Science in Clinical Practice",
+  "date": "2026-08-18",
+  "weekday": "Tuesday",
+  "bellRinger": "Agree or disagree, then defend: ‘If a study is published, it must be true.’",
+  "exitTicket": "In three sentences, explain to a patient why their doctor’s advice might change next year.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 6,
+  "title": "Great Discoveries in Medicine",
+  "date": "2026-08-19",
+  "weekday": "Wednesday",
+  "bellRinger": "See-and-wonder: display an image of an early sphygmomanometer. What do you see? What do you wonder?",
+  "exitTicket": "Post a 280-character class ‘tweet’ naming the discovery you believe most changed patient care and why.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 7,
+  "title": "Discovery Showcase & Impact Analysis",
+  "date": "2026-08-20",
+  "weekday": "Thursday",
+  "bellRinger": "Rank these on the board by impact: antibiotics, anesthesia, hand hygiene, imaging. Defend your top choice in one sentence.",
+  "exitTicket": "Did the class ranking match yours? Write one sentence on what changed your mind, or why it did not.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 8,
+  "title": "The Scientific Method in Clinical Inquiry",
+  "date": "2026-08-21",
+  "weekday": "Friday",
+  "bellRinger": "Scramble activity: students receive the steps of the scientific method out of order and sequence them with a partner.",
+  "exitTicket": "Write your best testable hypothesis from today and identify its independent variable.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 9,
+  "title": "Controlled Experiments & Variables",
+  "date": "2026-08-24",
+  "weekday": "Monday",
+  "bellRinger": "Identify the variables in this setup: two groups of patients, one given a warmed blanket before a blood draw, one not, both rating discomfort afterward.",
+  "exitTicket": "Explain in two sentences why a study without a control group is difficult to trust.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 10,
+  "title": "Experimental Design Lab",
+  "date": "2026-08-25",
+  "weekday": "Tuesday",
+  "bellRinger": "Predict: whose resting pulse will be higher after two minutes of standing versus sitting, and by how much?",
+  "exitTicket": "List two sources of error in your trial and one change you would make on a second run.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 11,
+  "title": "Scientific Models & Clinical Data Collection",
+  "date": "2026-08-26",
+  "weekday": "Wednesday",
+  "bellRinger": "Look at the anatomical torso model. List two things it shows well and two things it cannot show at all.",
+  "exitTicket": "Name the three documentation faults you found and state the rule each one broke.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 12,
+  "title": "Laboratory Safety in the Clinical Setting",
+  "date": "2026-08-27",
+  "weekday": "Thursday",
+  "bellRinger": "List everything in this room that exists only because something can go wrong.",
+  "exitTicket": "Sign and submit the Lab Safety Contract. Name the one violation you think is most likely to happen in this room.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 13,
+  "title": "Scientific Procedures & Safety Final Assessment",
+  "date": "2026-08-28",
+  "weekday": "Friday",
+  "bellRinger": "Two-minute partner quiz on vocabulary from the unit; no notes.",
+  "exitTicket": "Submit the self-audit. Name the safety habit you will practice this week.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 14,
+  "title": "Professionalism Standards in Allied Health",
+  "date": "2026-08-31",
+  "weekday": "Monday",
+  "bellRinger": "Write your own definition of ‘professional’ before any instruction. Save it; you will revise it Friday.",
+  "exitTicket": "Name one behavior your group argued about and explain which column it belongs in.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 15,
+  "title": "Time Management & Clinical Prioritization",
+  "date": "2026-09-01",
+  "weekday": "Tuesday",
+  "bellRinger": "You have twelve minutes and four tasks. List them in the order you would do them and be ready to justify the first one.",
+  "exitTicket": "Which task did your group put first, and what would happen if it went last?",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 16,
+  "title": "Professional Appearance & Personal Presentation",
+  "date": "2026-09-02",
+  "weekday": "Wednesday",
+  "bellRinger": "Two photographs are on the board. Which clinician would you rather be treated by, and what specifically drove your answer?",
+  "exitTicket": "Name one appearance rule whose reason surprised you.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Project Work"
+  ]
+ },
+ {
+  "day": 17,
+  "title": "Interpersonal Skills, Communication & Barriers",
+  "date": "2026-09-03",
+  "weekday": "Thursday",
+  "bellRinger": "Silent instruction game: one partner describes a diagram while the other draws it without asking questions. Compare results.",
+  "exitTicket": "Name the barrier you found hardest to work around and the technique you used.",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 18,
+  "title": "Professionalism Final Assessment & Clinical Portfolio Launch",
+  "date": "2026-09-04",
+  "weekday": "Friday",
+  "bellRinger": "Retrieve your Day 14 definition of ‘professional’. Revise it using everything from this unit.",
+  "exitTicket": "Submit your revised definition alongside the original. What changed?",
+  "phase": "Phase 1: Scientific Foundations & Professional Practice",
+  "lessonType": [
+   "Unit Exam",
+   "Project Work"
+  ]
+ },
+ {
+  "day": 19,
+  "title": "Terminology Logistics: Word Parts & Purpose",
+  "date": "2026-09-08",
+  "weekday": "Tuesday",
+  "bellRinger": "Write down every medical term you already know. Circle any you could actually define.",
+  "exitTicket": "Define ‘root’, ‘prefix’, and ‘suffix’ in your own words without using the textbook wording.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 20,
+  "title": "Word Structure Breakdown",
+  "date": "2026-09-09",
+  "weekday": "Wednesday",
+  "bellRinger": "Break down ‘tachycardia’ on your own. Show your split.",
+  "exitTicket": "Break down and define ‘bradycardia’, ‘epigastric’, and ‘antibacterial’.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 21,
+  "title": "Terminology in Clinical Practice",
+  "date": "2026-09-10",
+  "weekday": "Thursday",
+  "bellRinger": "Decode this line from a chart: ‘Pt c/o SOB x 3d, hx HTN, NKDA.’",
+  "exitTicket": "Which term was hardest to translate without losing accuracy?",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 22,
+  "title": "Medical Terminology Final Assessment",
+  "date": "2026-09-11",
+  "weekday": "Friday",
+  "bellRinger": "Rapid partner drill: twenty word parts in two minutes, no notes.",
+  "exitTicket": "Enter your five hardest terms into the Terminology Log with a self-written definition.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 23,
+  "title": "Levels of Body Organization",
+  "date": "2026-09-14",
+  "weekday": "Monday",
+  "bellRinger": "Order these smallest to largest without help: tissue, organism, cell, organ, organ system.",
+  "exitTicket": "Order the organization levels from microscopic cell to complex organism, and name one condition that starts at the cellular level.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 24,
+  "title": "Anatomical Position, Planes & Directional Terms",
+  "date": "2026-09-15",
+  "weekday": "Tuesday",
+  "bellRinger": "Describe where your elbow is relative to your wrist, using no everyday words.",
+  "exitTicket": "Write a one-line chart entry describing a laceration location using three directional terms.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 25,
+  "title": "Body Cavities & Organization Assessment",
+  "date": "2026-09-16",
+  "weekday": "Wednesday",
+  "bellRinger": "Place your hands on your own body to indicate the thoracic and abdominal cavities.",
+  "exitTicket": "Name the quadrant you would chart for right-sided appendix pain.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 26,
+  "title": "Core Body Systems",
+  "date": "2026-09-17",
+  "weekday": "Thursday",
+  "bellRinger": "List everyday tasks the body could not do if the muscular system stopped working.",
+  "exitTicket": "Share theme songs for three body systems with your clinical justification.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 27,
+  "title": "Support & Coordination Systems",
+  "date": "2026-09-18",
+  "weekday": "Friday",
+  "bellRinger": "Write the names of the skeletal, muscular, and nervous systems on your paper. In two or three sentences, describe how they work together to lift a cup.",
+  "exitTicket": "Submit your group’s role list and the system you were assigned.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 28,
+  "title": "Body System Museum Exhibit Build",
+  "date": "2026-09-21",
+  "weekday": "Monday",
+  "bellRinger": "Display images of five or six organs. Match each to its correct body system and discuss the incorrect matches as a class.",
+  "exitTicket": "What is the single most common misconception the public has about your system? Make sure your exhibit corrects it.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Project Work"
+  ]
+ },
+ {
+  "day": 29,
+  "title": "Museum Gallery Walk & Body Systems Final Assessment",
+  "date": "2026-09-22",
+  "weekday": "Tuesday",
+  "bellRinger": "Review the names and functions of the major systems with a partner without using notes.",
+  "exitTicket": "Turn in your peer evaluation sheets. Name one system you understand better after the gallery walk.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 30,
+  "title": "Diseases & Disorders: Diagnostic Clues",
+  "date": "2026-09-23",
+  "weekday": "Wednesday",
+  "bellRinger": "A patient says ‘I feel dizzy’ and you observe that they are pale and sweating. Which of those is a sign and which is a symptom?",
+  "exitTicket": "Match five common conditions to their primary clinical signs.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 31,
+  "title": "Etiology, Signs & Symptoms of Disease",
+  "date": "2026-09-24",
+  "weekday": "Thursday",
+  "bellRinger": "Name three risk factors for heart disease. Mark which ones a person can change.",
+  "exitTicket": "Complete the Patient Practice Exit Ticket: given three symptom sets, state what you would document and what you would report immediately.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 32,
+  "title": "Clinical Condition Profiles",
+  "date": "2026-09-25",
+  "weekday": "Friday",
+  "bellRinger": "Display an unlabeled symptom list. Working in pairs, generate two conditions that could produce it, then state what additional information would separate them.",
+  "exitTicket": "Submit your draft storyboard and script for teacher review.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 33,
+  "title": "Mini Medical Documentary Production",
+  "date": "2026-09-28",
+  "weekday": "Monday",
+  "bellRinger": "Watch a 60-second sample explainer. Identify one thing it did well and one thing it did poorly.",
+  "exitTicket": "Submit your rough cut and note what still needs work.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Project Work"
+  ]
+ },
+ {
+  "day": 34,
+  "title": "Documentary Screening & Diseases Final Assessment",
+  "date": "2026-09-29",
+  "weekday": "Tuesday",
+  "bellRinger": "List the five conditions your classmates covered and one sign of each.",
+  "exitTicket": "Name the condition you now feel most confident recognizing and why.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Unit Exam",
+   "Project Work"
+  ]
+ },
+ {
+  "day": 35,
+  "title": "Heart Anatomy & Blood Flow",
+  "date": "2026-09-30",
+  "weekday": "Wednesday",
+  "bellRinger": "Draw the heart from memory. Label whatever you can. Keep the drawing.",
+  "exitTicket": "Label an unaided heart diagram: aorta, ventricles, atria, vena cava.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 36,
+  "title": "Cardiac Conduction & EKG Waveform Basics",
+  "date": "2026-10-01",
+  "weekday": "Thursday",
+  "bellRinger": "Your heart beats without you telling it to. Where does the signal come from?",
+  "exitTicket": "Describe the physiological effect of a faulty bicuspid valve, and connect the QRS complex to the event it represents.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 37,
+  "title": "Cardiovascular Measurement Lab",
+  "date": "2026-10-02",
+  "weekday": "Friday",
+  "bellRinger": "Predict how much your pulse will change after one minute of stepping. Write the number down.",
+  "exitTicket": "List three physiological factors that alter cardiac output under stress. How close was your prediction?",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 38,
+  "title": "Cardiovascular System Final Assessment",
+  "date": "2026-10-05",
+  "weekday": "Monday",
+  "bellRinger": "Retrieve your Day 35 heart drawing. Correct it in a different color.",
+  "exitTicket": "Submit both drawings. Name the structure you had most wrong the first time.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 39,
+  "title": "Body Mechanics: Movement Mechanics & Center of Gravity",
+  "date": "2026-10-06",
+  "weekday": "Tuesday",
+  "bellRinger": "Sit in your chair using what you believe is the best body mechanics for sitting. The class observes and discusses why you chose that position.",
+  "exitTicket": "Choose one exercise from the lesson and list three steps for completing it with proper body mechanics.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 40,
+  "title": "Body Mechanics in Healthcare Settings",
+  "date": "2026-10-07",
+  "weekday": "Wednesday",
+  "bellRinger": "Discuss how the video concepts apply specifically to a clinician working a twelve-hour floor shift.",
+  "exitTicket": "Name the error you saw most often across the case studies.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 41,
+  "title": "Safe Lifting & Transfer Practice Lab",
+  "date": "2026-10-08",
+  "weekday": "Thursday",
+  "bellRinger": "Display an image of a clinician lifting with poor body mechanics. List the mistakes and corrections in four minutes.",
+  "exitTicket": "Which station exposed the weakest habit in your own body mechanics?",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 42,
+  "title": "Body Mechanics Poster Studio",
+  "date": "2026-10-09",
+  "weekday": "Friday",
+  "bellRinger": "Look at your draft sketch. Could someone perform the movement correctly using only your poster? Mark the step that is least clear.",
+  "exitTicket": "Trade posters with a partner and have them attempt your sequence from the poster alone.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Project Work"
+  ]
+ },
+ {
+  "day": 43,
+  "title": "Body Mechanics Final Assessment & Poster Showcase",
+  "date": "2026-10-12",
+  "weekday": "Monday",
+  "bellRinger": "Partner drill on body mechanics vocabulary from the Vocabulary Handout.",
+  "exitTicket": "Name the one body mechanics rule you intend to actually use in this lab for the rest of the year.",
+  "phase": "Phase 2: Medical Terminology & A&P Foundations",
+  "lessonType": [
+   "Unit Exam",
+   "Project Work"
+  ]
+ },
+ {
+  "day": 44,
+  "title": "Foundations of Bioethics",
+  "date": "2026-10-13",
+  "weekday": "Tuesday",
+  "bellRinger": "Brainstorm recent medical and technological advances — genetic editing, AI diagnosis, transplant allocation — that involve ethical debate.",
+  "exitTicket": "Name the principle your position paper leans on hardest, and the principle it sacrifices.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 45,
+  "title": "Legal Standards, Negligence & Malpractice",
+  "date": "2026-10-14",
+  "weekday": "Wednesday",
+  "bellRinger": "Share results of the Ethics 101 research. Peer discussion on technological benefits and risks.",
+  "exitTicket": "Name a task that is inside a PCT’s scope and one that is outside it. What makes the difference?",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 46,
+  "title": "Patient Safety & Personal Integrity",
+  "date": "2026-10-15",
+  "weekday": "Thursday",
+  "bellRinger": "Analyze local regulations regarding medical error reporting and documentation. What is required, and within what timeframe?",
+  "exitTicket": "Name the single change your peer editor suggested that most improved your essay.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 47,
+  "title": "Medical & Advance Directives",
+  "date": "2026-10-16",
+  "weekday": "Friday",
+  "bellRinger": "Fill in columns one and two of a KWL chart on ‘Advance Directives’ in four minutes.",
+  "exitTicket": "Complete column three of your KWL chart.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 48,
+  "title": "Ethical Principles Final Assessment",
+  "date": "2026-10-19",
+  "weekday": "Monday",
+  "bellRinger": "Two-minute partner review of the four core ethical principles with one example each.",
+  "exitTicket": "Which two principles conflicted in your dilemma card?",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 49,
+  "title": "HIPAA, Confidentiality & Protected Health Information",
+  "date": "2026-10-20",
+  "weekday": "Tuesday",
+  "bellRinger": "You see a classmate’s parent in the clinic where you volunteer. List everything you are and are not allowed to say about it.",
+  "exitTicket": "Name the violation type you think is most common in real workplaces and why it happens.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 50,
+  "title": "Scope of Practice & Professional Accountability",
+  "date": "2026-10-21",
+  "weekday": "Wednesday",
+  "bellRinger": "A nurse asks you to do something you were not trained to do and the floor is short-staffed. What do you say?",
+  "exitTicket": "Write the exact sentence you would say to refuse an out-of-scope task without being insubordinate.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 51,
+  "title": "Mock Trial Case Study Preparation",
+  "date": "2026-10-22",
+  "weekday": "Thursday",
+  "bellRinger": "Read the case summary silently. Write your gut verdict and one fact that would change your mind.",
+  "exitTicket": "Submit your team’s strongest single piece of evidence and explain why it is strongest.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Scenario / Simulation"
+  ]
+ },
+ {
+  "day": 52,
+  "title": "Mock Trial Execution",
+  "date": "2026-10-23",
+  "weekday": "Friday",
+  "bellRinger": "Final team huddle. Each side states its theory of the case in one sentence.",
+  "exitTicket": "Jurors submit written verdicts with reasoning. Advocates submit a self-assessment on their strongest and weakest moment.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Scenario / Simulation"
+  ]
+ },
+ {
+  "day": 53,
+  "title": "Ethics & Accountability Final Assessment",
+  "date": "2026-10-26",
+  "weekday": "Monday",
+  "bellRinger": "What single piece of documentation would have most helped the defense in yesterday’s trial?",
+  "exitTicket": "Complete the sentence: ‘If it isn’t charted…’ and explain what that rule means in practice.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 54,
+  "title": "Difficult Patient Interactions",
+  "date": "2026-10-27",
+  "weekday": "Tuesday",
+  "bellRinger": "Think of a time you were angry with a service you received. What did you actually want at that moment?",
+  "exitTicket": "Which scenario would be hardest for you personally, and what would you need to stay steady?",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 55,
+  "title": "Conflict Management & Incident Reporting",
+  "date": "2026-10-28",
+  "weekday": "Wednesday",
+  "bellRinger": "Rewrite this incident line to remove all opinion: ‘The patient was being completely unreasonable and refused to cooperate.’",
+  "exitTicket": "Name one thing you wrote that you could not actually have observed.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 56,
+  "title": "Patient Satisfaction & Service Recovery",
+  "date": "2026-10-29",
+  "weekday": "Thursday",
+  "bellRinger": "Which of these matters more to a patient’s rating: the clinical outcome or how long they waited without being told anything? Defend your answer.",
+  "exitTicket": "Name the system fix your group proposed and who would have to approve it.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 57,
+  "title": "Managing Patient Interactions Final Assessment",
+  "date": "2026-10-30",
+  "weekday": "Friday",
+  "bellRinger": "One-minute partner drill: name three de-escalation moves and one thing never to say to an angry patient.",
+  "exitTicket": "Which de-escalation move do you most need to practice?",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 58,
+  "title": "Recognizing Child Abuse: Types & Warning Signs",
+  "date": "2026-11-02",
+  "weekday": "Monday",
+  "bellRinger": "Written response: why might a healthcare worker be the first adult outside the home to notice that something is wrong with a child?",
+  "exitTicket": "Name two indicators that would require you to act immediately rather than continue observing.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 59,
+  "title": "Effects, Causes & Prevention of Child Abuse",
+  "date": "2026-11-03",
+  "weekday": "Tuesday",
+  "bellRinger": "Quick write: what makes it hard for a child to disclose abuse to an adult?",
+  "exitTicket": "Name one prevention approach that operates before harm occurs rather than after.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 60,
+  "title": "Domestic Violence & Intimate Partner Violence",
+  "date": "2026-11-04",
+  "weekday": "Wednesday",
+  "bellRinger": "Why might a patient give an explanation for an injury that does not match the injury?",
+  "exitTicket": "Write one objective chart line documenting an injury and a patient statement without interpretation.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 61,
+  "title": "California Mandated Reporter Duties",
+  "date": "2026-11-05",
+  "weekday": "Thursday",
+  "bellRinger": "True or false, then defend: ‘I should only report if I am sure abuse occurred.’",
+  "exitTicket": "State the reporting standard in your own words. What is NOT required before you report?",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 62,
+  "title": "Case Application & Reporting Simulation",
+  "date": "2026-11-06",
+  "weekday": "Friday",
+  "bellRinger": "Review the reporting standard aloud as a class. Confirm the timeline and receiving agency from memory.",
+  "exitTicket": "For the case you found hardest, name the one additional fact that would have made the decision clear.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Scenario / Simulation"
+  ]
+ },
+ {
+  "day": 63,
+  "title": "Child Abuse & Domestic Violence Final Assessment",
+  "date": "2026-11-09",
+  "weekday": "Monday",
+  "bellRinger": "Partner review: name the four types of child abuse and the reporting standard.",
+  "exitTicket": "Name the first call you would make and the second, in order.",
+  "phase": "Phase 3: Ethics, Law & Patient Interaction",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 64,
+  "title": "Patient Intake Roles & the Clinical Interview",
+  "date": "2026-11-10",
+  "weekday": "Tuesday",
+  "bellRinger": "What is the very first thing you should do when a patient enters the exam room? There is one correct answer.",
+  "exitTicket": "Name the two identifiers you used and explain why the room number is not one of them.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Scenario / Simulation"
+  ]
+ },
+ {
+  "day": 65,
+  "title": "Obtaining & Verifying Patient History",
+  "date": "2026-11-12",
+  "weekday": "Thursday",
+  "bellRinger": "A patient says they take ‘a little white pill for my heart.’ What do you do next?",
+  "exitTicket": "Write the exact chart line you would use to flag a medication discrepancy.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 66,
+  "title": "Baseline Intake Measurements",
+  "date": "2026-11-13",
+  "weekday": "Friday",
+  "bellRinger": "Which single intake measurement, if abnormal, would make you interrupt the provider before finishing the intake?",
+  "exitTicket": "Name one value from today’s rotation that would have required immediate escalation.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 67,
+  "title": "Intake Documentation & Clinical Calculations",
+  "date": "2026-11-16",
+  "weekday": "Monday",
+  "bellRinger": "Convert 154 pounds to kilograms and 5 feet 7 inches to centimeters. Show your work.",
+  "exitTicket": "How many errors did your peer auditor find in your form? What was the most common error type in the class?",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 68,
+  "title": "Patient Intake Final Assessment",
+  "date": "2026-11-17",
+  "weekday": "Tuesday",
+  "bellRinger": "Rapid conversion drill: five conversions in three minutes, no calculator.",
+  "exitTicket": "Submit your completed checklist and name the step you nearly forgot.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 69,
+  "title": "Vital Signs & Special Considerations",
+  "date": "2026-11-18",
+  "weekday": "Wednesday",
+  "bellRinger": "Which vital signs does your provider typically take at an appointment? Discuss with a partner, then share.",
+  "exitTicket": "Which patient scenario was the most difficult to respond to, and why? Respond in three to four sentences.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 70,
+  "title": "Temperature: Routes, Devices & Critical Values",
+  "date": "2026-11-19",
+  "weekday": "Thursday",
+  "bellRinger": "Three or four different thermometers are on the front table. Which would you use for a sleeping infant, and which for an adult who just drank coffee?",
+  "exitTicket": "State the normal range for one route and the value at which you would notify the nurse.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 71,
+  "title": "Blood Pressure Measurement",
+  "date": "2026-11-20",
+  "weekday": "Friday",
+  "bellRinger": "Predict what happens to a reading if the cuff is too small. Too large? Arm below heart level?",
+  "exitTicket": "How far apart were your manual and automated readings? Name the most likely reason.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 72,
+  "title": "Pulse, Respiration & Pulse Oximetry",
+  "date": "2026-11-30",
+  "weekday": "Monday",
+  "bellRinger": "Find your own radial pulse. Now count it for 15 seconds and multiply. Now count for a full 60 seconds. Which number do you trust?",
+  "exitTicket": "Why do you count respirations without telling the patient you are doing it?",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 73,
+  "title": "Height, Weight & Anthropometric Measurement",
+  "date": "2026-12-01",
+  "weekday": "Tuesday",
+  "bellRinger": "Name three reasons a patient’s weight would be recorded at every single visit.",
+  "exitTicket": "Name two things that would make today’s weight not comparable to last month’s weight.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 74,
+  "title": "Pain Assessment & Pain Scales",
+  "date": "2026-12-02",
+  "weekday": "Wednesday",
+  "bellRinger": "A patient says their pain is ‘a seven’ but they are laughing and eating lunch. What do you chart?",
+  "exitTicket": "Explain why you chart the patient’s number even when their behavior seems inconsistent with it.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 75,
+  "title": "Vital Signs Clinic — Full Skills Rotation",
+  "date": "2026-12-03",
+  "weekday": "Thursday",
+  "bellRinger": "Set up your station and verify every piece of equipment before the first patient. List anything missing.",
+  "exitTicket": "Which single measurement in the full set is the one you still rush? Name it.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 76,
+  "title": "Vital Signs Check-Off & Final Assessment",
+  "date": "2026-12-04",
+  "weekday": "Friday",
+  "bellRinger": "Silent equipment check and hand hygiene. Instructor observes.",
+  "exitTicket": "Submit your signed checklist. Note any step marked for re-test.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Unit Exam",
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 77,
+  "title": "The Medical Record: Purpose, Types & Ownership",
+  "date": "2026-12-07",
+  "weekday": "Monday",
+  "bellRinger": "Who owns your medical record — you, your doctor, or the hospital? Commit to an answer.",
+  "exitTicket": "Name one section of the chart you may write in and one you may not.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 78,
+  "title": "SOAP Notes & Narrative Charting",
+  "date": "2026-12-08",
+  "weekday": "Tuesday",
+  "bellRinger": "Sort these six statements into subjective and objective. Two of them are traps.",
+  "exitTicket": "Name one line you wrote in ‘O’ that actually belonged in ‘S’.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 79,
+  "title": "Charting Errors, Corrections & Legal Standards",
+  "date": "2026-12-09",
+  "weekday": "Wednesday",
+  "bellRinger": "You wrote a vital sign in the wrong patient’s chart. What do you do? Be specific about the physical action.",
+  "exitTicket": "Why is a chart entry that has been fully blacked out worse than one with an obvious error left visible?",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 80,
+  "title": "Medical Records & Reports Final Assessment",
+  "date": "2026-12-10",
+  "weekday": "Thursday",
+  "bellRinger": "Partner drill: state the five rules of a legal chart correction.",
+  "exitTicket": "Which documentation skill do you most want to practice before next semester?",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 81,
+  "title": "Semester 1 Review: Terminology, A&P & Cardiovascular Systems",
+  "date": "2026-12-11",
+  "weekday": "Friday",
+  "bellRinger": "Self-diagnostic: rate your confidence one to five on eight Semester 1 topics. Circle your two lowest.",
+  "exitTicket": "Name the topic you moved up the most today and the one still unresolved.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Review"
+  ]
+ },
+ {
+  "day": 82,
+  "title": "Semester 1 Review: Ethics, Law, Reporting & Documentation",
+  "date": "2026-12-14",
+  "weekday": "Monday",
+  "bellRinger": "Rapid-fire: reporting standard, correction rule, two identifiers, four elements of negligence. Thirty seconds each.",
+  "exitTicket": "Which two standards do you still mix up? Write the distinction in your own words.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Review"
+  ]
+ },
+ {
+  "day": 83,
+  "title": "Semester 1 Skills Retest Lab — Vital Signs & Intake",
+  "date": "2026-12-15",
+  "weekday": "Tuesday",
+  "bellRinger": "Review your signed checklists. Identify every step marked for re-test and set up for those specifically.",
+  "exitTicket": "Submit updated checklists. All Semester 1 skill check-offs are now final.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Check-off",
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 84,
+  "title": "Portfolio Checkpoint & Final Examination Review",
+  "date": "2026-12-16",
+  "weekday": "Wednesday",
+  "bellRinger": "Portfolio audit against the checklist. Identify anything missing and flag it now.",
+  "exitTicket": "Confirm your final exam time and room in writing. Name your one remaining study priority.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Unit Exam",
+   "Project Work",
+   "Review"
+  ]
+ },
+ {
+  "day": 85,
+  "title": "NO PERIOD 4 CLASS — Semester 1 Finals Day 1 (Periods 1, 2 & 3)",
+  "date": "2026-12-17",
+  "weekday": "Thursday",
+  "bellRinger": "",
+  "exitTicket": "",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": []
+ },
+ {
+  "day": 86,
+  "title": "SEMESTER 1 FINAL EXAMINATION — Period 4 (Minimum Day Finals Schedule)",
+  "date": "2026-12-18",
+  "weekday": "Friday",
+  "bellRinger": "Seating chart, materials check, and academic integrity statement.",
+  "exitTicket": "Collect examinations, confirm portfolio submission, and issue the Semester 2 preview and lab supply reminder.",
+  "phase": "Phase 4: Clinical Foundations — Intake, Vitals & Documentation",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 87,
+  "title": "Pathogens, Disease & Classification",
+  "date": "2027-01-04",
+  "weekday": "Monday",
+  "bellRinger": "Think of infection control as it relates to people and schools. List every way we already keep ourselves safe from disease.",
+  "exitTicket": "Name one pathogen that alcohol-based sanitizer does not reliably kill, and state what does work.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 88,
+  "title": "The Chain of Infection",
+  "date": "2027-01-05",
+  "weekday": "Tuesday",
+  "bellRinger": "Six links form a chain. If you could only break one to stop an outbreak on a hospital floor, which would you choose?",
+  "exitTicket": "For your assigned organism, name the link that is realistically easiest to break in a hospital.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 89,
+  "title": "Stages of Pathogenesis & Infection Mapping",
+  "date": "2027-01-06",
+  "weekday": "Wednesday",
+  "bellRinger": "Can a patient spread an illness before they know they are sick? Explain how that would work.",
+  "exitTicket": "State in one sentence why symptom screening alone does not stop transmission.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 90,
+  "title": "Asepsis, Standard & Isolation Precautions",
+  "date": "2027-01-07",
+  "weekday": "Thursday",
+  "bellRinger": "Sort four isolation signs by what PPE each one requires. No notes.",
+  "exitTicket": "Which two of today’s diagnoses required combined precautions, and why?",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 91,
+  "title": "Infection Control Final Assessment",
+  "date": "2027-01-08",
+  "weekday": "Friday",
+  "bellRinger": "Partner drill: six links of the chain of infection in order, plus one intervention for each.",
+  "exitTicket": "Name the infection control practice you personally are least consistent about.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 92,
+  "title": "Medical vs. Surgical Asepsis",
+  "date": "2027-01-11",
+  "weekday": "Monday",
+  "bellRinger": "Write the word ‘asepsis’ and define it in your own words in three minutes. List every related word you can. Save both.",
+  "exitTicket": "Retrieve the definition of asepsis you wrote at the start of class. Correct it.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 93,
+  "title": "Disinfection & Equipment Sterilization",
+  "date": "2027-01-12",
+  "weekday": "Tuesday",
+  "bellRinger": "Rank these from weakest to strongest: sanitization, disinfection, sterilization. What does each actually kill?",
+  "exitTicket": "Explain why an instrument that was not cleaned first cannot be sterilized, even in a working autoclave.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 94,
+  "title": "Hand Hygiene & Surgical Scrub Lab",
+  "date": "2027-01-13",
+  "weekday": "Wednesday",
+  "bellRinger": "Wash your hands as you normally would. Then check them under the ultraviolet lamp.",
+  "exitTicket": "Name the region of your hands you consistently miss. What will you change?",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 95,
+  "title": "Donning & Doffing Sterile PPE",
+  "date": "2027-01-14",
+  "weekday": "Thursday",
+  "bellRinger": "Order these from memory: gown, gloves, mask, eye protection. Now order the removal sequence.",
+  "exitTicket": "Where did the marker end up on you? Name the exact step that caused it.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 96,
+  "title": "Preparing & Maintaining a Sterile Field",
+  "date": "2027-01-15",
+  "weekday": "Friday",
+  "bellRinger": "List five things that would contaminate an open sterile field. Two of them are things people do without noticing.",
+  "exitTicket": "Name the sterile field break you missed and the rule it violated.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 97,
+  "title": "Sterile Technique Check-Off & Final Assessment",
+  "date": "2027-01-19",
+  "weekday": "Tuesday",
+  "bellRinger": "Silent setup. Establish your field before instruction begins. Instructor observes the setup itself.",
+  "exitTicket": "Submit your signed checklist. Note any step marked for re-test.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Unit Exam",
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 98,
+  "title": "Governing Agencies: OSHA, CDC, CLIA & The Joint Commission",
+  "date": "2027-01-20",
+  "weekday": "Wednesday",
+  "bellRinger": "Who makes the rule that requires a sharps container in every patient room? Guess, then we will check.",
+  "exitTicket": "Name one requirement that comes from guidance rather than law, and explain why facilities follow it anyway.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 99,
+  "title": "General Safety Precautions & Hazard Communication",
+  "date": "2027-01-21",
+  "weekday": "Thursday",
+  "bellRinger": "Find the SDS binder in this room. How long did it take you? That is how long it would take during an exposure.",
+  "exitTicket": "State exactly what you would do in the first sixty seconds after a needlestick.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 100,
+  "title": "Emergency Codes & Facility Response Procedures",
+  "date": "2027-01-22",
+  "weekday": "Friday",
+  "bellRinger": "A code is announced overhead and you are alone in a patient room. What is your first action?",
+  "exitTicket": "Name the code you would find hardest to respond to calmly and what would help.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 101,
+  "title": "Workplace Safety Escape Room & Final Assessment",
+  "date": "2027-01-25",
+  "weekday": "Monday",
+  "bellRinger": "Team formation and rules briefing for the escape room.",
+  "exitTicket": "Submit your team incident report. Which puzzle stopped your team longest?",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 102,
+  "title": "Emergency Preparedness: Facility Disaster Planning",
+  "date": "2027-01-26",
+  "weekday": "Tuesday",
+  "bellRinger": "Paradise has a specific disaster history. What would a local clinic have to plan for that a clinic in another county would not?",
+  "exitTicket": "Name the top hazard your team ranked and the single most valuable mitigation for it.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 103,
+  "title": "The Crash Cart & Emergency Equipment",
+  "date": "2027-01-27",
+  "weekday": "Wednesday",
+  "bellRinger": "A crash cart has a numbered lock and a checklist taped to the side. Why both?",
+  "exitTicket": "Name three items you would be expected to locate in under ten seconds.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 104,
+  "title": "Triage Principles & Mass Casualty Response",
+  "date": "2027-01-28",
+  "weekday": "Thursday",
+  "bellRinger": "In an everyday emergency room, who is seen first? In a mass casualty event, does that change?",
+  "exitTicket": "Which patient did your team most disagree about? What made it hard?",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 105,
+  "title": "Emergency Preparedness Simulation & Final Assessment",
+  "date": "2027-01-29",
+  "weekday": "Friday",
+  "bellRinger": "Role assignment and simulation safety briefing.",
+  "exitTicket": "Name the single communication breakdown that most affected the outcome.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Unit Exam",
+   "Scenario / Simulation"
+  ]
+ },
+ {
+  "day": 106,
+  "title": "First Aid Basics: Scene Safety & Initial Assessment",
+  "date": "2027-02-01",
+  "weekday": "Monday",
+  "bellRinger": "You come across a collapsed person in a parking lot. List your first three actions in order.",
+  "exitTicket": "Name the two scenarios where you should not approach, and what you do instead.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 107,
+  "title": "Bleeding Control & Wound Care",
+  "date": "2027-02-02",
+  "weekday": "Tuesday",
+  "bellRinger": "How long do you hold direct pressure before checking whether it worked? Commit to a number.",
+  "exitTicket": "State where you write the tourniquet time and why that matters to the receiving hospital.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 108,
+  "title": "Musculoskeletal Injuries, Splinting & Immobilization",
+  "date": "2027-02-03",
+  "weekday": "Wednesday",
+  "bellRinger": "Can you tell a bad sprain from a fracture just by looking? What would you do differently for each?",
+  "exitTicket": "What do you check immediately after applying a splint, and what does a bad result mean?",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 109,
+  "title": "Sudden Illness, Shock & Medical Emergencies",
+  "date": "2027-02-04",
+  "weekday": "Thursday",
+  "bellRinger": "A person suddenly cannot find words and one side of their face droops. What is your single most important action, and what is the most important piece of information you will provide?",
+  "exitTicket": "For each of three emergencies, name the single most time-critical piece of information you would report.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 110,
+  "title": "Environmental Emergencies & First Aid Final Assessment",
+  "date": "2027-02-05",
+  "weekday": "Friday",
+  "bellRinger": "Heat exhaustion or heat stroke: name the one sign that separates them and why it changes everything.",
+  "exitTicket": "Name the environmental emergency most likely on a Paradise campus and its first response.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 111,
+  "title": "CPR & AED: Chains of Survival",
+  "date": "2027-02-08",
+  "weekday": "Monday",
+  "bellRinger": "Survival from cardiac arrest drops by roughly ten percent for every minute without CPR. What does that mean for how fast you have to decide?",
+  "exitTicket": "State compression rate and depth for an adult, and the one thing you must confirm before pressing shock.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 112,
+  "title": "Hands-On CPR/AED Skills Lab & Choking Response",
+  "date": "2027-02-09",
+  "weekday": "Tuesday",
+  "bellRinger": "Skills lab safety briefing and manikin sanitation procedure. Set up your station.",
+  "exitTicket": "Submit your skill card. NOTE FOR INSTRUCTOR: this lab builds skill but does not confer certification — see the external booking section for converting it to an AHA Heartsaver or Red Cross certification day.",
+  "phase": "Phase 5: Infection Control, Workplace Safety & Emergency Response",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 113,
+  "title": "The Communication Cycle",
+  "date": "2027-02-10",
+  "weekday": "Wednesday",
+  "bellRinger": "Whisper-down-the-lane with a clinical instruction. Compare the first and last version.",
+  "exitTicket": "Name the component that failed most often across the five cases.",
+  "phase": "Phase 6: Therapeutic Communication & Patient Populations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 114,
+  "title": "Channels, Etiquette & Professional Correspondence",
+  "date": "2027-02-11",
+  "weekday": "Thursday",
+  "bellRinger": "A patient’s test result is abnormal but not urgent. Phone, portal message, letter, or in person? Defend your choice.",
+  "exitTicket": "Name one thing you may never put in a voicemail left at a patient’s home number.",
+  "phase": "Phase 6: Therapeutic Communication & Patient Populations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 115,
+  "title": "Therapeutic Communication Techniques",
+  "date": "2027-02-16",
+  "weekday": "Tuesday",
+  "bellRinger": "A patient says ‘I’m scared about tomorrow.’ Write down exactly what you would say back. Keep it.",
+  "exitTicket": "Retrieve your bell ringer response. Which block, if any, did you use? Rewrite it.",
+  "phase": "Phase 6: Therapeutic Communication & Patient Populations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 116,
+  "title": "Communication Final Assessment",
+  "date": "2027-02-17",
+  "weekday": "Wednesday",
+  "bellRinger": "Partner drill: name four therapeutic techniques and three communication blocks.",
+  "exitTicket": "Which therapeutic technique feels least natural to you? That is the one to practice.",
+  "phase": "Phase 6: Therapeutic Communication & Patient Populations",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 117,
+  "title": "Human Growth & Development Across the Lifespan",
+  "date": "2027-02-18",
+  "weekday": "Thursday",
+  "bellRinger": "How would you explain a blood draw to a four-year-old? To a fourteen-year-old? To an eighty-four-year-old with mild dementia?",
+  "exitTicket": "Which stage was hardest to write for, and what made it hard?",
+  "phase": "Phase 6: Therapeutic Communication & Patient Populations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 118,
+  "title": "Maslow’s Hierarchy & Patient Needs",
+  "date": "2027-02-19",
+  "weekday": "Friday",
+  "bellRinger": "Complete columns one and two of a KWL chart on Maslow’s hierarchy.",
+  "exitTicket": "Complete column three of your KWL chart. Name the level most often overlooked in a busy facility.",
+  "phase": "Phase 6: Therapeutic Communication & Patient Populations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 119,
+  "title": "Coping Mechanisms & Crisis Support",
+  "date": "2027-02-22",
+  "weekday": "Monday",
+  "bellRinger": "Name three things people do when they are overwhelmed. Mark which ones help and which ones only feel like they help.",
+  "exitTicket": "Write the sentence you would use to hand off a patient to a professional without abandoning them.",
+  "phase": "Phase 6: Therapeutic Communication & Patient Populations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 120,
+  "title": "Socioeconomic Factors & Patient Populations Final Assessment",
+  "date": "2027-02-23",
+  "weekday": "Tuesday",
+  "bellRinger": "List every reason a patient might miss a follow-up appointment that has nothing to do with not caring.",
+  "exitTicket": "Name one local resource you did not know existed before today.",
+  "phase": "Phase 6: Therapeutic Communication & Patient Populations",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 121,
+  "title": "Special Populations: Sensory, Cognitive & Physical Limitations",
+  "date": "2027-02-24",
+  "weekday": "Wednesday",
+  "bellRinger": "Put on the vision-simulation glasses and try to read the consent form on your desk.",
+  "exitTicket": "Name the accommodation that would have most helped you at your hardest station.",
+  "phase": "Phase 6: Therapeutic Communication & Patient Populations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 122,
+  "title": "Modified Communication & Assistive Aids",
+  "date": "2027-02-25",
+  "weekday": "Thursday",
+  "bellRinger": "A patient cannot speak but is fully alert and oriented. How do you take a pain assessment?",
+  "exitTicket": "Explain why a patient’s adult child is not an acceptable medical interpreter.",
+  "phase": "Phase 6: Therapeutic Communication & Patient Populations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 123,
+  "title": "Patient Ambulation & Transfer Support Lab",
+  "date": "2027-02-26",
+  "weekday": "Friday",
+  "bellRinger": "Retrieve the body mechanics posters from Phase 2. Identify the rule that applies most directly to assisted ambulation.",
+  "exitTicket": "State what you do — and specifically do not do — when a patient starts to go down.",
+  "phase": "Phase 6: Therapeutic Communication & Patient Populations",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 124,
+  "title": "Culture, Diversity & Health Beliefs",
+  "date": "2027-03-01",
+  "weekday": "Monday",
+  "bellRinger": "What health practice does your own family have that a hospital might not recognize or expect?",
+  "exitTicket": "Write one question you would ask a patient instead of assuming something about them.",
+  "phase": "Phase 6: Therapeutic Communication & Patient Populations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 125,
+  "title": "Culturally Competent Care Comparison Project",
+  "date": "2027-03-02",
+  "weekday": "Tuesday",
+  "bellRinger": "Name one thing about American healthcare that would surprise a visitor from another country.",
+  "exitTicket": "Name one feature of the other system you would import, and one you would not.",
+  "phase": "Phase 6: Therapeutic Communication & Patient Populations",
+  "lessonType": [
+   "Project Work"
+  ]
+ },
+ {
+  "day": 126,
+  "title": "Culture & Diversity Presentations & Final Assessment",
+  "date": "2027-03-03",
+  "weekday": "Wednesday",
+  "bellRinger": "Final presentation setup and rubric review.",
+  "exitTicket": "Add three questions from the class list to your own portfolio reference sheet.",
+  "phase": "Phase 6: Therapeutic Communication & Patient Populations",
+  "lessonType": [
+   "Unit Exam",
+   "Project Work"
+  ]
+ },
+ {
+  "day": 127,
+  "title": "Bed Types & Making an Occupied Bed",
+  "date": "2027-03-04",
+  "weekday": "Thursday",
+  "bellRinger": "Why would you ever change a bed with the patient still in it instead of asking them to get up?",
+  "exitTicket": "Name the step where a patient is most at risk of falling, and what prevents it.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 128,
+  "title": "Occupied Bed Skill Check-Off",
+  "date": "2027-03-05",
+  "weekday": "Friday",
+  "bellRinger": "Gather supplies and set up your station. Instructor observes setup as part of the evaluation.",
+  "exitTicket": "Submit your peer evaluation form and your own signed checklist.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Check-off",
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 129,
+  "title": "Activities of Daily Living: Scope, Dignity & the Care Plan",
+  "date": "2027-03-08",
+  "weekday": "Monday",
+  "bellRinger": "List everything you did this morning before leaving the house. Circle anything you could not do with one arm immobilized.",
+  "exitTicket": "Write one sentence explaining why doing a task for a patient who could do it themselves is a clinical error, not a kindness.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 130,
+  "title": "Dressing & Undressing the Patient",
+  "date": "2027-03-09",
+  "weekday": "Tuesday",
+  "bellRinger": "A patient has left-sided weakness. Which arm goes into the sleeve first? Commit to an answer before instruction.",
+  "exitTicket": "State the dressing rule in your own words and explain the reason behind it.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 131,
+  "title": "Bathing Methods & Selection",
+  "date": "2027-03-10",
+  "weekday": "Wednesday",
+  "bellRinger": "Match four patients to four bathing methods and be ready to defend one choice.",
+  "exitTicket": "Name the water temperature range and explain who is most at risk if it is exceeded.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 132,
+  "title": "Grooming, Hair Care & Bed Shampoo",
+  "date": "2027-03-11",
+  "weekday": "Thursday",
+  "bellRinger": "Why does hair care matter clinically when a patient is seriously ill?",
+  "exitTicket": "Name one hair care need a facility might fail to meet and how you would address it.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 133,
+  "title": "Shaving & Nail Care",
+  "date": "2027-03-12",
+  "weekday": "Friday",
+  "bellRinger": "Which patient should never have their nails trimmed by a technician? Why?",
+  "exitTicket": "State the two conditions under which you would not shave a patient with a safety razor.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 134,
+  "title": "Feeding, Hydration & Aspiration Precautions",
+  "date": "2027-03-15",
+  "weekday": "Monday",
+  "bellRinger": "At what angle should a patient be positioned to eat? What happens if they are flatter than that?",
+  "exitTicket": "Name three signs of swallowing difficulty that require you to stop feeding and report.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 135,
+  "title": "ADL Demonstration Stations & Final Assessment",
+  "date": "2027-03-16",
+  "weekday": "Tuesday",
+  "bellRinger": "Station setup and supply check. Verify your kit against the checklist.",
+  "exitTicket": "Submit all four station checklists. Note any step marked for re-test.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 136,
+  "title": "Performing a Modified Bed Bath",
+  "date": "2027-03-17",
+  "weekday": "Wednesday",
+  "bellRinger": "How much of a patient’s body should be uncovered at any one moment during a bed bath?",
+  "exitTicket": "Name three skin findings you would document during a bed bath.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 137,
+  "title": "Modified Bed Bath Skill Check-Off",
+  "date": "2027-03-23",
+  "weekday": "Tuesday",
+  "bellRinger": "Set up your station and check water temperature. Instructor observes setup.",
+  "exitTicket": "Submit your checklist and your written skin assessment note.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Check-off",
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 138,
+  "title": "Providing Mouth Care",
+  "date": "2027-03-24",
+  "weekday": "Wednesday",
+  "bellRinger": "What does mouth care have to do with the lungs? Take a guess.",
+  "exitTicket": "Explain in two sentences why mouth care is an infection control measure.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 139,
+  "title": "Special Mouth Care for the Unconscious Patient",
+  "date": "2027-03-25",
+  "weekday": "Thursday",
+  "bellRinger": "An unconscious patient cannot spit or swallow. What does that change about how you provide mouth care?",
+  "exitTicket": "State the patient position for special mouth care and the reason for it.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 140,
+  "title": "Cleaning Upper & Lower Dentures — Skill Check-Off",
+  "date": "2027-04-05",
+  "weekday": "Monday",
+  "bellRinger": "Dentures are among the most frequently lost items in a hospital. What procedure step prevents that?",
+  "exitTicket": "Submit your signed checklist. Name the step that prevents breakage and the step that prevents loss.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Check-off",
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 141,
+  "title": "Perineal Care: Female Patient Procedure",
+  "date": "2027-04-06",
+  "weekday": "Tuesday",
+  "bellRinger": "Which direction do you clean, and what specifically are you preventing?",
+  "exitTicket": "Name the two things you would report from a perineal skin assessment.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 142,
+  "title": "Perineal Care: Male Patient Procedure & Check-Off",
+  "date": "2027-04-07",
+  "weekday": "Wednesday",
+  "bellRinger": "What additional step applies for an uncircumcised patient, and what must never be forgotten afterward?",
+  "exitTicket": "Submit your signed checklist. State the step that, if omitted, causes patient harm.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Check-off",
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 143,
+  "title": "Providing Catheter Care",
+  "date": "2027-04-08",
+  "weekday": "Thursday",
+  "bellRinger": "Why is the drainage bag always kept below the level of the bladder?",
+  "exitTicket": "Name three catheter findings that require immediate reporting.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 144,
+  "title": "Catheter Care Check-Off & Drainage Systems",
+  "date": "2027-04-09",
+  "weekday": "Friday",
+  "bellRinger": "Inspect the four staged drainage setups at the front. Identify what is wrong with each.",
+  "exitTicket": "Submit your checklist. Explain what makes a system ‘closed’ and what breaks it.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Check-off",
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 145,
+  "title": "Measuring & Recording Urinary Output",
+  "date": "2027-04-12",
+  "weekday": "Monday",
+  "bellRinger": "Estimate the volume in this container by eye. Now measure it. Compare.",
+  "exitTicket": "How far off was your visual estimate? State the reading rule you will use from now on.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 146,
+  "title": "Intake & Output Documentation Lab",
+  "date": "2027-04-13",
+  "weekday": "Tuesday",
+  "bellRinger": "Convert to milliliters: one cup of broth, one carton of milk, one cup of ice chips. The last one is a trap.",
+  "exitTicket": "Submit your completed I&O record and state your patient’s 24-hour balance.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 147,
+  "title": "Range of Motion: Active, Passive & Active-Assisted",
+  "date": "2027-04-14",
+  "weekday": "Wednesday",
+  "bellRinger": "Move your own shoulder through every direction it goes. Name each movement if you can.",
+  "exitTicket": "State the rule for how far you move a joint, and what you do if the patient reports pain.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 148,
+  "title": "Rehabilitative & Assistive Devices",
+  "date": "2027-04-15",
+  "weekday": "Thursday",
+  "bellRinger": "A cane goes on which side — the weak side or the strong side? Commit before instruction.",
+  "exitTicket": "State the cane side rule and the stair rule in one sentence each.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 149,
+  "title": "Nursing Skills Cumulative Check-Off & Phase 7 Assessment",
+  "date": "2027-04-16",
+  "weekday": "Friday",
+  "bellRinger": "Review your checklists. Identify every step marked for re-test and set up for those first.",
+  "exitTicket": "Submit your complete Phase 7 checklist set. All nursing skills check-offs are now final.",
+  "phase": "Phase 7: Core Nursing Skills & Activities of Daily Living",
+  "lessonType": [
+   "Unit Exam",
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 150,
+  "title": "Patient Prep: Room Setup & Draping",
+  "date": "2027-04-19",
+  "weekday": "Monday",
+  "bellRinger": "List everything that must be true about an exam room before a patient enters it.",
+  "exitTicket": "Name one supply you forgot to stage and what would have happened mid-procedure.",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 151,
+  "title": "Clinical Positioning for Examination",
+  "date": "2027-04-20",
+  "weekday": "Tuesday",
+  "bellRinger": "Match four procedures to four positions. Name any position you cannot identify.",
+  "exitTicket": "Name the position you would not leave a patient in unattended, and why.",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 152,
+  "title": "Assisting with Procedures & Instrument Handling",
+  "date": "2027-04-21",
+  "weekday": "Wednesday",
+  "bellRinger": "Retrieve the sterile field rules from Phase 5. Which one is hardest to hold while assisting?",
+  "exitTicket": "Name the moment in the simulation where asepsis was most at risk.",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 153,
+  "title": "Patient Prep Final Assessment",
+  "date": "2027-04-22",
+  "weekday": "Thursday",
+  "bellRinger": "Rapid recall: eight positions in two minutes with one indication each.",
+  "exitTicket": "Submit your checklist. Which position do you still have to think about?",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 154,
+  "title": "Pulmonary Function: Respiratory Assessment",
+  "date": "2027-04-23",
+  "weekday": "Friday",
+  "bellRinger": "Watch a partner breathe for thirty seconds without telling them. Describe what you observed in clinical terms.",
+  "exitTicket": "Name two observations about breathing that you would report immediately.",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 155,
+  "title": "Peak Flow & Spirometry Procedure",
+  "date": "2027-04-26",
+  "weekday": "Monday",
+  "bellRinger": "Take the biggest breath you can and blow out as hard and fast as possible. What made that hard to do correctly?",
+  "exitTicket": "State the three-attempt rule and explain why the best result is recorded rather than the average.",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 156,
+  "title": "Spirometry Check-Off & Pulmonary Function Assessment",
+  "date": "2027-04-27",
+  "weekday": "Tuesday",
+  "bellRinger": "Equipment and infection control check. Confirm single-use mouthpiece handling.",
+  "exitTicket": "Submit your checklist and your peak flow chart for the portfolio.",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Unit Exam",
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 157,
+  "title": "Point-of-Care Testing: CLIA-Waived Procedures",
+  "date": "2027-04-28",
+  "weekday": "Wednesday",
+  "bellRinger": "A test says it is ‘CLIA-waived.’ What has actually been waived, and what has not?",
+  "exitTicket": "State what you do with patient samples when quality control fails.",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 158,
+  "title": "Point-of-Care Testing Lab: Glucose, Urinalysis & Vision Screening",
+  "date": "2027-04-29",
+  "weekday": "Thursday",
+  "bellRinger": "Set up your station. Verify reagent expiration dates before beginning — this is part of the evaluation.",
+  "exitTicket": "Submit your completed logs. Which test was most sensitive to timing error?",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 159,
+  "title": "Cardiac Monitoring: Anatomy Review & Patient Prep",
+  "date": "2027-04-30",
+  "weekday": "Friday",
+  "bellRinger": "Retrieve your Phase 2 EKG waveform annotations. Label P, QRS, and T from memory first, then check.",
+  "exitTicket": "Name the prep step most often skipped and the artifact it produces.",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Review"
+  ]
+ },
+ {
+  "day": 160,
+  "title": "12-Lead Electrode Placement Lab",
+  "date": "2027-05-03",
+  "weekday": "Monday",
+  "bellRinger": "Find the angle of Louis on yourself. Count down to the fourth intercostal space.",
+  "exitTicket": "Which lead position did you get wrong most often, and what landmark fixes it?",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 161,
+  "title": "Running the EKG & Producing a Clean Trace",
+  "date": "2027-05-04",
+  "weekday": "Tuesday",
+  "bellRinger": "What does a technician check before handing an EKG tracing to the provider? Name three things.",
+  "exitTicket": "Name one quality defect in your own tracing and its cause.",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 162,
+  "title": "Artifact Recognition & Troubleshooting",
+  "date": "2027-05-05",
+  "weekday": "Wednesday",
+  "bellRinger": "Four tracings are on the board. Which of these is a real arrhythmia and which are artifacts?",
+  "exitTicket": "Which artifact would be most dangerous to mistake for a real finding?",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 163,
+  "title": "Ambulatory Monitoring & Cardiac Monitoring Assessment",
+  "date": "2027-05-06",
+  "weekday": "Thursday",
+  "bellRinger": "A patient wears a monitor for 48 hours. List everything you must tell them before they leave.",
+  "exitTicket": "Name the one instruction that, if the patient ignores it, makes the entire study useless.",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ },
+ {
+  "day": 164,
+  "title": "Lab Specimens: Handling, Labeling & Chain of Custody",
+  "date": "2027-05-07",
+  "weekday": "Friday",
+  "bellRinger": "A lab rejects a specimen. List every reason that could have happened.",
+  "exitTicket": "State when a specimen is labeled and why any other timing is unacceptable.",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 165,
+  "title": "Venipuncture: Order of Draw & Equipment",
+  "date": "2027-05-10",
+  "weekday": "Monday",
+  "bellRinger": "Arrange the tube set in front of you in the correct order of draw. No notes.",
+  "exitTicket": "Name the tube that must be drawn before the others and the test it protects.",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 166,
+  "title": "Venipuncture Procedure Lab & Complications",
+  "date": "2027-05-11",
+  "weekday": "Tuesday",
+  "bellRinger": "Site selection: on a training arm, identify the median cubital, cephalic, and basilic veins, and state which you would choose and why.",
+  "exitTicket": "Name the vein you would avoid and why, and state your response to a patient who begins to faint.",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 167,
+  "title": "Advanced Blood Draw & Lab Specimens Final Assessment",
+  "date": "2027-05-12",
+  "weekday": "Wednesday",
+  "bellRinger": "Rapid drill: order of draw, tourniquet time limit, and three rejection criteria.",
+  "exitTicket": "Submit your project. Name the step you would most want a supervisor watching the first time you do this on a real patient.",
+  "phase": "Phase 8: Advanced Medical Assistant & Diagnostic Skills",
+  "lessonType": [
+   "Unit Exam",
+   "Skills Lab"
+  ]
+ },
+ {
+  "day": 168,
+  "title": "Introduction to Forensic Science & the Clinical Interface",
+  "date": "2027-05-13",
+  "weekday": "Thursday",
+  "bellRinger": "A patient arrives with an injury that may be evidence in a criminal case. What changes about how you handle their clothing?",
+  "exitTicket": "State the rule for handling clothing that may be evidence.",
+  "phase": "Phase 9: Forensics, A&P Capstone & Final Evaluations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 169,
+  "title": "Forensic Psychology & Behavioral Evidence",
+  "date": "2027-05-14",
+  "weekday": "Friday",
+  "bellRinger": "What is the difference between what a profiler does on television and what the research actually supports?",
+  "exitTicket": "Name one conclusion in your case that the evidence did not actually support.",
+  "phase": "Phase 9: Forensics, A&P Capstone & Final Evaluations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 170,
+  "title": "Forensic Mathematics & Evidence Documentation",
+  "date": "2027-05-17",
+  "weekday": "Monday",
+  "bellRinger": "Measure and sketch the object at your station so that someone who never saw it could reproduce its dimensions exactly.",
+  "exitTicket": "What did the other team get wrong, and which documentation gap caused it?",
+  "phase": "Phase 9: Forensics, A&P Capstone & Final Evaluations",
+  "lessonType": [
+   "Lecture / Media"
+  ]
+ },
+ {
+  "day": 171,
+  "title": "Capstone Launch: Function Selection & Field Notes",
+  "date": "2027-05-18",
+  "weekday": "Tuesday",
+  "bellRinger": "Name a bodily function you still do not fully understand. That is a good candidate.",
+  "exitTicket": "Submit your function selection with a one-sentence justification for why it interests your group.",
+  "phase": "Phase 9: Forensics, A&P Capstone & Final Evaluations",
+  "lessonType": [
+   "Project Work"
+  ]
+ },
+ {
+  "day": 172,
+  "title": "Capstone: Goals, Objectives & Research Plan",
+  "date": "2027-05-19",
+  "weekday": "Wednesday",
+  "bellRinger": "State your group’s central research question in a single sentence. Revise until it is answerable.",
+  "exitTicket": "Submit your research question and source list for approval.",
+  "phase": "Phase 9: Forensics, A&P Capstone & Final Evaluations",
+  "lessonType": [
+   "Project Work"
+  ]
+ },
+ {
+  "day": 173,
+  "title": "Capstone: System Research & Literature Review",
+  "date": "2027-05-20",
+  "weekday": "Thursday",
+  "bellRinger": "Status update: state where your group is against the milestone schedule and name your current obstacle.",
+  "exitTicket": "Submit your Field Notes research section for teacher review.",
+  "phase": "Phase 9: Forensics, A&P Capstone & Final Evaluations",
+  "lessonType": [
+   "Project Work",
+   "Review"
+  ]
+ },
+ {
+  "day": 174,
+  "title": "Capstone: Clinical Interview & Professional Outreach",
+  "date": "2027-05-21",
+  "weekday": "Friday",
+  "bellRinger": "Write the one question you would most want to ask a clinician who works with your function every day.",
+  "exitTicket": "Name the single most useful thing your practitioner said that you could not have found in a textbook.",
+  "phase": "Phase 9: Forensics, A&P Capstone & Final Evaluations",
+  "lessonType": [
+   "Project Work"
+  ]
+ },
+ {
+  "day": 175,
+  "title": "Capstone: Comparative & Pathological Study",
+  "date": "2027-05-24",
+  "weekday": "Monday",
+  "bellRinger": "Name one animal that performs your function differently than humans do.",
+  "exitTicket": "Name the specific step in your mechanism that your chosen disease breaks.",
+  "phase": "Phase 9: Forensics, A&P Capstone & Final Evaluations",
+  "lessonType": [
+   "Project Work"
+  ]
+ },
+ {
+  "day": 176,
+  "title": "Capstone: Experimental Design",
+  "date": "2027-05-25",
+  "weekday": "Tuesday",
+  "bellRinger": "Retrieve your Day 10 Experimental Design Lab protocol. What did you get wrong then that you would fix now?",
+  "exitTicket": "State your independent variable, your control, and any ethical barrier to actually running your design.",
+  "phase": "Phase 9: Forensics, A&P Capstone & Final Evaluations",
+  "lessonType": [
+   "Project Work"
+  ]
+ },
+ {
+  "day": 177,
+  "title": "Capstone: Presentation Build & Peer Mock Presentations",
+  "date": "2027-05-26",
+  "weekday": "Wednesday",
+  "bellRinger": "Review the symposium rubric. Identify the criterion your group is currently weakest against.",
+  "exitTicket": "Name the one change your group is making tonight based on peer critique.",
+  "phase": "Phase 9: Forensics, A&P Capstone & Final Evaluations",
+  "lessonType": [
+   "Scenario / Simulation",
+   "Project Work"
+  ]
+ },
+ {
+  "day": 178,
+  "title": "PHS Capstone Symposium, Portfolio Submission & NHA CPCT-A Certification Review",
+  "date": "2027-05-27",
+  "weekday": "Thursday",
+  "bellRinger": "Final setup and audience welcome. Groups verify equipment and presentation order.",
+  "exitTicket": "Submit the completed Clinical Skills Portfolio. Identify the certification domain you are least prepared for.",
+  "phase": "Phase 9: Forensics, A&P Capstone & Final Evaluations",
+  "lessonType": [
+   "Project Work",
+   "Review"
+  ]
+ },
+ {
+  "day": 179,
+  "title": "NO PERIOD 4 CLASS — Semester 2 Finals Day 1 (Periods 1, 2 & 3)",
+  "date": "2027-06-01",
+  "weekday": "Tuesday",
+  "bellRinger": "",
+  "exitTicket": "",
+  "phase": "Phase 9: Forensics, A&P Capstone & Final Evaluations",
+  "lessonType": []
+ },
+ {
+  "day": 180,
+  "title": "SEMESTER 2 FINAL EXAMINATION — Period 4 (Minimum Day Finals Schedule)",
+  "date": "2027-06-02",
+  "weekday": "Wednesday",
+  "bellRinger": "Seating chart, materials check, and academic integrity statement.",
+  "exitTicket": "Collect examinations, confirm final Clinical Skills Portfolio submission, and close out the course.",
+  "phase": "Phase 9: Forensics, A&P Capstone & Final Evaluations",
+  "lessonType": [
+   "Unit Exam"
+  ]
+ }
+]
