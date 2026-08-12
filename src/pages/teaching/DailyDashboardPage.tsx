@@ -26,6 +26,24 @@ function DateLabel({ value, done }: { value: unknown; done?: boolean }) {
   return <span className={"whitespace-nowrap text-xs " + cls}>{text}</span>;
 }
 
+/** A labeled box for one part of the daily flow (bell work / exit ticket). */
+function FlowBox({ tone, label, text }: { tone: "bell" | "exit"; label: string; text?: string }) {
+  if (!text) return null;
+  const cls =
+    tone === "bell"
+      ? "border-sky-200 bg-sky-50 text-sky-900"
+      : "border-emerald-200 bg-emerald-50 text-emerald-900";
+  const icon = tone === "bell" ? "🔔" : "🎟️";
+  return (
+    <div className={"rounded-lg border px-3 py-2 " + cls}>
+      <div className="text-[11px] font-semibold uppercase tracking-wide opacity-70">
+        {icon} {label}
+      </div>
+      <p className="mt-0.5 text-xs leading-snug">{text}</p>
+    </div>
+  );
+}
+
 function Chip({ fieldId, type, value }: { fieldId: string; type: string; value?: string }) {
   if (!value) return null;
   const field = getCollection(type)?.fields.find((f) => f.key === fieldId) as Field | undefined;
@@ -223,7 +241,7 @@ export default function DailyDashboardPage() {
           <ul className="divide-y divide-slate-100">
             {teaching.map((l) => (
               <li key={l.id} className={"flex items-start justify-between gap-3 py-2 " + (l.date === today ? "-mx-2 rounded-lg bg-amber-50 px-2" : "")}>
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="font-medium text-slate-800">{(l.lesson as string) || "(untitled)"}</p>
                   <p className="text-xs text-slate-500">
                     {courseTitle(l.course as string[])}
@@ -243,6 +261,12 @@ export default function DailyDashboardPage() {
                       </Link>
                     )}
                   </div>
+                  {((l.bellRinger as string) || (l.exitTicket as string)) && (
+                    <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                      <FlowBox tone="bell" label="Bell Work" text={l.bellRinger as string} />
+                      <FlowBox tone="exit" label="Exit Ticket" text={l.exitTicket as string} />
+                    </div>
+                  )}
                 </div>
                 <div className="flex flex-col items-end gap-1">
                   <DateLabel value={l.date} />

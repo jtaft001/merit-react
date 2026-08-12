@@ -1,0 +1,1262 @@
+{
+ "1": {
+  "day": 1,
+  "title": "Orientation Day & iCEV Program Registration Setup",
+  "date": "August 12, 2026",
+  "bellRinger": "Icebreaker Activity. Students introduce themselves and share one career field in public safety they are curious about.",
+  "exitTicket": "Write down one question you have about the course syllabus or the iCEV system. Teacher reviews and answers questions."
+ },
+ "2": {
+  "day": 2,
+  "title": "Overview & Career Cluster Background",
+  "date": "August 13, 2026",
+  "bellRinger": "Group Pass-the-Paper Drill. Students split into groups, write one thing they know about public safety on a sheet, and pass it around.",
+  "exitTicket": "Write down one piece of information about public safety careers that you did not previously know. Classroom shares."
+ },
+ "3": {
+  "day": 3,
+  "title": "Correction Services Pathway",
+  "date": "August 14, 2026",
+  "bellRinger": "Students draw a quick illustration of what they think a correction facility looks like.",
+  "exitTicket": "Redraw the initial correction facility sketch, incorporating standard security and facility elements learned from the video."
+ },
+ "4": {
+  "day": 4,
+  "title": "Emergency & Fire Management Services Pathway",
+  "date": "August 17, 2026",
+  "bellRinger": "Post a picture of a firetruck. Ask students: 'What do you see?' and 'What do you wonder?'",
+  "exitTicket": "Students return to their bell ringer responses and write a paragraph updating their initial 'wonderings' using lesson details."
+ },
+ "5": {
+  "day": 5,
+  "title": "Security & Protective Services Pathway",
+  "date": "August 18, 2026",
+  "bellRinger": "Split into teams and answer: 'Why are security and protective services professionals important?'",
+  "exitTicket": "Write a 280-character 'tweet' describing one specific career in private security and its importance."
+ },
+ "6": {
+  "day": 6,
+  "title": "Law Enforcement Services Pathway",
+  "date": "August 19, 2026",
+  "bellRinger": "Draw a quick emoji depicting your current level of interest in law enforcement careers.",
+  "exitTicket": "Prepare a 60-second summary speech of the day's pathway. Students pair up and deliver speeches to a peer."
+ },
+ "7": {
+  "day": 7,
+  "title": "Legal Services Pathway",
+  "date": "August 20, 2026",
+  "bellRinger": "Write down your personal, unprompted definition of the word 'justice'.",
+  "exitTicket": "Revisit and revise. Students rewrite their definition of 'justice' incorporating legal concepts learned."
+ },
+ "8": {
+  "day": 8,
+  "title": "Designing a Career Plan",
+  "date": "August 21, 2026",
+  "bellRinger": "Draft 2 or 3 questions you would ask an industry professional in an interview.",
+  "exitTicket": "Write down one career you did not previously know existed in this career cluster. Shares."
+ },
+ "9": {
+  "day": 9,
+  "title": "Technical Review & Professional Documents",
+  "date": "August 24, 2026",
+  "bellRinger": "Independent vocabulary study using the unit handout.",
+  "exitTicket": "Write 2 or 3 sentences about what critical legal and factual details must always be found in professional documentation."
+ },
+ "10": {
+  "day": 10,
+  "title": "Comprehensive Assessment, Career Scattergories Review & Journal Compilation",
+  "date": "August 25, 2026",
+  "bellRinger": "Career Scattergories® speed round over pathway categories as exam review. Winners must be able to explain every career they write to earn the point.",
+  "exitTicket": "Submit compiled journals and Scattergories cards, and give one piece of feedback on the first module."
+ },
+ "11": {
+  "day": 11,
+  "title": "Ethics & Professional Conduct",
+  "date": "August 26, 2026",
+  "bellRinger": "Hand out the Ethical Practices Worksheet and Vocabulary Handout. Students write a one-sentence working definition of 'ethics.'",
+  "exitTicket": "Detail how a choice can be completely legal but highly unethical."
+ },
+ "12": {
+  "day": 12,
+  "title": "Police Integrity",
+  "date": "August 27, 2026",
+  "bellRinger": "Brainstorm situations where a police officer might face a severe conflict of interest.",
+  "exitTicket": "Write 3 sentences explaining the impact of police misconduct on local community relations."
+ },
+ "13": {
+  "day": 13,
+  "title": "Courtroom Ethics",
+  "date": "August 28, 2026",
+  "bellRinger": "Review student notes and courtroom vocabulary terms.",
+  "exitTicket": "What is the legal duty of a prosecutor under Brady v. Maryland regarding evidence?"
+ },
+ "14": {
+  "day": 14,
+  "title": "Corrections & Private Security Integrity",
+  "date": "August 31, 2026",
+  "bellRinger": "List three situations where a correctional officer holds power that could be abused.",
+  "exitTicket": "Explain one ethical duty a private security guard owes that a sworn officer does not, and vice versa."
+ },
+ "15": {
+  "day": 15,
+  "title": "Professional Codes & Codes of Conduct",
+  "date": "September 01, 2026",
+  "bellRinger": "Review the ACA and ASIS code materials.",
+  "exitTicket": "Highlight one specific regulation in the ASIS code that directly applies to private asset protection."
+ },
+ "16": {
+  "day": 16,
+  "title": "Skit Preparation",
+  "date": "September 02, 2026",
+  "bellRinger": "Group work. Review compromising situation indices.",
+  "exitTicket": "Submit skit scripts and situation outlines for instructor review."
+ },
+ "17": {
+  "day": 17,
+  "title": "Ethical Skit Showcase & Ethics Final Assessment",
+  "date": "September 03, 2026",
+  "bellRinger": "Final study and review of worksheets.",
+  "exitTicket": "Submit skits, Public Trust papers, and compiled portfolios."
+ },
+ "18": {
+  "day": 18,
+  "title": "FEMA IS-100.c — SID Registration & ICS Orientation (Session 1 of 7)",
+  "date": "September 04, 2026",
+  "bellRinger": "Describe a time you saw a group of people respond to an emergency. Who was in charge? How did you know?",
+  "exitTicket": "Record your FEMA SID and write one sentence on why standardized command matters in a multi-agency emergency."
+ },
+ "19": {
+  "day": 19,
+  "title": "FEMA IS-100.c — Lesson 1 & 2: ICS Overview and Purpose (Session 2 of 7)",
+  "date": "September 08, 2026",
+  "bellRinger": "Why would a wildfire response need a different structure than a single traffic collision?",
+  "exitTicket": "Name two failures in emergency response that ICS was designed to prevent."
+ },
+ "20": {
+  "day": 20,
+  "title": "FEMA IS-100.c — Lesson 3: Command and Command Staff (Session 3 of 7)",
+  "date": "September 09, 2026",
+  "bellRinger": "Define 'Chain of Command' and 'Unity of Command' in your own words.",
+  "exitTicket": "Who has the authority to stop an unsafe operation on an incident scene, and why?"
+ },
+ "21": {
+  "day": 21,
+  "title": "FEMA IS-100.c — Lesson 4: General Staff & Incident Facilities (Session 4 of 7)",
+  "date": "September 10, 2026",
+  "bellRinger": "Read the one-page briefing on radio interoperability failures at the World Trade Center. What went wrong?",
+  "exitTicket": "List the four General Staff sections and one duty of each."
+ },
+ "22": {
+  "day": 22,
+  "title": "FEMA IS-100.c — Lesson 5: Common Responsibilities & Transfer of Command (Session 5 of 7)",
+  "date": "September 11, 2026",
+  "bellRinger": "A battalion chief arrives at a scene a police sergeant is already running. What has to happen next?",
+  "exitTicket": "List the five elements that must be covered in a transfer of command briefing."
+ },
+ "23": {
+  "day": 23,
+  "title": "FEMA IS-100.c — Applied Tabletop Exercise (Session 6 of 7)",
+  "date": "September 14, 2026",
+  "bellRinger": "Assign tabletop roles. Distribute the scenario packet and campus/community map.",
+  "exitTicket": "Identify the moment your team's span of control broke down and what you would change."
+ },
+ "24": {
+  "day": 24,
+  "title": "FEMA IS-100.c — Final Exam Lab & Certificate Submission (Session 7 of 7)",
+  "date": "September 15, 2026",
+  "bellRinger": "Rapid review: 10-question ICS vocabulary quiz-quiz-trade with a partner.",
+  "exitTicket": "Submit certificate PDF (or schedule a retake). Log completion on the class certification tracker."
+ },
+ "25": {
+  "day": 25,
+  "title": "FEMA IS-700.b — Lesson 1: NIMS Foundations & Guiding Principles (Session 1 of 8)",
+  "date": "September 16, 2026",
+  "bellRinger": "ICS is a structure. What do you think a whole *national* system needs that a single structure does not?",
+  "exitTicket": "In one sentence each, distinguish NIMS from ICS."
+ },
+ "26": {
+  "day": 26,
+  "title": "FEMA IS-700.b — Lesson 2: Resource Management Preparedness (Session 2 of 8)",
+  "date": "September 17, 2026",
+  "bellRinger": "A county asks for 'three ambulances.' Why might that request go wrong?",
+  "exitTicket": "Write a correctly typed resource request for a structure fire needing engine companies."
+ },
+ "27": {
+  "day": 27,
+  "title": "FEMA IS-700.b — Lesson 3: Resource Management in Action (Session 3 of 8)",
+  "date": "September 18, 2026",
+  "bellRinger": "Where do you think most resources get lost during a disaster: on the way in, or on the way out?",
+  "exitTicket": "Why is demobilization planning started early rather than at the end of an incident?"
+ },
+ "28": {
+  "day": 28,
+  "title": "FEMA IS-700.b — Lesson 4: Command & Coordination Structures (Session 4 of 8)",
+  "date": "September 21, 2026",
+  "bellRinger": "Define 'Incident Command Post' and predict how it differs from an 'Emergency Operations Center.'",
+  "exitTicket": "Differentiate an Incident Command Post from an Emergency Operations Center in two sentences."
+ },
+ "29": {
+  "day": 29,
+  "title": "FEMA IS-700.b — Lesson 5: Communications & Information Management (Session 5 of 8)",
+  "date": "September 22, 2026",
+  "bellRinger": "Name three ways emergency information reaches the public today that did not exist twenty years ago.",
+  "exitTicket": "Why does NIMS require plain language instead of agency radio codes?"
+ },
+ "30": {
+  "day": 30,
+  "title": "FEMA IS-700.b — Multi-Agency Coordination Tabletop (Session 6 of 8)",
+  "date": "September 23, 2026",
+  "bellRinger": "Assign agency roles (fire, law, EMS, public works, school district, county OES). Distribute the scenario packet.",
+  "exitTicket": "Identify the hardest resource decision your group made and who ultimately held the authority to make it."
+ },
+ "31": {
+  "day": 31,
+  "title": "FEMA IS-700.b — Review & Practice Examination (Session 7 of 8)",
+  "date": "September 24, 2026",
+  "bellRinger": "Self-assessment: rate your confidence 1-5 on each of the five NIMS lessons.",
+  "exitTicket": "Record your practice score and name the single concept you still need before the exam."
+ },
+ "32": {
+  "day": 32,
+  "title": "FEMA IS-700.b — Final Exam Lab & Certificate Submission (Session 8 of 8)",
+  "date": "September 25, 2026",
+  "bellRinger": "Final vocabulary sweep. Clear desks and confirm SID login.",
+  "exitTicket": "Submit certificate PDF (or schedule a retake). Update the class certification tracker."
+ },
+ "33": {
+  "day": 33,
+  "title": "Professional Readiness: Résumé Fundamentals for Public Safety",
+  "date": "September 28, 2026",
+  "bellRinger": "List everything you have done — job, sport, club, volunteering, family responsibility — that shows reliability.",
+  "exitTicket": "Name two things public safety employers look for that a retail employer would not."
+ },
+ "34": {
+  "day": 34,
+  "title": "Professional Readiness: Building Your Résumé",
+  "date": "September 29, 2026",
+  "bellRinger": "Rewrite one weak bullet from yesterday's samples using a strong action verb.",
+  "exitTicket": "Submit your draft résumé for instructor feedback."
+ },
+ "35": {
+  "day": 35,
+  "title": "The Public Safety Application & Background Process",
+  "date": "September 30, 2026",
+  "bellRinger": "How long do you think it takes to get hired as a police officer from application to academy?",
+  "exitTicket": "Name one common disqualifier and explain the public safety rationale behind it."
+ },
+ "36": {
+  "day": 36,
+  "title": "Professional Communication & Report Writing",
+  "date": "October 01, 2026",
+  "bellRinger": "Write one sentence describing what you see in the scenario photo. Compare with a partner — did you describe or interpret?",
+  "exitTicket": "Rewrite 'the suspect was acting nervous' as a factual observation."
+ },
+ "37": {
+  "day": 37,
+  "title": "CTSO Introduction: SkillsUSA & HOSA Competitive Events",
+  "date": "October 02, 2026",
+  "bellRinger": "What would it be worth on a college or academy application to have placed at a state competition?",
+  "exitTicket": "Name your target event and the single skill you would most need to build for it."
+ },
+ "38": {
+  "day": 38,
+  "title": "Digital Portfolio Assembly & Peer Review",
+  "date": "October 05, 2026",
+  "bellRinger": "Inventory check: list every artifact you have produced so far this year.",
+  "exitTicket": "List the two artifacts you still need before the Phase 1 portfolio review."
+ },
+ "39": {
+  "day": 39,
+  "title": "Phase 1 Culminating Portfolio Review and Pathway Case Studies",
+  "date": "October 06, 2026",
+  "bellRinger": "Conduct peer-to-peer vocabulary reviews of Phase 1 terminology.",
+  "exitTicket": "Turn in compiled portfolios and certification documents."
+ },
+ "40": {
+  "day": 40,
+  "title": "FEMA CERT Unit 1: Disaster Preparedness — CERT Mission & Local Hazards (Day 1 of 5)",
+  "date": "October 07, 2026",
+  "bellRinger": "What could a trained neighbor do in the first hour of a disaster that professional responders could not?",
+  "exitTicket": "Name the top hazard for our community and one reason CERT training matters here specifically."
+ },
+ "41": {
+  "day": 41,
+  "title": "FEMA CERT Unit 1: Disaster Preparedness — Home & Family Preparedness (Day 2 of 5)",
+  "date": "October 08, 2026",
+  "bellRinger": "If you had ten minutes to evacuate, what would you take? Now cut the list in half.",
+  "exitTicket": "Identify one non-structural hazard in your own home and how you would fix it."
+ },
+ "42": {
+  "day": 42,
+  "title": "FEMA CERT Unit 1: Disaster Preparedness — Evacuation & Sheltering (Day 3 of 5)",
+  "date": "October 09, 2026",
+  "bellRinger": "What is the difference between an evacuation warning and an evacuation order?",
+  "exitTicket": "Explain when sheltering in place is safer than evacuating."
+ },
+ "43": {
+  "day": 43,
+  "title": "FEMA CERT Unit 1: Disaster Preparedness — Hazardous Materials Awareness (Day 4 of 5)",
+  "date": "October 12, 2026",
+  "bellRinger": "Sketch any warning placard you have seen on a truck or storage tank.",
+  "exitTicket": "Given a placard number, state the correct initial isolation distance and why you would stay upwind."
+ },
+ "44": {
+  "day": 44,
+  "title": "FEMA CERT Unit 1: Disaster Preparedness — Team Organization & Unit Assessment (Day 5 of 5)",
+  "date": "October 13, 2026",
+  "bellRinger": "Review: which General Staff section would a CERT team report through?",
+  "exitTicket": "Submit team org charts and assessment. Debrief the connection between CERT and ICS."
+ },
+ "45": {
+  "day": 45,
+  "title": "Technical Communications and Job Design",
+  "date": "October 14, 2026",
+  "bellRinger": "Read the Vocabulary Handout. Define public safety answering points (PSAP).",
+  "exitTicket": "List the 3 most critical pieces of data a dispatcher must extract during the first 10 seconds of a 911 call."
+ },
+ "46": {
+  "day": 46,
+  "title": "Simulating Communications and Performance Assessment",
+  "date": "October 15, 2026",
+  "bellRinger": "Group rehearsal of skits and communications drills.",
+  "exitTicket": "Self-critique of performance skits and submission of written scripts."
+ },
+ "47": {
+  "day": 47,
+  "title": "Role Classification and Training Pathways",
+  "date": "October 16, 2026",
+  "bellRinger": "Brainstorm what items should be found in a paramedic's emergency field kit.",
+  "exitTicket": "Detail the specific training, skills, and credential differences between an EMT and a Paramedic."
+ },
+ "48": {
+  "day": 48,
+  "title": "Ambulance Equipment and Medical Technology",
+  "date": "October 19, 2026",
+  "bellRinger": "Identify 3 medical emergencies requiring advanced vascular or airway intervention.",
+  "exitTicket": "Describe how spinal immobilization equipment differs from cardiac monitoring tools in usage priority."
+ },
+ "49": {
+  "day": 49,
+  "title": "Simulation Showcase and Assessment",
+  "date": "October 20, 2026",
+  "bellRinger": "Study notes and vocabulary worksheets.",
+  "exitTicket": "Peer review. List 3 key takeaways from another team's ambulance profile."
+ },
+ "50": {
+  "day": 50,
+  "title": "First Aid Introduction",
+  "date": "October 21, 2026",
+  "bellRinger": "List common first aid procedures you know and explain how you learned them.",
+  "exitTicket": "Differentiate between triage and standard first aid treatments."
+ },
+ "51": {
+  "day": 51,
+  "title": "Bleeding and Soft Tissue Treatments",
+  "date": "October 22, 2026",
+  "bellRinger": "Brainstorm what is the first priority when treating arterial bleeding vs venous bleeding.",
+  "exitTicket": "Under what specific clinical circumstances should a tourniquet be applied?"
+ },
+ "52": {
+  "day": 52,
+  "title": "Bone and Muscle Injury Management",
+  "date": "October 23, 2026",
+  "bellRinger": "List 3 signs of a compound fracture.",
+  "exitTicket": "Write down the standard 'RICE' first aid protocol for muscle sprains."
+ },
+ "53": {
+  "day": 53,
+  "title": "Sudden Illness & Shock Treatments",
+  "date": "October 26, 2026",
+  "bellRinger": "Brainstorm what are the primary physical symptoms of anaphylactic shock.",
+  "exitTicket": "Explain the physical positioning used to prevent shock in an unconscious patient."
+ },
+ "54": {
+  "day": 54,
+  "title": "Environmental Emergency Management",
+  "date": "October 27, 2026",
+  "bellRinger": "Brainstorm the difference between hot dry skin and cool clammy skin in heat emergencies.",
+  "exitTicket": "Describe why rapid active cooling is required for heat stroke but not heat exhaustion."
+ },
+ "55": {
+  "day": 55,
+  "title": "Environmental Techniques & Tech Assessment",
+  "date": "October 28, 2026",
+  "bellRinger": "Review the soft tissue and musculoskeletal notes.",
+  "exitTicket": "Under what physical circumstances should water be withheld from chemical burns?"
+ },
+ "56": {
+  "day": 56,
+  "title": "EMT Live Medical Scenario Role Play",
+  "date": "October 29, 2026",
+  "bellRinger": "Meet with roleplay partners. Distribute clinical scenario cards.",
+  "exitTicket": "Classroom discussion. Identify who struggled or succeeded in triage and why."
+ },
+ "57": {
+  "day": 57,
+  "title": "Present Brochures & Final Assessment",
+  "date": "October 30, 2026",
+  "bellRinger": "Final study of first aid vocabulary.",
+  "exitTicket": "Submit brochures, pamphlets, and exams."
+ },
+ "58": {
+  "day": 58,
+  "title": "AHA BLS Provider Certification (Day 1 of 5): Chain of Survival & the Science of High-Quality CPR",
+  "date": "November 02, 2026",
+  "bellRinger": "Write down what you believe the survival rate is for an out-of-hospital cardiac arrest, then what you think it becomes when a bystander starts CPR immediately. Compare answers to the AHA figures during instruction.",
+  "exitTicket": "Record your best measured rate and depth from today’s cycles and name the one element of high-quality CPR you will target tomorrow."
+ },
+ "59": {
+  "day": 59,
+  "title": "AHA BLS Provider Certification (Day 2 of 5): Adult 1-Rescuer BLS & AED Operation",
+  "date": "November 03, 2026",
+  "bellRinger": "An AED tells you ‘no shock advised.’ Write down what you do next and why. Discuss briefly as a class.",
+  "exitTicket": "List the compression-to-ventilation ratio for adult 1-rescuer CPR and the two things you must confirm before pressing the shock button."
+ },
+ "60": {
+  "day": 60,
+  "title": "AHA BLS Provider Certification (Day 3 of 5): Team Dynamics, 2-Rescuer CPR & Bag-Mask Ventilation",
+  "date": "November 04, 2026",
+  "bellRinger": "Two rescuers arrive at the same patient and both start compressions. Write down what went wrong and what should have been said instead.",
+  "exitTicket": "Name the point in the cycle where compressors should switch and state the maximum acceptable pause. Submit your team’s interruption log."
+ },
+ "61": {
+  "day": 61,
+  "title": "AHA BLS Provider Certification (Day 4 of 5): Child & Infant BLS, Choking Relief & Opioid Emergencies",
+  "date": "November 05, 2026",
+  "bellRinger": "Write down what you think changes when the patient is an infant instead of an adult. Keep the list; you will check it against the AHA standards at the end of class.",
+  "exitTicket": "Correct your bell-ringer list against the AHA pediatric standards and submit both versions."
+ },
+ "62": {
+  "day": 62,
+  "title": "AHA BLS Provider Certification (Day 5 of 5): Skills Testing & BLS Provider Written Exam",
+  "date": "November 06, 2026",
+  "bellRinger": "Silent review of the BLS Provider Manual algorithm pages and the skills checklist you will be tested against.",
+  "exitTicket": "Confirm your name and email on the Training Center roster for eCard delivery, and log the certification on your career portfolio credential sheet alongside your FEMA IS-100.c and IS-700.b certificates."
+ },
+ "63": {
+  "day": 63,
+  "title": "FEMA CERT Unit 2: Fire Safety — Fire Chemistry & the Fire Tetrahedron (Day 1 of 5)",
+  "date": "November 09, 2026",
+  "bellRinger": "Name three ways to put out a candle. What did each one remove?",
+  "exitTicket": "Explain why water is dangerous on a Class K kitchen fire."
+ },
+ "64": {
+  "day": 64,
+  "title": "FEMA CERT Unit 2: Fire Safety — Extinguisher Selection & PASS Technique (Day 2 of 5)",
+  "date": "November 10, 2026",
+  "bellRinger": "Locate the nearest fire extinguisher to this classroom. What class is it rated for?",
+  "exitTicket": "State the four PASS steps and one situation where you should not attempt suppression at all."
+ },
+ "65": {
+  "day": 65,
+  "title": "FEMA CERT Unit 2: Fire Safety — Size-Up & the Decision to Act (Day 3 of 5)",
+  "date": "November 12, 2026",
+  "bellRinger": "When is the right answer 'get out and call 911' instead of 'fight the fire'?",
+  "exitTicket": "Name the three conditions that must all be true before a CERT member attempts suppression."
+ },
+ "66": {
+  "day": 66,
+  "title": "FEMA CERT Unit 2: Fire Safety — Utility Controls & Hazard Shutoff (Day 4 of 5)",
+  "date": "November 13, 2026",
+  "bellRinger": "Why would a responder shut off natural gas before entering a damaged building?",
+  "exitTicket": "Explain why a gas shutoff should never be turned back on by a CERT member."
+ },
+ "67": {
+  "day": 67,
+  "title": "FEMA CERT Unit 2: Fire Safety — Fire Suppression Drill & Unit Assessment (Day 5 of 5)",
+  "date": "November 16, 2026",
+  "bellRinger": "Final review of PASS and size-up criteria.",
+  "exitTicket": "Submit assessment and drill scorecards. Debrief the go/no-go decisions teams made."
+ },
+ "68": {
+  "day": 68,
+  "title": "FEMA CERT Unit 5: Light Search & Rescue — Structural Assessment (Day 1 of 4)",
+  "date": "November 17, 2026",
+  "bellRinger": "What visible signs would tell you a building is unsafe to walk into?",
+  "exitTicket": "Describe two indicators of heavy structural damage."
+ },
+ "69": {
+  "day": 69,
+  "title": "FEMA CERT Unit 5: Light Search & Rescue — Search Marking Systems (Day 2 of 4)",
+  "date": "November 18, 2026",
+  "bellRinger": "How would a second search team know a building had already been cleared?",
+  "exitTicket": "Decode the search marking on the board and state what happened at that structure."
+ },
+ "70": {
+  "day": 70,
+  "title": "FEMA CERT Unit 5: Light Search & Rescue — Search Patterns & Victim Location (Day 3 of 4)",
+  "date": "November 19, 2026",
+  "bellRinger": "Why would searching a room randomly be dangerous as well as ineffective?",
+  "exitTicket": "Explain why CERT teams always search in pairs and never alone."
+ },
+ "71": {
+  "day": 71,
+  "title": "FEMA CERT Unit 5: Light Search & Rescue — Victim Carries & Unit Assessment (Day 4 of 4)",
+  "date": "November 20, 2026",
+  "bellRinger": "Safety briefing for carry practice. Review lifting mechanics and stop signals.",
+  "exitTicket": "Submit assessment. Name which carry you would use for a conscious victim with a leg injury and why."
+ },
+ "72": {
+  "day": 72,
+  "title": "Emergency Response Cumulative Capstone Drill & Phase 2 Assessment",
+  "date": "November 30, 2026",
+  "bellRinger": "Final review of triage codes and emergency stabilization steps.",
+  "exitTicket": "Turn in completed triage cards and final exams."
+ },
+ "73": {
+  "day": 73,
+  "title": "Foundations of Criminal Law",
+  "date": "December 01, 2026",
+  "bellRinger": "Hand out Vocabulary, Worksheet, Sources of Law Handout, and Amendments Handout.",
+  "exitTicket": "Describe how common law differs from statutory law."
+ },
+ "74": {
+  "day": 74,
+  "title": "Legislation Enactment & Legislative Skit",
+  "date": "December 02, 2026",
+  "bellRinger": "Identify the primary legislative chambers in state and federal governments.",
+  "exitTicket": "Differentiate between a bill, a statutory code, and an ordinance."
+ },
+ "75": {
+  "day": 75,
+  "title": "Legislative Bill Drafting",
+  "date": "December 03, 2026",
+  "bellRinger": "Meet in committee groups. Review bill guidelines.",
+  "exitTicket": "Write down the primary regulatory purpose of your drafted bill."
+ },
+ "76": {
+  "day": 76,
+  "title": "Legislative Debate & Vote",
+  "date": "December 04, 2026",
+  "bellRinger": "Parliamentary floor setups. Distribute written bills.",
+  "exitTicket": "Describe the legislative hurdles that caused bills to fail or pass today."
+ },
+ "77": {
+  "day": 77,
+  "title": "Defining Criminal Acts",
+  "date": "December 07, 2026",
+  "bellRinger": "List what a prosecutor must prove for someone to be convicted of a crime.",
+  "exitTicket": "Name the two elements that must both be present for most crimes and explain why intent alone is not enough."
+ },
+ "78": {
+  "day": 78,
+  "title": "Elements of a Crime Lab",
+  "date": "December 08, 2026",
+  "bellRinger": "Review the basic elements worksheet.",
+  "exitTicket": "Differentiate between direct intent, negligence, and strict liability crimes."
+ },
+ "79": {
+  "day": 79,
+  "title": "Constitutional Protections",
+  "date": "December 09, 2026",
+  "bellRinger": "Review the Amendments Handout. Brainstorm what constitutes a 'reasonable' search.",
+  "exitTicket": "Define the exclusionary rule and its impact on criminal prosecutions."
+ },
+ "80": {
+  "day": 80,
+  "title": "PSA Project - Public Safety Skits",
+  "date": "December 10, 2026",
+  "bellRinger": "Introduce Solving a Problem PSA Project. Assign groups of 3-4.",
+  "exitTicket": "Submit drafted PSA scripts for instructor review and safety screen."
+ },
+ "81": {
+  "day": 81,
+  "title": "PSA Present and Law Assessment",
+  "date": "December 11, 2026",
+  "bellRinger": "Study notes. Final skit rehearsals.",
+  "exitTicket": "Turn in PSA portfolios, landmark case websites, and worksheets."
+ },
+ "82": {
+  "day": 82,
+  "title": "Law Levels & Crime Offense Classification",
+  "date": "December 14, 2026",
+  "bellRinger": "Hand out the Vocabulary Handout. List three rules that apply only in Paradise and not statewide.",
+  "exitTicket": "Describe how an infraction differs from a misdemeanor."
+ },
+ "83": {
+  "day": 83,
+  "title": "Classifying Offenses Across Jurisdictions",
+  "date": "December 15, 2026",
+  "bellRinger": "Brainstorm what factors make a robbery different from a simple theft.",
+  "exitTicket": "Record the legal definition of statutory burglary and name the state with the harshest perjury penalty you found."
+ },
+ "84": {
+  "day": 84,
+  "title": "Crime Scenarios Lab & Semester 1 Exam Review",
+  "date": "December 16, 2026",
+  "bellRinger": "Review the seven crime categories. Distribute the S1 exam study guide.",
+  "exitTicket": "Differentiate an aggravating factor from a mitigating factor. Confirm you have the S1 study guide and the podcast project brief."
+ },
+ "85": {
+  "day": 85,
+  "title": "SEMESTER 1 FINAL EXAM — Period 2 (Minimum Day Finals Schedule)",
+  "date": "December 17, 2026",
+  "bellRinger": "Clear desks, distribute exams, and review exam rules and timing.",
+  "exitTicket": "Collect exams. Students who finish early complete a Semester 1 portfolio inventory checklist."
+ },
+ "86": {
+  "day": 86,
+  "title": "NO PERIOD 2 CLASS — Semester 1 Finals Day 2 (Periods 4, 5 & 6)",
+  "date": "December 18, 2026",
+  "bellRinger": "",
+  "exitTicket": ""
+ },
+ "87": {
+  "day": 87,
+  "title": "Local Ordinances",
+  "date": "January 04, 2027",
+  "bellRinger": "List 2 municipal rules (e.g. curfew, noise) that apply to Paradise but not the whole state.",
+  "exitTicket": "Why do local governments create ordinances instead of relying solely on state penal codes?"
+ },
+ "88": {
+  "day": 88,
+  "title": "Civil vs Criminal Law",
+  "date": "January 05, 2027",
+  "bellRinger": "Brainstorm what is the standard of proof in civil litigation vs criminal prosecution.",
+  "exitTicket": "Record the standard of proof used in a civil case vs a criminal case."
+ },
+ "89": {
+  "day": 89,
+  "title": "Civil vs Criminal Cases",
+  "date": "January 06, 2027",
+  "bellRinger": "Independent review. Study vocabulary worksheets.",
+  "exitTicket": "Explain how the remedy in a civil case (restitution/damages) differs from a criminal penalty."
+ },
+ "90": {
+  "day": 90,
+  "title": "Crime Podcast Production & Showcase",
+  "date": "January 07, 2027",
+  "bellRinger": "Meet with partners. Confirm your crime topic and script outline.",
+  "exitTicket": "Submit podcast files and scripts. Play two volunteer segments for class critique."
+ },
+ "91": {
+  "day": 91,
+  "title": "Law Enforcement Systems",
+  "date": "January 08, 2027",
+  "bellRinger": "Hand out Vocabulary Handout and Amendments Student Handout. Brainstorm public safety roles.",
+  "exitTicket": "List 3 federal law enforcement agencies and their primary operational missions."
+ },
+ "92": {
+  "day": 92,
+  "title": "Core Police Responsibilities",
+  "date": "January 11, 2027",
+  "bellRinger": "Brainstorm what is the primary purpose of municipal traffic enforcement.",
+  "exitTicket": "Detail how community policing differs from conventional reactive police patrol."
+ },
+ "93": {
+  "day": 93,
+  "title": "Police & Crime Prevention",
+  "date": "January 12, 2027",
+  "bellRinger": "Review student notes and public safety vocabulary.",
+  "exitTicket": "Write 3 sentences explaining the legal and practical purpose of crime analysis divisions."
+ },
+ "94": {
+  "day": 94,
+  "title": "Assessing Police Actions",
+  "date": "January 13, 2027",
+  "bellRinger": "Re-read the Fourth, Fifth, and Sixth Amendments from handouts.",
+  "exitTicket": "Detail the specific legal criteria that define 'reasonable' use of force by police officers."
+ },
+ "95": {
+  "day": 95,
+  "title": "Incident Assessment Discussion",
+  "date": "January 14, 2027",
+  "bellRinger": "Re-read incident summaries and assemble legal cases.",
+  "exitTicket": "List 3 critical lessons police departments can extract from public incident reviews today."
+ },
+ "96": {
+  "day": 96,
+  "title": "Emergency Response Systems",
+  "date": "January 15, 2027",
+  "bellRinger": "Brainstorm what unique hazards firefighters face compared to local patrol officers.",
+  "exitTicket": "Differentiate between basic first response services and advanced medical trauma care on scene."
+ },
+ "97": {
+  "day": 97,
+  "title": "Rescue & Hazard Protocols",
+  "date": "January 19, 2027",
+  "bellRinger": "List 3 types of hazardous materials that require specialized hazmat response units.",
+  "exitTicket": "Record the critical first step a dispatcher must execute when handling chemical hazard calls."
+ },
+ "98": {
+  "day": 98,
+  "title": "First Responder Stress Management",
+  "date": "January 20, 2027",
+  "bellRinger": "List common physical and mental signs of acute post-traumatic stress in police/medics.",
+  "exitTicket": "Why do high physical fitness standards help first responders manage occupational stress?"
+ },
+ "99": {
+  "day": 99,
+  "title": "Corrections Within the Public Safety System",
+  "date": "January 21, 2027",
+  "bellRinger": "Trace what happens to a person from arrest to sentence. How many different agencies touch that path?",
+  "exitTicket": "Name which level of government operates the facility for each of three given offenses."
+ },
+ "100": {
+  "day": 100,
+  "title": "Jail vs. Prison: Jurisdiction, Booking & Intake",
+  "date": "January 22, 2027",
+  "bellRinger": "Predict: what is the average length of stay in a county jail versus a state prison?",
+  "exitTicket": "State three operational differences between a county jail and a state prison."
+ },
+ "101": {
+  "day": 101,
+  "title": "Inmate & Staff Health, Safety Regulations, and Phase 4 Assessment",
+  "date": "January 25, 2027",
+  "bellRinger": "Final review of the public safety systems vocabulary list.",
+  "exitTicket": "Submit assessment and interview question sets."
+ },
+ "102": {
+  "day": 102,
+  "title": "Law Enforcement Services: Role Definition, Recruitment & Hiring Criteria",
+  "date": "January 26, 2027",
+  "bellRinger": "Recall check: from your August journal entry, list every law enforcement career you can remember. Compare with a partner.",
+  "exitTicket": "Name two hiring criteria that are standard across nearly every law enforcement agency."
+ },
+ "103": {
+  "day": 103,
+  "title": "Protective Gear Lab & Law Enforcement Services Unit Assessment",
+  "date": "January 27, 2027",
+  "bellRinger": "Rapid review of yesterday's recruitment and qualification standards.",
+  "exitTicket": "Submit assessment and gear lab worksheets."
+ },
+ "104": {
+  "day": 104,
+  "title": "A Job Defined — Police Officer: Duties, Qualifications & Physical Readiness",
+  "date": "January 28, 2027",
+  "bellRinger": "What percentage of a patrol officer's shift do you think involves an arrest? Write your guess.",
+  "exitTicket": "Name the physical agility component you would find most difficult and your plan to prepare for it."
+ },
+ "105": {
+  "day": 105,
+  "title": "Specialization Pathways, SRO Presentation & Host Officer Interview",
+  "date": "January 29, 2027",
+  "bellRinger": "Review your prepared questions and assign a lead interviewer for each group.",
+  "exitTicket": "Update your personal specialization map with one insight from today, and write a thank-you note naming one specific thing you learned."
+ },
+ "106": {
+  "day": 106,
+  "title": "A Job Defined — Chief of Police: Command Rank & Agency Leadership",
+  "date": "February 01, 2027",
+  "bellRinger": "List everything a police chief has to manage that a patrol officer does not.",
+  "exitTicket": "Name two challenges a chief faces that no line officer does."
+ },
+ "107": {
+  "day": 107,
+  "title": "Command Staff Simulation & Chief of Police Unit Assessment",
+  "date": "February 02, 2027",
+  "bellRinger": "Rapid review of the rank progression chart.",
+  "exitTicket": "Submit assessment. Explain which of the three command decisions was hardest and why."
+ },
+ "108": {
+  "day": 108,
+  "title": "Patrol Pathway & Municipal Agency Structures",
+  "date": "February 03, 2027",
+  "bellRinger": "Who patrols our streets — city police, county sheriff, or CHP? How would you find out?",
+  "exitTicket": "Name which agency responds to a freeway collision and which responds to a residential burglary here."
+ },
+ "109": {
+  "day": 109,
+  "title": "Protective Careers & Private Security Integration",
+  "date": "February 04, 2027",
+  "bellRinger": "Can a mall security guard arrest you? Write your answer and your reasoning.",
+  "exitTicket": "State one thing a sworn officer may do that a private security officer may not."
+ },
+ "110": {
+  "day": 110,
+  "title": "Agency & Security Company Research Project",
+  "date": "February 05, 2027",
+  "bellRinger": "Introduce the Agency Research Project and rubric. Select and register your agency or company.",
+  "exitTicket": "Submit your research outline and source list for instructor review."
+ },
+ "111": {
+  "day": 111,
+  "title": "Agency Research Presentations & Peer Analysis",
+  "date": "February 08, 2027",
+  "bellRinger": "Final presentation setup and rubric review.",
+  "exitTicket": "Name the agency you would most want to work for and give two evidence-based reasons."
+ },
+ "112": {
+  "day": 112,
+  "title": "Listening 101 (Day 1 of 3): Hearing vs. Listening & Listener Types",
+  "date": "February 09, 2027",
+  "bellRinger": "Bus Driver Listening Activity. Read the scenario from the Teacher Instruction Sheet and pose the question. Reread as needed but do not hint at the answer. Discuss the answer and why most of the class missed it.",
+  "exitTicket": "Name your dominant listener type and one poor listening habit you recognize in yourself on a radio or contact call."
+ },
+ "113": {
+  "day": 113,
+  "title": "Listening 101 (Day 2 of 3): Draw What You Hear & the Newsletter Project",
+  "date": "February 10, 2027",
+  "bellRinger": "Draw What You Hear, Round 1. In pairs, one student describes a provided sketch verbally while the partner draws it, with no questions and no repetition permitted.",
+  "exitTicket": "Record the one detail from your newscast you are least confident you heard correctly, and how you would verify it."
+ },
+ "114": {
+  "day": 114,
+  "title": "Listening 101 (Day 3 of 3): Newsletter Presentations & Accuracy Analysis",
+  "date": "February 11, 2027",
+  "bellRinger": "Groups do a final proof of their newsletter and identify the single most important story to lead with.",
+  "exitTicket": "Name one specific listening habit from Day 1 that would have prevented the largest error your class found today."
+ },
+ "115": {
+  "day": 115,
+  "title": "Conflict Management (Day 1 of 5): Defining Conflict",
+  "date": "February 16, 2027",
+  "bellRinger": "Write down the last disagreement you watched play out in public. Did it end better or worse than it started, and what made the difference?",
+  "exitTicket": "Write your own one-sentence definition of conflict and one condition under which conflict produces a better outcome than agreement."
+ },
+ "116": {
+  "day": 116,
+  "title": "Conflict Management (Day 2 of 5): Analyzing Conflict & Root Causes",
+  "date": "February 17, 2027",
+  "bellRinger": "A call comes in for a ‘noise complaint’ that turns into a shouting match between neighbors. Write down what the conflict is actually about.",
+  "exitTicket": "Name which project you selected and the cause of conflict you will build it around."
+ },
+ "117": {
+  "day": 117,
+  "title": "Conflict Management (Day 3 of 5): The Five Conflict Management Styles",
+  "date": "February 18, 2027",
+  "bellRinger": "When you disagree with someone who outranks you, what do you actually do? Write it down honestly; you will compare it to the five styles.",
+  "exitTicket": "Name your dominant style and one situation on this list where it would be the wrong choice."
+ },
+ "118": {
+  "day": 118,
+  "title": "Conflict Management (Day 4 of 5): Resolving Conflict & Positive Language",
+  "date": "February 19, 2027",
+  "bellRinger": "Rewrite this sentence so it does not escalate: ‘You need to calm down right now.’",
+  "exitTicket": "Submit three phrases you would remove from a first contact and the replacement you would use instead."
+ },
+ "119": {
+  "day": 119,
+  "title": "Conflict Management (Day 5 of 5): Third Party Intervention & Unit Assessment",
+  "date": "February 22, 2027",
+  "bellRinger": "When two parties cannot resolve a dispute themselves, who steps in, and what authority do they actually have?",
+  "exitTicket": "Submit all projects and activities. Name the one conflict skill from this unit you expect to use on a patrol contact."
+ },
+ "120": {
+  "day": 120,
+  "title": "Tactical Patrol & Simulated Traffic Stops Lab (Day 1 of 2): Approach, Positioning & Lawful Contact",
+  "date": "February 23, 2027",
+  "bellRinger": "Why do officers park at an offset angle behind a stopped car, and can they search that car during a routine speeding stop? Write both answers with your reasoning.",
+  "exitTicket": "Diagram correct vehicle positioning for a right-shoulder stop, label the danger zone, and name one circumstance that would lawfully justify a vehicle search."
+ },
+ "121": {
+  "day": 121,
+  "title": "Tactical Patrol & Simulated Traffic Stops Lab (Day 2 of 2): Full Scenario Assessment",
+  "date": "February 24, 2027",
+  "bellRinger": "Review the assessment rubric and the report writing standards from Phase 1.",
+  "exitTicket": "Submit rubrics and incident narratives."
+ },
+ "122": {
+  "day": 122,
+  "title": "Mock Crime Scene Investigation Lab (Day 1 of 3): Scene Security & Documentation",
+  "date": "February 25, 2027",
+  "bellRinger": "Why is the first officer on scene the most likely person to destroy evidence?",
+  "exitTicket": "Submit scene sketches. Name two ways a scene gets contaminated."
+ },
+ "123": {
+  "day": 123,
+  "title": "Mock Crime Scene Investigation Lab (Day 2 of 3): Evidence Collection & Chain of Custody",
+  "date": "February 26, 2027",
+  "bellRinger": "What happens in court if the chain of custody has a gap?",
+  "exitTicket": "Submit chain of custody forms. Explain why biological evidence is packaged in paper rather than plastic."
+ },
+ "124": {
+  "day": 124,
+  "title": "Mock Crime Scene Investigation Lab (Day 3 of 3): Forensic Analysis & Case File Assembly",
+  "date": "March 01, 2027",
+  "bellRinger": "How certain do you think fingerprint identification actually is? Write a percentage, then inventory your team’s documentation and note what is missing.",
+  "exitTicket": "Submit case files. State your comparison conclusion with the confidence level you can honestly support, and identify the weakest link in your team’s evidentiary chain."
+ },
+ "125": {
+  "day": 125,
+  "title": "Phase 5 Capstone Presentations & Law Enforcement Unit Exam",
+  "date": "March 02, 2027",
+  "bellRinger": "Final review of use of force, search and seizure rules, and patrol vocabulary.",
+  "exitTicket": "Turn in completed crime scene folders and final unit exams."
+ },
+ "126": {
+  "day": 126,
+  "title": "Correctional Roles and Pathways",
+  "date": "March 03, 2027",
+  "bellRinger": "Career Ranking Activity. Students rank their initial interests in correctional careers.",
+  "exitTicket": "Distinguish between secure detention and community corrections based on the slides."
+ },
+ "127": {
+  "day": 127,
+  "title": "Pathway Presentation and Evaluation",
+  "date": "March 04, 2027",
+  "bellRinger": "Group workspace for finishing poster displays.",
+  "exitTicket": "Collect Career Displays and student notes."
+ },
+ "128": {
+  "day": 128,
+  "title": "Corrections Principles",
+  "date": "March 05, 2027",
+  "bellRinger": "Hand out Correctional System Vocabulary Handout and Action Plan.",
+  "exitTicket": "Detail how perimeter security features differ across secure facilities."
+ },
+ "129": {
+  "day": 129,
+  "title": "Secure Custody Levels",
+  "date": "March 08, 2027",
+  "bellRinger": "Brainstorm what Housing secure designs characterize maximum-security prisons.",
+  "exitTicket": "Record the legal and procedural differences between a county jail and a federal penitentiary."
+ },
+ "130": {
+  "day": 130,
+  "title": "Specialized Prison Populations",
+  "date": "March 09, 2027",
+  "bellRinger": "Identify 3 medical or special custody needs typical in secure facilities.",
+  "exitTicket": "Describe how probation differs from parole as a correctional punishment option."
+ },
+ "131": {
+  "day": 131,
+  "title": "Prison Life & Custodian Duties",
+  "date": "March 10, 2027",
+  "bellRinger": "Read Contraband Handout and Fire Safety Handout.",
+  "exitTicket": "What constitutes contraband in a secure cell block and how is it discovered?"
+ },
+ "132": {
+  "day": 132,
+  "title": "Privatization & Evidence-Based Correctional Practice",
+  "date": "March 11, 2027",
+  "bellRinger": "Should a private company be allowed to profit from running a prison? Write your position and one reason.",
+  "exitTicket": "Name one measurable outcome researchers use to judge whether a correctional program works."
+ },
+ "133": {
+  "day": 133,
+  "title": "Group Collaborative Workspace: Research, Production & Peer Review",
+  "date": "March 12, 2027",
+  "bellRinger": "Group stand-up. Each team states its single goal for today’s studio block and the section it is furthest behind on.",
+  "exitTicket": "Log today’s findings and source citations on the team progress sheet and record two specific revisions your team will make before presentations."
+ },
+ "134": {
+  "day": 134,
+  "title": "Prisoner Rights & Crowding Issues",
+  "date": "March 15, 2027",
+  "bellRinger": "Brainstorm what Fifth and Eighth Amendment protections apply directly to prisoners.",
+  "exitTicket": "Explain how 'deliberate indifference' is legally evaluated under the Eighth Amendment."
+ },
+ "135": {
+  "day": 135,
+  "title": "History & Trends Relay Race",
+  "date": "March 16, 2027",
+  "bellRinger": "Run History & Trends Relay Race Activity using instructions.",
+  "exitTicket": "Record the most critical staff-safety or communication lesson learned from the officer interviews."
+ },
+ "136": {
+  "day": 136,
+  "title": "Assessment & Showcase Prep",
+  "date": "March 17, 2027",
+  "bellRinger": "Final study of corrections vocabulary and handcuffs worksheets.",
+  "exitTicket": "Submit written correctional worksheets and timelines."
+ },
+ "137": {
+  "day": 137,
+  "title": "Present Civilian Guides",
+  "date": "March 23, 2027",
+  "bellRinger": "",
+  "exitTicket": "Collect all projects. Self-evaluation on corrections module."
+ },
+ "138": {
+  "day": 138,
+  "title": "Correctional Reforms, Rehabilitation & Case Studies",
+  "date": "March 24, 2027",
+  "bellRinger": "What does recidivism mean, and how is it actually measured? Write your answer before instruction.",
+  "exitTicket": "List three correctional reform policies shown to decrease recidivism and name the one you find best supported."
+ },
+ "139": {
+  "day": 139,
+  "title": "Lawyers & Paralegals",
+  "date": "March 25, 2027",
+  "bellRinger": "Career Ranking Activity. Students rank legal services occupations.",
+  "exitTicket": "Record the legal role of paralegals vs licensed attorneys in research."
+ },
+ "140": {
+  "day": 140,
+  "title": "Cost of College/Trade School Project",
+  "date": "April 05, 2027",
+  "bellRinger": "Group review of college cost projections.",
+  "exitTicket": "Collect reports and student notes."
+ },
+ "141": {
+  "day": 141,
+  "title": "Court Systems: Vocabulary, Structure & Civil vs. Criminal Concept Maps",
+  "date": "April 06, 2027",
+  "bellRinger": "Distribute the Court Systems Vocabulary Handout. Define burden of proof and contrast its meaning in civil versus criminal law.",
+  "exitTicket": "Describe the difference between original and appellate jurisdiction, and list the primary parties in a civil case versus a criminal case."
+ },
+ "142": {
+  "day": 142,
+  "title": "Criminal Court Levels and Sentencing",
+  "date": "April 07, 2027",
+  "bellRinger": "Hand out Types of Sentencing Handout and Levels and Functions of Criminal Courts Handout.",
+  "exitTicket": "Differentiate between indeterminate and determinate sentencing structures."
+ },
+ "143": {
+  "day": 143,
+  "title": "Federal Courts & Constitutional Rights",
+  "date": "April 08, 2027",
+  "bellRinger": "Quick review of civil vs criminal procedures concept maps.",
+  "exitTicket": "How do federal judges get their appointments and what is their term length?"
+ },
+ "144": {
+  "day": 144,
+  "title": "Federal Judiciary & SCOTUS",
+  "date": "April 09, 2027",
+  "bellRinger": "Review student notes and court vocabulary.",
+  "exitTicket": "Write down the judicial review power defined by Marbury v. Madison."
+ },
+ "145": {
+  "day": 145,
+  "title": "Landmark Precedent & Mock Trial Setup",
+  "date": "April 12, 2027",
+  "bellRinger": "Discussion: Share reactions to landmark cases from homework.",
+  "exitTicket": "Identify your assigned legal role and list 3 primary duties for that role."
+ },
+ "146": {
+  "day": 146,
+  "title": "Courtroom Role Assignments and Prep",
+  "date": "April 13, 2027",
+  "bellRinger": "Meet with legal teams (prosecution vs defense).",
+  "exitTicket": "Write down one question you plan to ask during your witness examination."
+ },
+ "147": {
+  "day": 147,
+  "title": "Mock Trial Simulation (Session A)",
+  "date": "April 14, 2027",
+  "bellRinger": "Gavel falls. Bailiff calls the court to order. Legal teams assemble.",
+  "exitTicket": "Note one strong argument made by the prosecution team today."
+ },
+ "148": {
+  "day": 148,
+  "title": "Mock Trial Simulation (Session B)",
+  "date": "April 15, 2027",
+  "bellRinger": "Re-convene court. Legal teams prepare for defense case.",
+  "exitTicket": "Record the jury's final verdict and describe your reactions to it."
+ },
+ "149": {
+  "day": 149,
+  "title": "Mock Trial Debrief & Court Final Assessment",
+  "date": "April 16, 2027",
+  "bellRinger": "Final study of notes and worksheets.",
+  "exitTicket": "Submit mock trial portfolios and completed worksheets."
+ },
+ "150": {
+  "day": 150,
+  "title": "Moot Court (Day 1 of 2): Appellate Process, Standards of Review & Brief Writing",
+  "date": "April 19, 2027",
+  "bellRinger": "In an appeal, are there witnesses? Write what you think happens instead, then state your appeal’s central issue as a single question the court must answer.",
+  "exitTicket": "Submit your statement of issues, the standard of review that applies, and the strongest case you will rely on."
+ },
+ "151": {
+  "day": 151,
+  "title": "Moot Court (Day 2 of 2): Hot Bench Drills, Full Oral Argument & Bench Ruling",
+  "date": "April 20, 2027",
+  "bellRinger": "What happens if a judge interrupts your argument thirty seconds in? Plan your move. Judges review the record and confer on questions.",
+  "exitTicket": "Submit briefs and rubrics. Judges submit written justification for the ruling; advocates name the question that threw them most."
+ },
+ "152": {
+  "day": 152,
+  "title": "Introduction to Private Security",
+  "date": "April 21, 2027",
+  "bellRinger": "Hand out Vocabulary. Fact or Fiction Activity part 1.",
+  "exitTicket": "Detail 2 legal authority limitations a private guard has compared to a city police officer."
+ },
+ "153": {
+  "day": 153,
+  "title": "Asset Protection & Security Guards",
+  "date": "April 22, 2027",
+  "bellRinger": "Brainstorm what is the standard liability a store guard has when detaining shoplifters.",
+  "exitTicket": "Detail the specific training, skills, and credential differences between proprietary guards and contract guards."
+ },
+ "154": {
+  "day": 154,
+  "title": "History of Private Protection",
+  "date": "April 23, 2027",
+  "bellRinger": "Brainstorm who Allan Pinkerton was and his early railway protection roles.",
+  "exitTicket": "Why did the expansion of railroads in the 19th century necessitate the creation of private security agencies?"
+ },
+ "155": {
+  "day": 155,
+  "title": "Modern Security History",
+  "date": "April 26, 2027",
+  "bellRinger": "List 3 technology advances (e.g. CCTV, cyber forensics) that changed private security.",
+  "exitTicket": "Define computer forensics and explain why private security agencies hire forensic IT techs."
+ },
+ "156": {
+  "day": 156,
+  "title": "Public-Private Partnerships",
+  "date": "April 27, 2027",
+  "bellRinger": "Map out areas where municipal police and private guards share surveillance data.",
+  "exitTicket": "Name 3 key operational benefits of private security coordination during public sports arena events."
+ },
+ "157": {
+  "day": 157,
+  "title": "Designing Security Collaboration",
+  "date": "April 28, 2027",
+  "bellRinger": "Review Venn diagrams and finish class-wide discussion.",
+  "exitTicket": "Describe how your proposed collaboration program directly benefits both public and private agencies."
+ },
+ "158": {
+  "day": 158,
+  "title": "Private Security Unit Assessment & Collaboration Program Proposals",
+  "date": "April 29, 2027",
+  "bellRinger": "Final study of unit vocabulary and a last timing check on your proposal.",
+  "exitTicket": "Submit final unit exams, portfolios, private company essays, and collaboration proposals."
+ },
+ "159": {
+  "day": 159,
+  "title": "Agencies in Public Safety",
+  "date": "April 30, 2027",
+  "bellRinger": "Hand out Vocabulary Handout and Worksheet.",
+  "exitTicket": "What is 'jurisdiction' and how does it affect first responders on an incident scene?"
+ },
+ "160": {
+  "day": 160,
+  "title": "Emergency Communications & 9-1-1 Systems",
+  "date": "May 03, 2027",
+  "bellRinger": "What happens between the moment you dial 9-1-1 and the moment a unit is assigned?",
+  "exitTicket": "Name one interoperability failure and what NIMS requires to prevent it."
+ },
+ "161": {
+  "day": 161,
+  "title": "Joint Operations & Jurisdictional Conflict",
+  "date": "May 04, 2027",
+  "bellRinger": "Two agencies both think they are in charge of a scene. What happens?",
+  "exitTicket": "Explain how unified command differs from a single incident commander."
+ },
+ "162": {
+  "day": 162,
+  "title": "Criminal Justice Coordination",
+  "date": "May 05, 2027",
+  "bellRinger": "Collect Game-Changing Disasters Projects.",
+  "exitTicket": "Explain how corrections and probation officers coordinate to supervise parolees."
+ },
+ "163": {
+  "day": 163,
+  "title": "Private-Public Security Collaboration",
+  "date": "May 06, 2027",
+  "bellRinger": "List 2 private properties (e.g. shopping mall, corporate campus) where private guards and city police coordinate.",
+  "exitTicket": "Detail 3 security-related benefits of a private-public emergency data-sharing network."
+ },
+ "164": {
+  "day": 164,
+  "title": "Final Assessment & Technology Forum",
+  "date": "May 07, 2027",
+  "bellRinger": "Final review of interagency worksheets.",
+  "exitTicket": "Submit technology reports and final unit exams."
+ },
+ "165": {
+  "day": 165,
+  "title": "Fire Pathway Careers",
+  "date": "May 10, 2027",
+  "bellRinger": "Career Ranking Activity. Students rank emergency/fire management occupations.",
+  "exitTicket": "Record the critical difference between public fire services and private rescue contractors."
+ },
+ "166": {
+  "day": 166,
+  "title": "PHS Fire Career Forum",
+  "date": "May 11, 2027",
+  "bellRinger": "Group review of local fire agency research reports.",
+  "exitTicket": "Collect reports and student portfolios. Debrief."
+ },
+ "167": {
+  "day": 167,
+  "title": "PHS Campus Command Lab (Day 1 of 4): Hazard Assessment & Incident Action Plan Development",
+  "date": "May 12, 2027",
+  "bellRinger": "Differentiate physical security from electronic surveillance in campus asset protection, and recall from Phase 1 what an Incident Action Plan has to contain.",
+  "exitTicket": "Report your team’s highest-priority vulnerability, submit the draft IAP, and name the plan’s biggest assumption."
+ },
+ "168": {
+  "day": 168,
+  "title": "PHS Campus Command Lab (Day 2 of 4): Command Structure, Role Assignment & Communications",
+  "date": "May 13, 2027",
+  "bellRinger": "Who should be the Incident Commander at a school emergency: an administrator, a firefighter, or a police officer? Defend your answer, then rank who needs information first among parents, media, and students.",
+  "exitTicket": "Submit org charts and draft messaging. Confirm your span of control at every level and identify the one fact you would not release and why."
+ },
+ "169": {
+  "day": 169,
+  "title": "PHS Campus Command Lab (Day 3 of 4): Full-Scale Simulation",
+  "date": "May 14, 2027",
+  "bellRinger": "Final role check and radio test. Distribute the starting scenario only.",
+  "exitTicket": "Hot wash. Name the moment your plan first failed contact with reality."
+ },
+ "170": {
+  "day": 170,
+  "title": "PHS Campus Command Lab (Day 4 of 4): After-Action Review & Safety Proposal",
+  "date": "May 17, 2027",
+  "bellRinger": "List three things that went well and three that did not in yesterday's simulation.",
+  "exitTicket": "Submit after-action reviews and safety proposals. Present the top recommendation to the class."
+ },
+ "171": {
+  "day": 171,
+  "title": "Interview Preparation (Day 1 of 2): Research, Preparation & Practice",
+  "date": "May 18, 2027",
+  "bellRinger": "Share any experience you have had with a job interview or a college entrance interview. What surprised you?",
+  "exitTicket": "With a partner, identify two concrete consequences of walking into an interview unprepared. Write them down to share."
+ },
+ "172": {
+  "day": 172,
+  "title": "Interview Preparation (Day 2 of 2): Common Questions & Unit Assessment",
+  "date": "May 19, 2027",
+  "bellRinger": "Review your Key Concepts outline in preparation for the assessment.",
+  "exitTicket": "Submit the Common Interview Questions Project. Name the question you found hardest to answer honestly."
+ },
+ "173": {
+  "day": 173,
+  "title": "The Interview Process (Day 1 of 5): Basic Tips & Interview Methods",
+  "date": "May 20, 2027",
+  "bellRinger": "Write down everything you already believe about job interviews. A few students share with the class.",
+  "exitTicket": "Fist to Five. Students show their confidence level in interview knowledge from zero to five. Address the gaps the low numbers reveal."
+ },
+ "174": {
+  "day": 174,
+  "title": "The Interview Process (Day 2 of 5): The Good & The Bad",
+  "date": "May 21, 2027",
+  "bellRinger": "Write down what you think could make or break an interview, then share your answer with a partner.",
+  "exitTicket": "Write down one thing about the interview process you did not know before today."
+ },
+ "175": {
+  "day": 175,
+  "title": "The Interview Process (Day 3 of 5): Unit Assessment & Mock Interview Launch",
+  "date": "May 24, 2027",
+  "bellRinger": "Review your Key Concepts and Vocabulary Handout in preparation for the assessment.",
+  "exitTicket": "Give a one-line status update on your group’s guide and confirm your mock interview slot."
+ },
+ "176": {
+  "day": 176,
+  "title": "The Interview Process (Day 4 of 5): Mock Interviews & the Thank You Note",
+  "date": "May 25, 2027",
+  "bellRinger": "Final rehearsal. Students run their two strongest answers past a partner and get one correction each.",
+  "exitTicket": "Submit your self-reflection form and your drafted thank you note."
+ },
+ "177": {
+  "day": 177,
+  "title": "The Interview Process (Day 5 of 5): Guide to Interviews Presentations",
+  "date": "May 26, 2027",
+  "bellRinger": "Groups run a final timing check and assign speaking order.",
+  "exitTicket": "Turn in all projects and activities from both interview units and file the thank you note, self-reflection, and guide in the career portfolio."
+ },
+ "178": {
+  "day": 178,
+  "title": "Course Portfolio Showcase & Career Exploration Journal Submission",
+  "date": "May 27, 2027",
+  "bellRinger": "Write down the single most impactful pathway you explored this year.",
+  "exitTicket": "Submit completed portfolios and the course feedback survey."
+ },
+ "179": {
+  "day": 179,
+  "title": "SEMESTER 2 FINAL EXAM — Period 2 (Minimum Day Finals Schedule)",
+  "date": "June 01, 2027",
+  "bellRinger": "Clear desks, distribute exams, and review exam rules and timing.",
+  "exitTicket": "Collect exams. Return any remaining portfolio materials and certificates to students."
+ },
+ "180": {
+  "day": 180,
+  "title": "NO PERIOD 2 CLASS — Semester 2 Finals Day 2 (Periods 4, 5 & 6)",
+  "date": "June 02, 2027",
+  "bellRinger": "",
+  "exitTicket": ""
+ }
+}

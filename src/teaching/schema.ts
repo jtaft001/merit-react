@@ -185,6 +185,8 @@ export const COLLECTIONS: CollectionDef[] = [
       { key: "unitPhase", label: "Unit / Phase", type: "text" },
       { key: "lessonBlock", label: "Lesson Block", type: "text" },
       { key: "classActivity", label: "Class Activity", type: "longtext" },
+      { key: "bellRinger", label: "Bell Work / Warm-Up", type: "longtext", help: "The opening bell ringer — what students do the moment they sit down." },
+      { key: "exitTicket", label: "Exit Ticket", type: "longtext", help: "The closing exit ticket — how the day is checked and wrapped up." },
       { key: "chaptersMedia", label: "Chapters / Media", type: "text" },
       { key: "preClassHomework", label: "Pre-Class Homework", type: "longtext" },
       { key: "prepStatus", label: "Prep Status", type: "select", inList: true, options: STATUS },
