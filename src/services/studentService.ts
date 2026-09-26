@@ -124,3 +124,26 @@ export async function assignStudentToClass(
 		className: className ?? "",
 	});
 }
+
+/**
+ * The student's school ID number. Older roster docs (from the bulk-add script)
+ * stored it as `studentId` rather than `studentNumber`.
+ */
+export function schoolIdOf(s: StudentRecord): string {
+	const legacy = typeof s.studentId === "string" ? s.studentId : "";
+	return (s.studentNumber || legacy || "").trim();
+}
+
+/**
+ * Set (or clear, with "") a student's school ID number. Students use it to
+ * sign in, clock in at the kiosk, and check out hall passes.
+ */
+export async function setStudentNumber(
+	studentId: string,
+	studentNumber: string
+): Promise<void> {
+	if (!studentId) throw new Error("studentId is required.");
+	await updateDoc(doc(db, "students", studentId), {
+		studentNumber: studentNumber.trim(),
+	});
+}

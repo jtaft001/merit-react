@@ -6,6 +6,8 @@ import {
   fetchStudents,
   setStudentStatus,
   assignStudentToClass,
+  schoolIdOf,
+  setStudentNumber as saveStudentNumber,
   type StudentRecord,
 } from "../services/studentService";
 import { fetchClasses, type ClassRecord } from "../services/classService";
@@ -84,6 +86,27 @@ export default function StudentsAdminPage() {
     }
   }
 
+  // Save an inline Student ID edit. IDs must be unique — students use them to
+  // sign in, clock in, and check out hall passes.
+  async function handleStudentNumberChange(s: StudentRecord, raw: string) {
+    const value = raw.trim();
+    if (value === schoolIdOf(s)) return;
+    const clash = value && students.find((o) => o.id !== s.id && schoolIdOf(o) === value);
+    if (clash) {
+      setError(`Student ID ${value} already belongs to ${clash.name || "another student"}.`);
+      await load();
+      return;
+    }
+    setError("");
+    try {
+      await saveStudentNumber(s.id, value);
+      await load();
+    } catch (err) {
+      console.error(err);
+      setError("Could not update the student ID.");
+    }
+  }
+
   // Assign every selected student to the chosen class ("" = unassign).
   async function handleBulkAssign() {
     if (bulkClassId === "__none__" || selected.size === 0) return;
@@ -134,7 +157,7 @@ export default function StudentsAdminPage() {
         (s.name || "").toLowerCase().includes(lower) ||
         (s.email || "").toLowerCase().includes(lower) ||
         (s.className || "").toLowerCase().includes(lower) ||
-        (s.studentNumber || "").toLowerCase().includes(lower)
+        schoolIdOf(s).toLowerCase().includes(lower)
       );
     });
   }, [students, search, classFilter, showDropped]);
@@ -150,6 +173,11 @@ export default function StudentsAdminPage() {
       setFormMsg("Password must be at least 6 characters.");
       return;
     }
+    const idClash = studentNumber.trim() && students.find((o) => schoolIdOf(o) === studentNumber.trim());
+    if (idClash) {
+      setFormMsg(`Student ID ${studentNumber.trim()} already belongs to ${idClash.name || "another student"}.`);
+      return;
+    }
     setCreating(true);
     try {
       const selectedClass = activeClasses.find((c) => c.id === classId);
@@ -160,7 +188,7 @@ export default function StudentsAdminPage() {
         firstName,
         lastName,
         grade: grade || undefined,
-        studentNumber: studentNumber || undefined,
+        studentNumber: studentNumber.trim() || undefined,
         classId: classId || undefined,
         className: selectedClass?.name || undefined,
       });
@@ -440,7 +468,18 @@ export default function StudentsAdminPage() {
                     <td className="px-4 py-2 font-medium text-slate-800">{s.name || "—"}</td>
                     <td className="px-4 py-2 text-slate-600">{s.email || "—"}</td>
                     <td className="px-4 py-2 text-slate-600">{s.grade || "—"}</td>
-                    <td className="px-4 py-2 text-slate-600">{s.studentNumber || "—"}</td>
+                    <td className="px-4 py-2 text-slate-600">
+                      <input
+                        key={`${s.id}:${schoolIdOf(s)}`}
+                        defaultValue={schoolIdOf(s)}
+                        placeholder="—"
+                        aria-label={`Student ID for ${s.name || s.id}`}
+                        onBlur={(e) => void handleStudentNumberChange(s, e.target.value)}
+                        onKeyDown={(e) => { if (e.key === "Enter") e.currentTarget.blur(); }}
+                        className="w-28 rounded-md border border-transparent bg-transparent px-2 py-1 text-sm
+                          hover:border-slate-300 focus:border-sky-500 focus:bg-white focus:outline-none"
+                      />
+                    </td>
                     <td className="px-4 py-2 text-slate-600">
                       <select
                         value={s.classId || ""}

@@ -10,6 +10,7 @@ const { onTimeclockEvent, backfillSessions } = require("./processTimeclock");
 const { nfcClock } = require("./nfcClock");
 const { nfcLookup } = require("./nfcLookup");
 const { getMyClockStatus, getMyAttendance } = require("./studentFunctions");
+const { resolveStudentLogin } = require("./studentLogin");
 const {
   hallPassLookup,
   hallPassCheckout,
@@ -32,6 +33,9 @@ exports.onTimeclockEvent = firestore
 // NFC kiosk — no auth required (public kiosk tablet)
 exports.nfcLookup = onCall({ invoker: "public" }, nfcLookup);
 exports.nfcClock  = onCall({ invoker: "public" }, nfcClock);
+
+// Login page — lets students sign in with their school ID number
+exports.resolveStudentLogin = onCall({ invoker: "public" }, resolveStudentLogin);
 
 // Mobile student app — auth required
 exports.getMyClockStatus = onCall(getMyClockStatus);
