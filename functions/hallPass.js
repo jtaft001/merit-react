@@ -1,5 +1,6 @@
 const admin = require("firebase-admin");
 const { HttpsError } = require("firebase-functions/v2/https");
+const { findStudentBySchoolId } = require("./studentLookup");
 
 const SETTINGS_PATH = ["settings", "hallPass"];
 const DEFAULTS = {
@@ -32,14 +33,9 @@ const hallPassLookup = async (request) => {
   if (!studentIdNumber) throw new HttpsError("invalid-argument", "Student ID is required.");
 
   const db = admin.firestore();
-  const snap = await db.collection("students").where("studentNumber", "==", studentIdNumber).limit(1).get();
-  if (snap.empty) throw new HttpsError("not-found", "ID not found. Please see your teacher.");
-
-  const doc = snap.docs[0];
+  const doc = await findStudentBySchoolId(db, studentIdNumber);
+  if (!doc) throw new HttpsError("not-found", "ID not found. Please see your teacher.");
   const s = doc.data();
-  if (String(s.status || "").toLowerCase() === "dropped") {
-    throw new HttpsError("not-found", "ID not found. Please see your teacher.");
-  }
   const settings = await getSettings(db);
 
   // Currently-out = an open pass this semester.
@@ -103,7 +99,7 @@ const hallPassCheckout = async (request) => {
     }
     tx.set(passRef, {
       studentDocId,
-      studentIdNumber: s.studentNumber || "",
+      studentIdNumber: s.studentNumber || s.studentId || "",
       studentName: s.name || "Student",
       period,
       destination,
@@ -163,7 +159,7 @@ const hallPassOverride = async (request) => {
 
   await db.collection("passes").add({
     studentDocId,
-    studentIdNumber: student.studentNumber || "",
+    studentIdNumber: student.studentNumber || student.studentId || "",
     studentName: student.name || "Student",
     period: student.className || "",
     destination,

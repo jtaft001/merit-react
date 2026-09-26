@@ -1,18 +1,15 @@
 const admin = require("firebase-admin");
+const { findStudentForKiosk } = require("./studentLookup");
 
 const VALID_ACTIONS = ["CLOCK IN", "CLOCK OUT", "BREAK START", "BREAK END"];
 
-/** Strip colons/spaces and uppercase — matches both "04:E7:49:AC" and "04E749AC" */
-function normalizeNfcId(id) {
-  return id.replace(/[:\s]/g, "").toUpperCase();
-}
-
 /**
- * Callable (unauthenticated): record a timeclock event from an NFC card tap.
+ * Callable (unauthenticated): record a timeclock event from an NFC card tap or
+ * a typed student ID number.
  *
- * Accepts { nfcId, action }.
- * Looks up the student by their nfcId field (set via the CSV import tool),
- * then writes to the timeclock collection using the Admin SDK.
+ * Accepts { nfcId, action }. `nfcId` is matched against the student's nfcId
+ * (set via the CSV import tool) first, then their school ID number. Writes to
+ * the timeclock collection using the Admin SDK.
  */
 const nfcClock = async (request) => {
   const { HttpsError } = require("firebase-functions/v2/https");
@@ -33,19 +30,13 @@ const nfcClock = async (request) => {
 
   const db = admin.firestore();
 
-  // Look up student by their assigned NFC sticker ID (normalized — no colons, uppercase)
-  const normalizedNfcId = normalizeNfcId(nfcId);
-  const snap = await db
-    .collection("students")
-    .where("nfcId", "==", normalizedNfcId)
-    .limit(1)
-    .get();
+  const match = await findStudentForKiosk(db, nfcId);
 
-  if (snap.empty) {
-    throw new HttpsError("not-found", "NFC card not registered. Please see your instructor.");
+  if (!match) {
+    throw new HttpsError("not-found", "Card or student ID not recognized. Please see your instructor.");
   }
 
-  const studentDoc = snap.docs[0];
+  const studentDoc = match.doc;
   const studentId = studentDoc.id;
   const studentName = studentDoc.data().name || "Unknown Student";
 
@@ -53,7 +44,7 @@ const nfcClock = async (request) => {
     studentId,
     action: normalized,
     timestamp: admin.firestore.Timestamp.now(),
-    source: "nfc",
+    source: match.method,
   });
 
   return { studentName, action: normalized };

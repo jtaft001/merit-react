@@ -2,9 +2,10 @@
  * Combined Kiosk Login Screen  (/login)
  *
  * Two panels when idle:
- *   Left  — NFC Time Clock: USB reader types card UID + Enter into the hidden
- *            input, triggering the clock-in/out flow.
- *   Right — Staff Login: email/password to reach the admin dashboard.
+ *   Left  — Student Time Clock: USB reader types card UID + Enter into the
+ *            input (or the student types their student ID number), triggering
+ *            the clock-in/out flow.
+ *   Right — Sign In: email or student ID + password to reach the dashboard.
  *
  * NFC flow (non-idle phases) takes over the full screen, then resets here.
  */
@@ -46,6 +47,7 @@ export default function LoginPage() {
 
   // Staff login state
   const [loginStatus,     setLoginStatus]     = useState("");
+  const [loginBusy,       setLoginBusy]       = useState(false);
   const [loginFocused,    setLoginFocused]    = useState(false);
 
   const nfcInputRef = useRef<HTMLInputElement>(null);
@@ -112,7 +114,7 @@ export default function LoginPage() {
       setStudentName(res.data.studentName);
       setNfcPhase("actions");
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Card not recognised.";
+      const msg = err instanceof Error ? err.message : "Card or student ID not recognized.";
       setNfcError(msg);
       setNfcPhase("error");
       setTimeout(resetToIdle, 4000);
@@ -136,22 +138,34 @@ export default function LoginPage() {
     }
   };
 
-  // ── Staff login handler ───────────────────────────────────────────────────
+  // ── Sign-in handler (email, or student ID number) ─────────────────────────
 
-  async function handleStaffLogin(e: FormEvent) {
+  async function handleLogin(e: FormEvent) {
     e.preventDefault();
+    if (loginBusy) return;
     const form = e.target as HTMLFormElement;
-    const email    = (form.elements.namedItem("email")    as HTMLInputElement).value.trim();
-    const password = (form.elements.namedItem("password") as HTMLInputElement).value.trim();
+    const identifier = (form.elements.namedItem("identifier") as HTMLInputElement).value.trim();
+    const password   = (form.elements.namedItem("password")   as HTMLInputElement).value.trim();
+    const isEmail    = identifier.includes("@");
 
+    setLoginBusy(true);
     setLoginStatus("Signing in…");
 
     try {
+      let email = identifier;
+      if (!isEmail) {
+        const fn = httpsCallable<{ studentNumber: string }, { email: string }>(functions, "resolveStudentLogin");
+        email = (await fn({ studentNumber: identifier })).data.email;
+      }
       await signInWithEmailAndPassword(auth, email, password);
       // App.tsx auth listener detects the new user and redirects to the dashboard
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Login failed.";
+      // Don't reveal whether the ID exists vs. the password was wrong.
+      const msg = !isEmail
+        ? "Student ID or password is incorrect."
+        : err instanceof Error ? err.message : "Login failed.";
       setLoginStatus(msg);
+      setLoginBusy(false);
     }
   }
 
@@ -289,7 +303,7 @@ export default function LoginPage() {
 
             <div>
               <h1 className="text-white text-3xl font-bold">Student Time Clock</h1>
-              <p className="text-slate-400 text-lg mt-1">Tap your NFC card to begin</p>
+              <p className="text-slate-400 text-lg mt-1">Tap your card or type your student ID</p>
             </div>
           </div>
 
@@ -307,7 +321,7 @@ export default function LoginPage() {
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck={false}
-              placeholder="Waiting for card…"
+              placeholder="Tap card or enter student ID"
               className="w-full rounded-2xl bg-slate-800 border border-slate-700
                 text-white text-center text-base px-4 py-4
                 focus:outline-none focus:ring-2 focus:ring-sky-500
@@ -318,26 +332,33 @@ export default function LoginPage() {
               className="w-full py-3 rounded-2xl bg-slate-700 hover:bg-slate-600
                 text-slate-300 font-semibold text-sm transition-colors"
             >
-              Enter ID manually
+              Enter student ID
             </button>
           </form>
 
           <p className="text-slate-700 text-xs text-center">
             USB NFC reader — cards tap automatically
           </p>
+
+          <a
+            href="/hall-pass"
+            className="text-sm text-slate-400 hover:text-slate-200 underline underline-offset-4"
+          >
+            Need a hall pass? Use your student ID →
+          </a>
         </div>
 
         {/* ── Right: Staff Login ──────────────────────────────────────── */}
         <div className="flex-1 flex flex-col items-center justify-center gap-6 px-8 py-12">
           <div className="text-center">
-            <h2 className="text-white text-2xl font-bold">Staff Login</h2>
+            <h2 className="text-white text-2xl font-bold">Sign In</h2>
             <p className="text-slate-400 text-sm mt-1">
-              Sign in to access the admin dashboard
+              Staff use email · students can use email or student ID
             </p>
           </div>
 
           <form
-            onSubmit={handleStaffLogin}
+            onSubmit={handleLogin}
             onFocus={() => setLoginFocused(true)}
             onBlur={(e) => {
               if (!(e.relatedTarget instanceof Node) || !e.currentTarget.contains(e.relatedTarget)) {
@@ -347,11 +368,14 @@ export default function LoginPage() {
             className="w-full max-w-sm space-y-4 select-text"
           >
             <input
-              name="email"
-              type="email"
-              placeholder="Email"
+              name="identifier"
+              type="text"
+              placeholder="Email or student ID"
               required
-              autoComplete="email"
+              autoComplete="username"
+              autoCapitalize="off"
+              autoCorrect="off"
+              spellCheck={false}
               className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3
                 text-sm text-white placeholder-slate-400
                 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
@@ -368,8 +392,9 @@ export default function LoginPage() {
             />
             <button
               type="submit"
+              disabled={loginBusy}
               className="w-full rounded-lg bg-emerald-600 hover:bg-emerald-500 px-4 py-3
-                text-sm font-semibold text-white transition-colors"
+                text-sm font-semibold text-white transition-colors disabled:opacity-60"
             >
               Log In
             </button>

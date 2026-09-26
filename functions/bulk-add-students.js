@@ -70,7 +70,9 @@ async function addStudent({ grade, studentId, lastName, firstName, email }) {
       lastName,
       name,
       className,
-      studentId,
+      // School ID number — used for student-ID sign-in, the time clock kiosk,
+      // and hall passes.
+      studentNumber: studentId,
       status: "Active",
     });
 

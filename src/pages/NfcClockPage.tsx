@@ -4,7 +4,8 @@
  * This page lives on a dedicated kiosk tablet in the classroom.
  * A USB NFC reader is plugged in — when a student taps their ID card, the
  * reader acts like a keyboard and types the card's UID into the focused input,
- * then sends Enter.  No sticker programming required.
+ * then sends Enter.  No sticker programming required.  Students without a card
+ * can type their school student ID number instead.
  *
  * Flow:
  *   IDLE  →  (card tapped)  →  LOOKING UP  →  ACTIONS  →  SUCCESS  →  IDLE
@@ -110,7 +111,7 @@ export default function NfcClockPage() {
       setStudentName(res.data.studentName);
       setPhase("actions");
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Card not recognised.";
+      const msg = err instanceof Error ? err.message : "Card or student ID not recognized.";
       setErrorMsg(msg);
       setPhase("error");
       setTimeout(resetToIdle, 4000);
@@ -151,7 +152,7 @@ export default function NfcClockPage() {
             MERIT EMS
           </p>
           <h1 className="text-white text-5xl font-bold">Time Clock</h1>
-          <p className="text-slate-400 text-xl">Tap your ID card to begin</p>
+          <p className="text-slate-400 text-xl">Tap your ID card or type your student ID</p>
         </div>
 
         {/*
@@ -172,7 +173,7 @@ export default function NfcClockPage() {
             autoCorrect="off"
             autoCapitalize="off"
             spellCheck={false}
-            placeholder="Waiting for card…"
+            placeholder="Tap card or enter student ID"
             className="w-full rounded-2xl bg-slate-800 border border-slate-700
               text-white text-center text-base px-4 py-4
               focus:outline-none focus:ring-2 focus:ring-sky-500
@@ -184,7 +185,7 @@ export default function NfcClockPage() {
             className="w-full py-3 rounded-2xl bg-slate-700 hover:bg-slate-600
               text-slate-300 font-semibold text-sm transition-colors"
           >
-            Submit ID manually
+            Enter student ID
           </button>
         </form>
 
