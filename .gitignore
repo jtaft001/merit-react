@@ -29,3 +29,6 @@ scripts/teaching-csv/*.csv
 *.njsproj
 *.sln
 *.sw?
+
+# Roster imports — student PII, never commit
+scripts/data/*.local.*
