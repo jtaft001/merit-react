@@ -137,6 +137,24 @@
   }
   .center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0;gap:6px}
 
+  /* lesson loader dialog */
+  .addbtn.lessonbtn{border-color:var(--amber);color:var(--amber)}
+  .addbtn.lessonbtn:hover{background:var(--amber);color:var(--ink)}
+  #lessonDlg{position:fixed;inset:0;background:rgba(3,6,9,.72);display:flex;align-items:center;justify-content:center;z-index:500;padding:16px}
+  #lessonDlg[hidden]{display:none}
+  .dlgbox{width:min(620px,100%);max-height:100%;overflow:auto;background:var(--panel);border:1px solid var(--line-hot);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .dlgbox h2{margin:0;font-family:var(--disp);font-size:18px;letter-spacing:.18em;text-transform:uppercase}
+  .dlgbox label{font-size:13px;color:var(--dim);display:flex;align-items:center;gap:6px}
+  .dlgbox input[type=date],.dlgbox select{background:#0A1117;border:1px solid var(--line);border-radius:3px;padding:5px 6px;color:var(--pale);font-size:13px}
+  .dlgbox summary{cursor:pointer;font-size:13px;color:var(--dim)}
+  .dlgbox textarea.list{min-height:140px;margin-top:6px}
+  #ldPreview{background:#0A1117;border:1px solid var(--line);border-radius:3px;padding:8px 10px;font-size:13px;line-height:1.4;min-height:44px}
+  #ldPreview b{font-family:var(--disp);letter-spacing:.06em;color:var(--amber);font-size:16px}
+  .unitbox{border:1px solid var(--line);border-radius:3px;padding:8px 10px;display:flex;flex-direction:column;gap:8px;background:#0C141B}
+  .unitbox .days{font-size:12px;color:var(--dim);line-height:1.5}
+  .unitbox .days b{color:var(--pale);font-weight:600}
+  #ldPreview .ok{color:var(--green)} #ldPreview .no{color:#4E677A}
+
   @keyframes toneflash{0%,100%{background:var(--panel)}50%{background:#3A2A05}}
   .panel.toning{animation:toneflash .6s steps(1) infinite;border-color:var(--amber)}
   @media (prefers-reduced-motion: reduce){ .panel.toning{animation:none;border-color:var(--amber)} }
@@ -170,17 +188,60 @@
   <button class="addbtn" data-add="mode">Work mode</button>
   <button class="addbtn" data-add="monitor">Patient monitor</button>
   <button class="addbtn" data-add="triage">Triage tally</button>
+  <button class="addbtn lessonbtn" id="loadLesson" title="Pull today's lesson from Teaching HQ onto this board">Today's lesson</button>
   <span id="linkwrap" style="display:none;align-items:center;gap:6px;margin-left:10px">
     <span class="lbl">OPEN</span>
     <span id="links" style="display:flex;gap:6px"></span>
   </span>
   <span class="spacer"></span>
+  <button class="iconbtn" id="addPeriod">Add period</button>
   <button class="iconbtn" id="rename">Rename period</button>
   <button class="iconbtn" id="clear">Clear board</button>
 </div>
 
 <div id="canvas">
   <div id="empty"><b>BOARD CLEAR</b><span>Add a tool from the rail above. Everything you place saves to this period automatically.</span></div>
+</div>
+
+<div id="lessonDlg" hidden role="dialog" aria-modal="true" aria-labelledby="ldTitle">
+  <div class="dlgbox">
+    <h2 id="ldTitle">Load lesson</h2>
+    <div class="row" style="align-items:center;gap:12px">
+      <label>Course <select id="ldCourse"></select></label>
+      <label>Teaching on <input type="date" id="ldDate"></label>
+    </div>
+    <div class="row" style="align-items:center;gap:6px">
+      <span class="meta" style="margin-right:4px">Lesson</span>
+      <button class="chip" id="ldPrev" aria-label="Previous lesson">◀</button>
+      <label>Day <input type="number" id="ldDay" min="1" max="200" style="width:64px;background:#0A1117;border:1px solid var(--line);border-radius:3px;padding:5px 6px;color:var(--pale);font-size:13px"></label>
+      <button class="chip" id="ldNext" aria-label="Next lesson">▶</button>
+      <button class="chip" id="ldCal" title="Jump to the lesson the calendar has on this date">Match calendar</button>
+      <span id="ldPace" class="meta" style="margin-left:6px"></span>
+    </div>
+    <div id="ldPreview"></div>
+    <div class="row" style="align-items:center;gap:8px">
+      <span class="meta">Off the plan today?</span>
+      <button class="chip" id="ldTest" title="Test board: silent mode, test instructions, period-length timer. The day above is where this period picks up next class.">Test day</button>
+    </div>
+    <div class="unitbox">
+      <div class="row" style="align-items:center;gap:8px">
+        <span class="meta">Unit plan</span>
+        <label class="chip" style="cursor:pointer" title="A LAPSEN / NECI unit lesson plan (.docx). Its segments are split into class days and queued for this period.">Load .docx…<input type="file" id="ldUnitFile" accept=".docx" hidden></label>
+        <label>Class minutes <input type="number" id="ldMin" min="20" max="120" style="width:58px;background:#0A1117;border:1px solid var(--line);border-radius:3px;padding:4px 6px;color:var(--pale);font-size:13px"></label>
+      </div>
+      <div id="ldUnitInfo"></div>
+    </div>
+    <details id="ldPasteWrap">
+      <summary>…or paste a lesson plan (for lessons not in Teaching HQ yet)</summary>
+      <textarea id="ldPaste" class="list" placeholder="Paste the plan text. Headings like Bell Work, Objectives, Agenda, Exit Ticket, and Homework are picked up automatically. Agenda lines with minutes (e.g. &quot;Lab rotation — 20 min&quot;) get a one-tap timer.&#10;&#10;With a title line, it goes up as its own lesson. Without one, it fills in or overrides parts of the Teaching HQ lesson above."></textarea>
+    </details>
+    <label><input type="checkbox" id="ldReplace" checked> Replace this period's board (the roster is kept)</label>
+    <label><input type="checkbox" id="ldAuto" checked> Load the next lesson automatically each school day</label>
+    <div class="row">
+      <button class="bigbtn" id="ldCancel">Cancel</button>
+      <button class="bigbtn go" id="ldApply">Put on board</button>
+    </div>
+  </div>
 </div>
 
 <!-- Cloud sync stub: created first so the main script can await it. Fails open
@@ -202,7 +263,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-  import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+  import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs, Timestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
   const OWNER = "jtaft@pusdk12.org";
   try {
     const app = initializeApp({
@@ -219,6 +280,86 @@
     c.getDoc = getDoc;
     c.setDoc = setDoc;
     c.serverTs = serverTimestamp;
+
+    // ---- Teaching HQ lesson lookup (owner-only, same rules as the app) ----
+    const TEACHING = "teaching";
+    const ids = v => Array.isArray(v) ? v : (v ? [v] : []);
+    const ymdOf = v => {
+      if(!v) return '';
+      const d = v.toDate ? v.toDate() : new Date(v);
+      return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    };
+    const midnight = ymd => { const [y,m,d] = ymd.split('-').map(Number); return new Date(y, m-1, d); };
+    let coursesCache = null;
+    c.listCourses = async () => {
+      if(!coursesCache){
+        const snap = await getDocs(query(collection(db, TEACHING), where("type", "==", "courses")));
+        coursesCache = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+      }
+      return coursesCache;
+    };
+    async function daysOn(ymd, courseId){
+      const start = midnight(ymd), end = new Date(start); end.setDate(end.getDate()+1);
+      const snap = await getDocs(query(collection(db, TEACHING),
+        where("date", ">=", Timestamp.fromDate(start)), where("date", "<", Timestamp.fromDate(end))));
+      return snap.docs.map(d => ({ id:d.id, ...d.data() }))
+        .filter(d => d.type === "lessonDays" && ids(d.course).includes(courseId))
+        .sort((a,b) => (a.dayNumber||0) - (b.dayNumber||0));
+    }
+    async function dayByNumber(n, courseId){
+      const snap = await getDocs(query(collection(db, TEACHING), where("dayNumber", "==", n)));
+      return snap.docs.map(d => ({ id:d.id, ...d.data() }))
+        .find(d => d.type === "lessonDays" && ids(d.course).includes(courseId)) || null;
+    }
+    // The lesson a period is teaching on `ymd`. With `dayNumber` it loads that
+    // lesson from the course sequence (periods drift off the calendar — tests,
+    // re-teach days); without it, whatever the calendar has on that date.
+    // Always reports calDay (the calendar's lesson number that date) and
+    // schoolDay (whether the course meets that date). notFound if no such lesson.
+    c.loadLesson = async (ymd, courseId, dayNumber) => {
+      const onDate = await daysOn(ymd, courseId);
+      const calDay = onDate.length ? (onDate[0].dayNumber || null) : null;
+      const schoolDay = onDate.length > 0;
+      const day = dayNumber ? await dayByNumber(dayNumber, courseId) : onDate[0];
+      if(!day) return { notFound:true, calDay, schoolDay, dayNumber: dayNumber || null };
+      const start = midnight(ymd);
+      const course = (await c.listCourses()).find(x => x.id === courseId) || {};
+      let plan = null;
+      const pid = ids(day.lessonPlan)[0];
+      if(pid){ try{ const p = await getDoc(doc(db, TEACHING, pid)); if(p.exists()) plan = p.data(); }catch(e){} }
+      let upcoming = [];
+      try{
+        const horizon = new Date(start); horizon.setDate(horizon.getDate()+7);
+        const hz = ymdOf(horizon);
+        const ds = await getDocs(query(collection(db, TEACHING), where("type", "==", "deadlines")));
+        upcoming = ds.docs.map(d => d.data())
+          .filter(x => ids(x.course).includes(courseId))
+          .map(x => ({ name: x.assessment || '', due: ymdOf(x.dueDate), type: x.assessmentType || '' }))
+          .filter(x => x.name && x.due >= ymd && x.due <= hz)
+          .sort((a,b) => a.due < b.due ? -1 : 1).slice(0, 4);
+      }catch(e){}
+      const wed = start.getDay() === 3;
+      return {
+        date: ymd,
+        calDay, schoolDay,
+        dayNumber: day.dayNumber || '',
+        title: day.lesson || '',
+        code: course.code || course.course || '',
+        phase: day.phase || '',
+        types: ids(day.lessonType),
+        unit: plan ? (plan.lessonPlan || '') : '',
+        objectives: plan ? (plan.objectives || '') : '',
+        agenda: day.classActivity || (plan ? plan.inClassFlow || '' : ''),
+        media: day.chaptersMedia || (plan ? plan.chapters || '' : ''),
+        homework: day.preClassHomework || '',
+        bellWork: day.bellRinger || '',
+        exit: day.exitTicket || '',
+        scheduleType: day.scheduleType || '',
+        periodTime: (wed ? course.wednesdayTime : course.regularDayTime) || course.regularDayTime || '',
+        minutes: (wed ? course.minutesWednesday : course.minutesRegular) || course.minutesRegular || 0,
+        upcoming
+      };
+    };
     let firstCb = true;
     onAuthStateChanged(getAuth(app), (u) => {
       c.owner = !!(u && u.email === OWNER);
@@ -284,7 +425,8 @@ const ICEV_URL = "https://www.icevonline.com/";
 const LINKS = {
   p1: [{ label: 'iCEV', url: ICEV_URL }],
   p2: [{ label: 'iCEV', url: ICEV_URL }],
-  p4: [{ label: 'iCEV', url: ICEV_URL }]
+  p4: [{ label: 'iCEV', url: ICEV_URL }],
+  p6: [{ label: 'iCEV', url: ICEV_URL }]
 };
 let board = {widgets:[], roster:'', bell:''};
 let muted = false;
@@ -716,6 +858,74 @@ WIDGETS.triage = {
   }
 };
 
+/* ---- TODAY'S LESSON (filled from Teaching HQ or a pasted plan) ---- */
+function startTimer(secs){
+  let w = board.widgets.find(x=>x.type==='timer');
+  if(!w){ addWidget('timer'); w = board.widgets[board.widgets.length-1]; }
+  Object.assign(w.data, {secs, left:secs, running:true, endAt:Date.now()+secs*1000});
+  const inst = live.get(w.id);
+  if(inst){ inst.el.classList.remove('toning'); inst.redraw && inst.redraw(); }
+  save();
+}
+WIDGETS.lesson = {
+  title:"Today's lesson", w:560, h:420,
+  data:()=>({date:'', dayNumber:'', dayLabel:'', title:'', code:'', phase:'', types:[], unit:'', objectives:'', agenda:'', media:'', materials:'', vocab:'', homework:'', upcoming:[], size:20}),
+  mount(body, w, ctx){
+    const wrap = el('div'); wrap.style.cssText='flex:1;overflow:auto;min-height:0;padding-right:4px';
+    const sizes = el('div','row'); sizes.style.marginTop='6px';
+    [16,20,26,32].forEach(s=>{ const b=el('button','chip','A'); b.style.fontSize=Math.min(15,s/2)+'px'; b.dataset.s=s;
+      b.onclick=()=>{ w.data.size=s; save(); draw(); }; sizes.appendChild(b); });
+    body.append(wrap, sizes);
+    function lines(text){
+      return String(text||'').split(/\n+/).map(x=>x.replace(/\*\*/g,'').replace(/^\s*(?:[-*•]|\d+[.)])\s*/,'').trim()).filter(Boolean);
+    }
+    function section(label, text, agenda){
+      const ls = Array.isArray(text) ? text : lines(text);
+      if(!ls.length) return;
+      const h = el('div','meta',label); h.style.cssText+=';margin-top:12px;margin-bottom:2px;color:var(--amber);opacity:.85';
+      wrap.appendChild(h);
+      ls.forEach(line=>{
+        const r = el('div'); r.style.cssText=`font-size:${w.data.size}px;line-height:1.3;padding:2px 0;display:flex;gap:8px;align-items:baseline`;
+        const tx = el('span',null,line); tx.style.flex='1'; r.appendChild(tx);
+        const m = agenda && line.match(/(\d{1,3})\s*(?:-\s*)?(?:min|mins|minutes)\b/i);
+        if(m){ const b=el('button','chip','▶ '+m[1]+'m'); b.title='Start a '+m[1]+'-minute timer'; b.onclick=()=>startTimer(+m[1]*60); r.appendChild(b); }
+        wrap.appendChild(r);
+      });
+    }
+    function draw(){
+      const d = w.data;
+      wrap.innerHTML='';
+      sizes.querySelectorAll('.chip').forEach(c=>c.classList.toggle('hot', +c.dataset.s===d.size));
+      const meta = [d.dayLabel || (d.dayNumber?'DAY '+d.dayNumber:''), d.code, d.date ? new Date(d.date+'T12:00').toLocaleDateString(undefined,{weekday:'long',month:'short',day:'numeric'}) : ''].filter(Boolean).join(' · ');
+      if(meta) wrap.appendChild(el('div','meta',meta));
+      const t = el('div',null,d.title||'No lesson loaded');
+      t.style.cssText=`font-family:var(--disp);font-weight:700;letter-spacing:.03em;color:${d.title?'var(--pale)':'#3C5568'};font-size:${Math.round(d.size*1.6)}px;line-height:1.05;margin:4px 0 6px`;
+      wrap.appendChild(t);
+      const tags = [d.phase, ...(d.types||[])].filter(Boolean);
+      if(tags.length){
+        const row = el('div','row');
+        tags.forEach(x=>{ const c=el('span','chip',x); c.style.cursor='default'; row.appendChild(c); });
+        wrap.appendChild(row);
+      }
+      if(d.unit) section('Unit', d.unit);
+      section('Objectives', d.objectives);
+      section('Agenda', d.agenda, true);
+      section('Read / watch', d.media);
+      section('Vocabulary', d.vocab);
+      section('Materials', d.materials);
+      section('Homework', d.homework);
+      if(d.upcoming && d.upcoming.length){
+        section('Coming up', d.upcoming.map(u=>{
+          const day = new Date(u.due+'T12:00').toLocaleDateString(undefined,{weekday:'short',month:'numeric',day:'numeric'});
+          return day+' — '+u.name+(u.type?' ('+u.type+')':'');
+        }));
+      }
+    }
+    draw();
+    return { redraw:draw };
+  }
+};
+
 /* ============================ board render ============================ */
 const canvas = document.getElementById('canvas');
 const emptyMsg = document.getElementById('empty');
@@ -816,6 +1026,7 @@ async function switchTo(id){
   board.widgets = board.widgets||[]; board.roster = board.roster||''; board.bell = board.bell||'';
   renderTabs(); renderBoard();
   store.set('active', id);
+  maybeAutoLoad();
 }
 
 /* ============================ chrome ============================ */
@@ -841,6 +1052,492 @@ document.getElementById('rename').onclick = ()=>{
   save(); renderTabs();
 };
 document.querySelectorAll('[data-add]').forEach(b=> b.onclick=()=>addWidget(b.dataset.add));
+
+/* ============================ lesson loader ============================ */
+// Which Teaching HQ course each board period teaches (by course code). A course
+// picked in the Load lesson dialog overrides this per period.
+const PERIOD_CODE = { p1:'LPSCS', p2:'LPSCS', p3:'EMT', p4:'IPC', p5:'WILD', p6:'LPSCS' };
+// Pacing state kept on each period's board (synced like the rest of it):
+//   lessonCourse     Teaching HQ course id this period follows
+//   lessonDayNumber  last lesson taught from the course sequence ("where we are")
+//   lessonDate       date the board was last loaded (auto-load runs once a day)
+//   autoLesson       auto-load the next lesson each school day (opt-in)
+//   autoPaused       true while the period is on a pasted, off-sequence lesson
+const HEADS = [
+  ['bellWork',   /^(bell\s*(work|ringer)|warm[\s-]*up|do\s*now|opener|entry\s*task)\b/i],
+  ['objectives', /^((learning\s*)?objectives?|goals?|swbat|students will|i can|learning targets?)\b/i],
+  ['agenda',     /^(agenda|in[\s-]*class\s*flow|lesson\s*flow|procedures?|activities|activity|schedule|sequence|plan)\b/i],
+  ['exit',       /^(exit\s*(ticket|slip)|closure|wrap[\s-]*up|check\s*for\s*understanding)\b/i],
+  ['homework',   /^(homework|pre[\s-]*class|assignment|due\s*next)\b/i],
+  ['media',      /^(chapters?|media|reading|materials?)\b/i],
+  ['title',      /^(lesson|title|topic)\b/i]
+];
+// Pull recognisable sections out of pasted plan text. Anything before the first
+// heading becomes the title (first line) when no explicit title is given.
+function parsePlan(text){
+  const out = {}; let cur = null; const pre = [];
+  String(text||'').replace(/\*\*|__/g,'').split(/\r?\n/).forEach(raw=>{
+    const line = raw.replace(/^[\s#>*_]+/,'').replace(/[*_]+$/,'').trim();
+    if(!line){ return; }
+    const hit = HEADS.find(([,re])=> re.test(line) && line.length < 80 && (/[:\-–—]/.test(line) || line.split(/\s+/).length <= 5));
+    if(hit){
+      cur = hit[0];
+      const rest = cur==='title'
+        ? (line.includes(':') ? line.slice(line.indexOf(':')+1).trim() : line)
+        : line.replace(hit[1],'').replace(/^[^:\-–—]*[:\-–—]\s*/,'').replace(/^[\s:\-–—]+/,'').trim();
+      out[cur] = out[cur] || '';
+      if(rest) out[cur] += (out[cur]?'\n':'') + rest;
+      return;
+    }
+    if(cur) out[cur] += (out[cur]?'\n':'') + raw.trim();
+    else pre.push(line);
+  });
+  if(!out.title && pre.length) out.title = pre[0];
+  return out;
+}
+function todayYmd(){
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+// Last clock time in a range like "9:02–9:57" → "09:57" (24h) for the bell input.
+function periodEnd(range){
+  const ms = [...String(range||'').matchAll(/(\d{1,2}):(\d{2})\s*([ap]\.?m\.?)?/gi)];
+  if(!ms.length) return '';
+  const m = ms[ms.length-1]; let h = +m[1];
+  const ap = (m[3]||'').toLowerCase();
+  if(ap.startsWith('p') && h<12) h+=12;
+  else if(ap.startsWith('a') && h===12) h=0;
+  else if(!ap && h<7) h+=12;          // school-day times without am/pm
+  return String(h).padStart(2,'0')+':'+m[2];
+}
+async function courseFor(pid, b){
+  if(b.lessonCourse) return b.lessonCourse;
+  const list = await window.__cloud.listCourses();
+  const code = PERIOD_CODE[pid];
+  const p = periods.find(x=>x.id===pid);
+  const n = p && (p.tag.match(/\d+/)||[])[0];
+  const hit = list.find(c=>String(c.code||'').toUpperCase()===code) || (n && list.find(c=>String(c.period||'').includes(n)));
+  return hit ? hit.id : '';
+}
+// Lay the lesson out on the board. Lesson-made tools are tagged src:'lesson' so
+// re-loading replaces them instead of stacking duplicates.
+function applyLesson(L, replace){
+  board.widgets = replace ? [] : board.widgets.filter(w=>w.src!=='lesson');
+  const W = Math.max(720, canvas.clientWidth), H = Math.max(520, canvas.clientHeight);
+  const g = 16, snap = v => Math.round(v/8)*8;
+  const aw = snap(W*0.47), bx = g+aw+g, bw = snap(W-bx-g);
+  const lh = snap(H*0.62), ly = g+lh+g, lowH = Math.max(180, snap(H-ly-g));
+  const tw = snap((aw-g)/2);
+  const hasBell = !!String(L.bellWork||'').trim(), hasExit = !!String(L.exit||'').trim();
+  const bh = hasBell && hasExit ? snap((H-3*g)/2) : snap(H-2*g);
+  const types = (L.types||[]).join(' ');
+  const mode = /quiz|exam|test|check-off/i.test(types) ? 0 : /lab|scenario|project|group/i.test(types) ? 2 : 3;
+  const secs = (L.timerMin || 5) * 60;
+  const mk = (type, x, y, w, h, data) => board.widgets.push({ id:uid(), type, src:'lesson', x, y, w:Math.max(200,w), h:Math.max(150,h), data:Object.assign(WIDGETS[type].data(), data) });
+  mk('lesson', g, g, aw, lh, {
+    date:L.date||'', dayNumber:L.dayNumber||'', dayLabel:L.dayLabel||'', materials:L.materials||'', vocab:L.vocab||'', title:L.title||'', code:L.code||'', phase:L.phase||'', types:L.types||[],
+    unit:L.unit||'', objectives:L.objectives||'', agenda:L.agenda||'', media:L.media||'', homework:L.homework||'', upcoming:L.upcoming||[]
+  });
+  mk('timer', g, ly, tw, lowH, {secs, left:secs});
+  mk('mode', g+tw+g, ly, aw-tw-g, lowH, {i:mode});
+  let y = g;
+  if(hasBell){ mk('bulletin', bx, y, bw, bh, {head:L.bellHead||'BELL WORK', text:L.bellWork, size:26}); y += bh+g; }
+  if(hasExit){ mk('bulletin', bx, y, bw, bh, {head:L.exitHead||'EXIT TICKET', text:L.exit, size:26}); }
+  const end = periodEnd(L.periodTime);
+  if(end && !/minimum|final/i.test(L.scheduleType||'')) board.bell = end;
+  board.lessonDate = todayYmd();
+  save(); renderBoard();
+}
+const autoTried = new Set();
+// Once per school day, put this period's NEXT lesson in its own sequence on the
+// board — so a period that fell behind (test day, re-teach) stays behind instead
+// of snapping back to the calendar. Skips days the course doesn't meet.
+async function maybeAutoLoad(){
+  const pid = active, b = board, today = todayYmd();
+  const signedIn = !!(window.__cloud.owner && window.__cloud.loadLesson);
+  if(b.autoLesson!==true || b.lessonDate===today) return;
+  if(autoTried.has(pid+today)) return;
+  autoTried.add(pid+today);
+  try{
+    const cid = signedIn ? await courseFor(pid, b) : '';
+    const q = b.unitQueue;
+    if(q && q.days && q.next < q.days.length){
+      // Queued unit day. Only on days the course meets (weekdays when signed out).
+      let school = [1,2,3,4,5].includes(new Date().getDay());
+      let periodTime = '';
+      if(cid){ const C = await window.__cloud.loadLesson(today, cid); school = !!(C && C.schoolDay); periodTime = C && C.periodTime || ''; }
+      if(!school || active!==pid || board!==b) return;
+      const L = Object.assign({}, q.days[q.next], { date: today, periodTime });
+      q.next++;
+      applyLesson(L, b.lessonReplace!==false);
+      return;
+    }
+    if(q){ delete b.unitQueue; b.autoPaused = true; save(); return; }  // unit finished: hold until you pick what's next
+    if(!signedIn || b.autoPaused || !cid) return;
+    const next = b.lessonDayNumber ? b.lessonDayNumber + 1 : undefined;
+    const L = await window.__cloud.loadLesson(today, cid, next);
+    if(!L || !L.schoolDay || L.notFound || active!==pid || board!==b) return;
+    applyLesson(L, b.lessonReplace!==false);
+    b.lessonDayNumber = +L.dayNumber || b.lessonDayNumber; save();
+  }catch(e){}
+}
+
+const dlg = document.getElementById('lessonDlg');
+const ld = id => document.getElementById(id);
+let ldFound = null, ldCourseRec = null, ldSeq = 0;
+function ldDayVal(){ const n = parseInt(ld('ldDay').value, 10); return n > 0 ? n : 0; }
+// Pasted text with a title is its own (off-sequence) lesson; without a title it
+// fills in or overrides parts of the Teaching HQ lesson.
+function ldPasted(){ return parsePlan(ld('ldPaste').value); }
+function ldMerged(){
+  const pasted = ldPasted();
+  const date = ld('ldDate').value || todayYmd();
+  const custom = !!(pasted.title && pasted.title.trim());
+  const base = custom || !ldFound || ldFound.notFound
+    ? { date, code: ldFound && ldFound.code || (ldCourseRec && ldCourseRec.code) || '', periodTime: ldFound && ldFound.periodTime || '', custom:true }
+    : Object.assign({}, ldFound);
+  Object.keys(pasted).forEach(k=>{ if(pasted[k] && pasted[k].trim()) base[k] = pasted[k].trim(); });
+  if(custom) base.custom = true;
+  return base;
+}
+function ldPaceText(){
+  const pace = ld('ldPace'); const day = ldDayVal();
+  const cal = ldFound && ldFound.calDay;
+  if(!cal || !day){ pace.textContent = ldFound && ldFound.schoolDay===false ? 'NO CLASS ON THIS DATE' : ''; pace.style.color='var(--dim)'; return; }
+  const d = day - cal;
+  pace.textContent = d===0 ? 'ON CALENDAR' : Math.abs(d)+(Math.abs(d)===1?' DAY ':' DAYS ')+(d<0?'BEHIND':'AHEAD')+' (CALENDAR: DAY '+cal+')';
+  pace.style.color = d===0 ? 'var(--green)' : 'var(--amber)';
+}
+function ldRender(status){
+  const box = ld('ldPreview'); box.innerHTML='';
+  if(status){ const s=el('div',null,status); s.style.color='var(--dim)'; box.appendChild(s); }
+  const L = ldMerged();
+  const has = k => !!String(L[k]||'').trim();
+  if(L.title){ const t=el('b',null,(L.custom?'Your plan — ':(L.dayNumber?'Day '+L.dayNumber+' — ':''))+L.title); box.appendChild(t); }
+  const row = el('div'); row.style.marginTop='4px';
+  [['bellWork','Bell work'],['objectives','Objectives'],['agenda','Agenda'],['exit','Exit ticket'],['homework','Homework']].forEach(([k,lab])=>{
+    row.appendChild(el('span', has(k)?'ok':'no', (has(k)?'✓ ':'– ')+lab+'   '));
+  });
+  if(L.upcoming && L.upcoming.length) row.appendChild(el('span','ok','✓ '+L.upcoming.length+' coming up'));
+  box.appendChild(row);
+  if(L.custom && has('title')){
+    const n = el('div',null,'Goes up as its own lesson. Auto-load pauses for this period until you load a Teaching HQ lesson again; this period stays at Day '+(ldDayVal()||'?')+' in the sequence.');
+    n.style.cssText='margin-top:6px;color:var(--dim);font-size:12px'; box.appendChild(n);
+  }
+  const ok = has('title') || has('bellWork') || has('agenda') || has('exit');
+  ld('ldApply').disabled = !ok; ld('ldApply').style.opacity = ok ? 1 : .4;
+  ldPaceText();
+}
+async function ldLookup(dayNumber){
+  const seq = ++ldSeq; ldFound = null;
+  if(!window.__cloud.owner || !window.__cloud.loadLesson){ ldRender('Sign in to the app on this computer to pull lessons from Teaching HQ — or paste a plan below.'); return; }
+  const cid = ld('ldCourse').value, date = ld('ldDate').value;
+  if(!cid || !date){ ldRender('Pick a course and date.'); return; }
+  ldRender('Looking up…');
+  try{
+    const L = await window.__cloud.loadLesson(date, cid, dayNumber || undefined);
+    if(seq!==ldSeq) return;
+    ldFound = L;
+    if(L && !L.notFound && L.dayNumber) ld('ldDay').value = L.dayNumber;
+    ldRender(!L || L.notFound
+      ? (dayNumber ? 'No Day '+dayNumber+' in Teaching HQ for this course. Paste a plan below, or step to another day.'
+                   : 'No lesson on the calendar for this course that date. Step to a day, or paste a plan below.')
+      : '');
+  }catch(e){ if(seq===ldSeq) ldRender('Could not reach Teaching HQ ('+(e.code||e.message)+').'); }
+}
+// Where this period should be: the lesson after the last one it taught (or the
+// same one when reloading the same day). Falls back to the calendar.
+function ldStartDay(cid, date){
+  if(board.lessonCourse===cid && board.lessonDayNumber)
+    return board.lessonDate===date ? board.lessonDayNumber : board.lessonDayNumber + 1;
+  return 0;
+}
+async function ldCourseChanged(){
+  ldCourseRec = null;
+  try{ ldCourseRec = (await window.__cloud.listCourses()).find(c=>c.id===ld('ldCourse').value) || null; }catch(e){}
+  const start = ldStartDay(ld('ldCourse').value, ld('ldDate').value);
+  ld('ldDay').value = start || '';
+  await ldLookup(start);
+}
+async function openLessonDlg(){
+  dlg.hidden = false;
+  ld('ldDate').value = todayYmd();
+  ld('ldDay').value = '';
+  ld('ldPaste').value = '';
+  ld('ldReplace').checked = board.lessonReplace !== false;
+  ld('ldAuto').checked = board.autoLesson !== false;  // default on for first use
+  const sel = ld('ldCourse'); sel.innerHTML='';
+  if(window.__cloud.owner && window.__cloud.listCourses){
+    try{
+      const list = await window.__cloud.listCourses();
+      list.forEach(c=>{ const o=el('option',null,(c.code?c.code+' — ':'')+(c.course||'Course')); o.value=c.id; sel.appendChild(o); });
+      sel.value = await courseFor(active, board);
+    }catch(e){}
+  }
+  ld('ldMin').value = board.classMin || '';
+  ldUnit = null; ldUnitRows = null;
+  ldRenderUnit('');
+  await ldCourseChanged();
+  if(!ld('ldMin').value){
+    const m = (ldFound && ldFound.minutes) || (ldCourseRec && ldCourseRec.minutesRegular) || 55;
+    ld('ldMin').value = m;
+  }
+}
+function ldStep(d){ const n = Math.max(1, (ldDayVal() || (ldFound && ldFound.calDay) || 1) + d); ld('ldDay').value = n; ldLookup(n); }
+ld('loadLesson').onclick = openLessonDlg;
+ld('ldCourse').onchange = ldCourseChanged;
+ld('ldDate').onchange = ()=>ldLookup(ldDayVal());
+ld('ldDay').onchange = ()=>ldLookup(ldDayVal());
+ld('ldPrev').onclick = ()=>ldStep(-1);
+ld('ldNext').onclick = ()=>ldStep(1);
+ld('ldCal').onclick = ()=>{ ld('ldDay').value=''; ldLookup(0); };
+ld('ldPaste').oninput = ()=>ldRender('');
+ld('ldCancel').onclick = ()=>{ dlg.hidden = true; };
+dlg.addEventListener('keydown', e=>{ if(e.key==='Escape') dlg.hidden = true; });
+dlg.addEventListener('click', e=>{ if(e.target===dlg) dlg.hidden = true; });
+function ldSaveSettings(){
+  board.lessonReplace = ld('ldReplace').checked;
+  board.autoLesson = ld('ldAuto').checked;
+  if(ld('ldCourse').value) board.lessonCourse = ld('ldCourse').value;
+}
+ld('ldApply').onclick = ()=>{
+  const L = ldMerged();
+  ldSaveSettings();
+  if(L.custom){
+    // Off-sequence lesson: the period's place in the sequence stays put.
+    const day = ldDayVal(); if(day) board.lessonDayNumber = day - 1;
+    board.autoPaused = true;
+  } else {
+    board.lessonDayNumber = +L.dayNumber || board.lessonDayNumber;
+    board.autoPaused = false;
+    delete board.unitQueue;   // back on the Teaching HQ sequence
+  }
+  applyLesson(L, board.lessonReplace);
+  dlg.hidden = true;
+};
+ld('ldTest').onclick = ()=>{
+  const name = prompt('What test is it?', 'Unit test'); if(name===null) return;
+  ldSaveSettings();
+  // The day in the stepper is the lesson this period resumes with next class.
+  const day = ldDayVal(); if(day) board.lessonDayNumber = day - 1;
+  board.autoPaused = false;
+  const f = ldFound || {};
+  const mins = (f.minutes || (ldCourseRec && ldCourseRec.minutesRegular) || 0);
+  applyLesson({
+    date: ld('ldDate').value || todayYmd(),
+    title: name.trim() || 'Unit test',
+    code: f.code || (ldCourseRec && ldCourseRec.code) || '',
+    types: ['Test'],
+    agenda: 'Phones away, desks cleared\nTest — work silently\nFinished: turn it in, then read silently',
+    upcoming: f.upcoming || [],
+    bellHead: 'TEST TODAY', bellWork: 'Phones away and in your bag.\nClear your desk — pencil only.',
+    exitHead: 'WHEN YOU FINISH', exit: 'Turn your test in face down.\nRead silently. No talking until everyone is done.',
+    periodTime: f.periodTime || '', timerMin: mins > 10 ? mins - 5 : 45
+  }, ld('ldReplace').checked);
+  dlg.hidden = true;
+};
+
+/* ============================ unit plans ============================ */
+// LAPSEN / NECI unit lesson plans (.docx): a header table (course, unit,
+// learning targets, essential questions, vocabulary) plus timed "Segment N"
+// rows — plan | reminders | resources. Segments are packed into class-length
+// days and queued on the period's board (board.unitQueue = {title, days, next}).
+function loadScript(src){
+  return new Promise((res, rej)=>{ const t=document.createElement('script'); t.src=src; t.onload=res; t.onerror=()=>rej(new Error('Could not load '+src)); document.head.appendChild(t); });
+}
+const WNS = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
+const tidy = x => String(x||'').replace(/[‐‑‒]/g,'-').replace(/[ \s]+/g,' ').trim();
+// Document → rows of cells of paragraph strings (body paragraphs become 1-cell rows).
+async function docxRows(file){
+  if(!window.JSZip) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js');
+  const zip = await JSZip.loadAsync(await file.arrayBuffer());
+  const f = zip.file('word/document.xml'); if(!f) throw new Error('Not a Word document');
+  const dom = new DOMParser().parseFromString(await f.async('string'), 'application/xml');
+  const kids = (n, name) => [...n.children].filter(c=>c.localName===name);
+  const paras = n => [...n.getElementsByTagNameNS(WNS,'p')].map(p=>tidy([...p.getElementsByTagNameNS(WNS,'t')].map(t=>t.textContent).join(''))).filter(Boolean);
+  const body = dom.getElementsByTagNameNS(WNS,'body')[0]; const rows = [];
+  [...body.children].forEach(n=>{
+    if(n.localName==='tbl') kids(n,'tr').forEach(tr=> rows.push(kids(tr,'tc').map(paras)));
+    else if(n.localName==='p'){ const t = paras(n); if(t.length) rows.push([t]); }
+  });
+  return rows;
+}
+function parseUnit(rows){
+  const U = {course:'', title:'', targets:[], questions:[], vocab:[], segments:[]};
+  rows.forEach(cells=>{
+    const all = cells.flat(), first = all[0] || '';
+    all.forEach(p=>{
+      let m;
+      if(!U.course && (m = p.match(/^Course:\s*(.+)/i))) U.course = m[1];
+      if(!U.title && (m = p.match(/^(Unit\s*\d+\s*:.+)/i))) U.title = tidy(m[1]);
+      if(/^I can\b/i.test(p)) U.targets.push(p);
+    });
+    if(/^Essential Questions/i.test(first)) all.slice(1).forEach(p=>{ const m = p.match(/^\d+[.)]\s*(.+)/); if(m) U.questions.push(m[1]); });
+    if(/Key Academic Vocabulary/i.test(first)) U.vocab = all.slice(1).join(',').split(/[,;]/).map(tidy).filter(Boolean);
+    const sm = first.match(/^Segment\s*(\d+)/i);
+    if(sm){
+      const seg = {n:+sm[1], min:0, opening:'', activity:'', assessment:'', closure:'', materials:[], groups:false, note:''};
+      let key = null;
+      (cells[0]||[]).slice(1).forEach(p=>{
+        const tm = p.match(/^Time\b\D*(\d+)/i);
+        if(tm){ seg.min = +tm[1]; return; }
+        if(/^Opening/i.test(p)){ key='opening'; return; }
+        if(/^Activity\b/i.test(p)){ key='activity'; return; }
+        if(/^Assessment\b/i.test(p)){ key='assessment'; return; }
+        if(/^Closure\b/i.test(p)){ key='closure'; return; }
+        if(key) seg[key] += (seg[key]?' ':'') + p;
+      });
+      seg.groups = /small groups|in groups|pairs|partners/i.test((cells[1]||[]).join(' ')) && /exercise|activity|project|scenario/i.test(seg.activity);
+      if(cells.length >= 3){
+        const res = cells[cells.length-1];
+        // Student-facing only: drop answer keys, instructor-only items, notes.
+        seg.materials = res.filter(p=>!/^\(|answer key|instructor only|^have students/i.test(p));
+        seg.note = res.filter(p=>/^have students/i.test(p)).join(' ');
+      }
+      U.segments.push(seg);
+    }
+  });
+  if(!U.segments.length) throw new Error('No "Segment" rows found — is this a LAPSEN/NECI unit plan?');
+  return U;
+}
+const isTestSeg = x => /\b(test|quiz|exam)\b/i.test(x.activity);
+// Greedy pack into class days, leaving ~10 min for bell work + exit ticket.
+// A test always starts its own day.
+function splitUnit(U, classMin){
+  const cap = Math.max(15, (classMin||55) - 10);
+  const days = []; let cur = [], used = 0;
+  U.segments.forEach(x=>{
+    const m = x.min || 20;
+    if(cur.length && (used + m > cap || isTestSeg(x))){ days.push(cur); cur = []; used = 0; }
+    cur.push(x); used += m;
+  });
+  if(cur.length) days.push(cur);
+  const cap1 = x => x ? x.charAt(0).toUpperCase() + x.slice(1) : x;
+  return days.map((segs, i)=>{
+    const test = segs.some(isTestSeg);
+    const nextTest = days[i+1] && days[i+1].some(isTestSeg);
+    let bell;
+    if(test) bell = 'Quiet review: flashcards or Quizlet.\nThe test starts when the timer ends.';
+    else if(i < U.questions.length) bell = 'Essential question — write 2–3 sentences:\n' + U.questions[i];
+    else if(U.vocab.length){
+      const k = ((i - U.questions.length) * 3) % U.vocab.length;
+      const terms = U.vocab.concat(U.vocab).slice(k, k+3);
+      bell = 'From memory, define:\n' + terms.join('  •  ');
+    } else bell = '';
+    const exit = test
+      ? 'Turn your test in face down.\nRead silently until everyone is done.'
+      : (U.targets.length ? 'Rate yourself 1–4, then explain in one sentence:\n' + U.targets[i % U.targets.length] : '');
+    const types = test ? ['Test'] : [
+      ...(segs.some(x=>x.groups) ? ['Group Work'] : []),
+      ...(segs.some(x=>/powerpoint|presentation|video|lecture/i.test(x.activity)) ? ['Lecture / Media'] : [])
+    ];
+    const agenda = [ test ? 'Quiet review (5 min)' : 'Bell work (5 min)',
+      ...segs.map(x=>cap1(tidy(x.activity).replace(/\s*[:–—-]\s*$/,'')) + ' (' + (x.min||20) + ' min)'),
+      test ? 'Finished: read silently' : 'Exit ticket (5 min)' ];
+    const materials = [...new Set(segs.flatMap(x=>x.materials))];
+    const notes = segs.map(x=>x.note).filter(Boolean);
+    return {
+      title: U.title || 'Unit plan',
+      code: U.course || '',
+      dayLabel: 'UNIT DAY ' + (i+1) + ' OF ' + days.length,
+      types,
+      objectives: U.targets.join('\n'),
+      agenda: agenda.join('\n'),
+      vocab: test || i === 0 ? '' : U.vocab.join(', '),
+      materials: materials.join('\n'),
+      homework: nextTest ? 'Study the terms review sheet and Quizlet — vocabulary test next class.' : (notes.join('\n') || ''),
+      bellWork: bell, exit,
+      bellHead: test ? 'TEST TODAY' : '', exitHead: test ? 'WHEN YOU FINISH' : '',
+      summary: segs.map(x=>cap1(tidy(x.activity)).replace(/\s*[:–—-]\s*$/,'')).join(' · ')
+    };
+  });
+}
+let ldUnit = null;   // {title, segCount, minutes, days} parsed from a file this session
+let ldUnitRows = null;
+function ldUnitDays(){
+  if(!ldUnitRows) return;
+  const U = parseUnit(ldUnitRows);
+  const mins = +ld('ldMin').value || 55;
+  ldUnit = { title: U.title, segCount: U.segments.length, total: U.segments.reduce((a,x)=>a+(x.min||20),0), days: splitUnit(U, mins) };
+}
+function ldRenderUnit(msg){
+  const box = ld('ldUnitInfo'); box.innerHTML = '';
+  if(msg){ const m = el('div','days',msg); box.appendChild(m); }
+  const q = board.unitQueue;
+  const src = ldUnit || (q && q.days && q.next < q.days.length ? { title:q.title, days:q.days, queued:true } : null);
+  if(!src){
+    if(!msg) box.appendChild(el('div','days','Load a NECI / LAPSEN unit plan to queue its days for this period.'));
+    return;
+  }
+  const head = el('div','days');
+  const b = el('b', null, src.title); head.appendChild(b);
+  head.appendChild(document.createTextNode(src.queued
+    ? ' — in progress on this period, next up Unit Day '+(q.next+1)+' of '+q.days.length
+    : ' — '+src.segCount+' segments, '+src.total+' min → '+src.days.length+' class days'));
+  box.appendChild(head);
+  const list = el('div','days');
+  src.days.forEach((d,i)=>{ const r = el('div', null, 'Day '+(i+1)+': '+(d.summary||d.agenda.split('\n').slice(1,-1).join(' · '))); list.appendChild(r); });
+  box.appendChild(list);
+  const row = el('div','row'); row.style.alignItems='center'; row.style.gap='8px';
+  const lab = el('label', null, 'Put up '); const sel = el('select'); sel.id='ldUnitDay';
+  src.days.forEach((d,i)=>{ const o=el('option',null,'Unit Day '+(i+1)); o.value=i; sel.appendChild(o); });
+  sel.value = src.queued ? q.next : 0;
+  lab.appendChild(sel); lab.appendChild(document.createTextNode(' today'));
+  const go = el('button','chip hot', src.queued ? 'Put on board' : 'Queue unit & put on board');
+  go.onclick = ()=>ldApplyUnit(src, +sel.value);
+  row.append(lab, go);
+  if(src.queued){ const stop = el('button','chip','Stop unit'); stop.onclick = ()=>{ delete board.unitQueue; save(); ldRenderUnit('Unit removed from this period.'); }; row.appendChild(stop); }
+  box.appendChild(row);
+  if(!src.queued){
+    const others = periods.filter(p=>p.id!==active);
+    if(others.length){
+      const o = el('div','row'); o.style.alignItems='center'; o.style.gap='10px';
+      o.appendChild(el('span','meta','Also start next class for'));
+      others.forEach(p=>{ const l = el('label'); const c = el('input'); c.type='checkbox'; c.dataset.pid=p.id; c.className='ldAlso'; l.append(c, document.createTextNode(' '+p.tag+' '+p.name)); o.appendChild(l); });
+      box.appendChild(o);
+    }
+  }
+}
+async function ldApplyUnit(src, idx){
+  const today = todayYmd();
+  ldSaveSettings();
+  board.classMin = +ld('ldMin').value || board.classMin;
+  board.autoPaused = false;
+  const days = src.days;
+  board.unitQueue = { title: src.title, days, next: idx + 1 };
+  const f = ldFound && !ldFound.notFound ? ldFound : {};
+  applyLesson(Object.assign({}, days[idx], { date: today, periodTime: f.periodTime || (ldFound && ldFound.periodTime) || '' }), board.lessonReplace);
+  // Other periods start the unit at their next class (today's board untouched).
+  const also = [...document.querySelectorAll('.ldAlso:checked')].map(c=>c.dataset.pid);
+  for(const pid of also){
+    const b = (await store.get('board:'+pid)) || {widgets:[], roster:'', bell:''};
+    b.unitQueue = { title: src.title, days, next: 0 };
+    b.autoLesson = true; b.autoPaused = false;
+    if(b.lessonDate !== today) b.lessonDate = today;
+    await store.set('board:'+pid, b);
+  }
+  ldUnit = null; ldUnitRows = null;
+  dlg.hidden = true;
+}
+ld('ldUnitFile').onchange = async e=>{
+  const file = e.target.files[0]; e.target.value = '';
+  if(!file) return;
+  ldRenderUnit('Reading '+file.name+'…');
+  try{ ldUnitRows = await docxRows(file); ldUnitDays(); ldRenderUnit(''); }
+  catch(err){ ldUnit = null; ldUnitRows = null; ldRenderUnit('Could not read that file: '+err.message); }
+};
+ld('ldMin').onchange = ()=>{ try{ ldUnitDays(); }catch(e){} ldRenderUnit(''); };
+
+/* ============================ add period ============================ */
+document.getElementById('addPeriod').onclick = ()=>{
+  const n = prompt('Class name for the new period (e.g. Law & PS)'); if(n===null || !n.trim()) return;
+  const t = prompt('Short tag (e.g. PER 6)', 'PER '+(periods.length+1)); if(t===null) return;
+  const num = (t.match(/\d+/)||[])[0];
+  let id = num ? 'p'+num : 'p'+(periods.length+1);
+  while(periods.some(p=>p.id===id)) id += 'x';
+  periods.push({id, name:n.trim(), tag:(t.trim()||'PER').toUpperCase()});
+  save(); switchTo(id);
+};
 
 /* ============================ loops ============================ */
 setInterval(()=>{
@@ -869,7 +1566,7 @@ window.addEventListener('resize', ()=> live.forEach(i=> i.redraw && i.redraw()))
   const savedActive = await store.get('active'); if(savedActive && periods.some(p=>p.id===savedActive)) active = savedActive;
   muted = !!(await store.get('muted')); muteBtn.textContent = muted?'SOUND OFF':'SOUND ON'; muteBtn.classList.toggle('on', muted);
   const b = await store.get('board:'+active);
-  if(b){ board = {widgets:b.widgets||[], roster:b.roster||'', bell:b.bell||''}; }
+  if(b){ board = Object.assign({}, b, {widgets:b.widgets||[], roster:b.roster||'', bell:b.bell||''}); }
   else {
     board = {widgets:[], roster:'', bell:''};
     ['bulletin','timer','picker','mode'].forEach(addWidget);
@@ -880,6 +1577,9 @@ window.addEventListener('resize', ()=> live.forEach(i=> i.redraw && i.redraw()))
     mo.x=392; mo.y=288; mo.w=280; mo.h=200;
   }
   renderTabs(); renderBoard();
+  maybeAutoLoad();
+  // Roll over to the next day's lesson if the board is left open overnight.
+  setInterval(maybeAutoLoad, 10*60*1000);
 })();
 </script>
 </body>
