@@ -19,6 +19,7 @@ const {
   hallPassMarkExempt,
   hallPassRollover,
 } = require("./hallPass");
+const { boardAssistant, ANTHROPIC_API_KEY } = require("./boardAssistant");
 
 // invoker:"public" lets the browser reach the function; auth is still enforced
 // in-code (request.auth + token.staff). Without this, Workspace org policy can
@@ -49,3 +50,10 @@ exports.hallPassReturn     = onCall({ invoker: "public" }, hallPassReturn);
 exports.hallPassOverride   = onCall({ invoker: "public" }, hallPassOverride);
 exports.hallPassMarkExempt = onCall({ invoker: "public" }, hallPassMarkExempt);
 exports.hallPassRollover   = onCall({ invoker: "public" }, hallPassRollover);
+
+// Status Board assistant: Claude reads lesson plans and handles board requests.
+// Owner-only (checked in-code); the API key lives in Secret Manager.
+exports.boardAssistant = onCall(
+  { invoker: "public", secrets: [ANTHROPIC_API_KEY], timeoutSeconds: 300, memory: "512MiB" },
+  boardAssistant
+);

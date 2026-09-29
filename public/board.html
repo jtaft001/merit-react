@@ -142,6 +142,8 @@
   .addbtn.lessonbtn:hover{background:var(--amber);color:var(--ink)}
   #lessonDlg{position:fixed;inset:0;background:rgba(3,6,9,.72);display:flex;align-items:center;justify-content:center;z-index:500;padding:16px}
   #lessonDlg[hidden]{display:none}
+  #askDlg{position:fixed;inset:0;background:rgba(3,6,9,.72);display:flex;align-items:center;justify-content:center;z-index:500;padding:16px}
+  #askDlg[hidden]{display:none}
   .dlgbox{width:min(620px,100%);max-height:100%;overflow:auto;background:var(--panel);border:1px solid var(--line-hot);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
   .dlgbox h2{margin:0;font-family:var(--disp);font-size:18px;letter-spacing:.18em;text-transform:uppercase}
   .dlgbox label{font-size:13px;color:var(--dim);display:flex;align-items:center;gap:6px}
@@ -153,6 +155,17 @@
   .unitbox{border:1px solid var(--line);border-radius:3px;padding:8px 10px;display:flex;flex-direction:column;gap:8px;background:#0C141B}
   .unitbox .days{font-size:12px;color:var(--dim);line-height:1.5}
   .unitbox .days b{color:var(--pale);font-weight:600}
+  .claudebtn{border-color:#C98BFF !important;color:#D9B3FF !important}
+  .claudebtn:hover{background:#C98BFF !important;color:var(--ink) !important}
+  #askLog{display:flex;flex-direction:column;gap:8px;max-height:34vh;overflow:auto}
+  #askLog .q{align-self:flex-end;background:#16232E;border:1px solid var(--line);border-radius:3px;padding:6px 9px;font-size:13px;max-width:85%}
+  #askLog .a{background:#0A1117;border:1px solid var(--line);border-left:3px solid #C98BFF;border-radius:3px;padding:6px 9px;font-size:13px;line-height:1.4;white-space:pre-wrap}
+  #askLog .did{font-size:12px;color:var(--green);margin-top:4px}
+  #askMem{display:flex;flex-direction:column;gap:4px;max-height:22vh;overflow:auto}
+  #askMem .n{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--pale);background:#0A1117;border:1px solid var(--line);border-radius:3px;padding:4px 8px}
+  #askMem .n span{flex:1}
+  #askMem .n button{background:none;border:0;color:#4E677A;font-size:14px}
+  #askMem .n button:hover{color:var(--red)}
   #ldPreview .ok{color:var(--green)} #ldPreview .no{color:#4E677A}
 
   @keyframes toneflash{0%,100%{background:var(--panel)}50%{background:#3A2A05}}
@@ -189,6 +202,7 @@
   <button class="addbtn" data-add="monitor">Patient monitor</button>
   <button class="addbtn" data-add="triage">Triage tally</button>
   <button class="addbtn lessonbtn" id="loadLesson" title="Pull today's lesson from Teaching HQ onto this board">Today's lesson</button>
+  <button class="addbtn claudebtn" id="askClaude" title="Ask Claude to change the board, pacing, or what it remembers">Ask Claude</button>
   <span id="linkwrap" style="display:none;align-items:center;gap:6px;margin-left:10px">
     <span class="lbl">OPEN</span>
     <span id="links" style="display:flex;gap:6px"></span>
@@ -226,7 +240,8 @@
     <div class="unitbox">
       <div class="row" style="align-items:center;gap:8px">
         <span class="meta">Unit plan</span>
-        <label class="chip" style="cursor:pointer" title="A LAPSEN / NECI unit lesson plan (.docx). Its segments are split into class days and queued for this period.">Load .docx…<input type="file" id="ldUnitFile" accept=".docx" hidden></label>
+        <label class="chip" style="cursor:pointer" title="A lesson or unit plan (.docx or .pdf). Split into class days and queued for this period.">Load file…<input type="file" id="ldUnitFile" accept=".docx,.pdf" hidden></label>
+        <button class="chip claudebtn" id="ldClaude" title="Have Claude read the loaded file (or the pasted plan) and split it into class days">✦ Read with Claude</button>
         <label>Class minutes <input type="number" id="ldMin" min="20" max="120" style="width:58px;background:#0A1117;border:1px solid var(--line);border-radius:3px;padding:4px 6px;color:var(--pale);font-size:13px"></label>
       </div>
       <div id="ldUnitInfo"></div>
@@ -241,6 +256,26 @@
       <button class="bigbtn" id="ldCancel">Cancel</button>
       <button class="bigbtn go" id="ldApply">Put on board</button>
     </div>
+  </div>
+</div>
+
+<div id="askDlg" hidden role="dialog" aria-modal="true" aria-labelledby="askTitle">
+  <div class="dlgbox">
+    <h2 id="askTitle">Ask Claude</h2>
+    <div id="askLog"><div class="a">Tell me what changed or what you need — e.g. "P2 took the NECI test today, start them on Unit 7 tomorrow", "we only got through the word search, repeat day 1 tomorrow", or "make today's exit ticket a scenario". I remember what you tell me about your classes.</div></div>
+    <textarea id="askIn" class="list" style="min-height:64px" placeholder="Type a request… (Enter to send, Shift+Enter for a new line)"></textarea>
+    <div class="row">
+      <button class="bigbtn" id="askClose">Close</button>
+      <button class="bigbtn go" id="askSend">Send</button>
+    </div>
+    <details id="askMemWrap">
+      <summary>What Claude remembers</summary>
+      <div id="askMem" style="margin-top:6px"></div>
+      <div class="row" style="margin-top:6px;gap:6px">
+        <input id="askMemIn" placeholder="Add something for Claude to remember" style="flex:1;background:#0A1117;border:1px solid var(--line);border-radius:3px;padding:6px 8px;color:var(--pale);font-size:13px">
+        <button class="chip" id="askMemAdd">Add</button>
+      </div>
+    </details>
   </div>
 </div>
 
@@ -264,6 +299,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
   import { getFirestore, doc, getDoc, setDoc, serverTimestamp, collection, query, where, getDocs, Timestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+  import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-functions.js";
   const OWNER = "jtaft@pusdk12.org";
   try {
     const app = initializeApp({
@@ -280,6 +316,13 @@
     c.getDoc = getDoc;
     c.setDoc = setDoc;
     c.serverTs = serverTimestamp;
+
+    // ---- Claude assistant (Cloud Function) + its memory doc ----
+    const assistantFn = httpsCallable(getFunctions(app), "boardAssistant", { timeout: 300000 });
+    c.assistant = async (payload) => (await assistantFn(payload)).data;
+    const memRef = doc(db, "statusBoard", "assistantMemory");
+    c.memGet = async () => { const s = await getDoc(memRef); return s.exists() ? s.data() : {}; };
+    c.memSet = (patch) => setDoc(memRef, patch, { merge: true });
 
     // ---- Teaching HQ lesson lookup (owner-only, same rules as the app) ----
     const TEACHING = "teaching";
@@ -1147,6 +1190,19 @@ function applyLesson(L, replace){
   if(end && !/minimum|final/i.test(L.scheduleType||'')) board.bell = end;
   board.lessonDate = todayYmd();
   save(); renderBoard();
+  logDay(active, L);
+}
+// What each period actually did, for Claude's memory (last 120 entries).
+async function logDay(pid, L){
+  const c = window.__cloud;
+  if(!(c.owner && c.memGet)) return;
+  try{
+    const p = periods.find(x=>x.id===pid) || {tag:pid};
+    const m = await c.memGet(); const today = todayYmd();
+    const log = (Array.isArray(m.log) ? m.log : []).filter(x=>!(x.date===today && x.pid===pid));
+    log.push({ date: today, pid, period: p.tag+' '+(p.name||''), title: L.title||'', dayLabel: L.dayLabel || (L.dayNumber ? 'Day '+L.dayNumber : '') });
+    await c.memSet({ log: log.slice(-120) });
+  }catch(e){}
 }
 const autoTried = new Set();
 // Once per school day, put this period's NEXT lesson in its own sequence on the
@@ -1275,7 +1331,7 @@ async function openLessonDlg(){
     }catch(e){}
   }
   ld('ldMin').value = board.classMin || '';
-  ldUnit = null; ldUnitRows = null;
+  ldUnit = null; ldUnitRows = null; ldFile = null;
   ldRenderUnit('');
   await ldCourseChanged();
   if(!ld('ldMin').value){
@@ -1322,20 +1378,24 @@ ld('ldTest').onclick = ()=>{
   const day = ldDayVal(); if(day) board.lessonDayNumber = day - 1;
   board.autoPaused = false;
   const f = ldFound || {};
-  const mins = (f.minutes || (ldCourseRec && ldCourseRec.minutesRegular) || 0);
-  applyLesson({
-    date: ld('ldDate').value || todayYmd(),
-    title: name.trim() || 'Unit test',
-    code: f.code || (ldCourseRec && ldCourseRec.code) || '',
-    types: ['Test'],
-    agenda: 'Phones away, desks cleared\nTest — work silently\nFinished: turn it in, then read silently',
-    upcoming: f.upcoming || [],
-    bellHead: 'TEST TODAY', bellWork: 'Phones away and in your bag.\nClear your desk — pencil only.',
-    exitHead: 'WHEN YOU FINISH', exit: 'Turn your test in face down.\nRead silently. No talking until everyone is done.',
-    periodTime: f.periodTime || '', timerMin: mins > 10 ? mins - 5 : 45
-  }, ld('ldReplace').checked);
+  const mins = (f.minutes || (ldCourseRec && ldCourseRec.minutesRegular) || board.classMin || 0);
+  applyLesson(testLesson(name, { code: f.code || (ldCourseRec && ldCourseRec.code) || '', upcoming: f.upcoming, periodTime: f.periodTime, minutes: mins }), ld('ldReplace').checked);
   dlg.hidden = true;
 };
+function testLesson(name, o){
+  o = o || {};
+  return {
+    date: todayYmd(),
+    title: String(name||'').trim() || 'Unit test',
+    code: o.code || '',
+    types: ['Test'],
+    agenda: 'Phones away, desks cleared\nTest — work silently\nFinished: turn it in, then read silently',
+    upcoming: o.upcoming || [],
+    bellHead: 'TEST TODAY', bellWork: 'Phones away and in your bag.\nClear your desk — pencil only.',
+    exitHead: 'WHEN YOU FINISH', exit: 'Turn your test in face down.\nRead silently. No talking until everyone is done.',
+    periodTime: o.periodTime || '', timerMin: o.minutes > 10 ? o.minutes - 5 : 45
+  };
+}
 
 /* ============================ unit plans ============================ */
 // LAPSEN / NECI unit lesson plans (.docx): a header table (course, unit,
@@ -1473,8 +1533,10 @@ function ldRenderUnit(msg){
   const b = el('b', null, src.title); head.appendChild(b);
   head.appendChild(document.createTextNode(src.queued
     ? ' — in progress on this period, next up Unit Day '+(q.next+1)+' of '+q.days.length
+    : src.claude ? ' — read by Claude → '+src.days.length+' class day'+(src.days.length===1?'':'s')
     : ' — '+src.segCount+' segments, '+src.total+' min → '+src.days.length+' class days'));
   box.appendChild(head);
+  if(src.notes){ const nn = el('div','days','✦ '+src.notes); nn.style.color='#D9B3FF'; box.appendChild(nn); }
   const list = el('div','days');
   src.days.forEach((d,i)=>{ const r = el('div', null, 'Day '+(i+1)+': '+(d.summary||d.agenda.split('\n').slice(1,-1).join(' · '))); list.appendChild(r); });
   box.appendChild(list);
@@ -1516,17 +1578,200 @@ async function ldApplyUnit(src, idx){
     if(b.lessonDate !== today) b.lessonDate = today;
     await store.set('board:'+pid, b);
   }
-  ldUnit = null; ldUnitRows = null;
+  ldUnit = null; ldUnitRows = null; ldFile = null;
   dlg.hidden = true;
 }
+let ldFile = null;
 ld('ldUnitFile').onchange = async e=>{
   const file = e.target.files[0]; e.target.value = '';
   if(!file) return;
+  ldFile = file; ldUnit = null; ldUnitRows = null;
+  const claudeOk = !!(window.__cloud.owner && window.__cloud.assistant);
+  if(/\.pdf$/i.test(file.name)){
+    ldRenderUnit(claudeOk ? file.name+' loaded — click ✦ Read with Claude to split it into class days.'
+                          : 'PDFs need Claude. Sign in to the app on this computer, then refresh.');
+    return;
+  }
   ldRenderUnit('Reading '+file.name+'…');
-  try{ ldUnitRows = await docxRows(file); ldUnitDays(); ldRenderUnit(''); }
-  catch(err){ ldUnit = null; ldUnitRows = null; ldRenderUnit('Could not read that file: '+err.message); }
+  try{ ldUnitRows = await docxRows(file); }
+  catch(err){ ldRenderUnit('Could not open that file: '+err.message); return; }
+  try{ ldUnitDays(); ldRenderUnit(claudeOk ? 'Split with the built-in NECI reader. ✦ Read with Claude for a smarter split and written bell work.' : ''); }
+  catch(err){
+    ldUnit = null;
+    ldRenderUnit(claudeOk ? 'This isn\'t the NECI template — click ✦ Read with Claude to split it.' : 'Could not split that file: '+err.message);
+  }
 };
-ld('ldMin').onchange = ()=>{ try{ ldUnitDays(); }catch(e){} ldRenderUnit(''); };
+// Plan text for Claude from a .docx: one line per paragraph/table row, cells split by " | ".
+const rowsToText = rows => rows.map(cells=>cells.map(c=>c.join(' / ')).filter(Boolean).join(' | ')).filter(Boolean).join('\n');
+function fileB64(file){
+  return new Promise((res, rej)=>{ const r = new FileReader(); r.onload = ()=>res(String(r.result).split(',')[1]||''); r.onerror = ()=>rej(r.error); r.readAsDataURL(file); });
+}
+function claudeDaysToLessons(plan){
+  const n = plan.days.length;
+  return plan.days.map((d,i)=>{
+    const test = (d.lessonTypes||[]).some(t=>/test|quiz/i.test(t));
+    return {
+      title: d.title || plan.title, unit: n>1 ? plan.title : '', code: plan.course || '',
+      dayLabel: n>1 ? 'UNIT DAY '+(i+1)+' OF '+n : '',
+      types: d.lessonTypes || [],
+      objectives: (d.objectives||[]).join('\n'),
+      agenda: (d.agenda||[]).map(a=> a.minutes ? a.activity+' ('+a.minutes+' min)' : a.activity).join('\n'),
+      vocab: (d.vocab||[]).join(', '), materials: (d.materials||[]).join('\n'), homework: d.homework || '',
+      bellWork: d.bellWork || '', exit: d.exitTicket || '',
+      bellHead: test ? 'TEST TODAY' : '', exitHead: test ? 'WHEN YOU FINISH' : '',
+      summary: d.summary || d.title
+    };
+  });
+}
+ld('ldClaude').onclick = async ()=>{
+  if(!(window.__cloud.owner && window.__cloud.assistant)){ ldRenderUnit('Sign in to the app on this computer to use Claude, then refresh.'); return; }
+  const paste = ld('ldPaste').value.trim();
+  if(!ldFile && !paste){ ldRenderUnit('Load a file or paste a plan first.'); return; }
+  const btn = ld('ldClaude'); btn.disabled = true;
+  ldRenderUnit('✦ Claude is reading '+(ldFile ? ldFile.name : 'your plan')+'… (this can take a minute)');
+  try{
+    const payload = { action:'parsePlan', classMinutes: +ld('ldMin').value || 55,
+      period: (periods.find(p=>p.id===active)||{}).tag || active,
+      course: ldCourseRec ? (ldCourseRec.code || ldCourseRec.course || '') : '' };
+    if(ldFile && /\.pdf$/i.test(ldFile.name)){ payload.pdfBase64 = await fileB64(ldFile); payload.fileName = ldFile.name; }
+    else if(ldFile){ payload.text = rowsToText(ldUnitRows || await docxRows(ldFile)); payload.fileName = ldFile.name; }
+    else payload.text = paste;
+    const plan = await window.__cloud.assistant(payload);
+    const days = claudeDaysToLessons(plan);
+    if(!days.length) throw new Error('Claude found no class days in that plan.');
+    ldUnit = { title: plan.title, days, claude:true, notes: plan.notes || '' };
+    ldRenderUnit('');
+  }catch(err){ ldRenderUnit('Claude couldn\'t read it: '+(err.message||err)); }
+  finally{ btn.disabled = false; }
+};
+ld('ldMin').onchange = ()=>{
+  if(ldUnit && ldUnit.claude){ ldRenderUnit('Class length changed — click ✦ Read with Claude again to re-split.'); return; }
+  try{ ldUnitDays(); }catch(e){} ldRenderUnit('');
+};
+
+/* ============================ ask claude ============================ */
+const askDlg = document.getElementById('askDlg');
+const askLog = ld('askLog');
+function askMsg(cls, text){ const d = el('div', cls, text); askLog.appendChild(d); askLog.scrollTop = askLog.scrollHeight; return d; }
+async function renderMemory(notes){
+  const box = ld('askMem'); box.innerHTML = '';
+  if(!notes){ try{ notes = (await window.__cloud.memGet()).notes || []; }catch(e){ notes = []; } }
+  if(!notes.length){ box.appendChild(el('div','meta','Nothing yet — tell Claude about your classes, or add a note below.')); return; }
+  notes.forEach(n=>{
+    const row = el('div','n'); row.appendChild(el('span', null, n.text));
+    const x = el('button', null, '✕'); x.title = 'Forget this'; x.setAttribute('aria-label','Forget: '+n.text);
+    x.onclick = async ()=>{ const m = await window.__cloud.memGet(); const kept = (m.notes||[]).filter(k=>k.id!==n.id); await window.__cloud.memSet({notes:kept}); renderMemory(kept); };
+    row.appendChild(x); box.appendChild(row);
+  });
+}
+ld('askMemAdd').onclick = async ()=>{
+  const t = ld('askMemIn').value.trim(); if(!t) return;
+  const m = await window.__cloud.memGet(); const notes = (m.notes||[]).concat({ id: uid(), text: t, at: new Date().toISOString() });
+  await window.__cloud.memSet({notes}); ld('askMemIn').value=''; renderMemory(notes);
+};
+ld('askClaude').onclick = ()=>{
+  askDlg.hidden = false;
+  if(!(window.__cloud.owner && window.__cloud.assistant)){
+    askMsg('a','Sign in to the app on this computer to use Claude, then refresh this page.'); return;
+  }
+  renderMemory(); ld('askIn').focus();
+};
+ld('askClose').onclick = ()=>{ askDlg.hidden = true; };
+askDlg.addEventListener('keydown', e=>{ if(e.key==='Escape') askDlg.hidden = true; });
+ld('askIn').addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); ld('askSend').click(); } });
+
+const bulletinFor = (b, field) => (b.widgets||[]).find(w=>w.type==='bulletin' && w.src==='lesson' &&
+  (field==='bellWork' ? /BELL|TEST TODAY|WARM/i.test(w.data.head) : /EXIT|WHEN YOU FINISH/i.test(w.data.head)));
+// A compact picture of every period for Claude.
+async function boardSnapshot(){
+  const today = todayYmd(); const out = [];
+  for(const p of periods){
+    const b = p.id===active ? board : ((await store.get('board:'+p.id)) || {});
+    const q = b.unitQueue;
+    const lesson = (b.widgets||[]).find(w=>w.type==='lesson');
+    const bell = bulletinFor(b,'bellWork'), exit = bulletinFor(b,'exit');
+    out.push({
+      id: p.id, tag: p.tag, name: p.name,
+      sequenceDay: b.lessonDayNumber || null,
+      autoLoadsDaily: b.autoLesson===true && !b.autoPaused,
+      unit: q && q.days ? { title: q.title, nextDay: q.next+1, totalDays: q.days.length, days: q.days.map((d,i)=>(i+1)+': '+(d.summary||d.title)) } : null,
+      onBoardToday: b.lessonDate===today && lesson ? {
+        title: lesson.data.title, dayLabel: lesson.data.dayLabel || (lesson.data.dayNumber ? 'Day '+lesson.data.dayNumber : ''),
+        agenda: lesson.data.agenda, bellWork: bell ? bell.data.text : '', exit: exit ? exit.data.text : ''
+      } : null
+    });
+  }
+  return out;
+}
+// Apply one action from Claude to a period's board. Returns a line for the log.
+async function applyAction(a){
+  const p = periods.find(x=>x.id===a.periodId);
+  if(!p) return '✗ No period '+a.periodId;
+  const isActive = a.periodId === active;
+  const b = isActive ? board : ((await store.get('board:'+a.periodId)) || {widgets:[], roster:'', bell:''});
+  const n = +a.number || 0; const tag = p.tag;
+  let msg = '', show = null;
+  const q = b.unitQueue;
+  switch(a.type){
+    case 'putUnitDayNow':
+      if(!q || !q.days || !q.days[n-1]) return '✗ '+tag+' has no unit day '+n;
+      q.next = n; b.autoLesson = true; b.autoPaused = false;
+      if(isActive) show = Object.assign({}, q.days[n-1], {date: todayYmd()});
+      else { q.next = n-1; b.lessonDate = ''; }
+      msg = tag+': Unit Day '+n+(isActive ? ' is on the board' : ' goes up when you open that period');
+      break;
+    case 'setNextUnitDay':
+      if(!q || !q.days || !q.days[n-1]) return '✗ '+tag+' has no unit day '+n;
+      q.next = n-1; b.autoLesson = true; b.autoPaused = false;
+      msg = tag+': next class starts Unit Day '+n; break;
+    case 'copyUnitTo': {
+      const srcId = a.text; const sb = srcId===active ? board : await store.get('board:'+srcId);
+      if(!sb || !sb.unitQueue) return '✗ '+srcId+' has no unit to copy';
+      b.unitQueue = { title: sb.unitQueue.title, days: sb.unitQueue.days, next: Math.max(0, n-1) };
+      b.autoLesson = true; b.autoPaused = false; b.lessonDate = todayYmd();
+      msg = tag+': '+sb.unitQueue.title+' starts at Unit Day '+(n||1)+' next class'; break;
+    }
+    case 'testDayNow':
+      if(!isActive) return '✗ Open '+tag+' to put a test board up';
+      show = testLesson(a.text, { minutes: b.classMin }); msg = tag+': test board up'; break;
+    case 'editToday': {
+      if(a.field==='bellWork' || a.field==='exit'){
+        const w = bulletinFor(b, a.field); if(!w) return '✗ '+tag+' has no '+(a.field==='exit'?'exit ticket':'bell work')+' box';
+        w.data.text = a.text;
+      } else {
+        const w = (b.widgets||[]).find(x=>x.type==='lesson'); if(!w) return '✗ '+tag+' has no lesson on the board';
+        w.data[a.field] = a.text;
+      }
+      msg = tag+': updated '+({bellWork:'bell work',exit:'exit ticket'}[a.field]||a.field); break;
+    }
+    case 'setNextLessonDay':
+      b.lessonDayNumber = Math.max(0, n-1); delete b.unitQueue; b.autoLesson = true; b.autoPaused = false;
+      msg = tag+': next class loads Teaching HQ Day '+n; break;
+    case 'pauseAuto': b.autoPaused = true; msg = tag+': auto-load paused'; break;
+    case 'resumeAuto': b.autoPaused = false; b.autoLesson = true; msg = tag+': auto-load on'; break;
+    default: return '✗ Unknown action '+a.type;
+  }
+  if(isActive){
+    if(show) applyLesson(show, board.lessonReplace!==false);
+    else { save(); renderBoard(); }
+  } else await store.set('board:'+a.periodId, b);
+  return '✓ '+msg;
+}
+ld('askSend').onclick = async ()=>{
+  const text = ld('askIn').value.trim();
+  if(!text || !(window.__cloud.owner && window.__cloud.assistant)) return;
+  ld('askIn').value = ''; askMsg('q', text);
+  const wait = askMsg('a', '✦ Thinking…');
+  const btn = ld('askSend'); btn.disabled = true;
+  try{
+    clearTimeout(saveT); await store.set('board:'+active, board);
+    const out = await window.__cloud.assistant({ action:'chat', message:text, today: todayYmd(), active, periods: await boardSnapshot() });
+    wait.textContent = out.reply || 'Done.';
+    for(const a of (out.actions||[])){ const line = await applyAction(a); const d = el('div','did',line); if(line[0]==='✗') d.style.color='var(--amber)'; wait.appendChild(d); }
+    if(out.memory) renderMemory(out.memory);
+  }catch(err){ wait.textContent = 'Claude couldn\'t do that: '+(err.message||err); }
+  finally{ btn.disabled = false; askLog.scrollTop = askLog.scrollHeight; }
+};
 
 /* ============================ add period ============================ */
 document.getElementById('addPeriod').onclick = ()=>{
