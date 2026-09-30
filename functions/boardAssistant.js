@@ -153,16 +153,18 @@ async function callClaude({ system, content, schema, effort }) {
       messages: [{ role: "user", content }],
     });
   } catch (err) {
+    // The API's own message (e.g. "Your credit balance is too low…"), not the raw JSON body.
+    const detail = (err && err.error && err.error.error && err.error.error.message) || (err && err.message) || "unknown error";
     if (err instanceof Anthropic.AuthenticationError) {
       throw new HttpsError("failed-precondition", "The Anthropic API key is missing or invalid.");
     } else if (err instanceof Anthropic.RateLimitError) {
       throw new HttpsError("resource-exhausted", "Claude is busy right now — try again in a minute.");
     } else if (err instanceof Anthropic.BadRequestError) {
-      throw new HttpsError("invalid-argument", "Claude couldn't take that request: " + err.message);
+      throw new HttpsError("invalid-argument", "Claude couldn't take that request: " + detail);
     } else if (err instanceof Anthropic.APIError) {
-      throw new HttpsError("unavailable", `Claude error ${err.status}: ${err.message}`);
+      throw new HttpsError("unavailable", `Claude error ${err.status}: ${detail}`);
     }
-    throw new HttpsError("unavailable", "Couldn't reach Claude: " + err.message);
+    throw new HttpsError("unavailable", "Couldn't reach Claude: " + detail);
   }
   if (response.stop_reason === "refusal") {
     throw new HttpsError("failed-precondition", "Claude declined this request.");
