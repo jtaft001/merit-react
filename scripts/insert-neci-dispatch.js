@@ -36,6 +36,8 @@ const PLAN_TYPE = "NECI / LAPSEN Unit";
 // Lessons that belong to their date, not to the sequence.
 export const PINNED = /semester \d+ (final exam|exam review)|no period \d+ class|portfolio showcase/i;
 const lessonName = (unit, title) => `NECI U${unit}: ${title}`;
+// v7 lesson titles carry their day number ("LPSCS D33: …"); keep it truthful.
+export const retitle = (lesson, day) => String(lesson || "").replace(/^LPSCS D\d+:\s*/, day ? `LPSCS D${day}: ` : "LPSCS (unscheduled): ");
 
 /**
  * Pure scheduler. `days` are the existing course lesson days
@@ -112,7 +114,8 @@ async function run() {
   if (lpscs.length !== 1) { console.error(`Expected one LPSCS course, found ${lpscs.length}. Aborting.`); process.exit(1); }
   const courseId = lpscs[0].id;
 
-  const dayDocs = all.filter((d) => d.data.type === "lessonDays" && ids(d.data.course).includes(courseId));
+  // Scheduled days only — lessons a previous run left unscheduled have no date.
+  const dayDocs = all.filter((d) => d.data.type === "lessonDays" && ids(d.data.course).includes(courseId) && d.data.date);
   const days = dayDocs.map((d) => ({ id: d.id, dayNumber: d.data.dayNumber, dateKey: dateKey(d.data.date), scheduleType: d.data.scheduleType || "Regular Day", lesson: d.data.lesson || "" }));
   const p = planInsert(days, units, AT);
   const byId = new Map(dayDocs.map((d) => [d.id, d]));
@@ -125,11 +128,11 @@ async function run() {
     const it = a.item;
     const label = it.kind === "new"
       ? `★ ${lessonName(it.unit, it.data.title)}  (U${it.unit} ${it.dayIndex + 1}/${it.unitDays})`
-      : `${it.doc.lesson}${a.pinned ? "  [pinned]" : it.doc.id !== a.slot.id ? `  (was Day ${it.doc.dayNumber})` : ""}`;
+      : `${it.doc.id !== a.slot.id ? retitle(it.doc.lesson, a.slot.dayNumber) : it.doc.lesson}${a.pinned ? "  [pinned]" : it.doc.id !== a.slot.id ? `  (was Day ${it.doc.dayNumber})` : ""}`;
     console.log(`  Day ${String(a.slot.dayNumber).padStart(3)} ${a.slot.dateKey}  ${label}`);
   }
   console.log(`\nPushed past the last school day — kept, but unscheduled (${p.overflow.length}):`);
-  p.overflow.forEach((d) => console.log(`  (was Day ${d.dayNumber}) ${d.lesson}`));
+  p.overflow.forEach((d) => console.log(`  (was Day ${d.dayNumber}) ${retitle(d.lesson, null)}`));
 
   // Linked deadlines/materials follow their lesson when they shared its date.
   const newDateOf = new Map(p.assign.filter((a) => a.item.kind === "old").map((a) => [a.item.doc.id, a.slot.dateKey]));
@@ -196,11 +199,11 @@ async function run() {
         createdAt: now, updatedAt: now,
       }, "set"]);
     } else if (it.doc.id !== slot.id) {
-      ops.push([byId.get(it.doc.id).ref, { date: ts(slot.dateKey), dayNumber: slot.dayNumber, scheduleType: slot.scheduleType, updatedAt: now }, "update"]);
+      ops.push([byId.get(it.doc.id).ref, { date: ts(slot.dateKey), dayNumber: slot.dayNumber, scheduleType: slot.scheduleType, lesson: retitle(it.doc.lesson, slot.dayNumber), updatedAt: now }, "update"]);
     }
   }
   p.overflow.forEach((d, i) => ops.push([byId.get(d.id).ref, {
-    date: FieldValue.delete(), dayNumber: days.length + 1 + i, scheduleType: FieldValue.delete(),
+    date: FieldValue.delete(), dayNumber: days.length + 1 + i, scheduleType: FieldValue.delete(), lesson: retitle(d.lesson, null),
     unitPhase: `Unscheduled — pushed past Day ${days.length} by the NECI dispatch insert (was Day ${d.dayNumber})`, updatedAt: now,
   }, "update"]));
   follow.filter((f) => f.to).forEach((f) => ops.push([f.d.ref, { [f.dateField]: ts(f.to), updatedAt: now }, "update"]));
