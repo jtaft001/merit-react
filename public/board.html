@@ -423,7 +423,7 @@
 const mem = {};
 // Only the per-period boards and the period list sync to the cloud; the active
 // tab and mute are per-device UI prefs (kept in localStorage).
-const CLOUD_KEY = k => k.indexOf('board:') === 0 || k === 'periods';
+const CLOUD_KEY = k => k.indexOf('board:') === 0 || k === 'periods' || k === 'scheduleVersion';
 const store = {
   async get(k){
     await window.__cloudReady;
@@ -452,21 +452,21 @@ const store = {
 
 /* ============================ state ============================ */
 const DEFAULT_PERIODS = [
-  {id:'p1', name:'Law & PS', tag:'PER 1'},
-  {id:'p2', name:'Law & PS', tag:'PER 2'},
+  {id:'p1', name:'Wildfire', tag:'PER 1'},
+  {id:'p2', name:'ILPS',     tag:'PER 2'},
   {id:'p3', name:'EMT',      tag:'PER 3'},
-  {id:'p4', name:'Patient Care', tag:'PER 4'},
-  {id:'p5', name:'Wildfire Sci', tag:'PER 5'}
+  {id:'p4', name:'IPC',      tag:'PER 4'},
+  {id:'p6', name:'ILPS',     tag:'PER 6'}
 ];
+// Bump when DEFAULT_PERIODS changes meaning; boot() migrates saved boards once.
+const SCHEDULE_VERSION = 2;
 let periods = DEFAULT_PERIODS.slice();
 let active = 'p1';
 
 // Per-period quick links (open in a new window). Keyed by period id so they
-// survive renaming. iCEV is the platform for Law & Public Safety (p1, p2) and
-// Patient Care (p4).
+// survive renaming. iCEV is the platform for ILPS (p2, p6) and IPC (p4).
 const ICEV_URL = "https://www.icevonline.com/";
 const LINKS = {
-  p1: [{ label: 'iCEV', url: ICEV_URL }],
   p2: [{ label: 'iCEV', url: ICEV_URL }],
   p4: [{ label: 'iCEV', url: ICEV_URL }],
   p6: [{ label: 'iCEV', url: ICEV_URL }]
@@ -1099,7 +1099,7 @@ document.querySelectorAll('[data-add]').forEach(b=> b.onclick=()=>addWidget(b.da
 /* ============================ lesson loader ============================ */
 // Which Teaching HQ course each board period teaches (by course code). A course
 // picked in the Load lesson dialog overrides this per period.
-const PERIOD_CODE = { p1:'LPSCS', p2:'LPSCS', p3:'EMT', p4:'IPC', p5:'WILD', p6:'LPSCS' };
+const PERIOD_CODE = { p1:'WILD', p2:'LPSCS', p3:'EMT', p4:'IPC', p6:'LPSCS' };
 // Pacing state kept on each period's board (synced like the rest of it):
 //   lessonCourse     Teaching HQ course id this period follows
 //   lessonDayNumber  last lesson taught from the course sequence ("where we are")
@@ -1805,9 +1805,30 @@ requestAnimationFrame(raf);
 
 window.addEventListener('resize', ()=> live.forEach(i=> i.redraw && i.redraw()));
 
+/* ============================ schedule migration ============================ */
+// v2 (2026-09-30): 1 Wildfire, 2 ILPS, 3 EMT, 4 IPC, 6 ILPS (was 1-2 Law & PS,
+// 5 Wildfire). Period 1's old board was Law & PS: it's kept as board:p1-old, and
+// the old period-5 Wildfire board (if any) moves to period 1. Pacing that pointed
+// period 1 at the ILPS course is dropped. Custom periods beyond these are kept.
+async function migrateSchedule(){
+  const extras = periods.filter(p=>!['p1','p2','p3','p4','p5','p6'].includes(p.id));
+  periods = DEFAULT_PERIODS.concat(extras);
+  const b1 = await store.get('board:p1'), b5 = await store.get('board:p5');
+  if(b1) await store.set('board:p1-old', JSON.parse(JSON.stringify(b1)));
+  const hasStuff = b => b && ((b.widgets && b.widgets.length) || b.lessonCourse || b.unitQueue || b.roster);
+  let next = hasStuff(b5) ? b5 : (b1 || null);
+  if(next && next === b1){
+    ['lessonCourse','lessonDayNumber','lessonDate','unitQueue','autoLesson','autoPaused'].forEach(k=>delete next[k]);
+  }
+  if(next) await store.set('board:p1', next);
+  await store.set('periods', periods);
+  await store.set('scheduleVersion', SCHEDULE_VERSION);
+}
+
 /* ============================ boot ============================ */
 (async function boot(){
   const savedPeriods = await store.get('periods'); if(Array.isArray(savedPeriods) && savedPeriods.length) periods = savedPeriods;
+  if((await store.get('scheduleVersion') || 1) < SCHEDULE_VERSION) await migrateSchedule();
   const savedActive = await store.get('active'); if(savedActive && periods.some(p=>p.id===savedActive)) active = savedActive;
   muted = !!(await store.get('muted')); muteBtn.textContent = muted?'SOUND OFF':'SOUND ON'; muteBtn.classList.toggle('on', muted);
   const b = await store.get('board:'+active);
