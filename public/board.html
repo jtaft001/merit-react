@@ -1089,7 +1089,7 @@ async function switchTo(id){
   board.widgets = board.widgets||[]; board.roster = board.roster||''; board.bell = board.bell||'';
   renderTabs(); renderBoard();
   store.set('active', id);
-  maybeAutoLoad();
+  maybeAutoLoad().then(refreshLessonLinks);
 }
 
 /* ============================ chrome ============================ */
@@ -1222,6 +1222,22 @@ async function logDay(pid, L){
     const log = (Array.isArray(m.log) ? m.log : []).filter(x=>!(x.date===today && x.pid===pid));
     log.push({ date: today, pid, period: p.tag+' '+(p.name||''), title: L.title||'', dayLabel: L.dayLabel || (L.dayNumber ? 'Day '+L.dayNumber : '') });
     await c.memSet({ log: log.slice(-120) });
+  }catch(e){}
+}
+// A lesson put up before its links existed (or edited since) gets them refreshed
+// from Teaching HQ when the board opens. Teaching HQ lessons only (not pasted
+// plans or unit queues), and only while signed in.
+async function refreshLessonLinks(){
+  const pid = active, b = board;
+  const w = (b.widgets||[]).find(x=>x.type==='lesson' && x.src==='lesson');
+  if(!w || !w.data.dayNumber || !window.__cloud.owner || !window.__cloud.loadLesson) return;
+  try{
+    const cid = await courseFor(pid, b); if(!cid) return;
+    const L = await window.__cloud.loadLesson(w.data.date || todayYmd(), cid, +w.data.dayNumber);
+    if(!L || L.notFound || active!==pid || board!==b) return;
+    const links = studentLinks(L.resources);
+    if(JSON.stringify(links) === JSON.stringify(w.data.links||[])) return;
+    w.data.links = links; save(); renderLinks();
   }catch(e){}
 }
 const autoTried = new Set();
@@ -1863,7 +1879,7 @@ async function migrateSchedule(){
     mo.x=392; mo.y=288; mo.w=280; mo.h=200;
   }
   renderTabs(); renderBoard();
-  maybeAutoLoad();
+  maybeAutoLoad().then(refreshLessonLinks);
   // Roll over to the next day's lesson if the board is left open overnight.
   setInterval(maybeAutoLoad, 10*60*1000);
 })();
