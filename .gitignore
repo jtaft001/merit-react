@@ -32,3 +32,6 @@ scripts/teaching-csv/*.csv
 
 # Roster imports — student PII, never commit
 scripts/data/*.local.*
+
+# Firebase admin keys and other credentials — never commit
+secrets/
