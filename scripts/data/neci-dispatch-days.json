@@ -1,0 +1,2634 @@
+{
+  "source": "NECI / LAPSEN 9-1-1 Dispatch unit plans (Units 7–15), split into 55-minute ILPS days by Claude (claude-opus-5-5) via functions/boardAssistant.js parsePlan, 2026-09-30.",
+  "classMinutes": 55,
+  "units": [
+    {
+      "unit": 7,
+      "title": "NECI Unit 7: Stress Management in 9-1-1",
+      "sourceFile": "Unit 7 LAPSEN-NECI 9-1-1 Dispatch Stress Management Lesson Plan (1).docx",
+      "notes": "I split the 90-minute-block plan (Segments 1–8) into five 55-minute days, with two 20-minute segments per day and the review and vocabulary test on their own days. On Day 4 I added 10 minutes of flashcard and Quizlet practice to fill out the period.",
+      "days": [
+        {
+          "title": "Stress Vocabulary — Word Search & Crossword",
+          "summary": "Meet the Unit 7 vocabulary through a word search and a crossword.",
+          "lessonType": [
+            "Review"
+          ],
+          "objectives": [
+            "I can recognize and spell the Unit 7 stress vocabulary words.",
+            "I can match stress terms to their definitions."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Word search: Unit 7 vocabulary (graded)",
+              "minutes": 20
+            },
+            {
+              "activity": "Crossword puzzle: clues are the quiz definitions",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Think of a time you felt really stressed. What did your body feel like? What did you do to calm down?",
+          "exitTicket": "Pick 2 vocabulary words from today. Write each word and what you think it means.",
+          "vocab": [
+            "Stress",
+            "Personality",
+            "Type A",
+            "Type B",
+            "Irritability",
+            "Depression",
+            "Attitude",
+            "Frustration",
+            "Recognition",
+            "Agitation",
+            "Hypertension",
+            "Burnout",
+            "Stress Management"
+          ],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Highlighter",
+            "Word search",
+            "Crossword puzzle"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Flashcards & Stress Management for 9-1-1 Officers",
+          "summary": "Build vocabulary flashcards, then learn how 9-1-1 officers manage stress.",
+          "lessonType": [
+            "Project Work",
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can break down and define the Unit 7 vocabulary words.",
+            "I can define stress management."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Vocabulary flashcards: traditional or Frayer Model (graded)",
+              "minutes": 20
+            },
+            {
+              "activity": "Slideshow and discussion: Stress Management for 9-1-1 Officers",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "What is the difference between a Type A and a Type B personality? Which one sounds more like you?",
+          "exitTicket": "In your own words, what is stress management? Name 1 technique a 9-1-1 officer could use during a shift.",
+          "vocab": [
+            "Stress Management",
+            "Type A",
+            "Type B",
+            "Burnout",
+            "Hypertension"
+          ],
+          "materials": [
+            "Student computer",
+            "Index cards",
+            "Frayer Model template",
+            "Pen or pencil"
+          ],
+          "homework": "Finish your flashcards if you did not finish in class. Then practice the words on Quizlet."
+        },
+        {
+          "title": "Stress Management Exercise & Dispatcher Video",
+          "summary": "Practice stress management in small groups, then watch how real dispatchers handle stress.",
+          "lessonType": [
+            "Project Work",
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can implement stress management techniques.",
+            "I can explain how 9-1-1 dispatchers handle stressful situations."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Stress Management Exercise in small groups (graded)",
+              "minutes": 20
+            },
+            {
+              "activity": "Video and discussion: How 911 Dispatchers Handle Stressful Situations",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "A caller is screaming and you have 3 more lines ringing. Name 2 things you could do right now to stay calm.",
+          "exitTicket": "Name 1 stress technique from the video or the exercise. Explain when a dispatcher would use it.",
+          "vocab": [
+            "Stress Management",
+            "Agitation",
+            "Frustration",
+            "Recognition"
+          ],
+          "materials": [
+            "Stress Management Exercise",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Unit 7 Review",
+          "summary": "Review the stress management unit and get ready for the vocabulary test.",
+          "lessonType": [
+            "Review"
+          ],
+          "objectives": [
+            "I can explain the consequences of unmanaged stress.",
+            "I can explain how to manage stress."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Review worksheet",
+              "minutes": 30
+            },
+            {
+              "activity": "Flashcard and Quizlet practice",
+              "minutes": 10
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "What can happen to a 9-1-1 officer who never manages their stress? List 3 consequences.",
+          "exitTicket": "Which 2 vocabulary words are hardest for you? Write a definition for each so you can study tonight.",
+          "vocab": [
+            "Burnout",
+            "Hypertension",
+            "Depression",
+            "Irritability",
+            "Stress Management"
+          ],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Review worksheet",
+            "Flashcards"
+          ],
+          "homework": "Study for tomorrow's vocabulary test. Use the Terms Review Sheet, your flashcards, and Quizlet."
+        },
+        {
+          "title": "Unit 7 Vocabulary Test",
+          "summary": "Take the Unit 7 vocabulary test.",
+          "lessonType": [
+            "Unit Exam"
+          ],
+          "objectives": [
+            "I can define the Unit 7 stress management vocabulary."
+          ],
+          "agenda": [
+            {
+              "activity": "Quiet review",
+              "minutes": 10
+            },
+            {
+              "activity": "Unit 7 Vocabulary Test",
+              "minutes": 30
+            },
+            {
+              "activity": "Finished: read silently",
+              "minutes": 15
+            }
+          ],
+          "bellWork": "Quietly review your flashcards or the Terms Review Sheet. The test starts soon.",
+          "exitTicket": "When you finish, read silently. Stay quiet until everyone is done.",
+          "vocab": [],
+          "materials": [
+            "Student computer",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        }
+      ]
+    },
+    {
+      "unit": 8,
+      "title": "NECI Unit 8: Interpersonal Communications",
+      "sourceFile": "Unit 8 LAPSEN NECI Interpersonal Communications Lesson Plan.docx",
+      "notes": "I split the 90-minute-block plan into two 20-minute segments per 55-minute class (6 days), with the 30-minute vocabulary test on its own Day 7. Normal days total 50 minutes, leaving 5 minutes of buffer. Segment 1 lists the PowerPoint as its activity, but its materials and grading point to the word search, so Day 1 is word search + crossword, and the PowerPoint runs on Days 2–3.",
+      "days": [
+        {
+          "title": "IPC Vocabulary – Word Search & Crossword",
+          "summary": "Meet the Unit 8 vocabulary through a word search and a crossword. The crossword clues are the definitions that will be on the test.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can spell and recognize the key terms for interpersonal communications.",
+            "I can match IPC terms to their definitions."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "IPC word search (graded) – turn in when done",
+              "minutes": 20
+            },
+            {
+              "activity": "IPC crossword – clues are test definitions",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "A caller is screaming and crying on a 9-1-1 line. List 2 things a dispatcher must do to communicate well with them.",
+          "exitTicket": "Pick 2 terms from today's crossword and write each one's definition in your own words.",
+          "vocab": [
+            "Sender",
+            "Receiver",
+            "Message",
+            "Feedback",
+            "Verbal Communications",
+            "Non-Verbal Communications",
+            "Listening",
+            "Hearing",
+            "Empathy",
+            "Perception"
+          ],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Highlighter",
+            "Word search",
+            "Crossword"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Flashcards & Interpersonal Communications (Part 1)",
+          "summary": "Build vocabulary flashcards, then start the Interpersonal Communications slides.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can break down an IPC term using a Frayer Model or a flashcard.",
+            "I can name the basic elements of interpersonal communications."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Handwritten vocab flashcards (traditional or Frayer Model, graded)",
+              "minutes": 20
+            },
+            {
+              "activity": "Slides: Interpersonal Communications, Part 1 – discussion",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "From memory: what is the difference between a SENDER and a RECEIVER?",
+          "exitTicket": "List the basic elements of interpersonal communications (sender, message, receiver, feedback) and give a 9-1-1 example of one.",
+          "vocab": [
+            "Sender",
+            "Receiver",
+            "Message",
+            "Feedback",
+            "Symbols",
+            "One-Way Communications",
+            "Two-Way Communications"
+          ],
+          "materials": [
+            "Student computer",
+            "Index cards",
+            "Frayer Model template",
+            "Pen or pencil",
+            "Quizlet (after handwritten cards)"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Interpersonal Communications (Part 2) & Active Listening",
+          "summary": "Finish the Interpersonal Communications slides, then watch active listening videos and discuss them.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can discuss the basic elements of interpersonal communications.",
+            "I can explain the difference between hearing and listening."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Slides: Interpersonal Communications, Part 2 – discussion",
+              "minutes": 20
+            },
+            {
+              "activity": "Active listening videos + discussion",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Is a radio broadcast ONE-WAY or TWO-WAY communication? Why?",
+          "exitTicket": "Hearing vs. listening: explain the difference and why it matters on a 9-1-1 call.",
+          "vocab": [
+            "Listening",
+            "Hearing",
+            "Empathy",
+            "Feedback",
+            "Intuition",
+            "Perception"
+          ],
+          "materials": [
+            "Pen or pencil",
+            "Notes page"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "IPC Practice Activities",
+          "summary": "Work in crews on hands-on interpersonal communication activities.",
+          "lessonType": [
+            "Project Work"
+          ],
+          "objectives": [
+            "I can use verbal and non-verbal communication skills with a partner or group.",
+            "I can give clear feedback to check understanding."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Crew IPC activity, Round 1",
+              "minutes": 20
+            },
+            {
+              "activity": "Crew IPC activity, Round 2",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Name one thing a dispatcher can do to show EMPATHY using only their voice.",
+          "exitTicket": "What was the hardest part of today's activity to communicate? What skill helped your crew most?",
+          "vocab": [
+            "One-Way Communications",
+            "Two-Way Communications",
+            "Feedback",
+            "Perception",
+            "Empathy"
+          ],
+          "materials": [
+            "Activity handouts",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Verbal & Non-Verbal Communications – Chapter 8",
+          "summary": "Read the Chapter 8 text and complete the worksheet on verbal and non-verbal communications.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can describe verbal communications.",
+            "I can describe non-verbal communications."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Read Chapter 8 + worksheet (graded)",
+              "minutes": 20
+            },
+            {
+              "activity": "Finish Chapter 8 worksheet with your crew",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "List 3 types of non-verbal communication you can see in this room right now.",
+          "exitTicket": "A dispatcher can't see the caller. Which non-verbal cues can they still pick up? Name 2.",
+          "vocab": [
+            "Verbal Communications",
+            "Non-Verbal Communications",
+            "Body Language",
+            "Eye Contact",
+            "Facial Expression",
+            "Diction",
+            "Objects",
+            "Visual Non-Verbal Communication"
+          ],
+          "materials": [
+            "Student computer",
+            "Chapter 8 text",
+            "Chapter 8 worksheet",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Unit 8 Review",
+          "summary": "Review the unit worksheet to prepare for the vocabulary test.",
+          "lessonType": [
+            "Review"
+          ],
+          "objectives": [
+            "I can discuss the basic elements of interpersonal communications.",
+            "I can explain verbal and non-verbal communications."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Review worksheet, Part 1",
+              "minutes": 20
+            },
+            {
+              "activity": "Review worksheet, Part 2 + questions",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Define DICTION and explain why it matters on the radio.",
+          "exitTicket": "Which 2 Unit 8 terms do you still need to study most? Write them down.",
+          "vocab": [
+            "Diction",
+            "Intuition",
+            "Symbols",
+            "Objects",
+            "Perception",
+            "Visual Non-Verbal Communication"
+          ],
+          "materials": [
+            "Student computer",
+            "Review worksheet",
+            "Pen or pencil"
+          ],
+          "homework": "Study for tomorrow's Unit 8 vocabulary test: flashcards, crossword, and Quizlet."
+        },
+        {
+          "title": "Unit 8 Vocabulary Test",
+          "summary": "Unit 8 Vocabulary Test. Work on your own.",
+          "lessonType": [
+            "Unit Exam"
+          ],
+          "objectives": [
+            "I can show what I know about interpersonal communications vocabulary."
+          ],
+          "agenda": [
+            {
+              "activity": "Quiet review",
+              "minutes": 10
+            },
+            {
+              "activity": "Unit 8 Vocabulary Test",
+              "minutes": 30
+            },
+            {
+              "activity": "Finished: read silently",
+              "minutes": 15
+            }
+          ],
+          "bellWork": "Quiet review: look over your flashcards. No talking once the test starts.",
+          "exitTicket": "When finished, flip your test over and read silently until everyone is done.",
+          "vocab": [],
+          "materials": [
+            "Student computer",
+            "Pen or pencil"
+          ],
+          "homework": "Look over the Terms Review Sheet and Unit 8 Quizlet before we start Unit 9."
+        }
+      ]
+    },
+    {
+      "unit": 9,
+      "title": "NECI Unit 9: Emergency Communications Technologies",
+      "sourceFile": "Unit 9- Emergency Communications Technologies.docx",
+      "notes": "I split the 90-minute-block plan into six 55-minute days, kept the segments in order, and spread the reading and guided notes (Segments 6–7) across Days 3 and 4. Following the plan's order, the review worksheet comes after the quiz on Day 6; if you'd rather review before the quiz, swap Days 5 and 6.",
+      "days": [
+        {
+          "title": "Behind the Scenes of 9-1-1",
+          "summary": "Watch how a 9-1-1 center works, then start vocabulary flashcards.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can describe what happens behind the scenes when someone calls 9-1-1.",
+            "I can define key Unit 9 technology terms."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Video: Behind the Scenes of 9-1-1 + class discussion",
+              "minutes": 20
+            },
+            {
+              "activity": "Vocabulary flashcards (traditional or Frayer Model)",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Before 9-1-1 existed, who did people call in an emergency? What did they do before phones?",
+          "exitTicket": "Choose one vocab term from today. Write its definition in your own words and give one example.",
+          "vocab": [
+            "PSAP",
+            "ANI",
+            "ALI",
+            "ACD",
+            "Blind Transfer",
+            "CDC",
+            "CLEC",
+            "Default Routing",
+            "ESS",
+            "ESN",
+            "Interconnect",
+            "MSAG",
+            "MPC",
+            "MSC",
+            "MTSO",
+            "NXX",
+            "Trunking"
+          ],
+          "materials": [
+            "Index cards",
+            "Frayer Model template",
+            "Unit 9 vocabulary list",
+            "Pen or pencil"
+          ],
+          "homework": "Finish your vocabulary flashcards if you did not complete them in class."
+        },
+        {
+          "title": "Basic vs. Enhanced 9-1-1",
+          "summary": "Complete the Unit 9 worksheet, then start the Emergency Communication Technologies slides.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can explain the difference between basic and enhanced 9-1-1.",
+            "I can describe how ANI and ALI help a dispatcher."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Unit 9 worksheet",
+              "minutes": 20
+            },
+            {
+              "activity": "Slides: Emergency Communication Technologies (Part 1)",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "When you call 9-1-1, what information do you think the dispatcher sees on their screen before you say a word?",
+          "exitTicket": "What is the difference between basic 9-1-1 and enhanced 9-1-1? Use ANI and ALI in your answer.",
+          "vocab": [
+            "PSAP",
+            "ANI",
+            "ALI",
+            "ESN",
+            "MSAG",
+            "Default Routing"
+          ],
+          "materials": [
+            "Unit 9 worksheet",
+            "Pen or pencil",
+            "Student computer"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Systems Inside the Comm Center",
+          "summary": "Finish the slides, then start the Unit 9 reading and guided notes.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can list technology systems used in emergency communications.",
+            "I can describe how wireless 9-1-1 calls reach a PSAP."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Slides: Emergency Communication Technologies (Part 2)",
+              "minutes": 20
+            },
+            {
+              "activity": "Unit 9 reading + guided notes (start)",
+              "minutes": 25
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Your call goes to the wrong 9-1-1 center. Which term from Unit 9 might explain why: MSAG, ESN, or Default Routing? Explain.",
+          "exitTicket": "Name one technology system from today and describe what it does in the comm center.",
+          "vocab": [
+            "ACD",
+            "Trunking",
+            "MSC",
+            "MTSO",
+            "MPC",
+            "CLEC",
+            "Interconnect",
+            "NXX"
+          ],
+          "materials": [
+            "Unit 9 reading",
+            "Guided notes",
+            "Pen or pencil",
+            "Student computer"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Reading & Guided Notes",
+          "summary": "Finish the Unit 9 reading and guided notes, then practice vocabulary for the quiz.",
+          "lessonType": [
+            "Lecture / Media",
+            "Review"
+          ],
+          "objectives": [
+            "I can describe the technology systems used in emergency communications.",
+            "I can use Unit 9 vocabulary correctly."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Unit 9 reading + guided notes (finish)",
+              "minutes": 35
+            },
+            {
+              "activity": "Quizlet vocabulary practice",
+              "minutes": 10
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "What does ACD do in a 9-1-1 center? Why would a busy center need it?",
+          "exitTicket": "What is a blind transfer? When might it cause a problem for the caller?",
+          "vocab": [
+            "Blind Transfer",
+            "CDC",
+            "ESS",
+            "ACD"
+          ],
+          "materials": [
+            "Unit 9 reading",
+            "Guided notes",
+            "Pen or pencil",
+            "Student computer",
+            "NECI Quizlet"
+          ],
+          "homework": "Study for the Unit 9 quiz: flashcards, guided notes, and Quizlet."
+        },
+        {
+          "title": "Quiz",
+          "summary": "Show what you know about emergency communications technologies.",
+          "lessonType": [
+            "Quiz"
+          ],
+          "objectives": [
+            "I can show what I know about basic and enhanced 9-1-1 and comm center technology."
+          ],
+          "agenda": [
+            {
+              "activity": "Quiet review",
+              "minutes": 10
+            },
+            {
+              "activity": "Testing strategies + directions",
+              "minutes": 5
+            },
+            {
+              "activity": "Unit 9 Quiz",
+              "minutes": 20
+            },
+            {
+              "activity": "Finished: read silently",
+              "minutes": 20
+            }
+          ],
+          "bellWork": "Quiet review: look over your flashcards and guided notes. Focus on ANI, ALI, and PSAP.",
+          "exitTicket": "Which question on the quiz was the hardest for you? Why?",
+          "vocab": [],
+          "materials": [
+            "Pen or pencil",
+            "Student computer",
+            "Unit 9 Quiz"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Review & Wrap-Up",
+          "summary": "Review Unit 9 terms and systems before moving on to the next unit.",
+          "lessonType": [
+            "Review"
+          ],
+          "objectives": [
+            "I can explain the difference between basic and enhanced 9-1-1.",
+            "I can list and describe the technology systems used in emergency communications."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Unit 9 review worksheet",
+              "minutes": 30
+            },
+            {
+              "activity": "Terms review sheet + Quizlet",
+              "minutes": 15
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "List as many Unit 9 acronyms as you can from memory, then write what each one stands for.",
+          "exitTicket": "Name two technology systems from Unit 9. For each one, write one sentence on how it helps a dispatcher.",
+          "vocab": [
+            "ANI",
+            "ALI",
+            "PSAP",
+            "MSAG",
+            "ACD"
+          ],
+          "materials": [
+            "Review worksheet",
+            "Terms review sheet",
+            "NECI Quizlet",
+            "Pen or pencil",
+            "Student computer"
+          ],
+          "homework": "Look over the terms review sheet and Quizlet before the next unit."
+        }
+      ]
+    },
+    {
+      "unit": 10,
+      "title": "NECI Unit 10: FCC Rules and Regulations",
+      "sourceFile": "Unit 10 LAPSEN NECI 911 Dispatch FCC Rules and Regulations Lesson Plan.docx",
+      "notes": "I split the plan's two 90-minute block days into four 55-minute days. Day 1 is Segments 1–2, Day 2 is Segments 3–4, Day 3 is Segment 5 plus the Review Sheet, and Day 4 is the Segment 6 vocabulary test on its own. The plan spells the term 'HIPPA'; the board uses the correct spelling, HIPAA.",
+      "days": [
+        {
+          "title": "Vocabulary: Word Search & Crossword",
+          "summary": "Meet the Unit 10 FCC and privacy vocabulary through a word search and a crossword. The crossword clues are the definitions that will be on the test.",
+          "lessonType": [
+            "Review"
+          ],
+          "objectives": [
+            "I can recognize and spell the key Unit 10 vocabulary words.",
+            "I can match Unit 10 terms to their definitions."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Word search: find and highlight all Unit 10 terms",
+              "minutes": 20
+            },
+            {
+              "activity": "Crossword: clues are the test definitions",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "A 9-1-1 caller tells you about their neighbor's medical condition. Who do you think you are allowed to share that with? Why?",
+          "exitTicket": "Pick one new vocabulary word from today. Write its definition in your own words.",
+          "vocab": [
+            "Prohibited",
+            "Broadcast",
+            "Frequency",
+            "Permissible",
+            "Communications Act of 1934",
+            "Transmissions",
+            "Identifier",
+            "Violation",
+            "Privacy",
+            "Invasion",
+            "Intrusion",
+            "Seclusion",
+            "HIPAA",
+            "Publication"
+          ],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Highlighter",
+            "Word search",
+            "Crossword"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Flashcards & FCC Rules for Dispatch",
+          "summary": "Build flashcards for the Unit 10 terms. Then learn the FCC rules that control what dispatchers can and cannot say on the radio.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can break down Unit 10 terms using flashcards or the Frayer Model.",
+            "I can explain the difference between permissible and prohibited communications in public safety."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Hand-write flashcards (traditional or Frayer Model), then add them to Quizlet",
+              "minutes": 20
+            },
+            {
+              "activity": "Slides and discussion: FCC Rules and Regulations",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "What does 'prohibited' mean? Give one example of something you think should be prohibited on a public safety radio.",
+          "exitTicket": "Name one permissible radio transmission and one prohibited radio transmission for a dispatcher.",
+          "vocab": [
+            "Communications Act of 1934",
+            "Frequency",
+            "Broadcast",
+            "Transmissions",
+            "Permissible",
+            "Prohibited",
+            "Identifier",
+            "Violation"
+          ],
+          "materials": [
+            "Index cards",
+            "Frayer Model template",
+            "Student computer (Quizlet)",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Chapter 10: Privacy, HIPAA & 9-1-1",
+          "summary": "Read Chapter Ten and complete the worksheet on privacy laws and HIPAA. Then use the Terms Review Sheet to get ready for the vocabulary test.",
+          "lessonType": [
+            "Review"
+          ],
+          "objectives": [
+            "I can explain 'Right to Privacy' laws and how they relate to 9-1-1 calls.",
+            "I can explain HIPAA and how it relates to 9-1-1 calls."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Read Chapter Ten and complete the worksheet",
+              "minutes": 30
+            },
+            {
+              "activity": "Study the Terms Review Sheet or Quizlet",
+              "minutes": 10
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Name one thing the FCC controls about dispatch radio communications.",
+          "exitTicket": "What does HIPAA protect? Give one way it applies to a 9-1-1 call.",
+          "vocab": [
+            "Privacy",
+            "Invasion",
+            "Intrusion",
+            "Seclusion",
+            "Publication",
+            "HIPAA"
+          ],
+          "materials": [
+            "Chapter Ten text",
+            "Chapter Ten worksheet",
+            "Terms Review Sheet",
+            "Student computer",
+            "Pen or pencil"
+          ],
+          "homework": "Study for tomorrow's Unit 10 vocabulary test. Use your flashcards, Quizlet, and the Terms Review Sheet."
+        },
+        {
+          "title": "Vocabulary Test",
+          "summary": "Individual vocabulary test on the Unit 10 FCC and privacy terms. Work silently and stay quiet until everyone is finished.",
+          "lessonType": [
+            "Unit Exam"
+          ],
+          "objectives": [
+            "I can define the Unit 10 FCC and privacy vocabulary terms accurately."
+          ],
+          "agenda": [
+            {
+              "activity": "Quiet review",
+              "minutes": 5
+            },
+            {
+              "activity": "Unit 10 Vocabulary Test",
+              "minutes": 30
+            },
+            {
+              "activity": "Finished: read silently",
+              "minutes": 15
+            }
+          ],
+          "bellWork": "Clear your desk except for a pen or pencil. Quietly review your flashcards until the test starts.",
+          "exitTicket": "After you turn in your test: Which Unit 10 term was hardest for you? Rate your confidence from 1 to 5.",
+          "vocab": [
+            "Prohibited",
+            "Broadcast",
+            "Frequency",
+            "Permissible",
+            "Communications Act of 1934",
+            "Transmissions",
+            "Identifier",
+            "Violation",
+            "Privacy",
+            "Invasion",
+            "Intrusion",
+            "Seclusion",
+            "HIPAA",
+            "Publication"
+          ],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Vocabulary test",
+            "Silent reading book"
+          ],
+          "homework": ""
+        }
+      ]
+    },
+    {
+      "unit": 11,
+      "title": "NECI Unit 11: Call Processing Techniques",
+      "sourceFile": "_ Unit 11 LAPSEN Instructional  911 .docx",
+      "notes": "I split the plan's 14 segments (300 minutes) into 8 days of 45 minutes, keeping each segment whole. Days 6 and 7 each had only one 30-minute role-play segment, so I filled them with the plan's Terms Review Sheet and NECI Quizlet. No quiz or summative day is included because the plan leaves timing to you; add one after Day 8 if you want it.",
+      "days": [
+        {
+          "title": "Caller Types Crossword & Professionalism",
+          "summary": "Learn the caller-type vocabulary with a crossword, then start the Call Processing slides on professionalism.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can match each type of 9-1-1 caller to its definition.",
+            "I can explain why professionalism matters when taking a 9-1-1 call."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Caller types crossword",
+              "minutes": 20
+            },
+            {
+              "activity": "Call Processing slides 1-4: professionalism",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Review: What do PSAP, ANI, and ALI stand for? Write one sentence about each.",
+          "exitTicket": "Give one reason a call taker must stay professional, even with a rude caller.",
+          "vocab": [
+            "information seeker",
+            "information provider",
+            "third party caller",
+            "abusive caller",
+            "emotional caller",
+            "hysterical caller",
+            "lonely caller",
+            "PSAP",
+            "ANI",
+            "ALI"
+          ],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Unit 11 crossword",
+            "Unit 11 Call Processing slides"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Courtesy on the Call",
+          "summary": "Watch real call takers and compare a good call with a poor one.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can spot courteous and professional behavior in a 9-1-1 call.",
+            "I can compare how two call takers handled their calls."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Video 1 and class discussion",
+              "minutes": 20
+            },
+            {
+              "activity": "Edpuzzle 1 (graded)",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Think of a time someone helped you on the phone. What did they do that made it go well?",
+          "exitTicket": "Name one thing the call taker in the Edpuzzle did differently from the call taker in the video.",
+          "vocab": [
+            "professionalism",
+            "courtesy",
+            "call taker"
+          ],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Video 1",
+            "Edpuzzle 1"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Call-Taking Technique & Caller Types",
+          "summary": "See the correct technique for each part of a call, then hear role plays of different caller types.",
+          "lessonType": [
+            "Lecture / Media",
+            "Scenario / Simulation"
+          ],
+          "objectives": [
+            "I can describe the correct technique for each part of the call-taking process.",
+            "I can identify a caller type from how the caller talks."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Call Processing slides 5-9: call-taking technique",
+              "minutes": 20
+            },
+            {
+              "activity": "Call Processing slides 10-19 with caller role plays",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "What is the first thing a call taker should say when answering a 9-1-1 call? Why?",
+          "exitTicket": "A caller is screaming and can't give an address. What caller type is this, and what is one thing you would do?",
+          "vocab": [
+            "hysterical caller",
+            "emotional caller",
+            "information seeker",
+            "information provider",
+            "third party caller"
+          ],
+          "materials": [
+            "Unit 11 Call Processing slides",
+            "Pre-scripted scenarios"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Caller Types Role Play",
+          "summary": "Practice handling each caller type with pre-scripted calls.",
+          "lessonType": [
+            "Scenario / Simulation"
+          ],
+          "objectives": [
+            "I can describe the different types of callers in 9-1-1 calls.",
+            "I can use the right technique for each type of caller."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Slides 10-19: caller type role plays, round 1",
+              "minutes": 20
+            },
+            {
+              "activity": "Slides 10-19: caller type role plays, round 2",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Which caller type do you think is hardest to handle? Why?",
+          "exitTicket": "Pick two caller types. Write one technique for each.",
+          "vocab": [
+            "abusive caller",
+            "lonely caller",
+            "hearing impaired caller",
+            "mental disorder caller",
+            "high risk and crisis intervention caller"
+          ],
+          "materials": [
+            "Unit 11 Call Processing slides",
+            "Pre-scripted scenarios"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Grading Real Call Takers & the Call Process",
+          "summary": "Judge real call takers, then learn each step of the call-taking process.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can judge what a call taker did well and what they could do better.",
+            "I can explain why each step of the call-taking process matters."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Edpuzzle 2 and discussion",
+              "minutes": 20
+            },
+            {
+              "activity": "Call Processing slides 20-33 with Videos 3-5",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Besides answering calls, what other jobs does a dispatcher do during a shift?",
+          "exitTicket": "Pick one step of the call-taking process. What could go wrong if a call taker skipped it?",
+          "vocab": [
+            "call-taking process",
+            "PSAP",
+            "ANI",
+            "ALI"
+          ],
+          "materials": [
+            "Student computer",
+            "Edpuzzle 2",
+            "Unit 11 Call Processing slides",
+            "Videos 3, 4, and 5"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Call Process Role Play, Part 1",
+          "summary": "Role-play full calls using every step of the call-taking process.",
+          "lessonType": [
+            "Scenario / Simulation"
+          ],
+          "objectives": [
+            "I can use the call-taking process in a practice call.",
+            "I can adjust my technique to the type of caller."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Slides 20-33: call process role plays",
+              "minutes": 30
+            },
+            {
+              "activity": "Terms Review Sheet",
+              "minutes": 10
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "List the steps of the call-taking process in order, as many as you remember.",
+          "exitTicket": "In your role play, which step went best? Which step needs more practice?",
+          "vocab": [
+            "call-taking process",
+            "third party caller",
+            "emotional caller"
+          ],
+          "materials": [
+            "Unit 11 Call Processing slides",
+            "Pre-scripted scenarios 2",
+            "Terms Review Sheet",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Call Process Role Play, Part 2",
+          "summary": "Run more practice calls, then review the unit terms on Quizlet.",
+          "lessonType": [
+            "Scenario / Simulation"
+          ],
+          "objectives": [
+            "I can process a full 9-1-1 call from start to finish.",
+            "I can describe the different types of 9-1-1 callers."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Slides 20-33: call process role plays, new scenarios",
+              "minutes": 30
+            },
+            {
+              "activity": "NECI Quizlet review",
+              "minutes": 10
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "A caller keeps calling just to talk. What caller type is this, and how should you respond?",
+          "exitTicket": "Write the opening line you would use for a hearing impaired caller, then explain your choice.",
+          "vocab": [
+            "lonely caller",
+            "hearing impaired caller",
+            "abusive caller",
+            "high risk and crisis intervention caller"
+          ],
+          "materials": [
+            "Unit 11 Call Processing slides",
+            "Pre-scripted scenarios 2",
+            "Student computer",
+            "NECI Quizlet"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Reading & Guided Notes",
+          "summary": "Read the Unit 11 text and complete the guided notes to wrap up the unit.",
+          "lessonType": [
+            "Review"
+          ],
+          "objectives": [
+            "I can describe the different 9-1-1 call processing techniques.",
+            "I can describe the different types of callers in 9-1-1 calls."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Unit 11 reading with guided notes, part 1",
+              "minutes": 20
+            },
+            {
+              "activity": "Unit 11 reading with guided notes, part 2",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Which caller type from this unit would you feel most ready to handle? Why?",
+          "exitTicket": "Name three caller types and one call processing technique for each.",
+          "vocab": [
+            "information seeker",
+            "information provider",
+            "third party caller",
+            "abusive caller",
+            "mental disorder caller",
+            "hearing impaired caller",
+            "lonely caller",
+            "emotional caller",
+            "hysterical caller",
+            "high risk and crisis intervention caller"
+          ],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Unit 11 reading",
+            "Unit 11 guided notes"
+          ],
+          "homework": "Study the Terms Review Sheet and the NECI Quizlet before the next unit."
+        }
+      ]
+    },
+    {
+      "unit": 12,
+      "title": "NECI Unit 12: The ADA and TDD Calls",
+      "sourceFile": "Borgquist LAPSEN NECI 911 Dispatch American Disabilities Act Lesson Plan.docx",
+      "notes": "I split the plan's three 90-minute blocks into five 55-minute days: vocab, flashcards and slides, reading and worksheet, review, then the vocabulary test on its own day. I added 10 minutes of Quizlet practice on Day 4 to fill the period after the 30-minute review.",
+      "days": [
+        {
+          "title": "ADA & TDD Vocabulary Puzzles",
+          "summary": "Meet the new Unit 12 words through a word search and a crossword. The crossword clues are the definitions you will see on the test.",
+          "lessonType": [
+            "Review"
+          ],
+          "objectives": [
+            "I can recognize and spell the key Unit 12 vocabulary terms.",
+            "I can match Unit 12 terms to their definitions."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Word search: find and highlight all Unit 12 terms",
+              "minutes": 20
+            },
+            {
+              "activity": "Crossword: use the clues (definitions) to fill in the terms",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "A caller who is deaf needs to report a fire. How do you think they could reach 9-1-1? List one idea.",
+          "exitTicket": "Pick one crossword term. Write the term and its definition in your own words.",
+          "vocab": [
+            "Public Safety Answering Point (PSAP)",
+            "Americans with Disabilities Act (ADA)",
+            "Teletypewriter (TTY)",
+            "Telecommunications Device for the Deaf (TDD)",
+            "Enhanced 9-1-1 (E9-1-1)",
+            "Primary PSAP",
+            "Secondary PSAP",
+            "Standard Operating Procedures (SOP)",
+            "Telephone Relay Service (TRS)",
+            "Automatic Number Identification (ANI)",
+            "Automatic Location Identification (ALI)",
+            "Automatic Call Distribution (ACD)",
+            "Hearing Carry Over (HCO)",
+            "Voice Carry Over (VCO)"
+          ],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Highlighter",
+            "Unit 12 Word Search",
+            "Unit 12 Crossword"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Flashcards & ADA Presentation",
+          "summary": "Build flashcards for the Unit 12 terms, then learn what the ADA means for 9-1-1 centers and how TDD calls work.",
+          "lessonType": [
+            "Project Work",
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can break down Unit 12 terms using flashcards or the Frayer Model.",
+            "I can explain what the ADA requires of 9-1-1 centers."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Hand-write vocabulary flashcards (traditional or Frayer Model)",
+              "minutes": 20
+            },
+            {
+              "activity": "Slides and discussion: The Americans with Disabilities Act and TDD Calls",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "From yesterday: What do the letters TDD and PSAP stand for?",
+          "exitTicket": "Name one thing the ADA requires 9-1-1 centers to do for callers with hearing or speech disabilities.",
+          "vocab": [
+            "Americans with Disabilities Act (ADA)",
+            "Public Safety Answering Point (PSAP)",
+            "Telecommunications Device for the Deaf (TDD)",
+            "Teletypewriter (TTY)",
+            "Telephone Relay Service (TRS)",
+            "Hearing Carry Over (HCO)",
+            "Voice Carry Over (VCO)"
+          ],
+          "materials": [
+            "Student computer",
+            "Index cards",
+            "Frayer Model template",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Chapter 12 Reading & Worksheet",
+          "summary": "Read Chapter 12 and complete the worksheet on the ADA and TDD call-handling procedures.",
+          "lessonType": [
+            "Project Work"
+          ],
+          "objectives": [
+            "I can describe TDD call-handling procedures used in a 9-1-1 center.",
+            "I can explain how ANI and ALI help on a TDD call."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Read Chapter 12 text and start the worksheet",
+              "minutes": 20
+            },
+            {
+              "activity": "Finish Chapter 12 reading and complete the worksheet",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "You answer a 9-1-1 call and hear silence or soft tones. What could that mean, and what should you NOT do?",
+          "exitTicket": "List two steps a dispatcher should take when handling a TDD call.",
+          "vocab": [
+            "Standard Operating Procedures (SOP)",
+            "Enhanced 9-1-1 (E9-1-1)",
+            "Automatic Number Identification (ANI)",
+            "Automatic Location Identification (ALI)",
+            "Automatic Call Distribution (ACD)",
+            "Primary PSAP",
+            "Secondary PSAP"
+          ],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Chapter 12 text",
+            "Chapter 12 worksheet"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Worksheet Review & Test Prep",
+          "summary": "Review the Chapter 12 worksheet together and practice vocabulary for tomorrow's test.",
+          "lessonType": [
+            "Review"
+          ],
+          "objectives": [
+            "I can discuss the ADA and how it relates to 9-1-1 communication.",
+            "I can define all Unit 12 vocabulary terms."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Review the Chapter 12 worksheet together",
+              "minutes": 30
+            },
+            {
+              "activity": "Quizlet vocabulary practice",
+              "minutes": 10
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "What is the difference between Hearing Carry Over (HCO) and Voice Carry Over (VCO)?",
+          "exitTicket": "Which two Unit 12 terms do you still need to study most? Write them down.",
+          "vocab": [
+            "Primary PSAP",
+            "Secondary PSAP",
+            "Automatic Call Distribution (ACD)",
+            "Telephone Relay Service (TRS)",
+            "Hearing Carry Over (HCO)",
+            "Voice Carry Over (VCO)"
+          ],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Unit 12 review sheet",
+            "Your flashcards"
+          ],
+          "homework": "Study your Unit 12 flashcards and Quizlet for tomorrow's vocabulary test."
+        },
+        {
+          "title": "Vocabulary Test",
+          "summary": "Show what you know on the Unit 12 vocabulary test. Work on your own, quietly.",
+          "lessonType": [
+            "Unit Exam"
+          ],
+          "objectives": [
+            "I can define Unit 12 terms about the ADA and TDD calls."
+          ],
+          "agenda": [
+            {
+              "activity": "Quiet review",
+              "minutes": 10
+            },
+            {
+              "activity": "Unit 12 Vocabulary Test",
+              "minutes": 30
+            },
+            {
+              "activity": "Finished: read silently",
+              "minutes": 15
+            }
+          ],
+          "bellWork": "Quietly review your flashcards. Focus on the terms you marked as hardest.",
+          "exitTicket": "Turn in your test. Stay quiet until everyone has finished.",
+          "vocab": [],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Your flashcards (review time only)"
+          ],
+          "homework": ""
+        }
+      ]
+    },
+    {
+      "unit": 13,
+      "title": "NECI Unit 13: Call Classification and Response",
+      "sourceFile": "_Unit 13 LAPSEN Instructional Unit Template 911 .docx",
+      "notes": "I split the plan's 14 segments (about 310 minutes) into seven 55-minute days, combined repeated segments, and trimmed the two 30-minute 'Emergency or Not?' segments to fit one day. The plan leaves the summative assessment to you, so there is no test day; add one after Day 7 if you want it.",
+      "days": [
+        {
+          "title": "Sending the Right Help",
+          "summary": "Intro to call classification and response: who the people on a call are, emergency vs. non-emergency, and why dispatching the right personnel matters.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can name the people involved in a call: reporting party, victim, and suspect.",
+            "I can explain why sending the correct personnel to a call matters."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Slides: Call Classification and Response (part 1)",
+              "minutes": 20
+            },
+            {
+              "activity": "Slides: Call Classification and Response (part 2)",
+              "minutes": 20
+            },
+            {
+              "activity": "Discussion: why the correct location matters",
+              "minutes": 5
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "A caller says, \"There's smoke coming from my neighbor's garage!\" Who would you send: police, fire, EMS, or more than one? Why?",
+          "exitTicket": "A caller reports her ex-boyfriend just hit her and drove away. Name the reporting party, the victim, and the suspect.",
+          "vocab": [
+            "Reporting party",
+            "Victim",
+            "Suspect",
+            "Emergency",
+            "Non-emergency"
+          ],
+          "materials": [
+            "Unit 13 slides: Call Classification and Response",
+            "Notebook",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Know Your Location",
+          "summary": "Videos on why location matters, a flier to help callers find where they are, and real 911 calls that went wrong.",
+          "lessonType": [
+            "Lecture / Media",
+            "Project Work"
+          ],
+          "objectives": [
+            "I can list ways a caller can find their location when they don't know it.",
+            "I can explain how a wrong or missing location delays help."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Video: Calling 911 - Know Your Location",
+              "minutes": 5
+            },
+            {
+              "activity": "Create a flier: ways a caller can find their location",
+              "minutes": 15
+            },
+            {
+              "activity": "Real 911 call videos (content warning: upsetting calls)",
+              "minutes": 15
+            },
+            {
+              "activity": "Discussion: how could these outcomes have been prevented?",
+              "minutes": 10
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Review: What do ANI and ALI tell a dispatcher? Why might ALI be wrong for a cell phone caller?",
+          "exitTicket": "A lost hiker calls 911 and doesn't know where they are. List 3 things you could ask or tell them to find their location.",
+          "vocab": [
+            "ANI",
+            "ALI",
+            "Master Street Address Guide (MSAG)"
+          ],
+          "materials": [
+            "Video: Calling 911 - Know Your Location",
+            "Example flier",
+            "Real 911 call videos",
+            "Student computer",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Emergency or Not?",
+          "summary": "Partners sort call types into emergency and non-emergency and explain their reasoning.",
+          "lessonType": [
+            "Project Work"
+          ],
+          "objectives": [
+            "I can classify a call as emergency or non-emergency.",
+            "I can explain my reason for each classification."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Pair up: Emergency or Not? activity",
+              "minutes": 35
+            },
+            {
+              "activity": "Class check: compare answers",
+              "minutes": 10
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "In your own words: what makes a call an EMERGENCY instead of a non-emergency?",
+          "exitTicket": "Classify each call as an emergency or a non-emergency and give a reason: (1) a barking dog at 2 a.m.; (2) a man not breathing; (3) a car broken into last week.",
+          "vocab": [
+            "Emergency",
+            "Non-emergency",
+            "Classify",
+            "Prioritize"
+          ],
+          "materials": [
+            "\"Emergency or Not?\" activity sheet",
+            "Student computer",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Lights and Sirens",
+          "summary": "Read a news article on ambulance lights and sirens, then take the reading quiz.",
+          "lessonType": [
+            "Quiz"
+          ],
+          "objectives": [
+            "I can explain when an ambulance should respond with lights and sirens.",
+            "I can connect call priority to response level."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Read: \"Emergency lights and sirens on ambulances\"",
+              "minutes": 20
+            },
+            {
+              "activity": "Reading quiz",
+              "minutes": 20
+            },
+            {
+              "activity": "Finished: reread the article and check your answers",
+              "minutes": 5
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Should every ambulance call use lights and sirens? Give one reason yes and one reason no.",
+          "exitTicket": "Give one risk of using lights and sirens and one call type where they are worth that risk.",
+          "vocab": [
+            "Response level",
+            "Priority",
+            "Emergency",
+            "Non-emergency"
+          ],
+          "materials": [
+            "News article: \"Emergency lights and sirens on ambulances\"",
+            "Unit 13 reading quiz",
+            "Student computer",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Updating Responders",
+          "summary": "Class discussion on why dispatchers keep responders updated while they are on the way.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can explain why responders need updates while en route.",
+            "I can pick which new information must be passed to responders right away."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Unit 13 class discussion activity (part 1)",
+              "minutes": 20
+            },
+            {
+              "activity": "Unit 13 class discussion activity (part 2)",
+              "minutes": 20
+            },
+            {
+              "activity": "Wrap-up: top updates responders need",
+              "minutes": 5
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Officers are on the way to a fight. The caller now says one person has a knife. What should you do with that information, and why?",
+          "exitTicket": "List 3 types of updates a dispatcher should give responders before they arrive on scene.",
+          "vocab": [
+            "Reporting party",
+            "Suspect",
+            "Victim",
+            "Response level"
+          ],
+          "materials": [
+            "Unit 13 class discussion activity",
+            "Student computer",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Chapter 13 Reading and Worksheet",
+          "summary": "Read the Chapter 13 text and work on the Emergency Call Classification and Response worksheet. The worksheet is graded.",
+          "lessonType": [
+            "Review"
+          ],
+          "objectives": [
+            "I can classify a call.",
+            "I can prioritize a call.",
+            "I can select the correct resources for a call."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Read Chapter 13 text",
+              "minutes": 20
+            },
+            {
+              "activity": "Emergency Call Classification and Response worksheet",
+              "minutes": 25
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Put these calls in priority order, highest first: a minor car crash with no injuries, a house fire with people inside, and a stolen bike.",
+          "exitTicket": "A caller reports a car crash with a driver trapped and leaking fuel. Which resources would you send, and what priority would you give it?",
+          "vocab": [
+            "Classify",
+            "Prioritize",
+            "Resources",
+            "Emergency",
+            "Non-emergency"
+          ],
+          "materials": [
+            "Chapter 13 text",
+            "Emergency Call Classification and Response worksheet",
+            "Student computer",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Finish Worksheet and Review",
+          "summary": "Finish and turn in the Chapter 13 worksheet, then review Unit 13 together.",
+          "lessonType": [
+            "Review"
+          ],
+          "objectives": [
+            "I can classify and prioritize calls.",
+            "I can explain what resources different call types need."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Finish and turn in the Chapter 13 worksheet",
+              "minutes": 15
+            },
+            {
+              "activity": "Unit 13 review sheet",
+              "minutes": 30
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Define in your own words: reporting party, victim, suspect.",
+          "exitTicket": "Explain the difference between classifying a call and prioritizing a call. Give one example of each.",
+          "vocab": [
+            "Reporting party",
+            "Victim",
+            "Suspect",
+            "Emergency",
+            "Non-emergency",
+            "ALI",
+            "ANI",
+            "MSAG"
+          ],
+          "materials": [
+            "Chapter 13 text",
+            "Emergency Call Classification and Response worksheet",
+            "Review sheet",
+            "Student computer",
+            "Pen or pencil"
+          ],
+          "homework": "Study the Unit 13 terms using the Terms Review Sheet or the NECI Quizlet."
+        }
+      ]
+    },
+    {
+      "unit": 14,
+      "title": "NECI Unit 14: Radio Broadcast Techniques",
+      "sourceFile": "Unit 14- Radio Broadcast Lesson Plans .docx",
+      "notes": "I split the 90-minute block plan into 8 days of 55 minutes. The reading quiz (Segment 7) gets its own day. To fit, I made these changes: Day 1 flashcards get 30 min instead of 20; role play Segments 8–9 are combined into one 45-min day instead of 60; the Descriptions Game is trimmed to 25 min; and 911 Call Analysis Segments 14–15 are combined into one 45-min day instead of 60.",
+      "days": [
+        {
+          "title": "History of the Phonetic Alphabet + Vocabulary",
+          "summary": "Read about where the phonetic alphabet came from, then build vocabulary cards for the unit.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can explain why dispatchers use a phonetic alphabet.",
+            "I can define key Unit 14 vocabulary in my own words."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Read: History of the Phonetic Alphabet + class discussion",
+              "minutes": 15
+            },
+            {
+              "activity": "Frayer Model vocabulary flashcards",
+              "minutes": 30
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Spell your last name out loud to a partner over a bad phone line. Which letters could get confused? List 3 pairs of letters that sound alike (example: B and D).",
+          "exitTicket": "Why was the phonetic alphabet created? Give one reason it still matters for 9-1-1 dispatchers today.",
+          "vocab": [
+            "phonetic alphabet",
+            "agency standardization",
+            "inter-agency standardization",
+            "number standards",
+            "color standards",
+            "personal description",
+            "broadcast techniques",
+            "alert tone",
+            "clipping"
+          ],
+          "materials": [
+            "History of Phonetic Alphabet article",
+            "Unit 14 Vocabulary Exercise",
+            "Index cards or computer",
+            "Pen or pencil"
+          ],
+          "homework": "Finish any vocabulary flashcards you did not complete in class."
+        },
+        {
+          "title": "Radio Broadcast Techniques Notes + Phonetic Alphabet Cards",
+          "summary": "Take notes on radio broadcast techniques, then make color-coded phonetic alphabet flashcards.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can describe proper radio procedures and protocols.",
+            "I can write and say the phonetic alphabet from A to Z."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Slides: Unit 14 Radio Broadcast Techniques (take your own notes and copy the phonetic ABCs)",
+              "minutes": 20
+            },
+            {
+              "activity": "Phonetic alphabet flashcards (one color per letter) + your letter's short story",
+              "minutes": 25
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Without notes, write as many phonetic alphabet words as you can (A = Adam...). How many did you get?",
+          "exitTicket": "Spell DISPATCH using the phonetic alphabet. Then write one rule for a clear radio transmission.",
+          "vocab": [
+            "phonetic alphabet",
+            "broadcast techniques",
+            "alert tone",
+            "clipping",
+            "transmissions",
+            "protocols"
+          ],
+          "materials": [
+            "Notes paper",
+            "Index cards or paper",
+            "Color markers",
+            "Pen or pencil"
+          ],
+          "homework": "Practice the phonetic alphabet with your flashcards or Quizlet."
+        },
+        {
+          "title": "Read Radio Broadcast Techniques",
+          "summary": "Read the Radio Broadcast Techniques text and check your understanding.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can identify the standards for numbers, colors, and personal descriptions in radio messages.",
+            "I can explain proper radio procedures from the reading."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Read: Radio Broadcast Techniques text, part 1",
+              "minutes": 20
+            },
+            {
+              "activity": "Read: Radio Broadcast Techniques text, part 2 + take notes",
+              "minutes": 25
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "What is clipping? How could clipping cause a mistake on a 9-1-1 radio call?",
+          "exitTicket": "Write one rule from the reading about how to say numbers, colors, or a personal description on the radio.",
+          "vocab": [
+            "number standards",
+            "color standards",
+            "personal description",
+            "agency standardization",
+            "inter-agency standardization"
+          ],
+          "materials": [
+            "Radio Broadcast Techniques text",
+            "Student computer",
+            "Pen or pencil"
+          ],
+          "homework": "Finish the reading and study it for tomorrow's quiz. Bring your questions."
+        },
+        {
+          "title": "Reading Assignment Quiz",
+          "summary": "Ask questions about the reading, then take the Unit 14 Reading Assignment Quiz.",
+          "lessonType": [
+            "Quiz"
+          ],
+          "objectives": [
+            "I can show what I learned from the Radio Broadcast Techniques reading."
+          ],
+          "agenda": [
+            {
+              "activity": "Questions from the reading",
+              "minutes": 10
+            },
+            {
+              "activity": "Quiet review",
+              "minutes": 5
+            },
+            {
+              "activity": "Unit 14: Reading Assignment Quiz",
+              "minutes": 25
+            },
+            {
+              "activity": "Finished: read silently",
+              "minutes": 15
+            }
+          ],
+          "bellWork": "Write one question you still have about the reading. We will answer them before the quiz.",
+          "exitTicket": "Which quiz question felt hardest? What will you review again?",
+          "vocab": [
+            "broadcast techniques",
+            "number standards",
+            "color standards",
+            "personal description"
+          ],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Silent reading book"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Radio Role Play Scenarios",
+          "summary": "With a partner, use two-way radios to practice dispatcher and field unit transmissions.",
+          "lessonType": [
+            "Scenario / Simulation",
+            "Project Work"
+          ],
+          "objectives": [
+            "I can demonstrate proper 9-1-1 radio procedures and protocols.",
+            "I can use the phonetic alphabet correctly in a radio transmission."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Role play scenarios with two-way radios: round 1",
+              "minutes": 25
+            },
+            {
+              "activity": "Switch roles: round 2",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Write a short radio message: a red truck, plate ABC 123, heading north. Use the phonetic alphabet and number standards.",
+          "exitTicket": "What did your partner do well on the radio? What is one thing you would fix in your own transmission?",
+          "vocab": [
+            "transmissions",
+            "protocols",
+            "alert tone",
+            "clipping",
+            "phonetic alphabet"
+          ],
+          "materials": [
+            "Two-way radios",
+            "Unit 14: Group Activity",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "911 Call Review + Descriptions Game",
+          "summary": "Listen to real 911 calls and judge them, then play the Descriptions Game in groups.",
+          "lessonType": [
+            "Lecture / Media",
+            "Project Work"
+          ],
+          "objectives": [
+            "I can identify appropriate and inappropriate radio speech in 9-1-1 calls.",
+            "I can give a clear personal description using description standards."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Listen to 911 calls (each played twice) + notes: What went well? What could be better? Why?",
+              "minutes": 20
+            },
+            {
+              "activity": "Descriptions Game in groups",
+              "minutes": 25
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Describe the person next to you the way a dispatcher would. Use the order you learned for a personal description.",
+          "exitTicket": "Name one thing a call-taker did well in today's calls and one thing they should have done differently.",
+          "vocab": [
+            "personal description",
+            "color standards",
+            "broadcast techniques"
+          ],
+          "materials": [
+            "Notes paper",
+            "Descriptions Game slides",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Unit 14 Worksheet + Peer Check",
+          "summary": "Complete the Unit 14 worksheet, then grade a partner's work before we review answers.",
+          "lessonType": [
+            "Review"
+          ],
+          "objectives": [
+            "I can apply radio procedures, the phonetic alphabet, and broadcast standards on written questions."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Unit 14 Worksheet, part 1",
+              "minutes": 20
+            },
+            {
+              "activity": "Unit 14 Worksheet, part 2",
+              "minutes": 20
+            },
+            {
+              "activity": "Peer grade, then review answers",
+              "minutes": 5
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Spell your first name in the phonetic alphabet, then say the number 15 using radio number standards.",
+          "exitTicket": "Which worksheet question did your partner answer differently than you? Who was right, and why?",
+          "vocab": [
+            "agency standardization",
+            "inter-agency standardization",
+            "number standards",
+            "color standards"
+          ],
+          "materials": [
+            "Unit 14 Worksheet",
+            "Student computer",
+            "Pen or pencil"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Analyzing 9-1-1 Calls for Inappropriate Radio Speech",
+          "summary": "Listen to 911 calls and analyze where the radio speech was inappropriate or unclear.",
+          "lessonType": [
+            "Project Work"
+          ],
+          "objectives": [
+            "I can identify inappropriate radio speech in 9-1-1 calls.",
+            "I can explain how to fix unclear radio speech."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "911 Call Analysis Activity",
+              "minutes": 45
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "List 3 things that make radio speech unprofessional or hard to understand.",
+          "exitTicket": "Pick one mistake from today's calls. Rewrite that part the right way.",
+          "vocab": [
+            "broadcast techniques",
+            "clipping",
+            "transmissions",
+            "protocols"
+          ],
+          "materials": [
+            "Activity: Analyzing 9-1-1 Calls for Inappropriate Radio Speech",
+            "Student computer",
+            "Pen or pencil"
+          ],
+          "homework": "Review Unit 14 vocabulary and the phonetic alphabet on Quizlet."
+        }
+      ]
+    },
+    {
+      "unit": 15,
+      "title": "NECI Unit 15: Special Incidents",
+      "sourceFile": "Unit 15 Special Incidents.docx",
+      "notes": "I split the 90-minute-block plan into 6 days of 55 minutes. Segment 4 (research) spans Days 2–3 so there is time to present, the Segment 5–7 group activity runs across Days 3–5, and the summative assessment gets its own Day 6. Segments 2–3 list the slideshow as 'Emergency Communication Technologies'; I assumed that is a copy error and used 'Unit 15: Special Incidents.'",
+      "days": [
+        {
+          "title": "Special Incidents Vocabulary & Intro",
+          "summary": "Build Unit 15 vocabulary with flashcards, then start the Special Incidents slides.",
+          "lessonType": [
+            "Lecture / Media"
+          ],
+          "objectives": [
+            "I can define key Unit 15 terms like HAZMAT, ERG, and PSAP.",
+            "I can name the types of special incidents a 9-1-1 officer may handle."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Vocabulary flashcards (traditional or Frayer Model)",
+              "minutes": 20
+            },
+            {
+              "activity": "Slides: Unit 15 Special Incidents, Part 1",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "What do you think makes a 9-1-1 call a \"special incident\" instead of a normal call? Give one example.",
+          "exitTicket": "Name 3 types of special incidents. Then define ONE term from your flashcards in your own words.",
+          "vocab": [
+            "Hazardous Material",
+            "Terrorism",
+            "Hijacking",
+            "Smuggling",
+            "Human Trafficking",
+            "Active Shooter",
+            "NORAD",
+            "704 Placard",
+            "DOT Placard",
+            "ERG",
+            "MOA",
+            "NENA",
+            "NASNA",
+            "PSAP",
+            "FAA"
+          ],
+          "materials": [
+            "Index cards",
+            "Frayer Model template",
+            "Unit 15 vocabulary list",
+            "Student computer"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Active Shooter Calls & Research Kickoff",
+          "summary": "Learn how a 9-1-1 officer handles active shooter and other special incident calls, then start the smuggling vs. human trafficking research.",
+          "lessonType": [
+            "Lecture / Media",
+            "Project Work"
+          ],
+          "objectives": [
+            "I can explain how a 9-1-1 officer receives and processes an active shooter call.",
+            "I can begin researching how smuggling and human trafficking are different."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Slides: Special Incidents Part 2 & Active Shooter",
+              "minutes": 20
+            },
+            {
+              "activity": "Research: smuggling vs. human trafficking",
+              "minutes": 20
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Recall: What does PSAP stand for? What does ERG stand for?",
+          "exitTicket": "List 2 things a 9-1-1 officer must find out from a caller during an active shooter call.",
+          "vocab": [
+            "Active Shooter",
+            "Terrorism",
+            "Hijacking",
+            "NORAD",
+            "FAA",
+            "Smuggling",
+            "Human Trafficking"
+          ],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Unit 15 slides"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Research Presentations & Group Activity",
+          "summary": "Finish and present your smuggling vs. human trafficking research, then start the Special Incidents group activity.",
+          "lessonType": [
+            "Project Work"
+          ],
+          "objectives": [
+            "I can present data on how smuggling and human trafficking differ and why they are increasing.",
+            "I can work with my crew to process a special incident call."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Finish research & present findings",
+              "minutes": 15
+            },
+            {
+              "activity": "Special Incidents group activity (crews of 3–4)",
+              "minutes": 30
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 0
+            }
+          ],
+          "bellWork": "In one sentence: What is the difference between smuggling and human trafficking?",
+          "exitTicket": "Name one sign a caller might be a human trafficking victim.",
+          "vocab": [
+            "Smuggling",
+            "Human Trafficking",
+            "PSAP"
+          ],
+          "materials": [
+            "Student computer",
+            "Pen or pencil",
+            "Printer paper",
+            "Radios",
+            "Flip chart or whiteboard and markers"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Special Incidents Group Activity",
+          "summary": "Keep working in crews on the Special Incidents group activity: HAZMAT, aircraft, and more.",
+          "lessonType": [
+            "Project Work",
+            "Scenario / Simulation"
+          ],
+          "objectives": [
+            "I can receive and process a call for a HAZMAT incident.",
+            "I can receive and process a call for an airplane-related incident."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Special Incidents group activity (crews)",
+              "minutes": 40
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "A caller sees a tanker truck leaking with a placard on it. What should you ask the caller to read to you, and what book helps you look it up?",
+          "exitTicket": "Which agencies might a 9-1-1 officer contact for a hijacked or stolen plane? Name 2.",
+          "vocab": [
+            "Hazardous Material",
+            "DOT Placard",
+            "704 Placard",
+            "ERG",
+            "Hijacking",
+            "FAA",
+            "NORAD"
+          ],
+          "materials": [
+            "Student computer",
+            "Printer paper",
+            "Radios",
+            "Timer",
+            "Flip chart or whiteboard and markers"
+          ],
+          "homework": ""
+        },
+        {
+          "title": "Finish Group Activity & Review",
+          "summary": "Wrap up the group activity, then review all Unit 15 terms for tomorrow's test.",
+          "lessonType": [
+            "Project Work",
+            "Review"
+          ],
+          "objectives": [
+            "I can finish processing special incident calls with my crew.",
+            "I can review Unit 15 terms and responsibilities to get ready for the test."
+          ],
+          "agenda": [
+            {
+              "activity": "Bell work",
+              "minutes": 5
+            },
+            {
+              "activity": "Finish Special Incidents group activity",
+              "minutes": 15
+            },
+            {
+              "activity": "Unit 15 review worksheet",
+              "minutes": 25
+            },
+            {
+              "activity": "Exit ticket",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Which special incident from this unit do you think is hardest for a 9-1-1 officer to handle? Why?",
+          "exitTicket": "Write one Unit 15 term you still need to study and what you think it means.",
+          "vocab": [
+            "NENA",
+            "NASNA",
+            "MOA",
+            "PSAP",
+            "ERG"
+          ],
+          "materials": [
+            "Review worksheet",
+            "Terms review sheet",
+            "NECI Quizlet",
+            "Pen or pencil"
+          ],
+          "homework": "Study the Unit 15 terms review sheet and Quizlet for tomorrow's test."
+        },
+        {
+          "title": "Special Incidents Test",
+          "summary": "Unit 15 summative assessment.",
+          "lessonType": [
+            "Unit Exam"
+          ],
+          "objectives": [
+            "I can show what I know about a 9-1-1 officer's responsibilities during special incidents."
+          ],
+          "agenda": [
+            {
+              "activity": "Quiet review",
+              "minutes": 5
+            },
+            {
+              "activity": "Unit 15 Special Incidents test",
+              "minutes": 45
+            },
+            {
+              "activity": "Finished: read silently",
+              "minutes": 5
+            }
+          ],
+          "bellWork": "Quiet review: look over your flashcards. No talking.",
+          "exitTicket": "Turn in your test. Read silently until time is called.",
+          "vocab": [],
+          "materials": [
+            "Pen or pencil",
+            "Student computer (if test is online)"
+          ],
+          "homework": ""
+        }
+      ]
+    }
+  ]
+}

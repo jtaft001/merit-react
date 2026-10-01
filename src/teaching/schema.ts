@@ -98,6 +98,7 @@ const LPSCS_PHASES: SelectOption[] = [
   opt("Phase 7: Court Advocacy", "pink"),
   opt("Phase 8: Pathway Explorations", "yellow"),
   opt("Phase 9: Final Evaluations", "gray"),
+  opt("NECI 9-1-1 Dispatch", "red"),
 ];
 const WILD_PHASES: SelectOption[] = [
   opt("Phase 0: Course Setup", "gray"),
@@ -226,6 +227,9 @@ export const COLLECTIONS: CollectionDef[] = [
       { key: "classActivity", label: "Class Activity", type: "longtext" },
       { key: "bellRinger", label: "Bell Work / Warm-Up", type: "longtext", help: "The opening bell ringer — what students do the moment they sit down." },
       { key: "exitTicket", label: "Exit Ticket", type: "longtext", help: "The closing exit ticket — how the day is checked and wrapped up." },
+      { key: "objectives", label: "Learning Targets", type: "longtext", help: "Student-facing \"I can…\" targets for this day, one per line. Shown on the Status Board." },
+      { key: "vocabulary", label: "Vocabulary", type: "text", help: "Terms students need today, comma-separated." },
+      { key: "supplies", label: "Student Materials", type: "longtext", help: "What students need on their desk today, one per line (no answer keys)." },
       { key: "chaptersMedia", label: "Chapters / Media", type: "text" },
       { key: "preClassHomework", label: "Pre-Class Homework", type: "longtext" },
       { key: "prepStatus", label: "Prep Status", type: "select", inList: true, options: STATUS },
@@ -273,6 +277,7 @@ export const COLLECTIONS: CollectionDef[] = [
           opt("NREMT & Clinical Prep", "purple"),
           opt("iCEV Lesson", "orange"),
           opt("iCEV Career Pathway Overview", "brown"),
+          opt("NECI / LAPSEN Unit", "red"),
         ],
       },
       { key: "planStatus", label: "Plan Status", type: "select", inList: true, options: STATUS },
