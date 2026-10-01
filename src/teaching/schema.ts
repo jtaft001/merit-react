@@ -148,9 +148,18 @@ export const COLLECTIONS: CollectionDef[] = [
       {
         key: "period",
         label: "Period",
-        type: "select",
+        // Multiselect: one course can meet in several periods (ILPS is 2 and 6).
+        // Older records hold a single string; teachingService reads it as a list.
+        type: "multiselect",
         inList: true,
-        options: [opt("Period 2", "blue"), opt("Period 3", "red"), opt("Period 4", "green"), opt("TBD", "gray")],
+        options: [
+          opt("Period 1", "orange"),
+          opt("Period 2", "blue"),
+          opt("Period 3", "red"),
+          opt("Period 4", "green"),
+          opt("Period 6", "purple"),
+          opt("TBD", "gray"),
+        ],
       },
       { key: "currentUnit", label: "Current Unit / Phase", type: "text", inList: true },
       {

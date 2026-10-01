@@ -51,9 +51,13 @@ function fromStored(val: any): any {
 
 function toRecord(id: string, data: Record<string, unknown>): TeachingRecord {
   const rec: TeachingRecord = { id, type: String(data.type ?? "") };
+  const fields = getCollection(rec.type)?.fields ?? [];
   for (const [k, v] of Object.entries(data)) {
     if (k === "createdAt" || k === "updatedAt") continue;
-    rec[k] = fromStored(v);
+    // A field changed from select to multiselect may still hold a lone string;
+    // surface it as a one-item list (it's saved back as a list on next edit).
+    const multi = fields.some((f) => f.key === k && f.type === "multiselect");
+    rec[k] = multi && typeof v === "string" ? (v ? [v] : []) : fromStored(v);
   }
   rec.createdAt = toDate(data.createdAt);
   rec.updatedAt = toDate(data.updatedAt);
