@@ -1,0 +1,1050 @@
+{
+ "source": "Hyperlinks extracted from the NECI/LAPSEN unit plan .docx files; each mapped to the class day that uses it (Claude, checked against segment order). teacherOnly links (answer keys, tests/quizzes, instructor sheets) never show on the Status Board.",
+ "units": {
+  "7": {
+   "unitWide": [
+    {
+     "label": "Terms review sheet",
+     "url": "https://docs.google.com/document/d/1ILQUJikxjIyz2oa-NpVowPQ1yxxUTcKA/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    },
+    {
+     "label": "NECI Quizlet review",
+     "url": "https://quizlet.com/514877859/9-1-1-terms-and-definitions-flash-cards/?x=1jqt",
+     "teacherOnly": false
+    },
+    {
+     "label": "NECI final review",
+     "url": "https://docs.google.com/document/d/1ZKfuCShmlC2Gy-Zcf4hLQvTKvDVmEaia/edit?usp=sharing&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    }
+   ],
+   "days": [
+    [
+     {
+      "label": "Word search",
+      "url": "https://drive.google.com/file/d/1SGUh_6q7aqO9n_Omm_7rRyu0XNKrT_H4/view?usp=sharing",
+      "teacherOnly": false
+     },
+     {
+      "label": "Word search answer key",
+      "url": "https://drive.google.com/file/d/11KDVHp5Oz8ucNNYjGobIbrGTaQHPq1VU/view?usp=drive_link",
+      "teacherOnly": true
+     },
+     {
+      "label": "Vocabulary and definitions",
+      "url": "https://docs.google.com/document/d/1u37rqdG2qunDrevqHgVN9651P6TL1_-d/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": true
+     },
+     {
+      "label": "Crossword puzzle",
+      "url": "https://drive.google.com/file/d/1dtpiDKo-No-ArlIuFPMzoJALAeL4ahWd/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Crossword answer key",
+      "url": "https://drive.google.com/file/d/1irc5lZ9zibHA0rcByXh0X-wRkm4_zNAi/view?usp=drive_link",
+      "teacherOnly": true
+     }
+    ],
+    [
+     {
+      "label": "Frayer Model template",
+      "url": "https://drive.google.com/file/d/10lwR28pLiQlK5j-b19DGD88-7Ubg5RMs/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Slides: Stress Management for 9-1-1 Officers",
+      "url": "https://docs.google.com/presentation/d/1MuXArEugOnI_5TicODpMKooMjft3pLnR/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": false
+     },
+     {
+      "label": "Optional reading text",
+      "url": "https://drive.google.com/file/d/11QlmmMNiMEW_xAQX5nA3zWhEDQ_mJJ8X/view?usp=drive_link",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Stress Management Exercise",
+      "url": "https://docs.google.com/document/d/1Xxwhx-CdKzXR7jpwXovvZ1-Vemhm0noB/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video: How dispatchers handle stress",
+      "url": "https://drive.google.com/file/d/1Cllmg8ZSWYE4iTobnMFhoj_oVb1D1WBp/view?usp=drive_link",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Quizlet: Stress Management flashcards",
+      "url": "https://quizlet.com/815432375/stress-management-for-9-1-1-flash-cards/?i=4x8g63&x=1jqt",
+      "teacherOnly": false
+     },
+     {
+      "label": "Review worksheet",
+      "url": "https://docs.google.com/document/d/1CIzGvtQEKdszr1Yl-uXQdpt3SuB0BxZf/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Vocabulary test",
+      "url": "https://drive.google.com/file/d/1Soqq7x4T6zXI3OVxDynf5IFWEfok0O6B/view?usp=drive_link",
+      "teacherOnly": true
+     },
+     {
+      "label": "Vocabulary test answer key",
+      "url": "https://drive.google.com/file/d/1ey56HzZIF1rk1-4ZuxpQ9MtUhHn9ctlC/view?usp=drive_link",
+      "teacherOnly": true
+     }
+    ]
+   ]
+  },
+  "8": {
+   "unitWide": [
+    {
+     "label": "Terms review sheet",
+     "url": "https://docs.google.com/document/d/1ILQUJikxjIyz2oa-NpVowPQ1yxxUTcKA/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    },
+    {
+     "label": "NECI Quizlet review",
+     "url": "https://quizlet.com/514877859/9-1-1-terms-and-definitions-flash-cards/?x=1jqt",
+     "teacherOnly": false
+    },
+    {
+     "label": "NECI final review",
+     "url": "https://docs.google.com/document/d/1ZKfuCShmlC2Gy-Zcf4hLQvTKvDVmEaia/edit?usp=sharing&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    }
+   ],
+   "days": [
+    [
+     {
+      "label": "Word search",
+      "url": "https://drive.google.com/file/d/1bi5j6tOilRlW76YFrgVrKaF8Jn9oTAyL/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Word search answer key",
+      "url": "https://drive.google.com/file/d/1VtvZEf-RVYChrE4l2-5VsINSmTMXXw09/view?usp=drive_link",
+      "teacherOnly": true
+     },
+     {
+      "label": "Vocabulary and definitions",
+      "url": "https://docs.google.com/document/d/1ZfOkl73L9Hd8xFEKYB2BNxB4dIl4KebI/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": true
+     },
+     {
+      "label": "Crossword",
+      "url": "https://drive.google.com/file/d/1XuGPCsAgGG2ZJ7WoJ3Rgwu-kzVSM1uMq/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Crossword answer key",
+      "url": "https://drive.google.com/file/d/1BnsepLjc0hKlq6wetWeav6jZqqGv9xXZ/view?usp=drive_link",
+      "teacherOnly": true
+     }
+    ],
+    [
+     {
+      "label": "Frayer Model template",
+      "url": "https://drive.google.com/file/d/10lwR28pLiQlK5j-b19DGD88-7Ubg5RMs/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Quizlet: Interpersonal Communications",
+      "url": "https://quizlet.com/815471278/interpersonal-communications-flash-cards/?i=4x8g63&x=1jqt",
+      "teacherOnly": false
+     },
+     {
+      "label": "Slides: Interpersonal Communications",
+      "url": "https://docs.google.com/presentation/d/1YJ4FlBhCp2CH6aambg5tEmF3bralJnZE/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Slides: Interpersonal Communications",
+      "url": "https://docs.google.com/presentation/d/1YJ4FlBhCp2CH6aambg5tEmF3bralJnZE/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video 1: Active listening",
+      "url": "https://drive.google.com/file/d/1U0Xl3Aznvn4TyAzTDDL-qnrmy7wRB9HU/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video 2: Active listening",
+      "url": "https://drive.google.com/file/d/1HlVZnAF2wKg7SjjT5503L8eQaM8jAJiS/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video 3: Active listening",
+      "url": "https://drive.google.com/file/d/1TqDmA6HJrYayCpNt0mSFnL5aPe-1s0tj/view?usp=drive_link",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "IPC activities",
+      "url": "https://docs.google.com/document/d/1Uo_TGMZ1SkWOidXekH8KGTGXBvynd41A/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": false
+     },
+     {
+      "label": "IPC supplement material",
+      "url": "https://docs.google.com/document/d/1T5ADGJyjuJpYjlN_e5W9DkO56i3lxdwv/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Chapter 8 text",
+      "url": "https://drive.google.com/file/d/1GGyJ3636d0EiCqoqboftEF1Si9JGBIYo/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Chapter 8 worksheet",
+      "url": "https://drive.google.com/file/d/1muWjWLI9747xqPos0U2iPBSCXjmipTh5/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Chapter 8 worksheet answer key",
+      "url": "https://drive.google.com/file/d/1TbzpDfbPqMgegQi49syNwV2CWSgVxvHl/view?usp=drive_link",
+      "teacherOnly": true
+     }
+    ],
+    [
+     {
+      "label": "Review worksheet",
+      "url": "https://docs.google.com/document/d/1rIx_jUgc5Yy4rV0eSBdBc_z85cegfRm5/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Unit 8 vocabulary test",
+      "url": "https://drive.google.com/file/d/1No5ZSvxR4iZqd3llzfc2rfVo-jYisyXC/view?usp=drive_link",
+      "teacherOnly": true
+     },
+     {
+      "label": "Vocabulary test answer key",
+      "url": "https://drive.google.com/file/d/1rg_xzNq2HnQPOb-O6qtGTV2XafmFzhaW/view?usp=drive_link",
+      "teacherOnly": true
+     }
+    ]
+   ]
+  },
+  "9": {
+   "unitWide": [
+    {
+     "label": "Terms review sheet",
+     "url": "https://docs.google.com/document/d/1ILQUJikxjIyz2oa-NpVowPQ1yxxUTcKA/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    },
+    {
+     "label": "NECI Quizlet: 9-1-1 terms",
+     "url": "https://quizlet.com/514877859/9-1-1-terms-and-definitions-flash-cards/?x=1jqt",
+     "teacherOnly": false
+    },
+    {
+     "label": "NECI final review",
+     "url": "https://docs.google.com/document/d/1ZKfuCShmlC2Gy-Zcf4hLQvTKvDVmEaia/edit?usp=sharing&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    }
+   ],
+   "days": [
+    [
+     {
+      "label": "Video: Behind the Scenes of 9-1-1",
+      "url": "https://www.youtube.com/watch?v=5J8BpEawbI4",
+      "teacherOnly": false
+     },
+     {
+      "label": "Frayer Model template",
+      "url": "https://drive.google.com/file/d/1KS4Rtw4N5BYKS-k7CNz5g8-ExNnYFln2/view?usp=sharing",
+      "teacherOnly": false
+     },
+     {
+      "label": "Unit 9 vocabulary and definitions",
+      "url": "https://docs.google.com/document/d/1kLa4sF76GW6pSBXVxGMYPL64gZFEJc7CZ_WKfAlBlbk/edit?usp=drive_link",
+      "teacherOnly": true
+     }
+    ],
+    [
+     {
+      "label": "Unit 9 worksheet",
+      "url": "https://drive.google.com/file/d/1zRKX7c66kBAe1QaXBhKCfs2C8y-Wcuzp/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Unit 9 worksheet answer key",
+      "url": "https://drive.google.com/file/d/1H38nXpGSgEhW5z7eu4nUg81mfFlItmxH/view?usp=drive_link",
+      "teacherOnly": true
+     },
+     {
+      "label": "Slides: Emergency Communication Technologies (Part 1)",
+      "url": "https://docs.google.com/presentation/d/1MWzk2ntwaj0_bmb9VYQ6Tx19db8ENRJf/edit?usp=sharing&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Slides: Emergency Communication Technologies (Part 2)",
+      "url": "https://docs.google.com/presentation/d/1MWzk2ntwaj0_bmb9VYQ6Tx19db8ENRJf/edit?usp=sharing&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     },
+     {
+      "label": "Unit 9 reading",
+      "url": "https://drive.google.com/file/d/1XXRhy8HwDl7LA0_6RkVlb1IRFYQbFJft/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Unit 9 guided notes",
+      "url": "https://docs.google.com/document/d/1fLI7SA8ss_KAgbtL73KGpLSdOkfesSL6xfHrhfe2L8o/edit?usp=drive_link",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Unit 9 reading",
+      "url": "https://drive.google.com/file/d/1XXRhy8HwDl7LA0_6RkVlb1IRFYQbFJft/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Unit 9 guided notes",
+      "url": "https://docs.google.com/document/d/1fLI7SA8ss_KAgbtL73KGpLSdOkfesSL6xfHrhfe2L8o/edit?usp=drive_link",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Unit 9 quiz",
+      "url": "https://docs.google.com/document/d/1u-_RUIynsmIluIn-GR-sXvDwEpgZIyDL3qBNW2evWJU/edit?usp=drive_link",
+      "teacherOnly": true
+     },
+     {
+      "label": "Unit 9 quiz answer key",
+      "url": "https://docs.google.com/document/d/1lCr4EiWvMrrORATMRPsPzMNi429Z0Zd6PrpMgIRPhRk/edit?usp=drive_link",
+      "teacherOnly": true
+     }
+    ],
+    [
+     {
+      "label": "Unit 9 review worksheet",
+      "url": "https://docs.google.com/document/d/1aX31mSyZG4H65wtdOQTdpoyzCGv59t1e/edit?usp=drive_link&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ]
+   ]
+  },
+  "10": {
+   "unitWide": [
+    {
+     "label": "Terms review sheet",
+     "url": "https://docs.google.com/document/d/1ILQUJikxjIyz2oa-NpVowPQ1yxxUTcKA/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    },
+    {
+     "label": "Quizlet: NECI 9-1-1 terms review",
+     "url": "https://quizlet.com/514877859/9-1-1-terms-and-definitions-flash-cards/?x=1jqt",
+     "teacherOnly": false
+    },
+    {
+     "label": "NECI final review",
+     "url": "https://docs.google.com/document/d/1ZKfuCShmlC2Gy-Zcf4hLQvTKvDVmEaia/edit?usp=sharing&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    }
+   ],
+   "days": [
+    [
+     {
+      "label": "Word search",
+      "url": "https://drive.google.com/file/d/1nvMJaVjZCdTxDNVGZgS3SdRam9VORSXj/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Word search answer key",
+      "url": "https://drive.google.com/file/d/1wiPZgkHtkcEmpmZBxYrq2MUSNjrb5JQb/view?usp=drive_link",
+      "teacherOnly": true
+     },
+     {
+      "label": "Crossword",
+      "url": "https://drive.google.com/file/d/1ZqO5WOFKTcDGmfYQHIvKTYiz7KPUChin/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Crossword answer key",
+      "url": "https://drive.google.com/file/d/1jLiDxxHX-07JjcD-Pvs__L9K-l20199H/view?usp=drive_link",
+      "teacherOnly": true
+     }
+    ],
+    [
+     {
+      "label": "Frayer Model template",
+      "url": "https://drive.google.com/file/d/10lwR28pLiQlK5j-b19DGD88-7Ubg5RMs/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Quizlet: FCC Rules and Regulations",
+      "url": "https://quizlet.com/816305972/fcc-rules-and-regulations-flash-cards/?i=4x8g63&x=1qqt",
+      "teacherOnly": false
+     },
+     {
+      "label": "Slides: FCC Rules and Regulations",
+      "url": "https://docs.google.com/presentation/d/1x38eCiCVCaskJeO8hGuWk-1bIMirkhSP/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Chapter Ten text",
+      "url": "https://drive.google.com/file/d/12ZvdymqNPjJuicntK_Q0-QDbQ75o_dFP/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Chapter Ten worksheet",
+      "url": "https://drive.google.com/file/d/1IsFBf6mBL9YcCnYBEbGgIoJhJ9m6Ybpt/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Worksheet answer key",
+      "url": "https://drive.google.com/file/d/1XkEIPNazC_47_dldm2x8MixsHF_h_Ey7/view?usp=drive_link",
+      "teacherOnly": true
+     },
+     {
+      "label": "Review sheet",
+      "url": "https://docs.google.com/document/d/1U9meLeisizEOU9QfoRLWK1DIqEQv-_Dx/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Vocabulary test",
+      "url": "https://drive.google.com/file/d/1D1Lg2Uva6tC-EtC0l_iTgYD5a5RTRR0U/view?usp=drive_link",
+      "teacherOnly": true
+     },
+     {
+      "label": "Vocabulary test answer key",
+      "url": "https://drive.google.com/file/d/1f-oOMpsY0i1vsj93IygphwZkPjntHBJ6/view?usp=drive_link",
+      "teacherOnly": true
+     }
+    ]
+   ]
+  },
+  "11": {
+   "unitWide": [
+    {
+     "label": "NECI final review",
+     "url": "https://docs.google.com/document/d/1ZKfuCShmlC2Gy-Zcf4hLQvTKvDVmEaia/edit?usp=sharing&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    }
+   ],
+   "days": [
+    [
+     {
+      "label": "Crossword: Caller types",
+      "url": "https://drive.google.com/file/d/1s0-9cIdKosmBxCr1eNIQkYuP11qpZWvU/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Crossword answer key",
+      "url": "https://drive.google.com/file/d/1bxJH6BGi4aclCAweRt8CqenvnkNCs6tp/view?usp=drive_link",
+      "teacherOnly": true
+     },
+     {
+      "label": "Slides: Unit 11 Call Processing",
+      "url": "https://docs.google.com/presentation/d/1y7zUwx6V5E9F_ZV8U0zVplnB04nOJdUI/edit?usp=drive_link&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Video 1: Courtesy on the call",
+      "url": "https://www.youtube.com/watch?v=m6mzkgAVEFA",
+      "teacherOnly": false
+     },
+     {
+      "label": "Edpuzzle 1",
+      "url": "https://edpuzzle.com/media/65ef0df89c5090674df91289",
+      "teacherOnly": false
+     },
+     {
+      "label": "Edpuzzle sample 2",
+      "url": "https://edpuzzle.com/media/69035344fd53a8ac8e5b46ed",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Slides: Unit 11 Call Processing",
+      "url": "https://docs.google.com/presentation/d/1y7zUwx6V5E9F_ZV8U0zVplnB04nOJdUI/edit?usp=drive_link&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     },
+     {
+      "label": "Pre-scripted scenarios",
+      "url": "https://docs.google.com/document/d/1jLpmuVP3hImJ-15m90Yk9E59bYephWBYiY6xgGEpDW8/edit?usp=drive_link",
+      "teacherOnly": true
+     }
+    ],
+    [
+     {
+      "label": "Slides: Unit 11 Call Processing",
+      "url": "https://docs.google.com/presentation/d/1y7zUwx6V5E9F_ZV8U0zVplnB04nOJdUI/edit?usp=drive_link&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     },
+     {
+      "label": "Pre-scripted scenarios",
+      "url": "https://docs.google.com/document/d/1jLpmuVP3hImJ-15m90Yk9E59bYephWBYiY6xgGEpDW8/edit?usp=drive_link",
+      "teacherOnly": true
+     }
+    ],
+    [
+     {
+      "label": "Edpuzzle 2",
+      "url": "https://edpuzzle.com/media/644efaafa945044310b9cf12",
+      "teacherOnly": false
+     },
+     {
+      "label": "Slides: Unit 11 Call Processing",
+      "url": "https://docs.google.com/presentation/d/1y7zUwx6V5E9F_ZV8U0zVplnB04nOJdUI/edit?usp=drive_link&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video 3",
+      "url": "https://www.youtube.com/watch?v=djknGtFXSWU",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video 4",
+      "url": "https://www.youtube.com/watch?v=kzRTUq7ohX4",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video 5",
+      "url": "https://www.youtube.com/watch?v=_RGT5xJp9rg",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Slides: Unit 11 Call Processing",
+      "url": "https://docs.google.com/presentation/d/1y7zUwx6V5E9F_ZV8U0zVplnB04nOJdUI/edit?usp=drive_link&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video 3",
+      "url": "https://www.youtube.com/watch?v=djknGtFXSWU",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video 4",
+      "url": "https://www.youtube.com/watch?v=kzRTUq7ohX4",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video 5",
+      "url": "https://www.youtube.com/watch?v=_RGT5xJp9rg",
+      "teacherOnly": false
+     },
+     {
+      "label": "Pre-scripted scenarios 2",
+      "url": "https://docs.google.com/document/d/1GyALBMjgY8T1FytpVwclnyAkvylChnrKaopQV5j-vLE/edit?usp=sharing",
+      "teacherOnly": true
+     },
+     {
+      "label": "Terms review sheet",
+      "url": "https://docs.google.com/document/d/1ILQUJikxjIyz2oa-NpVowPQ1yxxUTcKA/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Slides: Unit 11 Call Processing",
+      "url": "https://docs.google.com/presentation/d/1y7zUwx6V5E9F_ZV8U0zVplnB04nOJdUI/edit?usp=drive_link&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video 3",
+      "url": "https://www.youtube.com/watch?v=djknGtFXSWU",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video 4",
+      "url": "https://www.youtube.com/watch?v=kzRTUq7ohX4",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video 5",
+      "url": "https://www.youtube.com/watch?v=_RGT5xJp9rg",
+      "teacherOnly": false
+     },
+     {
+      "label": "Pre-scripted scenarios 2",
+      "url": "https://docs.google.com/document/d/1GyALBMjgY8T1FytpVwclnyAkvylChnrKaopQV5j-vLE/edit?usp=sharing",
+      "teacherOnly": true
+     },
+     {
+      "label": "NECI Quizlet review",
+      "url": "https://quizlet.com/514877859/9-1-1-terms-and-definitions-flash-cards/?x=1jqt",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Unit 11 reading",
+      "url": "https://docs.google.com/document/d/1Gjtq0hoeMmsa5xyhB4pSm_kjsCOUKwz1xz7nyqxw9Ts/edit?usp=sharing",
+      "teacherOnly": false
+     },
+     {
+      "label": "Unit 11 guided notes",
+      "url": "https://docs.google.com/document/d/1T5WEMmAjNVAu7bi7llSmePNV4thnepGo/edit?usp=sharing&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ]
+   ]
+  },
+  "12": {
+   "unitWide": [
+    {
+     "label": "Terms review sheet",
+     "url": "https://docs.google.com/document/d/1ILQUJikxjIyz2oa-NpVowPQ1yxxUTcKA/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    },
+    {
+     "label": "Quizlet: NECI 9-1-1 terms review",
+     "url": "https://quizlet.com/514877859/9-1-1-terms-and-definitions-flash-cards/?x=1jqt",
+     "teacherOnly": false
+    },
+    {
+     "label": "NECI final review",
+     "url": "https://docs.google.com/document/d/1ZKfuCShmlC2Gy-Zcf4hLQvTKvDVmEaia/edit?usp=sharing&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    }
+   ],
+   "days": [
+    [
+     {
+      "label": "Word search",
+      "url": "https://drive.google.com/file/d/1dwO4tLt0steMdFWV6-vWNrlkvZTkDw9M/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Word search answer key",
+      "url": "https://drive.google.com/file/d/1UBLiC2oVn0L6bYI5yuJbTKvxAek5w81X/view?usp=drive_link",
+      "teacherOnly": true
+     },
+     {
+      "label": "Crossword",
+      "url": "https://drive.google.com/file/d/1Sq_ABuWbxWiMke_Ae3E05N3Vf2ruRd5n/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Crossword answer key",
+      "url": "https://drive.google.com/file/d/15xzgQxditCv_oriRSjdpFvHTsHWwmk3P/view?usp=drive_link",
+      "teacherOnly": true
+     }
+    ],
+    [
+     {
+      "label": "Frayer Model template",
+      "url": "https://drive.google.com/file/d/10lwR28pLiQlK5j-b19DGD88-7Ubg5RMs/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Slides: The Americans with Disabilities Act and TDD Calls",
+      "url": "https://docs.google.com/presentation/d/1rRsPtJtnsZ5kgq-HoFPOjO4GKZ5YmCJ5/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Chapter 12 text",
+      "url": "https://drive.google.com/file/d/1-TJT8wQKdMS5X67UheMqf36UaIvwb1WR/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Chapter 12 worksheet",
+      "url": "https://drive.google.com/file/d/1O9cDaw-vAVo-Cofuaq6jKNecrjePX01q/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Chapter 12 worksheet answer key",
+      "url": "https://drive.google.com/file/d/1mS9AYJCEITgjxIovWlwk1vZd1MFaGqEd/view?usp=drive_link",
+      "teacherOnly": true
+     }
+    ],
+    [
+     {
+      "label": "Quizlet: ADA and TDD Calls flashcards",
+      "url": "https://quizlet.com/816385054/the-americans-with-disabilities-act-ada-and-tdd-calls-flash-cards/?i=4x8g63&x=1jqt",
+      "teacherOnly": false
+     },
+     {
+      "label": "Unit 12 review sheet",
+      "url": "https://docs.google.com/document/d/1OcuKnAFcmbKuKI4DhnynF_ypTSt76IsB/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Unit 12 vocabulary test",
+      "url": "https://drive.google.com/file/d/1xzSllEx4Ov3MjJp6CsHTluZzeyYdn1hn/view?usp=drive_link",
+      "teacherOnly": true
+     },
+     {
+      "label": "Vocabulary test answer key",
+      "url": "https://drive.google.com/file/d/1RunnN-YYGkpHQk8J0QF__Btqypz3VGc_/view?usp=drive_link",
+      "teacherOnly": true
+     }
+    ]
+   ]
+  },
+  "13": {
+   "unitWide": [
+    {
+     "label": "Terms review sheet",
+     "url": "https://docs.google.com/document/d/1ILQUJikxjIyz2oa-NpVowPQ1yxxUTcKA/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    },
+    {
+     "label": "Quizlet: 9-1-1 terms and definitions",
+     "url": "https://quizlet.com/514877859/9-1-1-terms-and-definitions-flash-cards/?x=1jqt",
+     "teacherOnly": false
+    },
+    {
+     "label": "NECI final review",
+     "url": "https://docs.google.com/document/d/1ZKfuCShmlC2Gy-Zcf4hLQvTKvDVmEaia/edit?usp=sharing&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    }
+   ],
+   "days": [
+    [
+     {
+      "label": "Slides: Call Classification and Response",
+      "url": "https://docs.google.com/presentation/d/1ThcD88LozKBYi-j4yTPjdBjhXyg8POTp/edit?usp=sharing&ouid=102590366494264661633&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Video: Calling 911 - Know Your Location",
+      "url": "https://www.youtube.com/watch?v=Ce9F3Yrhs9c",
+      "teacherOnly": false
+     },
+     {
+      "label": "Example flier",
+      "url": "https://docs.google.com/document/d/1XprPdLQ5lZGDHezOxHgg7HMiINs4uVhLZAJc-U22sbA/edit?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Real 911 call video 1",
+      "url": "https://www.youtube.com/watch?v=iHn2Me-X7gU",
+      "teacherOnly": false
+     },
+     {
+      "label": "Real 911 call video 2",
+      "url": "https://www.youtube.com/watch?v=8bCxHgFSM7U",
+      "teacherOnly": false
+     },
+     {
+      "label": "Real 911 call video 3",
+      "url": "https://www.youtube.com/watch?v=3PP5HcC_QD8",
+      "teacherOnly": false
+     },
+     {
+      "label": "Real 911 call video 4",
+      "url": "https://www.youtube.com/watch?v=hntGivYHrjY",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Emergency or Not activity",
+      "url": "https://docs.google.com/document/d/1vT3VnnT3PwzKI5f5KjvFgCtq-OMeTN7c1Feh1TMVDhU/edit?usp=sharing",
+      "teacherOnly": false
+     },
+     {
+      "label": "Emergency or Not answer key",
+      "url": "https://docs.google.com/document/d/1el4TQq7xX5rjzmiFnygux7I2sLqvZEG_ANtSMS5AFxs/edit?usp=sharing",
+      "teacherOnly": true
+     }
+    ],
+    [
+     {
+      "label": "Article: Emergency lights and sirens on ambulances",
+      "url": "https://www.statnews.com/2023/07/07/emt-ambulance-emergency-lights-sirens/",
+      "teacherOnly": false
+     },
+     {
+      "label": "Reading quiz",
+      "url": "https://docs.google.com/document/d/1kjgnCP0acvavyu88BdgtGp3uLBbXGNSAJZcKWoN3h0w/edit?usp=sharing",
+      "teacherOnly": true
+     },
+     {
+      "label": "Reading quiz answer key",
+      "url": "https://docs.google.com/document/d/1sGPECrhjKqJVkvCf9LI0AwG_0sHMW7JzA03V5eCNa2w/edit?usp=sharing",
+      "teacherOnly": true
+     }
+    ],
+    [
+     {
+      "label": "Class discussion activity",
+      "url": "https://docs.google.com/document/d/1JgkKGhEmJ0ExVdf_Iz2wNW6dDe_eP3jFUTncMV7x36k/edit?usp=sharing",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Chapter 13 text",
+      "url": "https://drive.google.com/file/d/1WybgyY4Lqc68gLwqOyltMSpFRutT3BjL/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Call Classification and Response worksheet",
+      "url": "https://docs.google.com/document/d/1l-YEKel_T74WlVFX6FX-c3sASJYAzkswBE1D3yDPlN8/edit?usp=sharing",
+      "teacherOnly": false
+     },
+     {
+      "label": "Worksheet answer key",
+      "url": "https://docs.google.com/document/d/1LUM5SraecBLhpTyTsMAjT_u_oQ3rrFFliSsN96dZsKg/edit?usp=sharing",
+      "teacherOnly": true
+     }
+    ],
+    [
+     {
+      "label": "Chapter 13 text",
+      "url": "https://drive.google.com/file/d/1WybgyY4Lqc68gLwqOyltMSpFRutT3BjL/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Call Classification and Response worksheet",
+      "url": "https://docs.google.com/document/d/1l-YEKel_T74WlVFX6FX-c3sASJYAzkswBE1D3yDPlN8/edit?usp=sharing",
+      "teacherOnly": false
+     },
+     {
+      "label": "Worksheet answer key",
+      "url": "https://docs.google.com/document/d/1LUM5SraecBLhpTyTsMAjT_u_oQ3rrFFliSsN96dZsKg/edit?usp=sharing",
+      "teacherOnly": true
+     },
+     {
+      "label": "Unit 13 review sheet",
+      "url": "https://docs.google.com/document/d/1yCVTbDayqQWHDUHYytNKxtM_v_Xrcrdv/edit?usp=drive_link&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ]
+   ]
+  },
+  "14": {
+   "unitWide": [
+    {
+     "label": "Quizlet: Military phonetic alphabet",
+     "url": "https://quizlet.com/347861654/military-phonetic-alphabet-flash-cards/",
+     "teacherOnly": false
+    },
+    {
+     "label": "Quizlet: Police phonetic alphabet",
+     "url": "https://quizlet.com/422416619/police-phonetic-alphabet-policeone-flash-cards/",
+     "teacherOnly": false
+    },
+    {
+     "label": "Terms review sheet",
+     "url": "https://docs.google.com/document/d/1ILQUJikxjIyz2oa-NpVowPQ1yxxUTcKA/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    },
+    {
+     "label": "Quizlet: NECI 9-1-1 terms review",
+     "url": "https://quizlet.com/514877859/9-1-1-terms-and-definitions-flash-cards/?x=1jqt",
+     "teacherOnly": false
+    },
+    {
+     "label": "NECI final review",
+     "url": "https://docs.google.com/document/d/1ZKfuCShmlC2Gy-Zcf4hLQvTKvDVmEaia/edit?usp=sharing&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    }
+   ],
+   "days": [
+    [
+     {
+      "label": "Read: History of the Phonetic Alphabet",
+      "url": "https://docs.google.com/document/d/1KXZNBCINnU1KkJMRlGUblD4JBTNMEahSANWJeQpwUhE/edit?usp=sharing",
+      "teacherOnly": false
+     },
+     {
+      "label": "History of Phonetic Alphabet quiz",
+      "url": "https://docs.google.com/document/d/1uFUecejlbVaNFII-4oLLEtF0QCHIVM1j8tg7vSVd2gc/edit?usp=sharing",
+      "teacherOnly": true
+     },
+     {
+      "label": "History of Phonetic Alphabet quiz answer key",
+      "url": "https://docs.google.com/document/d/1qQeia1sJYwa9pKoHPlslLXNiBEVnPKa5YEZ1L2FgCgM/edit?usp=sharing",
+      "teacherOnly": true
+     },
+     {
+      "label": "Frayer Model template",
+      "url": "https://drive.google.com/file/d/10lwR28pLiQlK5j-b19DGD88-7Ubg5RMs/view?usp=drive_link",
+      "teacherOnly": false
+     },
+     {
+      "label": "Vocabulary exercise",
+      "url": "https://docs.google.com/document/d/1SCFXdqAfHi7VQRJBBcX6HFigXqzI4ukOoO02vSzRU5Q/edit?usp=drive_link",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Slides: Unit 14 Radio Broadcast Techniques",
+      "url": "https://docs.google.com/presentation/d/1Lo_axdG5BiucAnw_RWQaxsRTy1KiJliX/edit?usp=sharing&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     },
+     {
+      "label": "Tips for memorizing the phonetic alphabet",
+      "url": "https://www.dronegenuity.com/tips-for-memorizing-nato-phonetic-alphabet/",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Read: Radio Broadcast Techniques text",
+      "url": "https://drive.google.com/file/d/1WzjdvtjweMpDCeo4-e6YJfcvKR9xjunZ/view?usp=drive_link",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Unit 14 Reading Assignment quiz",
+      "url": "https://docs.google.com/document/d/1KUe8JAO7nWDb0pLdpAvJ7XkX92l-hd42Llh7NEsR5jU/edit?usp=sharing",
+      "teacherOnly": true
+     },
+     {
+      "label": "Reading Assignment quiz answer key",
+      "url": "https://docs.google.com/document/d/16nzJJik_k7-1RDaJOOzoZOseBcaAEPJnYE6XKVSyB98/edit?usp=sharing",
+      "teacherOnly": true
+     }
+    ],
+    [
+     {
+      "label": "Role play scenarios group activity",
+      "url": "https://docs.google.com/document/d/1PqHLWiWS4WGdwEWpnnB9v4xrs4UkqIFtfyJj1Itot48/edit?usp=sharing",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Descriptions Game instructions",
+      "url": "https://docs.google.com/document/d/1YWZnUViezeWk8h2s8U-VM2_MCkVOQus_Z-rG0lbbklU/edit?usp=sharing",
+      "teacherOnly": false
+     },
+     {
+      "label": "Slides: Descriptions Game",
+      "url": "https://docs.google.com/presentation/d/1F5Up2igekmIq62Pb-v68wm_o4KO3p2UGcV4xQwKHkw4/edit?usp=sharing",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Unit 14 Worksheet",
+      "url": "https://docs.google.com/document/d/1TN3NTOKDft1ZSXauFOhvdiiUykgWguLbzV1UKmD2Yao/edit?usp=sharing",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Analyzing 9-1-1 Calls activity",
+      "url": "https://docs.google.com/document/d/1zF_Cxh_NB3wH-MS0vJlJYZ8PFjtxGUbjS8ALqJA6Y9k/edit?usp=sharing",
+      "teacherOnly": false
+     }
+    ]
+   ]
+  },
+  "15": {
+   "unitWide": [
+    {
+     "label": "Terms review sheet",
+     "url": "https://docs.google.com/document/d/1ILQUJikxjIyz2oa-NpVowPQ1yxxUTcKA/edit?usp=drive_link&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    },
+    {
+     "label": "NECI Quizlet review",
+     "url": "https://quizlet.com/514877859/9-1-1-terms-and-definitions-flash-cards/?x=1jqt",
+     "teacherOnly": false
+    },
+    {
+     "label": "NECI final review",
+     "url": "https://docs.google.com/document/d/1ZKfuCShmlC2Gy-Zcf4hLQvTKvDVmEaia/edit?usp=sharing&ouid=105164433964263586971&rtpof=true&sd=true",
+     "teacherOnly": false
+    }
+   ],
+   "days": [
+    [
+     {
+      "label": "Frayer Model template",
+      "url": "https://drive.google.com/file/d/1KS4Rtw4N5BYKS-k7CNz5g8-ExNnYFln2/view?usp=sharing",
+      "teacherOnly": false
+     },
+     {
+      "label": "Vocabulary and definitions",
+      "url": "https://docs.google.com/document/d/1W6MUbgbwSpx7NLBwY-Iu-ei_btZcexZkcNDME6tQQUE/edit?usp=drive_link",
+      "teacherOnly": true
+     },
+     {
+      "label": "Slides: Unit 15 Special Incidents",
+      "url": "https://docs.google.com/presentation/d/1qk1Cs5oDPZybgwRqhf3kP8GhuApr5Vxe/edit?usp=sharing&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Slides: Unit 15 Special Incidents Part 2",
+      "url": "https://docs.google.com/presentation/d/1qk1Cs5oDPZybgwRqhf3kP8GhuApr5Vxe/edit?usp=sharing&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     },
+     {
+      "label": "Slides: Active Shooter",
+      "url": "https://cob.org/wp-content/uploads/Active-Shooter-Presentation.pdf",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video: 911 operator active shooter call",
+      "url": "https://www.youtube.com/watch?v=f4cdAJrajfY",
+      "teacherOnly": false
+     },
+     {
+      "label": "Video: Smuggling and human trafficking",
+      "url": "https://www.youtube.com/watch?v=3zDkG880jYg",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Special Incidents group activity",
+      "url": "https://docs.google.com/document/d/19cElrjrBdxbax-BYF7N079G55dCCfTAkxGkORGfL5ew/edit?usp=sharing",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Special Incidents group activity",
+      "url": "https://docs.google.com/document/d/19cElrjrBdxbax-BYF7N079G55dCCfTAkxGkORGfL5ew/edit?usp=sharing",
+      "teacherOnly": false
+     }
+    ],
+    [
+     {
+      "label": "Special Incidents group activity",
+      "url": "https://docs.google.com/document/d/19cElrjrBdxbax-BYF7N079G55dCCfTAkxGkORGfL5ew/edit?usp=sharing",
+      "teacherOnly": false
+     },
+     {
+      "label": "Unit 15 review worksheet",
+      "url": "https://docs.google.com/document/d/1zOV5FcUSxb2ep2ISHVCMFCiSuyTnylBF/edit?usp=drive_link&ouid=117685854692504031725&rtpof=true&sd=true",
+      "teacherOnly": false
+     }
+    ],
+    []
+   ]
+  }
+ }
+}

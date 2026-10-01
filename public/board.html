@@ -396,6 +396,7 @@
         media: day.chaptersMedia || (plan ? plan.chapters || '' : ''),
         vocab: day.vocabulary || '',
         materials: day.supplies || '',
+        resources: [day.resources, plan ? plan.resources : ''].filter(Boolean).join('\n'),
         homework: day.preClassHomework || '',
         bellWork: day.bellRinger || '',
         exit: day.exitTicket || '',
@@ -914,7 +915,7 @@ function startTimer(secs){
 }
 WIDGETS.lesson = {
   title:"Today's lesson", w:560, h:420,
-  data:()=>({date:'', dayNumber:'', dayLabel:'', title:'', code:'', phase:'', types:[], unit:'', objectives:'', agenda:'', media:'', materials:'', vocab:'', homework:'', upcoming:[], size:20}),
+  data:()=>({links:[], date:'', dayNumber:'', dayLabel:'', title:'', code:'', phase:'', types:[], unit:'', objectives:'', agenda:'', media:'', materials:'', vocab:'', homework:'', upcoming:[], size:20}),
   mount(body, w, ctx){
     const wrap = el('div'); wrap.style.cssText='flex:1;overflow:auto;min-height:0;padding-right:4px';
     const sizes = el('div','row'); sizes.style.marginTop='6px';
@@ -1030,6 +1031,7 @@ function mountOne(w){
 }
 
 function renderBoard(){
+  renderLinks();
   canvas.querySelectorAll('.panel').forEach(n=>n.remove());
   live.clear();
   board.widgets.forEach(mountOne);
@@ -1051,16 +1053,32 @@ function renderTabs(){
   });
   renderLinks();
 }
+// "[Label](https://…)" lines → links students may see. 🔑 labels are teacher-only
+// (answer keys, tests) and never reach the projector; only http(s) is allowed.
+function studentLinks(text){
+  const out = [], seen = new Set();
+  String(text||'').split(/\r?\n/).forEach(raw=>{
+    const line = raw.trim(); if(!line) return;
+    const md = line.match(/^\[([^\]]*)\]\(\s*(\S+?)\s*\)$/);
+    const url = md ? md[2] : line;
+    const label = (md ? md[1] : url).trim();
+    if(!/^https?:\/\//i.test(url) || label.startsWith('🔑') || seen.has(url)) return;
+    seen.add(url); out.push({ label: label || url, url });
+  });
+  return out;
+}
 function renderLinks(){
   const wrap = document.getElementById('linkwrap');
   const box = document.getElementById('links');
-  const arr = LINKS[active] || [];
+  const lesson = board.widgets.find(w=>w.type==='lesson' && w.src==='lesson');
+  const arr = (LINKS[active] || []).concat(lesson && lesson.data.links || []);
   box.innerHTML = '';
   wrap.style.display = arr.length ? 'flex' : 'none';
   arr.forEach(x=>{
     const b = el('button','iconbtn', x.label+' ↗');
     b.title = 'Open '+x.label+' in a new window';
-    b.onclick = ()=> window.open(x.url, x.label, 'noopener');
+    b.style.maxWidth = '220px'; b.style.overflow = 'hidden'; b.style.textOverflow = 'ellipsis'; b.style.whiteSpace = 'nowrap';
+    b.onclick = ()=> window.open(x.url, '_blank', 'noopener');
     box.appendChild(b);
   });
 }
@@ -1180,7 +1198,7 @@ function applyLesson(L, replace){
   const secs = (L.timerMin || 5) * 60;
   const mk = (type, x, y, w, h, data) => board.widgets.push({ id:uid(), type, src:'lesson', x, y, w:Math.max(200,w), h:Math.max(150,h), data:Object.assign(WIDGETS[type].data(), data) });
   mk('lesson', g, g, aw, lh, {
-    date:L.date||'', dayNumber:L.dayNumber||'', dayLabel:L.dayLabel||'', materials:L.materials||'', vocab:L.vocab||'', title:L.title||'', code:L.code||'', phase:L.phase||'', types:L.types||[],
+    links: studentLinks(L.resources), date:L.date||'', dayNumber:L.dayNumber||'', dayLabel:L.dayLabel||'', materials:L.materials||'', vocab:L.vocab||'', title:L.title||'', code:L.code||'', phase:L.phase||'', types:L.types||[],
     unit:L.unit||'', objectives:L.objectives||'', agenda:L.agenda||'', media:L.media||'', homework:L.homework||'', upcoming:L.upcoming||[]
   });
   mk('timer', g, ly, tw, lowH, {secs, left:secs});

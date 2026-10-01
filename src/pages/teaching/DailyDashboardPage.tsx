@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { COLOR_CLASSES, getCollection, optionColor, type Field } from "../../teaching/schema";
 import { listRecords, type TeachingRecord } from "../../services/teachingService";
+import { parseResources } from "../../teaching/resources";
 
 function ymd(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -44,6 +45,35 @@ function FlowBox({ tone, label, text }: { tone: "bell" | "exit"; label: string; 
   );
 }
 
+/** Today's links: PowerPoints, videos, worksheets. Teacher-only ones (🔑) in amber. */
+function ResourceLinks({ label, text }: { label: string; text?: unknown }) {
+  const links = parseResources(text);
+  if (!links.length) return null;
+  return (
+    <div className="mt-2">
+      <div className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">🔗 {label}</div>
+      <div className="mt-1 flex flex-wrap gap-1.5">
+        {links.map((l) => (
+          <a
+            key={l.url + l.label}
+            href={l.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={l.teacherOnly ? "Teacher only — not shown on the Status Board" : l.url}
+            className={
+              "inline-flex max-w-full items-center gap-1 truncate rounded-full border px-2.5 py-0.5 text-xs font-medium hover:underline " +
+              (l.teacherOnly ? "border-amber-300 bg-amber-50 text-amber-800" : "border-sky-200 bg-white text-sky-700")
+            }
+          >
+            {l.teacherOnly && <span aria-label="Teacher only">🔑</span>}
+            {l.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Chip({ fieldId, type, value }: { fieldId: string; type: string; value?: string }) {
   if (!value) return null;
   const field = getCollection(type)?.fields.find((f) => f.key === fieldId) as Field | undefined;
@@ -57,6 +87,7 @@ function Chip({ fieldId, type, value }: { fieldId: string; type: string; value?:
 
 type Data = {
   lessonDays: TeachingRecord[];
+  lessonPlans: TeachingRecord[];
   tasks: TeachingRecord[];
   deadlines: TeachingRecord[];
   materials: TeachingRecord[];
@@ -66,7 +97,7 @@ type Data = {
 };
 
 const EMPTY: Data = {
-  lessonDays: [], tasks: [], deadlines: [], materials: [], emails: [], districtCalendar: [], courses: [],
+  lessonDays: [], lessonPlans: [], tasks: [], deadlines: [], materials: [], emails: [], districtCalendar: [], courses: [],
 };
 
 function Tile({ value, label, to, tone = "default" }: {
@@ -120,11 +151,11 @@ export default function DailyDashboardPage() {
       setLoading(true);
       setError("");
       try {
-        const [lessonDays, tasks, deadlines, materials, emails, districtCalendar, courses] = await Promise.all([
-          listRecords("lessonDays"), listRecords("tasks"), listRecords("deadlines"),
+        const [lessonDays, lessonPlans, tasks, deadlines, materials, emails, districtCalendar, courses] = await Promise.all([
+          listRecords("lessonDays"), listRecords("lessonPlans"), listRecords("tasks"), listRecords("deadlines"),
           listRecords("materials"), listRecords("emails"), listRecords("districtCalendar"), listRecords("courses"),
         ]);
-        setData({ lessonDays, tasks, deadlines, materials, emails, districtCalendar, courses });
+        setData({ lessonDays, lessonPlans, tasks, deadlines, materials, emails, districtCalendar, courses });
       } catch (err) {
         console.error(err);
         setError("Could not load the dashboard.");
@@ -134,6 +165,8 @@ export default function DailyDashboardPage() {
     }
     void load();
   }, []);
+
+  const planById = useMemo(() => new Map(data.lessonPlans.map((p) => [p.id, p])), [data.lessonPlans]);
 
   const courseTitle = useMemo(() => {
     const map = new Map<string, string>();
@@ -266,6 +299,13 @@ export default function DailyDashboardPage() {
                       <FlowBox tone="bell" label="Bell Work" text={l.bellRinger as string} />
                       <FlowBox tone="exit" label="Exit Ticket" text={l.exitTicket as string} />
                     </div>
+                  )}
+                  <ResourceLinks label="Today's links" text={l.resources} />
+                  {l.date === today && (
+                    <ResourceLinks
+                      label="Unit links"
+                      text={planById.get(((l.lessonPlan as string[] | undefined) ?? [])[0])?.resources}
+                    />
                   )}
                 </div>
                 <div className="flex flex-col items-end gap-1">
